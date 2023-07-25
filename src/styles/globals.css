@@ -37,3 +37,119 @@ body {
 .input-transition {
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
 }
+
+.select2 {
+  width: 100% !important;
+}
+
+.select2-selection {
+  color: #6e7c91;
+  height: 34px !important;
+}
+
+.select2-selection--single:focus{
+  border: 1px solid #1ab394 !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: solid #1ab394 1px !important;
+  outline: 0;
+}
+
+.select2-selection__rendered {
+  height: 100%;
+  line-height: 34px;
+}
+
+.select2-container--open .selection .select2-selection {
+  border-bottom: none !important;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: #6e7c911e !important;
+  color: #6e7c91 !important;
+}
+
+.select2-container--default .select2-results__option--selected {
+  background-color: #6e7c911e !important;
+  font-size: 13px;
+}
+.select2-results__option {
+  color: #6e7c91 !important;
+
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #6e7c91 !important;
+  font-size: 13px;
+
+}
+
+.select2-results__options li {
+  height: 34px;
+  font-size: 13px;
+}
+
+.select2-search__field:focus {
+  outline: none;
+}
+
+.select2-search__field {
+  border-radius: 6px;
+  height: 34px;
+}
+
+.select2-selection__choice {
+  height: 25px !important;
+  margin: 3px 0 3px 3px !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: #fff !important;
+}
+
+.select2-selection__choice button {
+  height: 100%;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.select2-selection__choice span {
+  font-size: 11px !important;
+
+}
+
+.select2-selection__choice button span {
+  font-size: 15px !important;
+
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  border: none !important;
+}
+
+.radio-pill input[type=radio]:checked+label {
+  background: #1AB394 !important;
+  border: 1px solid #1AB394 !important;
+  color: #FFFFFF !important;
+}
+
+.slick-dots li button:before {
+  color: #1AB394 !important;
+}
+
+@media screen and (min-width:767px) {
+
+  .benefits-container .slick-track {
+    width: 100% !important;
+  }
+  
+  .benefits-container .slick-slide {
+    width: 33.33% !important;
+  }
+  
+}
+
+.mob-testimonial-bg {
+  background: url(../../public/image/testimonial-img1.jpg);
+  display: none;
+}
+
