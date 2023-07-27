@@ -14,11 +14,20 @@ import playIcon from '../../public/icon/play-icon.svg'
 import googlePlay from '../../public/image/google-play-en.svg';
 import appStore from '../../public/image/app-store-en.svg';
 import mobileVector from '../../public/image/mobile-vector.svg';
+import lockImg from '../../public/image/lock.png';
+import laptopImg from '../../public/image/laptop.png'
 import {Testimonial_data} from '../components/testimonial/data'
-
+import clogo1 from '../../public/image/company-logo/glowing.png';
+import clogo2 from '../../public/image/company-logo/megabite.png';
+import clogo3 from '../../public/image/company-logo/training_center.png';
+import clogo4 from '../../public/image/company-logo/nutritional.png';
+import clogo5 from '../../public/image/company-logo/arkopharma.png';
+import clogo6 from '../../public/image/company-logo/momedian-logo.png';
+import clogo7 from '../../public/image/company-logo/cuf.png';
+import clogo8 from '../../public/image/company-logo/fitness-hut.png';
 import Slider from 'react-slick';
 import Testimonial from '@/components/testimonial/testimonial'
-
+import Footer from '@/components/common/Footer'
 
 
 export default function Home() {
@@ -44,14 +53,34 @@ export default function Home() {
     ]
   };
 
+  var testimonial_setting = {
+      autoplay: true,
+      speed: 6000,
+      responsive: [
+        {
+          breakpoint: 1024,
+        },
+        {
+          breakpoint: 767,
+          settings:{
+            arrows: false,
+            dots:true
+          }
+        },
+        {
+          breakpoint: 480,
+        }
+      ]
+  }
+
 
 
   return (
     <>
-      <div>
-        <header>
-          <div className='bg-header-pattern bg-no-repeat w-full h-[700px] bg-cover bg-bottom'>
+        <header >
             <Navbar />
+        </header>
+          <div className='bg-header-pattern bg-no-repeat w-full h-[700px] bg-cover bg-bottom'>
             <div className='pt-[150px] max-w-[1040px] xl:max-w-[900px] lg:max-w-[700px] md:max-w-[100%] md:flex-col w-full mx-auto flex text-white'>
               <div className='w-1/2 md:w-full'>
                 <div className='visible inline-flex transition-cstm cursor-pointer mb-[4%] hover:scale-[1.02] rounded-[5px] p-[0.4rem] w-full items-center bg-gradient-to-r from-[#12896e4d] to-[#1ab3954d]'>
@@ -75,7 +104,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </header>
         <section className='mt-[150px] md:px-[20px]'>
           <div className='flex max-w-[1040px] mx-auto md:flex-col'>
             <div className='pr-[7%] w-1/2 md:w-full md:pr-0 md:pb-[50px]'>
@@ -181,79 +209,159 @@ export default function Home() {
           </div>
         </section>
         <section className='mt-[150px]'>
-        <div className='flex px-[20px] max-w-[1040px] xl:max-w-[900px] lg:max-w-[700px] md:max-w-[100%] md:flex-col-reverse w-full mx-auto'>
-          <div className='h-[700px] lg:h-[600px] flex w-1/2 md:w-full'>
-            <div className='self-center'>
-              <h2 className='text-[30px] mt-0 mb-[2%] tracking-[0.5px] text-[#1AB394]'>Say bye to paper records and set your clients up with a mobile app</h2>
-              <div className='text-[17px] text-[#6E7C91] tracking-[0.2px] leading-[30px] whitespace-pre-line'>
-              Send all your clients their recommendations and meal plans, communicate safely with them and improve results together.
-              </div>
-              <div className='mt-[20px] text-[17px] text-[#6E7C91] tracking-[0.2px] '>Here's what you will be able to do with Nutrium:</div>
-              <div className='mt-[20px]'>
-                <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
-                  <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
+          <div className='flex px-[20px] max-w-[1040px] xl:max-w-[900px] lg:max-w-[700px] md:max-w-[100%] md:flex-col-reverse w-full mx-auto'>
+            <div className='h-[700px] lg:h-[600px] flex w-1/2 md:w-full'>
+              <div className='self-center'>
+                <h2 className='text-[30px] mt-0 mb-[2%] tracking-[0.5px] text-[#1AB394]'>Say bye to paper records and set your clients up with a mobile app</h2>
+                <div className='text-[17px] text-[#6E7C91] tracking-[0.2px] leading-[30px] whitespace-pre-line'>
+                  Send all your clients their recommendations and meal plans, communicate safely with them and improve results together.
+                </div>
+                <div className='mt-[20px] text-[17px] text-[#6E7C91] tracking-[0.2px] '>Here's what you will be able to do with Nutrium:</div>
+                <div className='mt-[20px]'>
+                  <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
+                    <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
                     Update their recommendations on the spot;
-                </div>
-                <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
-                  <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
-                  Stay up to date with their progress;
+                  </div>
+                  <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
+                    <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
+                    Stay up to date with their progress;
 
+                  </div>
+                  <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
+                    <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
+                    Reduce no-shows with reminders;
+                  </div>
+                  <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
+                    <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
+                    Understand their daily struggles.
+                  </div>
                 </div>
-                <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
-                  <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
-                  Reduce no-shows with reminders;
+                <div className='mt-[40px] flex items-center justify-center'>
+                  <a href="#" target="_blank" className='mr-[10%] w-[35%] cursor-pointer'>
+                    <Image src={googlePlay} width={1000} className='max-h-[50px] w-full' />
+                  </a>
+                  <a href="#" target="_blank" className=' w-[35%] cursor-pointer'>
+                    <Image src={appStore} width={1000} className='max-h-[50px] w-full' />
+                  </a>
                 </div>
-                <div className='clr-grn font-[300] text-[16px] leading-[28px]'>
-                  <Image src={checkMark} width={100} className="max-w-[1.2rem] mr-[3%] inline-block" />
-                  Understand their daily struggles.
-                </div>
-              </div>
-              <div className='mt-[40px] flex items-center justify-center'>
-                <a href="#" target="_blank" className='mr-[10%] w-[35%] cursor-pointer'>
-                  <Image src={googlePlay} width={1000} className='max-h-[50px] w-full'/>
-                </a>
-                <a href="#" target="_blank" className=' w-[35%] cursor-pointer'>
-                  <Image src={appStore} width={1000} className='max-h-[50px] w-full' />
-                </a>
               </div>
             </div>
+            <div className='h-[700px] lg:h-[600px]  w-1/2  md:w-full'>
+              <Image src={mobileVector} alt="mobile" className='w-full h-full' style={{ filter: 'drop-shadow(0 0 10px #ddd)' }} />
+            </div>
           </div>
-          <div className='h-[700px] lg:h-[600px]  w-1/2  md:w-full'>
-          <Image src={mobileVector} alt="mobile" className='w-full h-full' style={{ filter:'drop-shadow(0 0 10px #ddd)' }} />
+        </section>
+        <section className='mt-[150px] md:mt-0 testimonials'>
+          <div className='bg-testimonial-pattern h-[800px] xl:h-[700px] lg:h-[600px] bg-no-repeat bg-bottom bg-cover md:mt-custom-margin-top'></div>
+          <div className='-mt-[530px] xl:-mt-[500px] lg:-mt-[400px] items-center max-w-[1040px] rounded-[5px] w-full mx-auto md:-mt-[450px]  md:px-[20px]'>
+            <h2 className='text-white text-center text-[30px] mb-[2%] tracking-[0.5px] md:text-left'>See what the fuss is all about</h2>
+            <div className='text-white px-[15%] text-[17px] leading-[30px] whitespace-pre-line text-center  md:text-left md:px-0'>From the UK to the US, thousands of nutritionists and dietitians, in more than 120 countries count on Nutrium to get their businesses up and running.</div>
+            <div className='mt-[70px] xl:w-[900px] lg:w-[700px] mx-auto md:mt-[30px] md:w-full'>
+              <Slider {...testimonial_setting}>
+                {
+                  Testimonial_data.map(item => (
+                    <Testimonial data={item} />
+                  ))
+                }
+              </Slider>
+            </div>
           </div>
-        </div>
         </section>
         <section className='mt-[150px]'>
-          <div className='bg-testimonial-pattern h-[800px] bg-no-repeat bg-bottom bg-cover'></div>
-          <div className='-mt-[530px] items-center max-w-[1040px] w-full mx-auto'>
-            <h2 className='text-white text-center text-[30px] mb-[2%] tracking-[0.5px]'>See what the fuss is all about</h2>
-            <div className='text-white px-[15%] text-[17px] leading-[30px] whitespace-pre-line text-center'>From the UK to the US, thousands of nutritionists and dietitians, in more than 120 countries count on Nutrium to get their businesses up and running.</div>
-            <div className='mt-[70px]'>
-              {/* <Slider {...settings}> */}
-                {/* <div className=' relative bg-white overflow-hidden h-[400px] rounded-[5px]'>
-                  <div className='mob-testimonial-bg'></div>
-                  <div className='info absolute text-left w-2/5 -translate-y-2/4 z-[3] left-[7%] top-2/4'>
-                    <div className='text-[#1AB394] text-[40px]'>Jayme Limbaugh</div>
-                    <div className='text-[#EA9F77] text-[18px]'>Nutritionist @ Crystal Coast Wellness</div>
-                    <div className='text-base italic text-[#6E7C91] leading-[1.7] mt-[5%]'>"I wanted the flexibility to create my own and a program that gives more attention to helping me be a better nutritionist rather than doing it for me. Nutrium is very easy to use and it is straightforward..."</div>
-                  </div>
-                  <div className=' absolute w-[600px] z-[1] right-0 inset-y-0'>
-                    <div className='triangle absolute w-0 h-0 border-r-[300px] border-r-[rgba(255,255,255,0)] border-b-[400px] border-b-white border-solid'></div>
-                    <Image src={testimonialImg1} className='w-full h-full' />
-                  </div>
-                </div> */}
-                <Slider>
-                    {
-                      Testimonial_data.map(item => (
-                        <Testimonial data={item} />
-                      ))
-                    }
-                </Slider>
-              {/* </Slider> */}
+          <div className='max-w-[1040px] mx-auto'>
+            <h2 className='clr-grn text-[30px] mb-[2%] tracking-[1.5] text-center'>More than 150,000 professionals and partners use Nutrium</h2>
+            <div className='text-[17px] text-[#6E7C91] tracking-[0.2px] leading-[30px] whitespace-pre-line text-center'>
+              <div>
+                Our nutrition analysis software is endorsed by several organisations, from small and medium business to international companies, private practices, public hospitals, universities and professional associations.
+              </div>
+              <div className='mt-[5%] grid grid-cols-4 md:grid-cols-2 gap-y-8 md:gap-y-3'>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo1} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo2} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo3} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo4} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo5} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo6} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo7} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+                <div className='flex justify-center basis-0 grow relative group'>
+                  <a href="#" className='inline-block absolute bg-[#EA9F77] text-white opacity-0 -translate-x-2/4 -translate-y-2/4 transition-opacity duration-[0.5s] ease-linear whitespace-nowrap z-[2] px-5 py-[5px] rounded-[5px] left-2/4 top-2/4 hover:opacity-1 group-hover:opacity-100'>Learn more</a>
+                  <Image src={clogo8} className='max-w-[200px] w-auto max-h-[80px] m-auto transition-[filter] duration-[0.5s] ease-linear group-hover:blur-[3px] xl:max-w-[175px] xl:max-h-[70px] lg:max-w-[125px] md:max-w-[140px] lg:max-h-[50px]' />
+                </div>
+              </div>
             </div>
           </div>
         </section>
-      </div>
+        <section className='bg-video-pattern bg-no-repeat h-[800px] bg-bottom bg-cover relative top-[150px] z-10'>
+          <div className='max-w-[1040px] mx-auto md:px-[20px]'>
+            <div className='flex md:flex-col'>
+              <div className='flex bg-white md:mb-[20px] shadow-[0_0_20px_#DDDDDD] overflow-hidden w-[46%] md:w-full min-h-[250px] rounded-[5px]'>
+                <div className='max-w-[125px] min-w-[125px] relative'>
+                  <Image src={lockImg} className="absolute left-[-125px] h-full max-w-[200%]" />
+                </div>
+                <div className=' flex flex-col justify-between h-auto p-[30px]'>
+                  <div className='clr-grn text-[18px]'>Nutrium approach to GDPR</div>
+                  <div className='flex items-center text-base text-[#6E7C91] tracking-[0.2px] leading-normal whitespace-pre-line mx-0 my-2.5'>
+                    At Nutrium we've always been aware of the importance that surrounds personal data privacy and security, be it from nutrition professionals or their clients.
+                  </div>
+                  <a className='text-[#ea9f77] cursor-pointer hover:text-[#e78f61] flex items-center text-[17px]'>
+                    <span>Learn more</span>
+                    <Image src={smallArrOrg} width={100} className="h-[14px] w-auto pl-[10px]" />
+                  </a>
+                </div>
+              </div>
+              <div className='ml-auto flex bg-white shadow-[0_0_20px_#DDDDDD] overflow-hidden w-[46%] md:w-full min-h-[250px] rounded-[5px]'>
+                <div className='max-w-[125px] min-w-[125px] relative'>
+                  <Image src={laptopImg} className="absolute left-[-125px] h-full max-w-[200%]" />
+                </div>
+                <div className='flex flex-col justify-between h-auto p-[30px]'>
+                  <div className='clr-grn text-[18px]'>Nutrium approach to GDPR</div>
+                  <div className='flex items-center text-base text-[#6E7C91] tracking-[0.2px] leading-normal whitespace-pre-line mx-0 my-2.5'>
+                    Wondering where to start?
+                    Check our step-by-step articles to get all the answers you need to master Nutrium.
+                  </div>
+                  <a className='text-[#ea9f77] cursor-pointer hover:text-[#e78f61] flex items-center text-[17px]'>
+                    <span>Learn more</span>
+                    <Image src={smallArrOrg} width={100} className="h-[14px] w-auto pl-[10px]" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className='text-center w-3/5 mt-[150px] m-auto'>
+                <h2 className="text-3xl tracking-[0.5px] mt-0 mb-[2%] clr-grn">Start replacing your messy spreadsheets</h2>
+                <div className="text-[17px] text-[#6E7C91] tracking-[0.2px] leading-[30px] whitespace-pre-line">
+                  It's personalised. It's organised. It looks great. And it's free to try.
+                  No credit card needed.
+                </div>
+                <div className="my-[10%] h-[50px] xl:h-[45px] lg:h-[40px]">
+                  <form className="flex w-full h-full justify-center">
+                    <input type="email" className='flex items-center text-base shadow-[0px_4px_10px_-4px_#717171] tracking-[0.5px] rounded-[5px] focus:outline-none mr-[30px] bg-white text-[#6E7C91] w-6/12 h-full pl-5 border-[none]' placeholder='Your Email' />
+                    <Button className="bg-[#EA9F77] border-[#EA9F77] text-[1rem] hover:bg-[#e8966a] hover:border-[#e8966a] min-w-[30%] w-auto shadow-[0px_4px_10px_-4px_#717171] md:mt-[10px]">Get started</Button>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </section>
+        <Footer />
     </>
   )
 }

@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  plugins: [
+    require('flowbite/plugin'),
+  ],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     screens: {
@@ -28,6 +32,11 @@ module.exports = {
           'video-pattern': "url(../../public/image/bg-video-pattern.svg)",
           'sign-up-pattern': "url(../../public/image/sign-up-bg-pattern.svg)",
           'testimonial-pattern': "url(../../public/image/testimonial-bg-pattern.svg)",
+          'home-card-pattern': "url(../../public/image/testimonial-bg-pattern.svg)",
+          'footer-pattern': "url(../../public/image/footer-pattern.svg)",
+      },
+      spacing: {
+        'custom-margin-top': 'calc(100px - (-0.06875 * 100vw + 98.125px))',
       },
     }
   },

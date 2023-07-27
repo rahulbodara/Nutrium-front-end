@@ -52,7 +52,7 @@ const Sign_in = () => {
 
                   <section className={`p-[80px] max-md:p-[40px] bg-white relative flex-shrink-0 w-full ${signupStep === 2 ? '-left-[900px] hidden': signupStep === 3 ? '-left-[900px] hidden': 'left-0 block'}`}>
                     <div className="mb-[40px]">
-                      <h1 className="clr-grn text-[27px] tracking-[0.5px] text-center">
+                      <h1 className="clr-grn text-[30px] tracking-[0.5px] text-center">
                         You are 1 minute away from your free Nutrium trial!
                       </h1>
                     </div>

@@ -1,16 +1,19 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react'
 import logo from "../../../public/image/light-logo.svg";
 const SignupBody = ({children}) => {
+  const router = useRouter();
   return (
     <>
         <div className="bg-sign-up-pattern bg-no-repeat bg-cover h-screen">
-        <div className="w-[900px] max-lg:w-[80%] max-md:w-full max-md:p-[20px] mx-auto pt-[20px] flex justify-between items-center">
+        <div className="w-[900px] lg:w-[80%] md:w-full md:p-[20px] mx-auto pt-[20px] flex justify-between items-center">
           <a>
             <Image
               src={logo}
               width={100}
-              className="h-[30px] w-full max-w-full"
+              className="h-[30px] md:h-[25px] w-full max-w-full cursor-pointer"
+              onClick={() => router.push('/')}
             />
           </a>
           <a
