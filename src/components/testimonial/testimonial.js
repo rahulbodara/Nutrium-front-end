@@ -2,8 +2,6 @@ import Image from 'next/image'
 import React from 'react'
 
 
-
-
 const Testimonial = (props) => {
     const {data} = props;
 
