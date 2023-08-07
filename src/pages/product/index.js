@@ -4,15 +4,11 @@ import Navbar from '@/components/common/Navbar'
 import Image from 'next/image'
 import React from 'react'
 import Slider from 'react-slick'
-import slide1 from '../../../public/image/slideImg1.png'
 import smallArrOrg from '../../../public/icon/right-arrow-org.svg'
 import infoImg1 from '../../../public/image/adaptation-img1.png'
 import infoImg2 from '../../../public/image/adaptation-img2.png'
 import infoImg3 from '../../../public/image/adaptation-img3.png'
-import mobileHandImg from '../../../public/image/mobile-hand.png'
-import clockImg from '../../../public/image/clock.png'
 import checkMark from '../../../public/icon/checkmark-green.svg'
-
 
 import { FaPlay } from 'react-icons/fa'
 import Footer from '@/components/common/Footer'
@@ -20,6 +16,7 @@ import SliderComponent from '@/components/common/Slider'
 import { Product_info_slider1, Product_info_slider2 } from '@/components/slider-data/data'
 import Accordion from '@/components/common/Accordion'
 import { Product_accordion_data } from '@/components/accordion-data/data'
+import ProductDashboard from '@/components/product-dashboard/ProductDashboard'
 
 
 const Product_page = () => {
@@ -38,27 +35,6 @@ const Product_page = () => {
       content: 'Content for Accordion Item 3',
     },
   ];
-
-  var settings = {
-    dots: false,
-    infinite: true,
-    autoplay: true,
-    speed: 1000,
-    slidesToShow: 2,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 767,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true
-        }
-      }
-    ]
-  };
-
 
   var adaptations_slide = {
     dots: true,
@@ -101,8 +77,10 @@ const Product_page = () => {
         </div>
 
       </section>
-      <section>
-        <div className="mx-auto w-[1040px] xl:w-[900px] lg:w-[700px] md:w-full md:px-[20px]"></div>
+      <section className='mt-[-240px]'>
+        <div className="mx-auto w-[1040px] xl:w-[900px] lg:w-[700px] md:w-full md:px-[20px]">
+          <ProductDashboard />
+        </div>
       </section>
       <section className='info-card mt-[150px] md:mt-[100px] more-feature relative z-10'>
         <div className="mx-auto w-[1040px] xl:w-[900px] lg:w-[700px] md:w-full md:px-[20px]">

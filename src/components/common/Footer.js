@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useEffect } from 'react'
-import { BiLogoFacebookCircle, BiLogoTwitter } from 'react-icons/bi'
+import { BiChevronDown, BiLogoFacebookCircle, BiLogoTwitter } from 'react-icons/bi'
 import { FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import messageIcon from '../../../public/icon/message-icon.svg'
 import logo from '../../../public/image/short-light-logo.svg'
@@ -9,10 +9,6 @@ import fcqcImg from '../../../public/image/fcqc.png'
 import norteImg from '../../../public/image/norte.png'
 import portugalImg from '../../../public/image/portugal.png'
 import uniaoImg from '../../../public/image/uniao.png'
-
-
-
-
 
 const Footer = () => {
 
@@ -25,6 +21,7 @@ const Footer = () => {
                         <div className='language text-white inline-flex items-center cursor-pointer select-none p-2 rounded-[5px]'>
                             <Image src={messageIcon} className=" brightness-0 invert-[1] w-[20.87px] h-[20px]" />
                             <div className='text-[16px] mx-[15px] whitespace-nowrap'>English</div>
+                            <BiChevronDown className='text-white text-[22px] relative right-2 rotate-[180deg]' />
                         </div>
                     </div>
                     <div className='flex md:hidden'>
@@ -63,29 +60,29 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className='w-[20%] md:hidden'>
-                        <div className='flex'>
-                            <div className='mt-[4px] min-w-[20%] flex'>
-                                <div className='w-[20%] flex justify-center'>
+                        <div className='flex min-w-[20%]'>
+                            <div className='mt-[4px] w-[20%] flex justify-center'>
+                                <div className=' flex justify-center'>
                                     <a href="#" target="_blank"><span className='inline-block text-base bg-[#E0FAF1] text-[#1AB394] float-right leading-4 max-h-[calc(1rem_+_2_*_4px)] min-w-[calc(1rem_+_2_*_4px)] transition-transform duration-[0.3s] ease-[ease-out] p-1 rounded-[50%] hover:-translate-y-[3px]'><BiLogoFacebookCircle /></span></a>
                                 </div>
                             </div>
-                            <div className='mt-[4px] min-w-[20%] flex'>
-                                <div className='w-[20%] flex justify-center'>
+                            <div className='mt-[4px] w-[20%] flex justify-center'>
+                                <div className=' flex justify-center'>
                                     <a href="#" target="_blank"><span className='inline-block text-base bg-[#E0FAF1] text-[#1AB394] float-right leading-4 max-h-[calc(1rem_+_2_*_4px)] min-w-[calc(1rem_+_2_*_4px)] transition-transform duration-[0.3s] ease-[ease-out] p-1 rounded-[50%] hover:-translate-y-[3px]'><FaInstagram /></span></a>
                                 </div>
                             </div>
-                            <div className='mt-[4px] min-w-[20%] flex'>
-                                <div className='w-[20%] flex justify-center'>
+                            <div className='mt-[4px] w-[20%] flex justify-center'>
+                                <div className=' flex justify-center'>
                                     <a href="#" target="_blank"><span className='inline-block text-base bg-[#E0FAF1] text-[#1AB394] float-right leading-4 max-h-[calc(1rem_+_2_*_4px)] min-w-[calc(1rem_+_2_*_4px)] transition-transform duration-[0.3s] ease-[ease-out] p-1 rounded-[50%] hover:-translate-y-[3px]'><BiLogoTwitter /></span></a>
                                 </div>
                             </div>
-                            <div className='mt-[4px] min-w-[20%] flex'>
-                                <div className='w-[20%] flex justify-center'>
+                            <div className='mt-[4px] w-[20%] flex justify-center'>
+                                <div className=' flex justify-center'>
                                     <a href="#" target="_blank"><span className='inline-block text-base bg-[#E0FAF1] text-[#1AB394] float-right leading-4 max-h-[calc(1rem_+_2_*_4px)] min-w-[calc(1rem_+_2_*_4px)] transition-transform duration-[0.3s] ease-[ease-out] p-1 rounded-[50%] hover:-translate-y-[3px]'><FaLinkedin /></span></a>
                                 </div>
                             </div>
-                            <div className='mt-[4px] min-w-[20%] flex'>
-                                <div className='w-[20%] flex justify-center'>
+                            <div className='mt-[4px] w-[20%] flex justify-center'>
+                                <div className=' flex justify-center'>
                                     <a href="#" target="_blank"><span className='inline-block text-base bg-[#E0FAF1] text-[#1AB394] float-right leading-4 max-h-[calc(1rem_+_2_*_4px)] min-w-[calc(1rem_+_2_*_4px)] transition-transform duration-[0.3s] ease-[ease-out] p-1 rounded-[50%] hover:-translate-y-[3px]'><FaYoutube /></span></a>
                                 </div>
                             </div>
@@ -171,12 +168,12 @@ const Footer = () => {
                         <a href="#">
                             <Image src={logo} width={150} className="h-[35px] md:h-[25px] max-w-full" />
                         </a>
-                        <div className=" text-white text-[1rem] tracking-[0.5px] md:text-center md:mt-[5px] mt-2.5">2023 © All rights reserved</div>
+                        <div className=" text-white opacity-[0.8] text-[1rem] tracking-[0.5px] md:text-center md:mt-[5px] mt-[10px]">2023 © All rights reserved</div>
                     </div>
                     <div>
                         <div className=' text-white flex justify-between text-[0.9rem] tracking-[0.5px] mb-2.5'>
-                            Co-Financed Project by
-                            <a href="#" target="_blank">See approved projects</a>
+                            <span className='opacity-[0.8]'>Co-Financed Project by</span> 
+                            <a href="#" target="_blank" className='opacity-[0.8] tracking-[0.5px]'>See approved projects</a>
                         </div>
                         <div className='flex justify-start items-center lg:flex-wrap'>
                             <div className='lg:w-[33%] lg:mb-[15px]'>
@@ -186,17 +183,17 @@ const Footer = () => {
                             </div>
                             <div className='lg:w-[33%] lg:mb-[15px]'>
                                 <a href="#" target='_blank'>
-                                    <Image src={fcqcImg} className="mx-[25px] object-contain w-full max-h-[25px] lg:w-auto lg:max-h-[35px] md:max-h-[25px]" />
+                                    <Image src={fcqcImg} width="100" className="mx-[25px] object-contain w-full max-h-[25px] lg:w-auto lg:max-h-[35px] md:max-h-[25px]" />
                                 </a>
                             </div>
                             <div className='lg:w-[33%] lg:mb-[15px]'>
                                 <a href="#" target='_blank'>
-                                    <Image src={norteImg} className="mx-[25px] object-contain w-full max-h-[25px] lg:w-auto lg:max-h-[35px] md:max-h-[25px]" />
+                                    <Image src={norteImg} width="100" className="mx-[25px] object-contain w-full max-h-[25px] lg:w-auto lg:max-h-[35px] md:max-h-[25px]" />
                                 </a>
                             </div>
                             <div className='lg:w-[33%] lg:mb-[15px]'>
                                 <a href="#" target='_blank'>
-                                    <Image src={portugalImg} className="mx-[25px] object-contain w-full max-h-[25px] lg:w-auto lg:max-h-[35px] md:max-h-[25px]" />
+                                    <Image src={portugalImg} width="100" className="mx-[25px] object-contain w-full max-h-[25px] lg:w-auto lg:max-h-[35px] md:max-h-[25px]" />
                                 </a>
                             </div>
                             <div className='lg:w-[33%] lg:mb-[15px]'>

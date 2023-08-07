@@ -316,7 +316,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='bg-slider-pattern-1 bg-bottom bg-no-repeat bg-cover h-[800px] lg:h-[700px] md:h-[650px] info-card top-[150px] md:top-[130px] more-feature relative z-10'>
+        <section id='info-card-home' className='more-feature bg-slider-pattern-1 bg-bottom bg-no-repeat bg-cover h-[800px] lg:h-[700px] md:h-[650px] info-card top-[150px] md:top-[130px]  relative z-10'>
         <div className="mx-auto w-[1040px] xl:w-[900px] lg:w-[700px] md:w-full sm:px-[20px]">
           <div>
             <SliderComponent data = {Home_info_slider} />
@@ -327,7 +327,7 @@ export default function Home() {
                 No credit card needed.
                 </div>
                 <div className='relative flex items-center h-[50px] md:h-[35px] my-[10%] md:my-[20px] md:mx-[20px]'>
-                  <form className='h-full flex w-full md:flex-col'>
+                  <form className='h-full flex w-full md:flex-col justify-center'>
                     <Input className="mr-[30px] w-1/2 md:min-h-full md:w-full md:mr-0" placeholder="Your email" id="email"/>
                     <Button className="bg-[#EA9F77] min-w-[30%] text-[1rem] tracking-[0.5px] shadow-[0px_4px_10px_-4px_#717171] border-[#EA9F77] md:mt-[10px]">Get started</Button>
                   </form>

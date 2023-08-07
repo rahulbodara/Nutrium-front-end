@@ -1,19 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const customerSlice = createSlice({
-  name: "customer",
+  name: 'customer',
   initialState: {
     productDetails: [],
+    userDetails: [],
   },
   reducers: {
     saveProductDetails: (state, action) => {
-      state.productDetails=action.payload
+      state.productDetails = action.payload;
+    },
+    savedUserDetails: (state, action) => {
+      state.userDetails = action.payload;
     },
   },
   devTools: true,
 });
 
-export const {
-  saveProductDetails,
-} = customerSlice.actions;
+export const { saveProductDetails, savedUserDetails } = customerSlice.actions;
 export const getProductDetails = (state) => state.customer.productDetails;
+export const getuserDetails = (state) => state.customer.userDetails;

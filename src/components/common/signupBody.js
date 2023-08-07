@@ -4,6 +4,7 @@ import React from 'react'
 import logo from "../../../public/image/light-logo.svg";
 const SignupBody = ({children}) => {
   const router = useRouter();
+  console.log(router.pathname)
   return (
     <>
         <div className="bg-sign-up-pattern bg-no-repeat bg-cover h-screen">
@@ -16,13 +17,24 @@ const SignupBody = ({children}) => {
               onClick={() => router.push('/')}
             />
           </a>
-          <a
-            href="/"
+          {
+            router.pathname === '/accounts/signUp' ?
+            <a
+              href="signIn" 
+              className="pr-0 flex items-center text-white text-[14px] font-[400] tracking-[1px]"
+            >
+              Sign in
+              <div className="bg-right-arrow bg-center bg-no-repeat ml-[10px] w-[14px] h-[14px]"></div>
+            </a> :
+            <a
+            href="/accounts/signUp" 
             className="pr-0 flex items-center text-white text-[14px] font-[400] tracking-[1px]"
           >
-            Sign in
+            Sign up for free
             <div className="bg-right-arrow bg-center bg-no-repeat ml-[10px] w-[14px] h-[14px]"></div>
           </a>
+
+          }
         </div>
         {children}
         </div>
