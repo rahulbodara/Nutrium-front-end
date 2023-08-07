@@ -10,6 +10,14 @@
   --fa-font-brands: normal 400 1em/1 'Font Awesome 6 Brands';
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.ps__rail-y {
+  background-color: red;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -29,6 +37,10 @@ body {
   color: #676a6c;
   font-size: 13px;
 }
+/* 
+* {
+  border: 1px solid black;
+} */
 
 h2 {
   line-height: 1.1;
@@ -242,6 +254,7 @@ h2 {
   overflow: hidden;
   min-height: 250px;
 }
+
 @media screen and (max-width:1299px) {
   
   .text-ellips{

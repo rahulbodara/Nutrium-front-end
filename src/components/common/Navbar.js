@@ -29,7 +29,7 @@ const Navbar = () => {
     }, []);
   
   return (
-    <div className={`${isFixed?' bg-white':'bg-transparent'} z-[9999]  fixed top-0 left-0 right-0 transition-[background-color] duration-[0.2s] ease-linear`}>
+    <div className={`${isFixed?' bg-white border-b border-[#eeeeee]':'bg-transparent'} z-[9999]  fixed top-0 left-0 right-0 transition-[background-color] duration-[0.2s] ease-linear`}>
         <div className={`mx-auto w-[1040px] xl:w-[900px] lg:w-[700px] md:w-full md:px-[20px]`}>
             <div className='flex items-center'>
                 <div className='my-[20px] md:my-[15px]'>

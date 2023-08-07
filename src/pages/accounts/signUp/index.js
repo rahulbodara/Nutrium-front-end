@@ -62,7 +62,7 @@ const Sign_Up = () => {
           } rounded  max-xl:max-w-[75%] max-xl:my-[50px] max-xl:mx-auto`}
         >
           <div className="flex">
-            <form className="w-full">
+            <div className="w-full">
               <div className="block w-full overflow-hidden">
                 <div className="flex">
                   {/* section: 1 */}
@@ -233,12 +233,12 @@ const Sign_Up = () => {
                                   ) : (
                                     <BiHide className=" text-[18px] text-[#888888]" />
                                   )}
+                                </span>
                                   <ErrorMessage
                                     name="password"
                                     component="span"
                                     className="text-red-500 text-xs"
                                   />
-                                </span>
                               </div>
                               <div className="mt-[24px]">
                                 <div className="text-[85%]">
@@ -526,7 +526,7 @@ const Sign_Up = () => {
                   </section>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </SignupBody>

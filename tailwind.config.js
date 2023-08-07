@@ -35,6 +35,12 @@ module.exports = {
           'home-card-pattern': "url(../../public/image/testimonial-bg-pattern.svg)",
           'footer-pattern': "url(../../public/image/footer-pattern.svg)",
           'slider-pattern-1': "url(../../public/image/slider-pattern-1.svg)",
+          'light-heart': "url(../../public/icon/light-heart.png)",
+          'nav-logo' : "url(../../public/icon/heart-text.png)",
+          'nav-logo-mobile': "url(../../public/image/nav-logo-mobile.png)",
+          'small-heart': "url(../../public/image/mob-heart.png)"
+
+          
       },
       spacing: {
         'custom-margin-top': 'calc(100px - (-0.06875 * 100vw + 98.125px))',
