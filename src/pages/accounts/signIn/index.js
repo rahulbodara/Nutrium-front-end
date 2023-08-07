@@ -1,15 +1,60 @@
-import SignupBody from "@/components/common/signupBody";
-import Image from "next/image";
-import React from "react";
-import googleIcon from "../../../../public/icon/google.png";
-import microsoftIcon from "../../../../public/icon/microsoft.png";
-import smallArrOrg from "../../../../public/icon/right-arrow-org.svg";
-import Button from "@/components/common/Button";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import SignupBody from '@/components/common/signupBody';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import googleIcon from '../../../../public/icon/google.png';
+import microsoftIcon from '../../../../public/icon/microsoft.png';
+import smallArrOrg from '../../../../public/icon/right-arrow-org.svg';
+import Button from '@/components/common/Button';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { useLoginUserMutation } from '@/store/api/myAccount';
 
 const Sign_in = () => {
   const router = useRouter();
+  const [logindata, setLogindata] = useState({});
+  const [emailError, setEmailError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [loginUser, { isLoading }] = useLoginUserMutation();
+
+  const handleOnChnage = (e) => {
+    const { name, value } = e.target;
+    setLogindata({ ...logindata, [name]: value });
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handleLogin = async () => {
+    try {
+      setEmailError('');
+      setPasswordError('');
+      setErrorMessage('');
+      if (!logindata.email) {
+        setEmailError('Email is required.');
+      } else if (!validateEmail(logindata.email)) {
+        setEmailError('Please enter a valid email address.');
+      }
+
+      if (!logindata.password) {
+        setPasswordError('Password is required.');
+      }
+      if (!logindata.email || !logindata.password) {
+        setErrorMessage('Please provide both email and password.');
+        return;
+      }
+      const response = await loginUser(logindata);
+      const token = response.data.token;
+      localStorage.setItem('accessToken', token);
+      router.push('/accounts/password/new');
+      setLogindata({});
+    } catch (error) {
+      console.log('error>>>>>>>>>>', error);
+    }
+  };
   return (
     <SignupBody>
       <div
@@ -79,24 +124,38 @@ const Sign_in = () => {
                       <div className="mb-[15px]">
                         <input
                           type="email"
+                          name="email"
                           className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                           placeholder="Email"
+                          onChange={(e) => handleOnChnage(e)}
                         />
+                        {emailError && (
+                          <div className="text-red-500">{emailError}</div>
+                        )}
                       </div>
                       <div className="mb-[15px]">
                         <input
                           type="password"
+                          name="password"
                           className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                           placeholder="Password"
+                          onChange={(e) => handleOnChnage(e)}
                         />
+                        {passwordError && (
+                          <div className="text-red-500">{passwordError}</div>
+                        )}
                       </div>
+
                       <div className="text-[95%] tracking-[0.3px] underline mt-2">
                         <a href="#">Forgot your password?</a>
                       </div>
-
+                      {errorMessage && (
+                        <div className="text-red-500">{errorMessage}</div>
+                      )}
                       <Button
                         type="button"
                         className="capitalize w-full mt-[24px]"
+                        onClick={handleLogin}
                       >
                         sign in
                       </Button>
@@ -118,4 +177,4 @@ const Sign_in = () => {
   );
 };
 
-export default Sign_in ;
+export default Sign_in;
