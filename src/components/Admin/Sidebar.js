@@ -34,7 +34,7 @@ const Sidebar = (props) => {
                     tabTitle.map((item,index) => {
                       return (
                         <li className='#293846' key={index}>
-                          <Link href="#" className='flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]'>
+                          <Link href={item.route} className='flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]'>
                               <div className='flex min-w-[30px] min-h-[30px] relative items-center rounded-[50%] justify-center bg-[#ffffff1a] h-[30px]'>
                               <Icon path={item.icon} size="18px" color='#a7b1c2' />
                               {
