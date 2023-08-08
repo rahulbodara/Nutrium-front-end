@@ -159,7 +159,7 @@ const Sign_in = () => {
                       >
                         sign in
                       </Button>
-                      <div class="text-[85%] mt-[15px] text-[#676a6c] text-center">
+                      <div className="text-[85%] mt-[15px] text-[#676a6c] text-center">
                         Don't have an account?
                         <Link legacyBehavior href="/accounts/signUp">
                           <a className="clr-grn underline">Sign up for free.</a>
