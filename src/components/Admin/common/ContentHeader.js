@@ -7,7 +7,7 @@ import { BiCaretDown } from 'react-icons/bi'
 import userIcon from '../../../../public/image/admin-user-icon.png'
 
 const ContentHeader = (props) => {
-    const {isCollapsed, setIsCollapsed} = props;
+    const {isCollapsed, setIsCollapsed, head, text} = props;
   return (
     <>
         <div className='border-b-[1px] -mx-[15px] border-[#eeeeee]'>
@@ -58,9 +58,9 @@ const ContentHeader = (props) => {
         <div className='breadcrumb bg-white mx-[-15px] my-0 p-5'>
             <div className='flex'>
                 <div className="w-1/2 relative min-h-[1px] h-auto px-[15px]">
-                    <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>Professional home page</h2>
+                    <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>
                     <div className='font-[100] text-[#888888]'>
-                        <p>Check your next appointments and your activity</p>
+                        <p>{text}</p>
                     </div>
                 </div>
                 <div className="w-1/2  relative min-h-[1px] h-auto px-[15px]">
