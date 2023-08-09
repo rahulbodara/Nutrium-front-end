@@ -6,9 +6,9 @@ export default function Home() {
   return (
     <>
     
-      <MainLayout>
+      <MainLayout head={"Professional home page"} text={"Check your next appointments and your activity"}>
           {/* <Dropdown /> */}
-          dsfdsfdsfdsfdfs
+          Home page
       </MainLayout>
     </>
   )
