@@ -21,13 +21,13 @@ const MultiSelect = ({ options, onChange, label }) => {
 
   return (
     <div>
-    <label className='inline-block max-w-full text-[13px] mb-[5px] text-[#676a6c]'>{label}</label>
+      <label className='inline-block max-w-full text-[13px] mb-[5px] text-[#676a6c]'>{label}</label>
       <select ref={selectRef} multiple className="w-full rounded-lg shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-          {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                  {option.label}
-              </option>
-          ))}
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
       </select>
     </div>
 
