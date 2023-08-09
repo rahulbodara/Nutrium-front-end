@@ -32,6 +32,7 @@ const Patients = () => {
             <div className='bg-white w-[34%] rounded'>
                 <div>hhhhhhhhhhhhhh</div>
             </div>
+            
         </div>
     </MainLayout>
 </div>
