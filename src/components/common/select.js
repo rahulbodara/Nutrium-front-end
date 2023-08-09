@@ -5,8 +5,6 @@ import 'select2';
 
 
 const Select = (props) => {
-    console.log("🚀 ~ file: select.js:8 ~ Select ~ props:", props?.searchOption)
-    
     const selectRef = useRef(null);
     useEffect(() => {
         $(selectRef.current).select2(

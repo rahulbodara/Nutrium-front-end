@@ -7,7 +7,7 @@ export const MyAccountApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: URL,
     prepareHeaders: (headers) => {
-      headers.set('Authorization', localStorage.getItem('accessToken'));
+      headers.set('Authorization', localStorage.getItem('token'));
       return headers;
     },
   }),
@@ -19,6 +19,25 @@ export const MyAccountApi = createApi({
           url: `/sign_in`,
           method: 'POST',
           body: params,
+        };
+      },
+    }),
+
+    signUpUser: builder.mutation({
+      query: (params) => {
+        return {
+          url: `/sign_up`,
+          method: 'POST',
+          body: params,
+        };
+      },
+    }),
+
+    userData: builder.query({
+      query: () => {
+        return {
+          url: `/professionals`,
+          method: 'GET',
         };
       },
     }),
@@ -35,4 +54,4 @@ export const MyAccountApi = createApi({
   }),
 });
 
-export const { useLoginUserMutation, useForgetPasswordMutation } = MyAccountApi;
+export const { useLoginUserMutation, useForgetPasswordMutation, useSignUpUserMutation, useUserDataQuery } = MyAccountApi;

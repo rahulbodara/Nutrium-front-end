@@ -1,10 +1,14 @@
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import logo from "../../../../public/image/light-logo.svg";
 import SignupBody from "@/components/common/signupBody";
+import Button from "@/components/common/Button";
+import Select from "@/components/common/select";
 import Step1 from "./component/Step1";
 import Step2 from "./component/Step2";
 import Step3 from "./component/Step3";
 
-const SignUp = () => {
+const demo = () => {
     const [userData, setUserData] = useState({});
     console.log(userData, "usususuus");
     const [isShow, setIsShow] = useState(false);
@@ -47,7 +51,7 @@ const SignUp = () => {
     };
 
     const handleSubmit = (values) => {
-        console.log("🚀 ~ file: SignUp.js:54 ~ handleSubmit ~ values:", values)
+        console.log("🚀 ~ file: demo.js:54 ~ handleSubmit ~ values:", values)
         setUserData((prevUserData) => ({
             ...prevUserData,
             ...values
@@ -101,4 +105,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default demo

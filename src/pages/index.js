@@ -28,7 +28,6 @@ import Testimonial from '@/components/testimonial/testimonial'
 import Footer from '@/components/common/Footer'
 import SliderComponent from '@/components/common/Slider'
 import { Home_info_slider } from '@/components/slider-data/data'
-console.log("🚀 ~ file: index.js:34 ~ Home_info_slider:", Home_info_slider)
 
 
 export default function Home() {
