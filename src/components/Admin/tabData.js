@@ -22,7 +22,7 @@ export const tabTitle = [
         title: "Clients",
         icon: mdiAccountMultiple,
         feature:false,
-        route: "home"
+        route: "patients"
     },
     {
         id: 4,
