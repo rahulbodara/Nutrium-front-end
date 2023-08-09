@@ -50,7 +50,6 @@ const Sign_Up = () => {
     }
   };
   const handleSubmit = (values, { resetForm }) => {
-    debugger;
     try {
       setUserData(values);
       resetForm();
