@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from '@/components/common/select'
 import MultiSelect from "@/components/common/Multiselect";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { signUpSchemaStep3 } from '@/schema/signup';
+import { signUpSchemaStep3, signUpSchemaStep3Student } from '@/schema/signup';
 import CustomSelect from './customSelect';
+import { useSignUpUserMutation } from '@/store/api/myAccount';
+import {toast} from 'react-toastify'
+import { useRouter } from 'next/router';
+const Step3 = ({ handleSubmit, handleMultiSelectChange,userData }) => {
+  const router = useRouter()
+  const profession = userData?.profession
+  console.log("🚀 ~ file: Step3.jsx:10 ~ Step3 ~ userData:", profession === "Student")
+  const [signUpUser, { isLoading }] = useSignUpUserMutation();
 
-const Step3 = ({ handleSubmit, handleMultiSelectChange }) => {
-  const options = [
-    { label: "Option 1", value: "option1" },
-    { label: "Option 2", value: "option2" },
-    { label: "Option 3", value: "option3" },
+  
+  const nutrium = [
+    { label: "Learn my clients' information and needs before the first appointment", value: "Learn my clients' information and needs before the first appointment" },
+    { label: "Get more clients and grow my nutrition business", value: "Get more clients and grow my nutrition business" },
+    { label: "Inform my clients with interactive and custom resources", value: "Inform my clients with interactive and custom resources" },
+    { label: "Create custom meal plans in a faster and simpler way", value: "Create custom meal plans in a faster and simpler way" },
+    { label: "Securely store and manage my clients' information", value: "Securely store and manage my clients' information" },
+    { label: "Simplify appointment booking and management processes", value: "Simplify appointment booking and management processes" },
   ];
 
   const MultiSelectOptions = [
@@ -35,6 +46,22 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange }) => {
     }
   ];
 
+
+  const HandleForm = async (values) => {
+    // setData({...data,...values})
+    const body = {...userData,...values}
+    const response = await signUpUser(body) 
+    console.log("🚀 ~ file: Step3.jsx:51 ~ HandleForm ~ response:", response?.data?.success === true)
+    if(response?.data?.success === true){
+      localStorage.setItem("token",response?.data?.token)
+      toast.success(response?.data?.message)
+      router.push("/admin/professionals/home")
+    }
+
+    toast.error(response?.error?.data?.message)
+  }
+
+
   return (
     <div>
       <section
@@ -46,37 +73,93 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange }) => {
           </h1>
         </div>
         <Formik
-          initialValues={{
-            lookingFor: "",
+          initialValues={
+            profession === "Student" ?
+            {
+              nutrium: "",
+              workplace: "",
+              courseEndDate: "",
+            }
+            :
+          {
+            nutrium: "",
             workplace: "",
             expertise: "",
-            averageClient: "",
-          }}
-          validationSchema={signUpSchemaStep3}
+            clientPerMonth: "",
+          }
+        }
+          validationSchema={profession === "Student" ? signUpSchemaStep3Student : signUpSchemaStep3}
           onSubmit={(values) => {
-            console.log("values", values);
-            console.log("🚀 ~ file: Step3.jsx:34 ~ Step3 ~ handleSubmit:", handleSubmit)
+            HandleForm(values)
           }}
         >
           {(formik) => {
-            const { handleBlur } = formik;
+            const { handleBlur,setFieldValue } = formik;
             return (
               <Form>
                 <div className="mb-[15px]">
                   <label className='inline-block max-w-full text-[13px] mb-[5px] text-[#676a6c]'>What are you looking for in Nutrium</label>
                   <Field
-                    name="lookingFor"
-                    options={options}
+                    name="nutrium"
+                    options={nutrium}
                     component={CustomSelect}
                     placeholder="Choose one option"
                     isMulti={false}
                   />
                   <ErrorMessage
-                    name="lookingFor"
+                    name="nutrium"
                     component="span"
                     className="text-red-500 text-xs"
                   />
                 </div>
+                {
+                  profession === "Student" ? 
+                  <>
+                  <div className="mb-[15px]">
+                  <label
+                    htmlFor="workplace"
+                    className="text-[#676a6c] text-[13px]"
+                  >
+                    University
+                  </label>
+                  <Field
+                    type="text"
+                    name="workplace"
+                    className="w-full text-[13px] focus:outline-none border-[1px] border-[#aaa] rounded-[3px] h-[34px] p-[8px] text-[#676a6c] focus:border-[#1AB394] placeholder:text-[#676a6c42]"
+                    id="workplace"
+                    placeholder="Insert your university's name"
+                  />
+                  <ErrorMessage
+                    name="workplace"
+                    component="span"
+                    className="text-red-500 text-xs"
+                  />
+                </div>
+
+                <div className="mb-[15px]">
+                  <label
+                    htmlFor="courseEndDate"
+                    className="text-[#676a6c] text-[13px]"
+                  >
+                    Predicted course end date
+                  </label>
+                  <Field
+                    type="text"
+                    name="courseEndDate"
+                    className="w-full text-[13px] focus:outline-none border-[1px] border-[#aaa] rounded-[3px] h-[34px] p-[8px] text-[#676a6c] focus:border-[#1AB394] placeholder:text-[#676a6c42]"
+                    id="courseEndDate"
+                    placeholder="YYYY/MM"
+                  />
+                  <ErrorMessage
+                    name="courseEndDate"
+                    component="span"
+                    className="text-red-500 text-xs"
+                  />
+                </div>
+                  
+                  </>  
+                  :
+                  <>
                 <div className="mb-[15px]">
                   <label
                     htmlFor="workplace"
@@ -97,10 +180,9 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange }) => {
                     className="text-red-500 text-xs"
                   />
                 </div>
-
                 <div className='mb-[15px]'>
                   <label
-                    htmlFor="workplace"
+                    htmlFor="expertise"
                     className="text-[#676a6c] text-[13px]"
                   >
                     Expertise
@@ -122,91 +204,46 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange }) => {
                   <label className="text-[#676a6c] text-[13px]">
                     Average number of clients per month
                   </label>
-                  <div className="grid grid-cols-[1fr_1fr_1fr_1fr] max-md:grid-cols-[1fr_1fr] max-md:gap-y-[1em] auto-rows-[1fr] gap-x-[1em]">
-                    <span>
-                      <label
-                        htmlFor="radio1"
-                        className="flex justify-center items-center h-full w-full radio-pill"
-                      >
-                        <Field
-                          type="radio"
-                          id="radio1"
-                          name="averageClient"
-                          className="hidden"
-                        />
+                   <div className="grid grid-cols-[1fr_1fr_1fr_1fr] max-md:grid-cols-[1fr_1fr] max-md:gap-y-[1em] auto-rows-[1fr] gap-x-[1em]">
+                    {['No clients', 'upto 10', 'upto 25', 'More than 25'].map((label, index) => (
+                      <span key={index}>
+                        {console.log(label,"label")}
                         <label
-                          className="rounded p-[1em] max-md:p-[0.5em] flex items-center justify-center border border-[#AAAAAA] text-[#AAAAAA] text-[13px] w-full text-center hover:bg-[#EEEEEE] h-full cursor-pointer"
-                          htmlFor="radio1"
+                          htmlFor={`radio${index + 1}`}
+                          className={`flex justify-center items-center h-full w-full ${
+                            formik.values.clientPerMonth === label ? 'rounded radio-pill' : 'rounded'
+                          }`}
                         >
-                          No clients
+                          <Field
+                            type="radio"
+                            id={`radio${index + 1}`}
+                            name="clientPerMonth"
+                            value={label}
+                            className="hidden"
+                          />
+                          <label
+                            className={`rounded p-[1em] max-md:p-[0.5em] flex items-center justify-center border border-[#AAAAAA] text-[#AAAAAA] text-[13px] w-full text-center hover:bg-[#EEEEEE] h-full cursor-pointer ${
+                              formik.values.clientPerMonth === label ? 'bg-[#EEEEEE]' : ''
+                            }`}
+                            htmlFor={`radio${index + 1}`}
+                          >
+                            {label}
+                          </label>
                         </label>
-                      </label>
-                    </span>
-                    <span>
-                      <label
-                        htmlFor="radio2"
-                        className="flex justify-center items-center h-full w-full rounded radio-pill"
-                      >
-                        <Field
-                          type="radio"
-                          id="radio2"
-                          name="averageClient"
-                          className="hidden"
-                        />
-                        <label
-                          className="rounded p-[1em] max-md:p-[0.5em] flex items-center justify-center border border-[#AAAAAA] text-[#AAAAAA] text-[13px] w-full text-center hover:bg-[#EEEEEE] h-full cursor-pointer"
-                          htmlFor="radio2"
-                        >
-                          Up to 10
-                        </label>
-                      </label>
-                    </span>
-                    <span>
-                      <label
-                        htmlFor="radio3"
-                        className="flex justify-center items-center h-full w-full rounded radio-pill"
-                      >
-                        <Field
-                          type="radio"
-                          id="radio3"
-                          name="averageClient"
-                          className="hidden"
-                        />
-                        <label
-                          className="rounded p-[1em] max-md:p-[0.5em] flex items-center justify-center border border-[#AAAAAA] text-[#AAAAAA] text-[13px] w-full text-center hover:bg-[#EEEEEE] h-full cursor-pointer"
-                          htmlFor="radio3"
-                        >
-                          Up to 25
-                        </label>
-                      </label>
-                    </span>
-                    <span>
-                      <label
-                        htmlFor="radio4"
-                        className="flex justify-center items-center h-full w-full rounded radio-pill"
-                      >
-                        <Field
-                          type="radio"
-                          id="radio4"
-                          name="averageClient"
-                          className="hidden"
-
-                        />
-                        <label
-                          className="rounded p-[1em] max-md:p-[0.5em] flex items-center justify-center border border-[#AAAAAA] text-[#AAAAAA] text-[13px] w-full text-center hover:bg-[#EEEEEE] h-full cursor-pointer"
-                          htmlFor="radio4"
-                        >
-                          More than 25
-                        </label>
-                      </label>
-                    </span>
+                      </span>
+                    ))}
                   </div>
                   <ErrorMessage
-                    name="averageClient"
+                    name="clientPerMonth"
                     component="span"
                     className="text-red-500 text-xs"
                   />
                 </div>
+                </>
+                }
+
+
+
                 <button
                   className="w-full border-[1px] rounded-[3px] text-[#fff] text-[14px] bg-[#EA9F77] py-[6px] px-[12px] mt-[24px]"
                   name="button"

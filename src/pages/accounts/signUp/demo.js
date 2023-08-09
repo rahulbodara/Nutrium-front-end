@@ -51,6 +51,7 @@ const demo = () => {
     };
 
     const handleSubmit = (values) => {
+        console.log("🚀 ~ file: demo.js:54 ~ handleSubmit ~ values:", values)
         setUserData((prevUserData) => ({
             ...prevUserData,
             ...values
@@ -65,7 +66,7 @@ const demo = () => {
             case 2:
                 return <Step2 nextstep={nextstep} signupStep={signupStep} handleSubmit={handleSubmit} />
             case 3:
-                return <Step3 nextstep={nextstep} handleSubmit={handleSubmit} signupStep={signupStep} handleMultiSelectChange={handleMultiSelectChange} />
+                return <Step3 nextstep={nextstep} handleSubmit={handleSubmit} signupStep={signupStep} handleMultiSelectChange={handleMultiSelectChange} userData={userData}/>
             default:
                 return false;
         }
@@ -83,13 +84,13 @@ const demo = () => {
                     <div className="flex">
                         <div className="w-full">
                             <div className="block w-full overflow-hidden">
-                                <button onClick={previous} className="mr-10">step back</button>
+                                {/* <button onClick={previous} className="mr-10">step back</button>
                                 <button className="mr-10" onClick={() => {
                                     setSignupStep(2)
                                 }}>2 </button>
                                 <button className="mr-10" onClick={() => {
                                     setSignupStep(3)
-                                }}>3</button>
+                                }}>3</button> */}
 
                                 <div className="flex">
                                     {renderstep(signupStep)}

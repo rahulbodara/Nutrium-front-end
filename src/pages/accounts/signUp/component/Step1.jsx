@@ -10,6 +10,7 @@ import Button from '@/components/common/Button';
 
 
 const Step1 = ({ nextstep, setIsTermApply, handleClick, signupStep, isTermApply, isFreeNewsAwail, handleSubmit, isShow, setIsShow, handleFreeService }) => {
+  console.log("🚀 ~ file: Step1.jsx:13 ~ Step1 ~ isTermApply:", isTermApply)
   return (
     <div>
 
@@ -238,6 +239,7 @@ const Step1 = ({ nextstep, setIsTermApply, handleClick, signupStep, isTermApply,
                             <Image
                               src={checkMark}
                               alt="checkmark"
+                              onClick={() => setIsTermApply(false)}
                               className="w-[16px] h-[16px] inline-block absolute left-0 top-0 cursor-pointer"
                             />
                           ) : (

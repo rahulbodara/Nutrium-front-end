@@ -1,3 +1,4 @@
+import { useUserDataQuery } from '@/store/api/myAccount'
 import { mdiBellOff, mdiHelpCircle, mdiMenu, mdiWalletGiftcard } from '@mdi/js'
 import Icon from '@mdi/react'
 import Image from 'next/image'
@@ -8,6 +9,7 @@ import userIcon from '../../../../public/image/admin-user-icon.png'
 
 const ContentHeader = (props) => {
     const {isCollapsed, setIsCollapsed} = props;
+    const {data : userData } = useUserDataQuery();
   return (
     <>
         <div className='border-b-[1px] -mx-[15px] border-[#eeeeee]'>
@@ -47,7 +49,7 @@ const ContentHeader = (props) => {
                         <li className='mr-[20px]'>
                             <Link href={""} className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
                                 <Image src={userIcon} width={100} className='block h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
-                                <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>nna</span>
+                                <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span>
                                 <BiCaretDown />
                             </Link>
                         </li>
