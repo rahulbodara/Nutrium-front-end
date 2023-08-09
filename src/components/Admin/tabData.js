@@ -15,7 +15,7 @@ export const tabTitle = [
         title: "Calendar",
         icon: mdiCalendar,
         feature:false,
-        route: "home"
+        route: "appointments"
     },
     {
         id: 3,
@@ -29,48 +29,48 @@ export const tabTitle = [
         title: "Messages",
         icon: mdiMessageReplyText,
         feature:true,
-        route: "home"
+        route: "conversations"
     },
     {
         id: 5,
         title: "Follow-up",
         icon: mdiHeart,
         feature:true,
-        route: "home"
+        route: "follow_up"
     },
     {
         id: 6,
         title: "Website and blog",
         icon: mdiEarth,
         feature:false,
-        route: "home"
+        route: "website"
     },
     {
         id: 7,
         title: "Foods",
         icon: mdiFoodApple,
         feature:false,
-        route: "home"
+        route: "foods"
     },
     {
         id: 8,
         title: "Recipes",
         icon: mdiNutrition,
         feature:false,
-        route: "home"
+        route: "recipes"
     },
     {
         id: 9,
         title: "Equivalents",
         icon: mdiClipboardText,
         feature:false,
-        route: "home"
+        route: "food_lists"
     },
     {
         id: 10,
         title: "Templates",
         icon: mdiLibraryOutline,
         feature:false,
-        route: "home"
+        route: "templates"
     },
 ]; 

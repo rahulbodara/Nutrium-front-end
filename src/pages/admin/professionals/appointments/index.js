@@ -1,15 +1,13 @@
 import MainLayout from '@/components/Admin/MainLayout'
 import React from 'react'
 
-export default function Home() {
+export default function Appointments() {
   return (
     <>
-
-
     
-      <MainLayout head={"Professional home page"} text={"Check your next appointments and your activity"}>
+      <MainLayout head={"Your calendar"} text={"Check information about your calendar"}>
           {/* <Dropdown /> */}
-          Home page
+          Calender
       </MainLayout>
     </>
   )

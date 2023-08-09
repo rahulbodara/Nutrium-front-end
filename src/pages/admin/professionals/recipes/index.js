@@ -1,15 +1,13 @@
 import MainLayout from '@/components/Admin/MainLayout'
 import React from 'react'
 
-export default function Home() {
+export default function Recipes() {
   return (
     <>
-
-
     
-      <MainLayout head={"Professional home page"} text={"Check your next appointments and your activity"}>
+      <MainLayout head={"Recipes"} text={"Create, check and update recipes"}>
           {/* <Dropdown /> */}
-          Home page
+          Recipes
       </MainLayout>
     </>
   )
