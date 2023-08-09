@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useRef } from 'react';
 import Icon from '@mdi/react';
 import { tabTitle } from './tabData';
@@ -8,6 +9,7 @@ import { mdiAccountPlus, mdiAlarmPlus, mdiStarCircle } from '@mdi/js';
 
 const Sidebar = (props) => {
   const {isCollapsed} = props;
+  const router = useRouter();
 
   return (
     <>
@@ -32,11 +34,15 @@ const Sidebar = (props) => {
                 <ul className='pl-0 mb-0 list-none'>
                   {
                     tabTitle.map((item,index) => {
+                      const isActive = router.pathname.split('/').slice(-1)[0] === item.route;
+
                       return (
                         <li className='#293846' key={index}>
-                          <Link href={item.route} className='flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]'>
-                              <div className='flex min-w-[30px] min-h-[30px] relative items-center rounded-[50%] justify-center bg-[#ffffff1a] h-[30px]'>
-                              <Icon path={item.icon} size="18px" color='#a7b1c2' />
+                          <Link href={item.route} className={`${
+                            isActive && 'bg-[#293846]'
+                          } flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]`}>
+                              <div className={`flex min-w-[30px] min-h-[30px] relative items-center rounded-[50%] justify-center ${isActive ? "bg-[#1AB394]" : "bg-[#ffffff1a]"}  h-[30px]`}>
+                              <Icon path={item.icon} size="18px" color={isActive ? '#fff' : '#a7b1c2'}  />
                               {
                                 item.feature === true ? 
                                 <div className=' right-[-5px] text-[#EA9F77] leading-[0] absolute bg-[#2F4050] rounded-[50%] -bottom-0.5'>
