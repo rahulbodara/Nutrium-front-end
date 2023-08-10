@@ -10,7 +10,7 @@ function ProfessionalInformation() {
     const professionOptions = [
         {
             id: 1,
-            option : 'Nutritionist',
+            option: 'Nutritionist',
             value: 'Nutritionist'
         },
         {
@@ -31,7 +31,7 @@ function ProfessionalInformation() {
     ]
     return (
         <div className='px-[15px] py-0  p-0 w-2/3 relative min-h-[1px]'>
-            <div className='h-full bg-white card-shadow  rounded-[5px]'>
+            <div className='h-full bg-white card-shadow  rounded-[5px] mb-[25px]'>
                 <div className="widget-header p-[20px_20px_15px_20px]">
                     <h4 className='text-[20px] leading-[1.1]'>Professional information</h4>
                     <div className='text-[12px] text-[#888888] opacity-[0.6]'>Check or change your professional information</div>
@@ -53,10 +53,10 @@ function ProfessionalInformation() {
                         </div>
                         <div className='w-2/3 px-[15px]'>
                             <div className='multiple-fields'>
-                                <ClosableSelect basis="240px" searchOption={false} option={professionOptions} closable={true} className="mt-0" label="Profession" />
-                                <EditableInput label="Professional card number" />
-                                <ClosableSelect basis="240px" option={professionOptions} searchOption={true} closable={false} className="mt-[7px]" label="Country of residence" />
-                                <EditableInput label="Email" />
+                                <ClosableSelect labelWidth="basis-[240px] min-w-[240px]" searchOption={false} option={professionOptions} closable={true} className="mt-0" label="Profession" />
+                                <EditableInput labelWidth="basis-[240px] min-w-[240px]" label="Professional card number" />
+                                <ClosableSelect labelWidth="basis-[240px] min-w-[240px]" option={professionOptions} searchOption={true} closable={false} className="mt-[7px]" label="Country of residence" />
+                                <EditableInput labelWidth="basis-[240px] min-w-[240px]" label="Email" />
                             </div>
                         </div>
                     </div>
@@ -67,20 +67,3 @@ function ProfessionalInformation() {
 }
 
 export default ProfessionalInformation
-
-
-{/* <div>
-            <h4 className='text-xl font-normal leading-[1.1] m-0'>Professional information</h4>
-            <span className='font-[100] text-[#888888]'>Check or change your professional information</span>
-            </div>
-            <div className='mt-5'>
-                <div>
-                <div>
-                    <input type='file'/>
-                    <Image width={100} height={100} src="/image/avatar.png"/>
-                </div>
-                <div>
-                    <h2 className='text-xl mt-3'>Anghan Brijesh</h2>
-                </div>
-                </div>
-            </div> */}
