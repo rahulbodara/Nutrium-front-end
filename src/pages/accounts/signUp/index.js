@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SignupBody from "@/components/common/signupBody";
-import Step1 from "./component/Step1";
-import Step2 from "./component/Step2";
-import Step3 from "./component/Step3";
+import Step1 from "../../../components/accounts/signup/Step1";
+import Step2 from "../../../components/accounts/signup/Step2";
+import Step3 from "../../../components/accounts/signup/Step3";
 
 const SignUp = () => {
     const [userData, setUserData] = useState({});
