@@ -9,7 +9,7 @@ const MainLayout = ({children, head, text}) => {
     <div className='w-full'>
         <Sidebar isCollapsed = {isCollapsed} /> 
         <div className={`page-wrapper hide-scollbar min-h-[1200px] px-[15px] relative bg-[#f3f3f4] ${isCollapsed === true ? 'ml-[70px]' : 'ml-[220px]'} `}>
-        <ContentHeader  setIsCollapsed={setIsCollapsed} isCollapsed={isCollapsed} />
+        <ContentHeader  setIsCollapsed={setIsCollapsed} isCollapsed={isCollapsed} head={head} text={text} />
       
         {children}
     </div>
