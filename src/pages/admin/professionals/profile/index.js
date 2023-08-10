@@ -11,6 +11,9 @@ function ProfessionalProfile() {
                     <ProfessionalInformation />
                     <PersonalInformation />
                 </div>
+                <div>
+                    
+                </div>
             </div>
         </MainLayout>
     )

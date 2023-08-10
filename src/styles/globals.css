@@ -10,9 +10,9 @@
   --fa-font-brands: normal 400 1em/1 'Font Awesome 6 Brands';
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .ps__rail-y {
   background-color: red;

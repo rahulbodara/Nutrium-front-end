@@ -263,7 +263,7 @@ export default function Home() {
             <div className='mt-[70px] xl:w-[900px] lg:w-[700px] mx-auto md:mt-[30px] md:w-full'>
               <Slider {...testimonial_setting}>
                 {
-                  Testimonial_data.map(item => (
+                  Testimonial_data.map((item) => (
                     <Testimonial data={item} />
                   ))
                 }
