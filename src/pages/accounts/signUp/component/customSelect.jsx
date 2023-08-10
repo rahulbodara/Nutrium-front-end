@@ -11,23 +11,23 @@ export const CustomSelect = ({
 }) => {
   const onChange = (option) => {
     form.setFieldValue(
-      field.name,
+      field?.name,
       isMulti
-        ? option.map((item) => item.value)
-        : option.value
+        ? option.map((item) => item?.value)
+        : option?.value
     );
   };
 
   const getValue = () => {
-    if (field.value !== undefined && options) {
+    if (field?.value !== undefined && options) {
       if (isMulti) {
         return options.filter((option) =>
-          Array.isArray(field.value)
-            ? field.value.indexOf(option.value) >= 0
+          Array.isArray(field?.value)
+            ? field?.value.indexOf(option?.value) >= 0
             : false
         );
       } else {
-        return options.find((option) => option.value === field.value);
+        return options.find((option) => option?.value === field?.value);
       }
     } else {
       return isMulti ? [] : "";
@@ -39,7 +39,7 @@ export const CustomSelect = ({
   return (
     <Select
       className={className}
-      name={field.name}
+      name={field?.name}
       value={getValue()}
       onChange={onChange}
       placeholder={placeholder}
