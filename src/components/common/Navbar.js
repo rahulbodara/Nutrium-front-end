@@ -6,7 +6,6 @@ import greenLogo from '../../../public/image/green-logo.svg'
 import {FiMenu} from 'react-icons/fi'
 import Link from 'next/link';
 
-
 const Navbar = () => {
     const router = useRouter();
     const [isToggle, setIsToggle] = useState(false);
