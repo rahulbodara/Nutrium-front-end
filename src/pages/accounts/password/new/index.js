@@ -1,36 +1,23 @@
-import Button from '@/components/common/Button';
 import SignupBody from '@/components/common/signupBody';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Button from '@/components/common/Button';
 import smallArrOrg from '../../../../../public/icon/right-arrow-org.svg';
 import { useForgetPasswordMutation } from '@/store/api/myAccount';
-import { useRouter } from 'next/router';
+import {forgotPasswordValidationSchema} from '@/schema/signin';
+import {toast} from 'react-toastify'
 
 const Forgot_password = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
   const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
-  const handleOnChnage = (e) => {
-    const { name, value } = e.target;
-    setEmail({ ...email, [name]: value });
-  };
 
-  const validateEmail = (email) => {
-    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/;
-    return emailPattern.test(email);
-  };
-
-  const handleForgetPassword = async () => {
+  const handleForgetPassword = async (values) => {
     try {
-      if (!email) {
-        setEmailError('Email is required.');
-      } else if (!validateEmail(email)) {
-        setEmailError('Please enter a valid email address.');
+      const response = await forgetPassword(values);
+      if(response?.data){
+        toast.success(response?.data?.message)
+      } else {
+        toast.error(response?.error?.data?.message)
       }
-      const response = await forgetPassword(email);
-      console.log('response>>>>>>', response);
-      setEmail('');
     } catch (error) {
       console.log('error>>>>>>>>>>', error);
     }
@@ -83,23 +70,26 @@ const Forgot_password = () => {
                 </a>
               </span>
             </p>
-            <div className="mb-[15px]">
-              <input
-                type="email"
-                name="email"
-                className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
-                placeholder="Email"
-                onChange={(e) => handleOnChnage(e)}
-              />
-              {emailError && <div className="text-red-500">{emailError}</div>}
-            </div>
-            <Button
-              type="button"
-              className="capitalize w-full mt-[24px]"
-              onClick={handleForgetPassword}
+            <Formik
+              initialValues={{ email: '' }}
+              validationSchema={forgotPasswordValidationSchema}
+              onSubmit={(values) => handleForgetPassword(values)}
             >
-              Send instructions
-            </Button>
+              <Form>
+                <div className="mb-[15px]">
+                  <Field
+                    type="email"
+                    name="email"
+                    className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
+                    placeholder="Email"
+                  />
+                  <ErrorMessage name="email" component="div" className="text-red-500" />
+                </div>
+                <Button type="submit" className="capitalize w-full mt-[24px]">
+                  Send instructions
+                </Button>
+              </Form>
+            </Formik>
           </div>
         </div>
       </div>

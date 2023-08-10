@@ -1,56 +1,31 @@
 import SignupBody from '@/components/common/signupBody';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import googleIcon from '../../../../public/icon/google.png';
 import microsoftIcon from '../../../../public/icon/microsoft.png';
 import smallArrOrg from '../../../../public/icon/right-arrow-org.svg';
 import Button from '@/components/common/Button';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import {toast} from 'react-toastify'
 import { useLoginUserMutation } from '@/store/api/myAccount';
+import { signInValidationSchema } from '@/schema/signin';
 
 const Sign_in = () => {
   const router = useRouter();
-  const [logindata, setLogindata] = useState({});
-  const [emailError, setEmailError] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
-  const handleOnChnage = (e) => {
-    const { name, value } = e.target;
-    setLogindata({ ...logindata, [name]: value });
-  };
-
-  const validateEmail = (email) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  };
-
-  const handleLogin = async () => {
+  const handleLogin = async (values) => {
     try {
-      setEmailError('');
-      setPasswordError('');
-      setErrorMessage('');
-      if (!logindata.email) {
-        setEmailError('Email is required.');
-      } else if (!validateEmail(logindata.email)) {
-        setEmailError('Please enter a valid email address.');
+      const response = await loginUser(values);
+      const token = response?.data?.token;
+      if(token){
+        localStorage.setItem('token', token);
+        toast.success(response?.data?.message)
+        router.push("/admin/professionals/home")
+      } else {
+        toast.error(response?.error?.data?.message)
       }
-
-      if (!logindata.password) {
-        setPasswordError('Password is required.');
-      }
-      if (!logindata.email || !logindata.password) {
-        setErrorMessage('Please provide both email and password.');
-        return;
-      }
-      const response = await loginUser(logindata);
-      const token = response.data.token;
-      localStorage.setItem('accessToken', token);
-      router.push('/accounts/password/new');
-      setLogindata({});
     } catch (error) {
       console.log('error>>>>>>>>>>', error);
     }
@@ -61,7 +36,12 @@ const Sign_in = () => {
         className={`my-[80px] rounded-[5px] max-w-[900px] md:max-w-[100%] mx-auto md:mx-[20px] md:mb-[100px] xl:max-w-[75%] xl:my-[50px] xl:mx-auto`}
       >
         <div className="flex">
-          <form className="w-full">
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={signInValidationSchema}
+            onSubmit={(values) => handleLogin(values)}
+          >
+            <Form className="w-full">
             <div className="block w-full overflow-hidden rounded-[5px]">
               <div className="flex">
                 <section
@@ -122,41 +102,27 @@ const Sign_in = () => {
                         </span>
                       </div>
                       <div className="mb-[15px]">
-                        <input
+                        <Field
                           type="email"
                           name="email"
                           className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                           placeholder="Email"
-                          onChange={(e) => handleOnChnage(e)}
                         />
-                        {emailError && (
-                          <div className="text-red-500">{emailError}</div>
-                        )}
+                          <ErrorMessage name="email" component="div" className="text-red-500" />
                       </div>
                       <div className="mb-[15px]">
-                        <input
+                        <Field
                           type="password"
                           name="password"
                           className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                           placeholder="Password"
-                          onChange={(e) => handleOnChnage(e)}
                         />
-                        {passwordError && (
-                          <div className="text-red-500">{passwordError}</div>
-                        )}
+                          <ErrorMessage name="password" component="div" className="text-red-500" />
                       </div>
-
                       <div className="text-[95%] tracking-[0.3px] underline mt-2">
-                        <a href="#">Forgot your password?</a>
+                        <a href="/accounts/password/new">Forgot your password?</a>
                       </div>
-                      {errorMessage && (
-                        <div className="text-red-500">{errorMessage}</div>
-                      )}
-                      <Button
-                        type="button"
-                        className="capitalize w-full mt-[24px]"
-                        onClick={handleLogin}
-                      >
+                        <Button type="submit" className="capitalize w-full mt-[24px]">
                         sign in
                       </Button>
                       <div className="text-[85%] mt-[15px] text-[#676a6c] text-center">
@@ -170,7 +136,8 @@ const Sign_in = () => {
                 </section>
               </div>
             </div>
-          </form>
+          </Form>
+          </Formik>
         </div>
       </div>
     </SignupBody>
