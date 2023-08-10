@@ -3,6 +3,8 @@ import React from 'react'
 import clientPro from '../../../../../public/image/clientprof.png'
 import Image from 'next/image'
 import { FaUser } from 'react-icons/fa'
+import {LuImport} from 'react-icons/lu'
+import {AiOutlinePlus} from 'react-icons/ai'
 
 const Patients = () => {
     return (
@@ -13,11 +15,13 @@ const Patients = () => {
                         <div className='p-[20px_20px_15px_20px]'>
                             <h1 className='text-[20px] font-normal text-[#676a6c]'>Your clients</h1>
                             <h1 className='text-[12px] text-[#888888] font-thin block'>Check information about your clients</h1>
+                            <LuImport />
+                            <AiOutlinePlus />
                             <div className='w-full pt-3'>
-                                <input type='text' className='bg-[white] bg-none border text-inherit block w-full px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' placeholder="Search clients by name, occupation, identification number or contact..." />
+                                <input type='text' className='block border-[1px] border-[#e5e6e7] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]' placeholder="Search clients by name, occupation, identification number or contact..." />
                             </div>
                             <div className="pt-5 grid grid-cols-2 gap-7">
-                                <div className='flex border rounded-[1px] border-solid border-[#e5e6e7] p-[10px]'>
+                                <div className='flex border rounded-[1px] border-solid border-[#e5e6e7] hover:border-[#1AB394] p-[10px]'>
                                     <div class="relative">
                                         <div class="bg-[#1AB394] absolute end-0 bottom-0 w-[17px] h-[17px] rounded-full"></div>
                                         <Image src={clientPro} className="rounded-full max-h-[80px] max-w-[80px]" />
@@ -29,7 +33,7 @@ const Patients = () => {
                                     </div>
                                     <div className=''><FaUser /></div>
                                 </div>
-                                <div className='border rounded-[1px] border-solid border-[#e5e6e7] flex justify-center text-center items-center text-[20px] font-normal'>Add new client</div>
+                                <div className='border rounded-[1px] border-solid border-[#e5e6e7] hover:border-[#1AB394] flex justify-center text-center items-center text-[20px] font-normal'>Add new client</div>
                             </div>
                         </div>
                     </div>
