@@ -2,7 +2,7 @@ import { mdiBorderColor, mdiCheck, mdiClose, mdiCloseCircle } from '@mdi/js'
 import Icon from '@mdi/react'
 import React, { useState } from 'react'
 
-const EditableInput = (props) => {
+const MobileInput = (props) => {
     const [isFocused, setIsFocused] = useState(false);
     const [isInputEmpty, setIsInputEmpty] = useState(true);
 
@@ -62,4 +62,4 @@ const EditableInput = (props) => {
     )
 }
 
-export default EditableInput
+export default MobileInput

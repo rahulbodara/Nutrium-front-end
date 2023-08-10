@@ -2,8 +2,11 @@ import Image from 'next/image'
 import React from 'react'
 import ClosableSelect from '../common/ClosableSelect'
 import EditableInput from '../common/EditableInput'
+import Icon from '@mdi/react'
+import { mdiCamera } from '@mdi/js'
 
 function ProfessionalInformation() {
+
     const professionOptions = [
         {
             id: 1,
@@ -38,7 +41,9 @@ function ProfessionalInformation() {
                         <div className='w-1/3 pl-[15px] pr-[5px]'>
                             <div className='flex justify-center h-[130px] relative'>
                                 <img src="/image/user.png" className='w-[130px] h-[130px] rounded-full' alt="" />
-                                <div className='overlay w-[130px] absolute h-[130px]'></div>
+                                <div className='overlay hover:opacity-100 hover:cursor-pointer w-[130px] absolute h-[130px] bg-[rgba(0,0,0,0.3)] text-center flex items-center justify-center opacity-0 rounded-[50%]'>
+                                    <Icon path={mdiCamera} color='#ffffff' size="50px" />
+                                </div>
                             </div>
                             <div className='mt-[20px]'>
                                 <h2 className='cursor-pointer min-h-[unset] border-b-[1px] border-dashed border-[#DDDDDD] overflow-hidden mt-[15px] mb-[5px] text-ellipsis opacity-[0.6] flex items-center justify-center text-center leading-[1.4] text-xl'>
@@ -48,9 +53,9 @@ function ProfessionalInformation() {
                         </div>
                         <div className='w-2/3 px-[15px]'>
                             <div className='multiple-fields'>
-                                <ClosableSelect searchOption={false} option={professionOptions} label="Profession" />
+                                <ClosableSelect basis="240px" searchOption={false} option={professionOptions} closable={true} className="mt-0" label="Profession" />
                                 <EditableInput label="Professional card number" />
-                                <ClosableSelect option={professionOptions} className="mt-[7px]" label="Country of residence" />
+                                <ClosableSelect basis="240px" option={professionOptions} searchOption={true} closable={false} className="mt-[7px]" label="Country of residence" />
                                 <EditableInput label="Email" />
                             </div>
                         </div>

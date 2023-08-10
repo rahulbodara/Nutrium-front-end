@@ -31,7 +31,7 @@ const ProductDashboard = () => {
                     <div className="flex flex-wrap justify-center">
                     {
                         waNavigators.map((item,index) => (
-                            <div className='bg-[#E0FAF1] hover:text-[#ea9f77] hover:bg-[#fae8e4] hover:cursor-pointer text-[15px] p-[10px] m-[5px_8px] rounded-[5px] tracking-[0.5px] text-center select-none text-[#1ab394]'>
+                            <div key={index} className='bg-[#E0FAF1] hover:text-[#ea9f77] hover:bg-[#fae8e4] hover:cursor-pointer text-[15px] p-[10px] m-[5px_8px] rounded-[5px] tracking-[0.5px] text-center select-none text-[#1ab394]'>
                                 {item}
                             </div>
                         ))

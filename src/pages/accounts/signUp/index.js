@@ -6,7 +6,6 @@ import Step3 from "./component/Step3";
 
 const SignUp = () => {
     const [userData, setUserData] = useState({});
-    console.log(userData, "usususuus");
     const [isShow, setIsShow] = useState(false);
     const [isFreeNewsAwail, setIsFreeNewsAwail] = useState(true);
     const [isTermApply, setIsTermApply] = useState(false);
