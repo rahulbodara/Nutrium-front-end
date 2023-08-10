@@ -1,8 +1,8 @@
 import React from 'react'
-import signUplogo from "../../../../../public/image/signup_img.png";
-import checkMark from "../../../../../public/icon/checkmark-green.svg";
+ import signUplogo from "../../../../public/image/signup_img.png";     //public/image/signup_img.png
+import checkMark from "../../../../public/icon/checkmark-green.svg";
 import { signUpSchema } from "@/schema/signup";
-import googleIcon from "../../../../../public/icon/google.png";
+import googleIcon from "../../../../public/icon/google.png";
 import Image from 'next/image';
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { BiHide, BiShow, BiCircle } from "react-icons/bi";
