@@ -42,16 +42,16 @@ function PersonalInformation() {
                 </div>
                 <div className='p-[20px] pt-0'>
                     <div>
-                        <DateInput label="Birthdate" basis="160px" closable={false} />
+                        <DateInput  label="Birthdate" labelWidth = "basis-[160px] min-w-[160px]"  closable={false} />
                     </div>
                     <div>
-                    <ClosableSelect basis="160px" searchOption={false} option={genderOption} closable={false} className="mt-[7px]" label="Gender" />
+                    <ClosableSelect labelWidth = "basis-[160px] min-w-[160px]"  searchOption={false} option={genderOption} closable={false} className="mt-[7px]" label="Gender" />
                     </div>
                     <div>
-                    <EditableInput basis="160px" label="Zip code" />
+                    <EditableInput labelWidth = "basis-[160px] min-w-[160px]"  label="Zip code" />
                     </div>
                     <div>
-                        <MobileInput basis="160px" label="Mobile phone" />
+                        <MobileInput labelWidth = "basis-[160px] min-w-[160px]"  label="Mobile phone" />
                     </div>
                 </div>
             </div>

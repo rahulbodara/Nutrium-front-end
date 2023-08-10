@@ -37,7 +37,7 @@ const ClosableSelect = (props) => {
     }, []);
     return (
       <div className={`flex select-none admin-select-field ${props?.className}`}>
-        <div className={`basis-[${props?.basis}] min-w-[${props?.basis}] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}>
+        <div className={`${props?.labelWidth} flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}>
           {props?.label}
         </div>
         <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
