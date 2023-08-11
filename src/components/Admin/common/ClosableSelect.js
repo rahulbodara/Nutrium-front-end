@@ -6,7 +6,6 @@ import $ from 'jquery';
 import 'select2';
 
 const ClosableSelect = (props) => {
-    console.log("🚀 ~ file: ClosableSelect.js:9 ~ ClosableSelect ~ props:", props)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const selectRef = useRef(null);
     useEffect(() => {
@@ -48,7 +47,7 @@ const ClosableSelect = (props) => {
             >
               {props?.option?.map((item,index) => (
                 <>
-                    <option key={index} value={item.value}>{item.option}</option>
+                    <option key={index} value={item.value} >{item.option}</option>
                 </>
               ))}
             </select>

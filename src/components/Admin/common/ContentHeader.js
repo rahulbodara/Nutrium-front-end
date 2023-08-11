@@ -1,4 +1,3 @@
-import { useUserDataQuery } from '@/store/api/myAccount'
 import { mdiBellOff, mdiHelpCircle, mdiMenu, mdiWalletGiftcard } from '@mdi/js'
 import Icon from '@mdi/react'
 import Image from 'next/image'
@@ -6,10 +5,11 @@ import Link from 'next/link'
 import React from 'react'
 import { BiCaretDown } from 'react-icons/bi'
 import userIcon from '../../../../public/image/admin-user-icon.png'
+import { useSelector } from 'react-redux'
 
 const ContentHeader = (props) => {
-    const {data : userData } = useUserDataQuery();
     const {isCollapsed, setIsCollapsed, head, text} = props;
+    const userData = useSelector((item) => item?.auth?.userData[0])
 
   return (
     <>
@@ -29,9 +29,9 @@ const ContentHeader = (props) => {
                     <div className='ml-[10px] flex justify-center'>
                         <div className='bg-white text-[#676a6c] flex items-center whitespace-nowrap cursor-pointer overflow-hidden'>
                             <div className="flex border-[1px] border-[#eeeeee]">
-                                <Link href={""} className="text-[#db4965] font-[500] p-[6px_15px]">Trial period expired</Link>
+                                <Link href="#" className="text-[#db4965] font-[500] p-[6px_15px]">Trial period expired</Link>
                             </div>
-                            <Link href={""} className="bg-[#db4965] hover:bg-[#d83c5a] p-[6px_15px] text-white border-[1px] border-[#db4965]">Subscribe</Link>
+                            <Link href="#" className="bg-[#db4965] hover:bg-[#d83c5a] p-[6px_15px] text-white border-[1px] border-[#db4965]">Subscribe</Link>
                             <div className='ml-[10px]'>
                                 <button className='p-[3px_10px] bg-white border text-[#676A6C] flex items-center border-solid border-[#EEEEEE]'>
                                     <Icon path={mdiHelpCircle} size="24px" color='#1ab394' />
@@ -48,7 +48,7 @@ const ContentHeader = (props) => {
                 <div className='topbar-menu'>
                     <ul className='pl-0 mb-0 list-none'>
                         <li className='mr-[20px]'>
-                            <Link href={""} className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
+                            <Link href="#" className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
                                 <Image src={userIcon} width={100} className='block h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
                                 <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span>
                                 <BiCaretDown />
@@ -58,7 +58,7 @@ const ContentHeader = (props) => {
                 </div>
             </nav>
         </div>
-        <div className='breadcrumb bg-white mx-[-15px] my-0 p-5'>
+        <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow'>
             <div className='flex'>
                 <div className="w-1/2 relative min-h-[1px] h-auto px-[15px]">
                     <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>

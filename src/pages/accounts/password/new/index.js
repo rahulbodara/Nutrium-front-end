@@ -3,16 +3,16 @@ import Image from 'next/image';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Button from '@/components/common/Button';
 import smallArrOrg from '../../../../../public/icon/right-arrow-org.svg';
-import { useForgetPasswordMutation } from '@/store/api/myAccount';
 import {forgotPasswordValidationSchema} from '@/schema/signin';
 import {toast} from 'react-toastify'
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '@/redux/action/auth';
 
 const Forgot_password = () => {
-  const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
-
+  const dispatch = useDispatch()
   const handleForgetPassword = async (values) => {
     try {
-      const response = await forgetPassword(values);
+      const response = await dispatch(forgotPassword(values));
       if(response?.data){
         toast.success(response?.data?.message)
       } else {
