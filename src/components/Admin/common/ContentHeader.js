@@ -58,7 +58,7 @@ const ContentHeader = (props) => {
                 </div>
             </nav>
         </div>
-        <div className='breadcrumb bg-white mx-[-15px] my-0 p-5'>
+        <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow'>
             <div className='flex'>
                 <div className="w-1/2 relative min-h-[1px] h-auto px-[15px]">
                     <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>

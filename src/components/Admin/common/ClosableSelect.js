@@ -48,7 +48,7 @@ const ClosableSelect = (props) => {
             >
               {props?.option?.map((item,index) => (
                 <>
-                    <option key={index} value={item.value}>{item.option}</option>
+                    <option key={index} value={item.value} >{item.option}</option>
                 </>
               ))}
             </select>
