@@ -15,7 +15,7 @@ const Sidebar = (props) => {
     <>
       <nav className={`${isCollapsed === true ? "w-[70px] " : "w-[220px] md:left-[220px]" } z-[2040] md:bg-[#2f4050] bg-[#2f4050] md:w-[220px] md:-left-[220px] md:block md:transition-[0.5s] border-[#2f4050] overflow-hidden h-full fixed shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_1px_5px_0_rgba(145,145,145,0.12)]`}>
           <div className="sidebar-collapse">
-            <ul className='pl-0 mb-0 list-none'>
+            <ul className='pl-0 mb-0 list-none '>
               <li className="nav-header relative block p-0 bg-[#293846]">
                 <Link href="" className='relative block text-[#a7b1c2] font-[600]'>
                   <div>
@@ -31,7 +31,7 @@ const Sidebar = (props) => {
             </ul>
             <div className='relative overflow-hidden w-auto bg-[#2f4050]'>
               
-                <ul className='pl-0 mb-0 list-none'>
+                <ul className='pl-0 mb-0 list-none h-[calc(100vh_-_256px)] overflow-auto'>
                   {
                     tabTitle.map((item,index) => {
                       const isActive = router.pathname.split('/').slice(-1)[0] === item.route;
