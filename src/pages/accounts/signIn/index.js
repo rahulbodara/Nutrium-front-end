@@ -8,16 +8,19 @@ import Button from '@/components/common/Button';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {toast} from 'react-toastify'
-import { useLoginUserMutation } from '@/store/api/myAccount';
 import { signInValidationSchema } from '@/schema/signin';
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/action/auth';
 
 const Sign_in = () => {
   const router = useRouter();
-  const [loginUser, { isLoading }] = useLoginUserMutation();
+  const dispatch = useDispatch()
 
   const handleLogin = async (values) => {
     try {
-      const response = await loginUser(values);
+      // const response = await loginUser(values);
+      const response = await dispatch(login(values))
+      console.log("🚀 ~ file: index.js:25 ~ handleLogin ~ response:", response)
       const token = response?.data?.token;
       if(token){
         localStorage.setItem('token', token);

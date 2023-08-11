@@ -27,7 +27,7 @@
 }
 @font-face {
   font-family: 'Geomanist-Book';
-  src: url('/public/font/geomanist-regular-webfont.woff');
+  src: url('/font/geomanist-regular-webfont.woff') format('woff');
   font-display: swap;
 }
 

@@ -47,7 +47,7 @@ function ProfessionalInformation() {
                             </div>
                             <div className='mt-[20px]'>
                                 <h2 className='cursor-pointer min-h-[unset] border-b-[1px] border-dashed border-[#DDDDDD] overflow-hidden mt-[15px] mb-[5px] text-ellipsis opacity-[0.6] flex items-center justify-center text-center leading-[1.4] text-xl'>
-                                    <span className='self-center cursor-pointer'>Brijesh Anghan</span>
+                                    <span className='self-center cursor-pointer'>Test</span>
                                 </h2>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ function ProfessionalInformation() {
                             <div className='multiple-fields'>
                                 <ClosableSelect labelWidth="basis-[240px] min-w-[240px]" searchOption={false} option={professionOptions} closable={false} className="mt-0" label="Profession" />
                                 <EditableInput labelWidth="basis-[240px] min-w-[240px]" label="Professional card number" />
-                                <ClosableSelect labelWidth="basis-[240px] min-w-[240px]" option={professionOptions} searchOption={true} closable={false} className="mt-[7px]" label="Country of residence" />
+                                <ClosableSelect labelWidth="basis-[240px] min-w-[240px]" option={professionOptions} searchOption={true} closable={false} className="mt-[7px]" label="Country of residence"/>
                                 <EditableInput labelWidth="basis-[240px] min-w-[240px]" label="Email" />
                             </div>
                         </div>
