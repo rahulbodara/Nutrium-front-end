@@ -2,6 +2,7 @@
 module.exports = {
   plugins: [
     require('flowbite/plugin'),
+    require("@tailwindcss/forms")
   ],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -44,11 +45,13 @@ module.exports = {
 
           
       },
+      boxShadow: {
+        'box1': '0 2px 2px 0 rgba(144,144,144,0.14), 0 3px 1px -2px transparent, 0 1px 5px 0 rgba(145,145,145,0.12)',
+      },
       spacing: {
         'custom-margin-top': 'calc(100px - (-0.06875 * 100vw + 98.125px))',
       },
     }
   },
 
-  plugins: [],
 }

@@ -46,7 +46,7 @@ const ContentHeader = (props) => {
                     </div>
                 </div>
                 <div className='topbar-menu'>
-                    <ul className='pl-0 mb-0 list-none'>
+                    <ul className='pl-0 mb-0 list-none '>
                         <li className='mr-[20px]'>
                             <Link href={""} className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
                                 <Image src={userIcon} width={100} className='block 2lg:hidden h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
