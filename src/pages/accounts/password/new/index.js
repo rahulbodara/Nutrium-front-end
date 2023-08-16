@@ -3,21 +3,21 @@ import Image from 'next/image';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Button from '@/components/common/Button';
 import smallArrOrg from '../../../../../public/icon/right-arrow-org.svg';
-import {forgotPasswordValidationSchema} from '@/schema/signin';
-import {toast} from 'react-toastify'
+import { forgotPasswordValidationSchema } from '@/schema/signin';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { forgotPassword } from '@/redux/action/auth';
 
 const Forgot_password = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleForgetPassword = async (values) => {
     try {
-      const response = await dispatch(forgotPassword(values));
-      if(response?.data){
-        toast.success(response?.data?.message)
-      } else {
-        toast.error(response?.error?.data?.message)
-      }
+      const response = await dispatch(forgotPassword(values)).then((res) => {
+        toast.error(res?.data?.data?.message);
+        return res;
+      });
+      console.log('response-------->', response);
+      toast.success(response?.data?.message);
     } catch (error) {
       console.log('error>>>>>>>>>>', error);
     }
@@ -83,10 +83,14 @@ const Forgot_password = () => {
                     className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                     placeholder="Email"
                   />
-                  <ErrorMessage name="email" component="div" className="text-red-500" />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500"
+                  />
                 </div>
                 <Button type="submit" className="capitalize w-full mt-[24px]">
-                  Send instructions
+                  Send Forget Email
                 </Button>
               </Form>
             </Formik>
