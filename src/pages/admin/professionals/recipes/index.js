@@ -1,7 +1,7 @@
 import MainLayout from '@/components/Admin/MainLayout'
-import React from 'react'
+import React, { useState } from 'react'
 import Icon from '@mdi/react'
-import { mdiPlus } from '@mdi/js'
+import { mdiCheck, mdiCheckboxBlankOutline, mdiCheckboxOutline, mdiPlus, mdiSortDescending } from '@mdi/js'
 import { mdiSortAscending } from '@mdi/js'
 import { AiFillHeart } from "react-icons/ai";
 import { MdOutlineDiversity3 } from "react-icons/md";
@@ -9,9 +9,27 @@ import { BsPencilSquare } from "react-icons/bs";
 import { TbArrowBadgeRightFilled } from "react-icons/tb";
 import { FiHeart } from "react-icons/fi";
 import ClosableSelect from '@/components/Admin/common/ClosableSelect';
+import { BiSolidEditAlt } from 'react-icons/bi'
 
 
 export default function Recipes() {
+  const [isNutriumChecked, setIsNutriumChecked] = useState(true);
+  const [isCommunitychecked, setIsCommunitychecked] = useState(true);
+  const [isMyRecipesChecked, setIsMyRecipesChecked] = useState(true);
+
+
+  console.log("🚀 ~ file: index.js:16 ~ Recipes ~ isNutriumChecked:", isNutriumChecked)
+  const handleNutrimChange = (event,id) => {
+    if(id === "1"){
+      setIsNutriumChecked(event.target.checked) 
+    }
+    else if (id === "2") {
+      setIsCommunitychecked(event.target.checked)
+    }
+    else if (id === "3") {
+      setIsMyRecipesChecked(event.target.checked)
+    }
+  }
 
   const professionOptions = [
     {
@@ -42,17 +60,17 @@ export default function Recipes() {
       <MainLayout head={"Recipes"} text={"Create, check and update recipes"}>
         {/* <Dropdown /> */}
         <div className='bg-white border-1'>
-          <div className='border p-6 mt-6'>
+          <div className='border p-6 mt-6 card-shadow'>
             <div className='flex items-center'>
               <div className='flex-grow'>
                 <h4 className='text-[20px] leading-[1.1]'>Recipes</h4>
                 <div className='text-[12px] text-[#888888] opacity-[0.6]'>Search, check and create new recipes</div>
               </div>
-              <div className='flex items-center'>
+              <div className='flex items-center group cursor-pointer'>
                 <a className=''>
                   <Icon path={mdiPlus} size="24px" />
                 </a>
-                <span className=''>Create new recipe</span>
+                <span className='hidden group-hover:block text-[#888888] text-[1.1em] ml-[5px]'>Create new recipe</span>
               </div>
               <div>
               </div>
@@ -62,18 +80,18 @@ export default function Recipes() {
                 <input
                   type="text"
                   name="fullName"
-                  className="block border-[1px] border-[#e5e6e7] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none"
+                  className="block focus:ring-0 border-[1px] border-[#e5e6e7] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none"
                   placeholder="Search workspaces"
                 />
               </div>
               <div className='xl:flex-wrap xl:w-full flex w-2/12'>
-                <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[40px] sm:min-w-[40px]" Icon={mdiSortAscending} searchOption={false} option={professionOptions} closable={false} className="mt-0 w-full h-[38px]" />
+                <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[40px] sm:min-w-[40px]" focusEffect={true} Icon={mdiSortDescending} searchOption={false} option={professionOptions} closable={false} className="mt-0 w-full h-[38px]" />
               </div>
               <div className='xl:flex-wrap xl:w-full flex w-2/12'>
-                <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[0px] sm:min-w-[0px] py-0 px-0" searchOption={false} option={professionOptions} className="mt-0 w-full h-[38px]" />
+                <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[0px] sm:min-w-[0px] py-0 px-0" focusEffect={true} searchOption={false} option={professionOptions} className="mt-0 w-full h-[38px]" />
               </div>
             </div>
-            <div className='sm:flex-wrap flex mt-7 gap-6 items-center'>
+            <div className='flex-wrap flex mt-7 gap-6 items-center'>
               <div className='border rounded-sm py-1 px-3 flex items-center gap-2'>
                 <AiFillHeart className='text-[#CC5965] w-[1.2em] h-[1.2em]' />
                 <span className=''>Favorites</span>
@@ -83,19 +101,34 @@ export default function Recipes() {
                 <span>Show recipes:</span>
               </div>
               <div className='flex items-center leading-[0px]'>
-                <input type="checkbox" class=":focus-ring-0 border-[#1AB394] text-[#1AB394]" />
-                <img src='/image/nutrium.svg' className='w-[16px] mr-2 ml-2' />
-                <span className='text-[#1AB394] font-bold text-[15px]'>Nutrium Recipes</span>
+                <input type="checkbox" className="outline-none focus:outline-none hidden" defaultChecked={isNutriumChecked} onChange={(e) => handleNutrimChange(e,"1")} id='nutrium-recipes' />
+                <label htmlFor='nutrium-recipes' className='inline-flex items-center select-none cursor-pointer'>
+                {
+                  isNutriumChecked ? <span className='w-[16px] h-[16px] border-[1px] border-[#1AB394]'><Icon path={mdiCheck} color="#1AB394" size="14px" /></span> : <span className='w-[16px] h-[16px] border-[1px] border-[#d2d2d2]'></span>
+                }
+                  <img src='/image/nutrium.svg' className='w-[16px] mr-2 ml-2' />
+                  <span className='text-[#1AB394] font-bold text-[15px]'>Nutrium Recipes</span>
+                </label>
               </div>
               <div className='flex items-center leading-[0px]'>
-                <input type="checkbox" class=":focus-ring-0 border-[#EA9F77] text-[#EA9F77]" />
+                <input type="checkbox" className="outline-none focus:outline-none hidden" defaultChecked={isCommunitychecked} onChange={(e) => handleNutrimChange(e,"2")} id='community-recipes' />
+                <label htmlFor='community-recipes' className='inline-flex items-center select-none cursor-pointer'>
+                {
+                  isCommunitychecked ? <span className='w-[16px] h-[16px] border-[1px] border-[#ea9f77]'><Icon path={mdiCheck} color="#ea9f77" size="14px" /></span> : <span className='w-[16px] h-[16px] border-[1px] border-[#d2d2d2]'></span>
+                }
                 <MdOutlineDiversity3 className='text-[#EA9F77] text-[18px] mr-2 ml-2' />
-                <span className='text-[#EA9F77] text-[15px] font-bold'>Community Recipes</span>
+                  <span className='text-[#ea9f77] font-bold text-[15px]'>Community Recipes</span>
+                </label>
               </div>
               <div className='flex items-center leading-[0px]'>
-                <input type="checkbox" class=":focus-ring-0 border-[#2BA0CC] text-[#2BA0CC]" />
-                <BsPencilSquare className='text-[#2BA0CC] text-[18px] mr-2 ml-2' />
-                <span className='text-[#2BA0CC] text-[15px] font-bold'>My recipes</span>
+              <input type="checkbox" className="outline-none focus:outline-none hidden" defaultChecked={isMyRecipesChecked} onChange={(e) => handleNutrimChange(e,"3")} id='my-recipes' />
+                <label htmlFor='my-recipes' className='inline-flex items-center select-none cursor-pointer'>
+                {
+                  isMyRecipesChecked ? <span className='w-[16px] h-[16px] border-[1px] border-[#2BA0CC]'><Icon path={mdiCheck} color="#2BA0CC" size="14px" /></span> : <span className='w-[16px] h-[16px] border-[1px] border-[#d2d2d2]'></span>
+                }
+                <BiSolidEditAlt className='text-[#2BA0CC] text-[18px] mr-2 ml-2' />
+                  <span className='text-[#2BA0CC] font-bold text-[15px]'>My recipes</span>
+                </label>
               </div>
             </div>
             <div className='xl:flex-wrap flex mt-7 gap-6'>
@@ -106,7 +139,7 @@ export default function Recipes() {
                       <MdOutlineDiversity3 className='text-[#EA9F77] text-[18px] mr-2 ml-2' />
                       <span className='text-[#EA9F77] font-bold'>Community Recipes</span>
                     </div>
-                    <img src='/image/Tomato Sauce.jpg' className='sm:w-full' />
+                    <img src='/image/Tomato Sauce.jpg' className='sm:w-full rounded-l' />
                     <div className='w-full  flex flex-col justify-between'>
                       <div className='p-5 w-full gap-5 flex-col flex'>
                         <div className='gap-[10px] flex-col flex'>
@@ -160,7 +193,7 @@ export default function Recipes() {
                       <MdOutlineDiversity3 className='text-[#EA9F77] text-[18px] mr-2 ml-2' />
                       <span className='text-[#EA9F77] font-bold'>Community Recipes</span>
                     </div>
-                    <img src='/image/Tomato Sauce.jpg' className='sm:w-full' />
+                    <img src='/image/Tomato Sauce.jpg' className='sm:w-full rounded-l' />
                     <div className='w-full flex flex-col justify-between'>
                       <div className='p-5 w-full gap-5 flex-col flex'>
                         <div className='gap-[10px] flex-col flex'>

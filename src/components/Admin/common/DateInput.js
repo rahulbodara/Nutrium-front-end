@@ -38,8 +38,8 @@ const DateInput = (props) => {
             <div className={`${props?.labelWidth}  flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}>{props?.label}</div>
             <div className='flex-grow border-[1px_solid_#EEEEEE] border-l-0 flex select-none'>
                 <div className='select-field flex-grow border-[#EEEEEE] relative border-[1px]'>
-                    <span className='p-[10px] inline-block'>
-                        <select name="day" id="day" className='w-auto outline-none bg-transparent'>
+                    <span className='p-[10px] '>
+                        <select name="day" id="day" className='w-auto p-0 border-none focus:ring-0 bg-transparent'>
                             <option></option>
                             {
                                 daysArray?.map((item,index) => (
@@ -48,7 +48,7 @@ const DateInput = (props) => {
                             }
                         </select>
                         &nbsp;
-                        <select name="month" id="month" className='w-auto outline-none bg-transparent'>
+                        <select name="month" id="month" className='w-auto border-none focus:ring-0 outline-none bg-transparent'>
                             <option></option>
                             {
                                 monthsArray?.map((item,index) => (
@@ -57,7 +57,7 @@ const DateInput = (props) => {
                             }
                         </select>
                         &nbsp;
-                        <select name="year" id="year" className='w-auto outline-none bg-transparent'>
+                        <select name="year" id="year" className='w-auto border-none focus:ring-0 outline-none bg-transparent'>
                             <option></option>
                             {
                                 yearsArray?.map((item,index) => {
