@@ -31,13 +31,13 @@ const ContentHeader = (props) => {
                             <div className="flex border-[1px] border-[#eeeeee]">
                                 <Link href="#" className="text-[#db4965] font-[500] p-[6px_15px]">Trial period expired</Link>
                             </div>
-                            <Link href="#" className="bg-[#db4965] hover:bg-[#d83c5a] p-[6px_15px] text-white border-[1px] border-[#db4965]">Subscribe</Link>
-                            <div className='ml-[10px]'>
+                            <Link href={""} className="bg-[#db4965] inline lg:hidden hover:bg-[#d83c5a] p-[6px_15px] text-white border-[1px] border-[#db4965]">Subscribe</Link>
+                            <div className='ml-[10px] block 2lg:hidden'>
                                 <button className='p-[3px_10px] bg-white border text-[#676A6C] flex items-center border-solid border-[#EEEEEE]'>
                                     <Icon path={mdiHelpCircle} size="24px" color='#1ab394' />
                                 </button>
                             </div>
-                            <div className='ml-[10px]'>
+                            <div className='ml-[10px] block 2lg:hidden'>
                                 <button className='p-[3px_10px] bg-white border text-[#676A6C] flex items-center border-solid border-[#EEEEEE]'>
                                     <Icon path={mdiWalletGiftcard} size="24px" color='#1ab394' />
                                 </button>
@@ -48,8 +48,8 @@ const ContentHeader = (props) => {
                 <div className='topbar-menu'>
                     <ul className='pl-0 mb-0 list-none '>
                         <li className='mr-[20px]'>
-                            <Link href="#" className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
-                                <Image src={userIcon} width={100} className='block h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
+                            <Link href={""} className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
+                                <Image src={userIcon} width={100} className='block 2lg:hidden h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
                                 <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span>
                                 <BiCaretDown />
                             </Link>

@@ -13,7 +13,7 @@ const Sidebar = (props) => {
 
   return (
     <>
-      <nav className={`${isCollapsed === true ? "w-[70px] " : "w-[220px] md:left-[220px]" } z-[2040] md:bg-[#2f4050] bg-[#2f4050] md:w-[220px] md:-left-[220px] md:block md:transition-[0.5s] border-[#2f4050] overflow-hidden h-full fixed shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_1px_5px_0_rgba(145,145,145,0.12)]`}>
+      <nav className={`${isCollapsed === true ? "w-[70px] md:w-[220px] md:left-0" : "w-[220px] " } z-[2040] md:bg-[#2f4050] md:-left-[220px] bg-[#2f4050] md:w-[220px]  md:block md:transition-[0.5s] border-[#2f4050] overflow-hidden h-full fixed shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_1px_5px_0_rgba(145,145,145,0.12)]`}>
           <div className="sidebar-collapse">
             <ul className='pl-0 mb-0 list-none '>
               <li className="nav-header relative block p-0 bg-[#293846]">
@@ -22,8 +22,11 @@ const Sidebar = (props) => {
                     <div className={`${isCollapsed === true ? 'hidden' : 'p-[38px]'}`}>
                       <div className='bg-nav-logo bg-contain bg-no-repeat bg-center h-20'></div>
                     </div>
-                    <div className={`${isCollapsed === true ? 'min-h-[60px] py-[13px] block' : 'hidden'} text-center text-[18px] font-[600] text-white`}>
+                    <div className={`${isCollapsed === true ? 'min-h-[60px] py-[13px] block md:hidden' : 'hidden'} text-center text-[18px] font-[600] text-white`}>
                       <div className={`bg-small-heart bg-center bg-contain bg-no-repeat h-[30px]`}></div>
+                    </div>
+                    <div className={`${isCollapsed === true ? 'min-h-[60px] p-[38px] md:block' : 'md:hidden'} hidden text-center text-[18px] font-[600] text-white`}>
+                      <div className={`bg-nav-logo-mobile bg-center bg-contain bg-no-repeat h-[30px]`}></div>
                     </div>
                   </div>
                 </Link>
@@ -52,7 +55,8 @@ const Sidebar = (props) => {
                               </div>
                               {
                                 isCollapsed === true ?
-                                '':
+                                <span className={`flex-grow ml-[7px] hidden md:block tracking-[0.5px]`}>{item.title}</span>
+                                :
                                 <span className={`flex-grow ml-[7px] tracking-[0.5px]`}>{item.title}</span>
                                 
                               }
@@ -73,7 +77,9 @@ const Sidebar = (props) => {
                   <Icon path={mdiAlarmPlus} size="18px" color='white' />
                 </div>
                 {
-                  isCollapsed === true ? "" :
+                  isCollapsed === true ? 
+                  <span className='flex-grow ml-[7px] text-[13px] hidden md:block tracking-[0.5px] whitespace-pre'>Schedule appointment</span>
+                   :
                   <span className='flex-grow ml-[7px] text-[13px] tracking-[0.5px] whitespace-pre'>Schedule appointment</span>
                 }
               </Link>
@@ -84,7 +90,10 @@ const Sidebar = (props) => {
                   <Icon path={mdiAccountPlus} size="18px" color='white' />
                 </div>
                 {
-                  isCollapsed === true ? "" :
+                  isCollapsed === true ? 
+                <span className='flex-grow ml-[7px] text-[13px] hidden md:block tracking-[0.5px] whitespace-pre'>Register client</span>
+                  
+                  :
                 <span className='flex-grow ml-[7px] text-[13px] tracking-[0.5px] whitespace-pre'>Register client</span>
                 }
               </Link>
