@@ -28,7 +28,7 @@ const MobileInput = (props) => {
                 <div className='select-field flex-grow border-[#EEEEEE] relative border-[1px]'>
                     <input
                         type="text"
-                        className='w-full h-full outline-none pr-[24px] min-h-[38px] p-[10px]'
+                        className='w-full h-full border-none focus:ring-0 pr-[24px] min-h-[38px] p-[10px]'
                         onKeyDown={handleInput}
                         onFocus={handleFocus}
                         onBlur={handleBlur}

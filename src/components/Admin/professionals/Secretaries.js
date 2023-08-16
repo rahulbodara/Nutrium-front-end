@@ -22,7 +22,7 @@ const Secretaries = () => {
                     <input
                         type="text"
                         name="fullName"
-                        className="block border-[1px] border-[#e5e6e7] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none"
+                        className="block border-[1px] border-[#e5e6e7] focus:ring-0 py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none"
                         placeholder="Search workspaces"
                     />
                 </div>

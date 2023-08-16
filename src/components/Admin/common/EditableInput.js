@@ -28,7 +28,7 @@ const EditableInput = (props) => {
                 <div className='select-field flex-grow border-[#EEEEEE] relative border-[1px]'>
                     <input
                         type="text"
-                        className='w-full h-full outline-none pr-[24px] min-h-[38px] p-[10px]'
+                        className='w-full h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0'
                         onKeyDown={handleInput}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
