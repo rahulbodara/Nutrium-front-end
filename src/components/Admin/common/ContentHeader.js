@@ -34,7 +34,7 @@ const ContentHeader = (props) => {
                                 <Icon path={mdiBellOff} size="24px" color='#db4965' />
                             </button>
                         </div>
-                        <div className='ml-[10px] flex justify-center'>
+                        <div className='ml-[10px] flex justify-center sm:hidden'>
                             <div className='bg-white text-[#676a6c] flex items-center whitespace-nowrap cursor-pointer overflow-hidden'>
                                 <div className="flex border-[1px] border-[#eeeeee]">
                                     <Link href="#" className="text-[#db4965] font-[500] p-[6px_15px]">Trial period expired</Link>
@@ -102,15 +102,15 @@ const ContentHeader = (props) => {
                     </div>
                 </nav>
             </div>
-            <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow'>
+            <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow border-b-2 border-[#EA9F77]'>
                 <div className='flex'>
-                    <div className="w-1/2 relative min-h-[1px] h-auto px-[15px]">
+                    <div className="w-1/2 sm:w-full relative min-h-[1px] h-auto px-[15px]">
                         <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>
                         <div className='font-[100] text-[#888888]'>
                             <p>{text}</p>
                         </div>
                     </div>
-                    <div className="w-1/2  relative min-h-[1px] h-auto px-[15px]">
+                    <div className="w-1/2  relative min-h-[1px] h-auto px-[15px] sm:hidden">
                         <div className='text-right flex justify-end items-center'>
                             <div className='inline-block font-[100] mr-[5px] text-[18px]'>Currently at</div>
                             <div className='inline-block font-[400]'>

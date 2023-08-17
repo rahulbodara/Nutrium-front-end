@@ -3,9 +3,33 @@ import React from 'react'
 import ClosableSelect from '@/components/Admin/common/ClosableSelect';
 import Icon from '@mdi/react'
 import { mdiCheck, mdiClock, mdiClose, mdiEmailOutline, mdiHeartBoxOutline, mdiHeartOutline, mdiHelp, mdiRun, mdiSwapHorizontal } from '@mdi/js'
+import 'select2/dist/css/select2.min.css';
+import $ from 'jquery';
+import 'select2';
+
+import { useEffect, useRef } from 'react'
+
+export default function FollowUp(props) {
+
+  const selectRef = useRef(null);
+  useEffect(() => {
+    const $select = $(selectRef.current);
+
+    $('.select2-container--default .select2-results__option--selected').css('background-color', 'red !important');
 
 
-export default function FollowUp() {
+    $select.select2(
+      {
+        minimumResultsForSearch: Infinity,
+      }
+    );
+
+    return () => {
+      $select.off('select2:open');
+      $select.off('select2:close');
+      $select.select2('destroy');
+    };
+  });
 
   const professionOptions = [
     {
@@ -36,14 +60,32 @@ export default function FollowUp() {
       <MainLayout head={"Follow-up"} text={"Follow up on your clients and check their latest progress"}>
         {/* <Dropdown /> */}
         <div className='lg:flex-wrap flex pt-5 gap-7'>
-          <div className='w-[50%] lg:w-full bg-[#fff] rounded lg:order-2'>
+          <div className='w-[50%] lg:w-full bg-[#fff] rounded lg:order-2 sm:-mx-[15px]'>
             <div className='flex items-center px-5 pt-5 pb-4'>
               <div className='flex-grow'>
                 <h4 className='text-[20px]'>Activities</h4>
                 <div className='text-[12px] text-[#888888] opacity-[0.6]'>Check your clients' updates</div>
               </div>
-              <div>
-                <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[0px] sm:min-w-[0px] py-0 px-0" searchOption={false} option={professionOptions} className="mt-0 w-full h-[38px]" />
+              <div className='w-[20%]'>
+                <div className='flex flex-grow'>
+                  <div className='relative flex-grow select-none border-[#EEEEEE]'>
+                    <select
+                      ref={selectRef}
+                      className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
+                    >
+                      <option>hello1</option>
+                      <option>hello2</option>
+                      <option>hello3</option>
+                      <option>hello4</option>
+                      {/* {props?.option?.map((item, index) => (
+                        <>
+                          <option key={index} value={item.value} >{item.option}</option>
+                        </>
+                      ))} */}
+                    </select>
+                  </div>
+                </div>
+                {/* <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[0px] sm:min-w-[0px] py-0 px-0" searchOption={false} option={professionOptions} className="mt-0 w-full h-[38px]" /> */}
               </div>
             </div>
             <div className='border-b-1 p-5 pt-[5px]'>
@@ -80,8 +122,8 @@ export default function FollowUp() {
                       <a><Icon path={mdiClock} className='bg-[#1C84CE] p-[5px] leading-[1] rounded-[50%] inline-block w-[28px] ' /></a>
                     </div>
                     <div className='ml-[10px]'>
-                      <div className='text-[14px] leading-[14px]'>60 min</div>
-                      <div className='text-[11px] leading-[11px]'>Duration</div>
+                      <div className='text-[14px] leading-[14px] font-[600] text-[#676A6C]'>60 min</div>
+                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C]'>Duration</div>
                     </div>
                   </div>
                   <div className='mt-[10px] py-2 px-3 rounded mr-[10px] bg-[#fff] flex border md:grow'>
@@ -89,8 +131,8 @@ export default function FollowUp() {
                       <a><Icon path={mdiClock} className='bg-[#EA9F77] p-[5px] leading-[1] rounded-[50%] inline-block w-[28px] ' /></a>
                     </div>
                     <div className='ml-[10px]'>
-                      <div className='text-[14px] leading-[14px]'>240 kcal</div>
-                      <div className='text-[11px] leading-[11px]'>Energy</div>
+                      <div className='text-[14px] leading-[14px] font-[600] text-[#676A6C]'>240 kcal</div>
+                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C]'>Energy</div>
                     </div>
                   </div>
                   <div className='mt-[10px] py-2 px-3 rounded mr-[10px] bg-[#fff] flex border md:grow'>
@@ -98,8 +140,8 @@ export default function FollowUp() {
                       <a><Icon path={mdiRun} className='bg-[#1AB394] p-[5px] leading-[1] rounded-[50%] inline-block w-[28px] ' /></a>
                     </div>
                     <div className='ml-[10px]'>
-                      <div className='text-[14px] leading-[14px]'>2.05 km</div>
-                      <div className='text-[11px] leading-[11px]'>Distance</div>
+                      <div className='text-[14px] leading-[14px] font-[600] text-[#676A6C]'>2.05 km</div>
+                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C]'>Distance</div>
                     </div>
                   </div>
                 </div>
@@ -372,7 +414,7 @@ export default function FollowUp() {
               </div>
             </div>
           </div>
-          <div className='w-[50%] lg:w-full bg-[#fff] rounded lg:order-1'>
+          <div className='w-[50%] lg:w-full bg-[#fff] h-1/2 pb-[15px] rounded lg:order-1 sm:-mx-[15px]'>
             <div className='flex items-center px-5 pt-5 pb-4'>
               <div className='flex-grow'>
                 <h4 className='text-[20px]'>Clients' status</h4>
