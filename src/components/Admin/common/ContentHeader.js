@@ -8,16 +8,23 @@ import userIcon from '../../../../public/image/admin-user-icon.png'
 import { useSelector } from 'react-redux'
 import { Menu, Transition } from '@headlessui/react'
 import { ProfileMenuData } from '../ProfileMenuData'
+import { useRouter } from 'next/router'
 
 const ContentHeader = (props) => {
     const { isCollapsed, setIsCollapsed, head, text } = props;
     // const userData = useSelector((item) => item?.auth?.userData[0])
 
     const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter()
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLogout = () =>{
+        localStorage.removeItem("token");
+        router.push('/accounts/signIn');
+    }
 
     return (
         <>
@@ -89,9 +96,11 @@ const ContentHeader = (props) => {
                                         ))
                                     }
                                     <div className='h-[2px] my-[9px] overflow-hidden bg-[#e5e5e5]'></div>
-                                    <a className='flex items-center p-[3px_20px] hover:text-black cursor-pointer text-[14px] rounded-[3px] leading-[25px] m-[4px] text-left whitespace-nowrap'>
-                                        <Icon path={mdiLogout} size="18px" className='mr-[5px]' /> Sign out
-                                    </a>
+                                    <div>
+                                        <a className='flex items-center p-[3px_20px] hover:text-black cursor-pointer text-[14px] rounded-[3px] leading-[25px] m-[4px] text-left whitespace-nowrap' onClick={handleLogout}>
+                                            <Icon path={mdiLogout} size="18px" className='mr-[5px]' /> Sign out
+                                        </a>
+                                    </div>
                                 </Menu.Items>
                             </Transition>
                         </Menu>

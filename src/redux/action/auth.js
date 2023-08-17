@@ -1,7 +1,6 @@
-import * as Types from '../constants/actionTypes'
+import * as Types from '../constants/actionTypes';
 import baseUrl from '../../util/baseUrl';
 import axios from 'axios';
-
 
 export const login = (data) => {
   return async (dispatch) => {
@@ -20,7 +19,6 @@ export const login = (data) => {
   };
 };
 
-
 export const signUp = (data) => {
   return async (dispatch) => {
     try {
@@ -37,7 +35,6 @@ export const signUp = (data) => {
     }
   };
 };
-
 
 export const userData = () => {
   return async (dispatch) => {
@@ -78,4 +75,24 @@ export const forgotPassword = (data) => {
   };
 };
 
-
+export const updateProfile = () => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.put(`${baseUrl}/professionals`, { headers });
+      return dispatch({
+        type: Types.UPDATE_PROFILE,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.UPDATE_PROFILE_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};

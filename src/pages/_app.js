@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }) {
           <Provider store={store}>
             <ToastContainer
               position="top-right"
-              autoClose={5000}
+              autoClose={3000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick
