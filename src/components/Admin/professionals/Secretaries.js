@@ -11,10 +11,11 @@ const Secretaries = () => {
                     </h4>
                     <div className='text-[12px] text-[#888888] opacity-[0.6]'>Assign new secretaries with access to your calendar and client list</div>
                 </div>
-                <div className='flex'>
+                <div className='flex items-center group cursor-pointer'>
                     <a>
                         <Icon path={mdiPlus} size="24px" />
                     </a>
+                    <div className='ml-[5px] text-[1.1em] text-[#888888] opacity-[0.7] hidden group-hover:block'>Add workplace</div>
                 </div>
             </div>
             <div className='p-[20px] pt-0'>
