@@ -81,7 +81,6 @@ const EditableInput = (props) => {
         ) : (
           <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
             <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} />
-            edit
           </div>
         )}
       </div>

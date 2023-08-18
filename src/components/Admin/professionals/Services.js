@@ -25,7 +25,7 @@ const Services = () => {
                     <div>
                         <div className='-mx-[15px] flex'>
                             <div className='w-1/3 relative px-[15px] lg:flex-wrap lg:w-full'>
-                                <div className='h-[92px] group flex p-[20px] items-center my-[5px] text-[#888888] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer'>
+                                <div className='h-[92px] group flex p-[20px] items-center my-[5px] text-[#888888] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer' onClick={()=> setIsOpen(true)}>
                                     <span className='w-[70px]'>
                                         <Icon path={mdiPlusBox} className="text-[#888888] group-hover:text-[#1ab394] mx-auto" size={"36px"} />
                                     </span>
