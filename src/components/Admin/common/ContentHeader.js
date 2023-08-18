@@ -11,7 +11,7 @@ import { ProfileMenuData } from '../ProfileMenuData'
 
 const ContentHeader = (props) => {
     const { isCollapsed, setIsCollapsed, head, text } = props;
-    const userData = useSelector((item) => item?.auth?.userData[0])
+    // const userData = useSelector((item) => item?.auth?.userData[0])
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -66,7 +66,7 @@ const ContentHeader = (props) => {
                         <Menu>
                             <Menu.Button onClick={toggleMenu} className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
                                 <Image src={userIcon} width={35} className='block 2lg:hidden h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
-                                <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span>
+                                {/* <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span> */}
                                 <BiCaretDown />
                             </Menu.Button>
 
@@ -98,15 +98,15 @@ const ContentHeader = (props) => {
                     </div>
                 </nav>
             </div>
-            <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow border-b-2 border-[#EA9F77]'>
-                <div className='flex'>
-                    <div className="w-1/2 sm:w-full relative min-h-[1px] h-auto px-[15px]">
+            <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow'>
+                <div className='2lg:block flex'>
+                    <div className="2lg:w-full w-1/2 relative min-h-[1px] h-auto pr-[15px]">
                         <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>
                         <div className='font-[100] text-[#888888]'>
                             <p>{text}</p>
                         </div>
                     </div>
-                    <div className="w-1/2  relative min-h-[1px] h-auto px-[15px] sm:hidden">
+                    <div className="2lg:w-full w-1/2 relative min-h-[1px] h-auto pl-[15px] 2lg:hidden block">
                         <div className='text-right flex justify-end items-center'>
                             <div className='inline-block font-[100] mr-[5px] text-[18px]'>Currently at</div>
                             <div className='inline-block font-[400]'>
