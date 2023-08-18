@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { Menu, Transition } from '@headlessui/react'
 import { BiCaretDown } from 'react-icons/bi'
 import { Fragment, useState } from 'react'
-import { ProfileMenuData } from '@/components/Admin/ProfileMenuData'
+import { FollowUpMenuData } from '@/components/Admin/FollowUpMenuData'
 import Link from 'next/link'
 
 
@@ -42,25 +42,25 @@ export default function Home() {
             <div className='action ml-2 flex items-center justify-center text-center text-[#fff] bg-[#EA9F77] py-2 px-4 rounded shadow-[0px_2px_4px_rgba(0,0,0,0.1)]'>Resend confirmation email</div>
           </div>
         </div>
-        <div className='pt-6 pr-0 pb-32 pl-0 sm:flex-wrap flex gap-7'>
-          <div className='w-4/6 sm:w-full sm:order-1'>
+        <div className='pt-6 pr-0 pb-32 pl-0 xl:flex-wrap flex gap-7 md:gap-0 md:mx-[-15px]'>
+          <div className='w-4/6 xl:w-full xl:order-1'>
             <div>
-              <div className='bg-[#fff] relative mb-6 mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px]'>
+              <div className='bg-[#fff] relative mb-6 mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] sm:rounded-none'>
                 <div className='px-5 pb-[15px] pt-[20px] flex items-center'>
                   <div className='grow'>
                     <h4 className='m-0 text-[20px] font-[400] leading-[1.1]'>Next appointment
                       <small className='text-[#DB4965] text-[0.6em] font-[300] mt-auto mr-0 mb-[2px] ml-[5px]'> (Delayed)</small>
                     </h4>
-                    <div className='font-[100] text-[12px] text-[#888888]'>Your appointment should have started a month ago</div>
+                    <div className='font-[100] text-[12px] text-[#888888] opacity-[0.8]'>Your appointment should have started a month ago</div>
                   </div>
                   <div className='text-[1.1em] font-[300] sm:hidden'>15 of July
                     <span> at
-                      <span className='text-[1.2em] font-[400]'> 9:00 AM</span>
+                      <span className='text-[1.2em] font-[400] text-[#676A6C]'> 9:00 AM</span>
                     </span>
                   </div>
                 </div>
-                <div className='pt-[5px] p-5 flex'>
-                  <div className='my-0 -mx-5 border-l border-[#486d66] sm:w-full w-4/6 pl-[18px]'>
+                <div className='pt-[5px] p-5 md:pb-0 flex md:block'>
+                  <div className='mr-5 my-0 -mx-5 border-l-2 sm:border-[#EA9F77] border-[#1AB394] md:w-full w-4/6 pl-[18px]'>
                     <div className='flex'>
                       <div className='mr-[15px] relative'>
                         <a>
@@ -76,19 +76,21 @@ export default function Home() {
                         <div className='h-[18px] font-[300]'>Occupation example</div>
                         <div className='mt-1 font-[300]'>
                           <div className='text-[85%]'>
-                            <div className='gap-[4px] flex'>
-                              <a><Icon path={mdiCalendarToday} className='mb-0 rounded-[50%] bg-[#E0FAF1] text-[#12896D] mr-[3px] flex justify-center items-center w-[16px] h-[16px]' /></a>
+                            <div className='gap-[4px] flex items-center'>
+                              <a className='rounded-[50%] bg-[#E0FAF1] mr-[3px] flex justify-center items-center w-[17px] h-[17px]'>
+                                <Icon path={mdiCalendarToday} className='mb-0  text-[#12896D] w-[12px] h-[12px]' />
+                              </a>
                               No appointments yet
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className='sm:p-0 sm:mt-5 sm:-mr-5 sm:mb-0 sm:-ml-5 hidden md:flex'>
-                      <a className='bg-[#E0FAF1] text-[#1AB394] mb-[5px] border-none py-2 px-[10px] uppercase font-[600] rounded-[3px] block w-full text-[12px] leading-[1.5] text-center align-middle'>Start</a>
-                    </div>
                   </div>
-                  <div className='w-1/3 pr-0 sm:hidden'>
+                  <div className='p-0 mt-5 -mr-5 mb-0 -ml-5 hidden md:flex'>
+                    <a className='bg-[#E0FAF1] text-[#1AB394] border-none py-2 px-[10px] uppercase font-[600] rounded-[3px] block w-full text-[12px] leading-[1.5] text-center align-middle'>Start</a>
+                  </div>
+                  <div className='w-1/3 pr-0 md:hidden'>
                     <a className='mt-[5px] bg-[#1AB394] border-[#1AB394] text-[#fff] rounded-[3px] block w-full py-[5px] px-[10px] text-[12px] leading-[1.5] mb-0 text-center font-[400] border'>Start</a>
                     <div className='topbar-menu mt-[12px]'>
                       {/* <ul className='pl-0 mb-0 list-none '>
@@ -103,7 +105,7 @@ export default function Home() {
                       <Menu>
                         <Menu.Button onClick={toggleMenu} className="relative w-full justify-center flex items-center rounded border text-[14px] min-h-[30px] text-[#a7b1c2] font-[600]">
                           {/* <Image src={userIcon} width={35} className='block 2lg:hidden h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" /> */}
-                          <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>heloo</span>
+                          <span className='text-[#888888] font-normal text-[12px] text-ellipsis overflow-hidden whitespace-nowrap'>More options</span>
                           <BiCaretDown />
                         </Menu.Button>
 
@@ -117,44 +119,41 @@ export default function Home() {
                           leaveTo="transform opacity-0 scale-95"
 
                         >
-                          <Menu.Items className="absolute z-10 w-full justify-center right-[120px] max-w-[277px] border-[1px] w-100 origin-top-right divide-y divide-gray-100 rounded-[3px] bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Items className="absolute z-10 w-full mt-[1px] justify-center right-[170px] max-w-[182px] border-[1px] w-100 origin-top-right divide-y divide-gray-100 rounded-[3px] bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             {
-                              ProfileMenuData && ProfileMenuData.map((item, index) => (
+                              FollowUpMenuData && FollowUpMenuData.map((item, index) => (
                                 <div key={index}>
-                                  <Link href={item.route} className='flex items-center p-[3px_20px]  hover:text-black cursor-pointer text-[14px] rounded-[3px] leading-[25px] m-[4px] text-left whitespace-nowrap'>
+                                  <Link href={item.route} className='flex items-center p-[0px_20px] hover:text-[#262626] cursor-pointer text-[12px] rounded-[3px] leading-[25px] m-[4px] text-left whitespace-nowrap hover:bg-[#f5f5f5] '>
                                     {item.title}
                                   </Link>
                                 </div>
                               ))
                             }
-
-
                           </Menu.Items>
                         </Transition>
                       </Menu>
                     </div>
                   </div>
-
-
                 </div>
               </div>
-              <div className='bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px]'>
+              <div className='bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] md:hidden'>
                 <div className='px-5 pt-5 pb-[15px] flex items-center'>
                   <div className='grow'>
                     <h4 className='m-0 text-[20px] font-[400] leading-[1.1]'>Future appointments</h4>
-                    <div className='font-[100] text-[12px] text-[#888888]'>Check your future appointments and clients</div>
+                    <div className='font-[100] text-[12px] text-[#888888] opacity-[0.8]'>Check your future appointments and clients</div>
                   </div>
                   <div>
                     <a className='text-[#676A6C]'>
                       <Icon path={mdiPlus} className='inline-block leading-[1] w-[25px]' />
+                      <div className='absolute'></div>
                     </a>
                   </div>
                 </div>
                 <div className='p-5 pt-0'>
                   <div className='relative'>
                     <div className='absolute top-0 bottom-0 left-0 right-0 z-[1] flex justify-center items-center'>
-                      <div className='grow-[3]'></div>
-                      <div className='grow-[4] text-center '>
+                      <div className='flex-[3_0_0]'></div>
+                      <div className='flex-[4_0_0] text-center '>
                         <div className='text-[20px]'>This list is empty</div>
                         <div>You haven't scheduled additional appointments.</div>
                         <a className='font-[600] leading-[30px] text-[#1AB394]'>Schedule appointment</a>
@@ -198,13 +197,13 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className='w-1/3 sm:w-full sm:order-2'>
-            <div>
-              <div className='w-full'>
-                <div className='bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px]'>
+          <div className='w-1/3 xl:w-full xl:order-2'>
+            <div className='xl:flex xl:flex-wrap'>
+              <div className='w-full xl:w-[48%] xl:mr-[30px] lg:mr-0 lg:w-full'>
+                <div className='bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] md:hidden'>
                   <div className='pt-5 pr-5 pb-[15px] pl-5'>
                     <h4 className='m-0 text-[20px] font-[400] leading-[1.1]'>Statistics of the week</h4>
-                    <div className='font-[400] text-[12px] text-[#888888] '></div>
+                    <div className='font-[400] text-[12px] text-[#888888] opacity-[0.8]'>Check the most important statistics of the week</div>
                   </div>
                   <div className='p-5 pt-0'>
                     <div>
@@ -234,8 +233,8 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className='w-full'>
-                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px]'>
+              <div className='w-full xl:w-[48%] lg:w-full'>
+                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] sm:rounded-none'>
                   <div className='px-5 pt-5 pb-[15px]'>
                     <div className='m-0 text-[20px] font-[400] leading-[1.1] flex '>Open conversations
                       <div className='ml-auto '>
@@ -244,7 +243,7 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                    <div className='font-[100] text-[12px] text-[#888888]'></div>
+                    <div className='font-[100] text-[12px] text-[#888888] opacity-[0.8]'>Last received conversations</div>
                   </div>
                   <div className='p-5 pt-0'>
                     <div>
@@ -270,15 +269,15 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className='w-full'>
-                <div className='border-t-2 border-[#EA9F77] text-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px]'>
+              <div className='w-full xl:w-[48%] lg:w-full'>
+                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] sm:rounded-none'>
                   <div className='px-5 pt-5 pb-[15px]'>
                     <div className='m-0 text-[20px] font-[400] leading-[1.1] flex text-[#676A6C]'>Follow-up
                       <div className='ml-auto'>
                         <a className='flex items-center '><Icon path={mdiLaunch} className='text-[1.1em] w-[20px] ' /></a>
                       </div>
                     </div>
-                    <div className='font-[100] text-[12px] text-[#888888]'>Latest activities and logs of your clients</div>
+                    <div className='font-[100] text-[12px] text-[#888888] opacity-[0.8]'>Latest activities and logs of your clients</div>
                   </div>
                   <div className='p-5 pt-0'>
                     <div>
@@ -319,7 +318,7 @@ export default function Home() {
                             </div>
                           </a>
                         </div>
-                        <div className='m-0 pb-[10px] mt-[10px] border-b border-[#e7eaec] overflow-hidden'>
+                        <div className='m-0 mt-[10px] overflow-hidden'>
                           <a className='text-[#676A6C] flex'>
                             <div className='w-[30px] h-[30px] min-w-[30px] min-h-[30px] flex mr-[7px] relative overflow-hidden'>
                               <img src='/image/female_thumb.png' className='w-[30px] h-[30px] border-none rounded-[50%] max-w-full block align-middle' />
