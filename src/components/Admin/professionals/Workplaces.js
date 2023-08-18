@@ -3,10 +3,12 @@ import { mdiEye, mdiPlus, mdiPlusBox } from '@mdi/js'
 import Icon from '@mdi/react'
 import { MdVerified } from 'react-icons/md'
 import AddNewWorkplace from '../Profile/AddNewWorkplace'
+import Editworkplace from '../Profile/EditWorkplace'
 
 
 const Workplaces = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     return (
         <>
             <div className='bg-white my-[25px] card-shadow rounded-[5px]'>
@@ -35,7 +37,7 @@ const Workplaces = () => {
                     <div>
                         <div className='-mx-[15px] flex lg:flex-wrap'>
                             <div className='w-1/3 relative px-[15px] lg:w-full'>
-                                <div className='h-[140px] group flex p-[20px] items-start my-[5px] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer'>
+                                <div className='h-[140px] group flex p-[20px] items-start my-[5px] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer' onClick={()=> setIsEditModalOpen(true)}>
                                     <div className='w-[70px] h-[100px] m-[0_30px_0_10px]'>
                                         <div className='flex relative w-[72px] h-[72px] rounded-full items-center justify-center border border-[#eeeeee]'>
                                             <img src='/image/leaf.png' alt='leaf' className='rounded-full max-w-[70px] max-h-[70px] h-auto' />
@@ -57,7 +59,7 @@ const Workplaces = () => {
                                 </div>
                             </div>
                             <div className='w-1/3 relative px-[15px] lg:w-full'>
-                                <div className='h-[140px] group flex p-[20px] items-center my-[5px] text-[#888888] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer'>
+                                <div className='h-[140px] group flex p-[20px] items-center my-[5px] text-[#888888] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer' onClick={()=> setIsOpen(true)}>
                                     <span className='w-[70px]'>
                                         <Icon path={mdiPlusBox} className="text-[#888888] group-hover:text-[#1ab394] mx-auto" size={"36px"} />
                                     </span>
@@ -71,6 +73,7 @@ const Workplaces = () => {
                 </div>
             </div>
             <AddNewWorkplace isOpen={isOpen} setIsOpen={setIsOpen}  />
+            <Editworkplace isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen}  />
         </>
     )
 }

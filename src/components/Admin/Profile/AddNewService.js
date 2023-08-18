@@ -106,8 +106,8 @@ const AddNewService = ({ isOpen, setIsOpen }) => {
                                             <div className='service-modal'>
                                                 <SelectField searchOption={false} option={serviceType} label="Type of service" />
                                                 <SelectField searchOption={false} option={clientType} label="Type of clients" className="mt-[7px]" />
-                                                <InputField className="mt-[7px]" label="Name of the service" placeholder="e.g. Appointment and grocery shopping" />
-                                                <InputField className="mt-[7px]" label="Duration" />
+                                                <InputField labelStyle="min-w-[160px] flex-basis-[160px]" className="mt-[7px]" label="Name of the service" placeholder="e.g. Appointment and grocery shopping" />
+                                                <InputField labelStyle="min-w-[160px] flex-basis-[160px]" className="mt-[7px]" label="Duration" />
                                                 <PriceField className="mt-[7px]" label="Pricing" placeholder="Add the price" />
                                                 <SelectField searchOption={false} option={selectWorkplaces} label="Workplaces" className="mt-[7px]" />
                                             </div>

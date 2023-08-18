@@ -36,7 +36,7 @@ const MobileInput = (props) => {
             onKeyDown={handleInput}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            value={data.phoneNumber}
+            value={data?.phoneNumber}
           />
           {!isInputEmpty ? (
             <span className="absolute right-[4px] top-[26%] opacity-[0.7]">
