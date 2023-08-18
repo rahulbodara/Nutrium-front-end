@@ -424,3 +424,39 @@ h2 {
   padding: 3px 8px !important;
 }
 }
+.custom-tag .select2-selection__rendered , .custom-tag  .select2-selection.select2-selection--multiple{
+ display: flex !important;
+ align-items: center;
+
+}
+.custom-tag .select2-container--default.select2-container--focus .select2-selection--multiple{
+  border: none !important;
+  padding-bottom: 0;
+  padding-left: 6px ;
+}
+.custom-tag .select2-selection__rendered .select2-selection__choice{
+  font-size: 12px !important;
+  color: #676A6C !important;
+  word-break: break-word !important;
+  padding-bottom: 5px !important;
+  padding-top: 6px !important;
+  padding-right: 6px !important;
+  border: 1px solid #DDDDDD !important;
+}
+.custom-tag .select2{
+  height: 100%;
+}
+.custom-progress-bar {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+  background-color: #23c6c8;
+  animation: progress-bar-stripes 2s linear infinite;
+}
+@keyframes progress-bar-stripes {
+  0% {
+    background-position: 40px 0;
+}
+100% {
+  background-position: 0 0;
+}
+}

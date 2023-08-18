@@ -5,7 +5,7 @@ export const ProfileMenuData = [
         id:'1',
         title: 'Your profile' ,
         icon : mdiAccount,
-        route:'profile',
+        route:'/admin/professionals/profile',
     },
     {
         id:'2',

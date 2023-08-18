@@ -1,89 +1,21 @@
 import React, { Fragment } from 'react'
 import Icon from '@mdi/react'
 import { Menu, Transition } from '@headlessui/react'
-import { mdiAccount, mdiCakeVariant, mdiCamera, mdiChevronDown, mdiContentSave, mdiInformationOutline, mdiPhone, mdiPrinter } from '@mdi/js'
+import { mdiContentSave, mdiInformationOutline, mdiPrinter } from '@mdi/js'
 import { BsFilter } from 'react-icons/bs'
 import Steps from '@/components/Admin/Clients/Information/Steps'
 import MainLayout from '@/components/Admin/MainLayout'
+import ClientDetail from '@/components/Admin/Clients/ClientDetail'
+import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe'
 
 const Information = () => {
     return (
         <div>
             <MainLayout head={"Client profile"} text={"Check and update information about the client"}>
                 <div className='mt-[-20px]'>
-                    <div className=' mx-[-15px]'>
-                        <div className='p-[24px] shadow-box1 bg-[#FFFFFF]'>
-                            <div className='md:block flex items-center'>
-                                <div className='flex justify-between items-center'>
-                                    <div className='min-w-[80px] h-[80px] group overflow-hidden mr-[24px] relative rounded-full'>
-                                        <img src="/image/male_thumb.png" className='min-w-[80px] h-[80px] rounded-full' />
-                                        <button className='text-[35px] text-white absolute bg-black/[30%] group-hover:flex hidden transition duration-300 items-center justify-center inset-0'>
-                                            <Icon path={mdiCamera} size={1.5} />
-                                        </button>
-                                    </div>
-                                    <button className='mb-[16px] hidden md:block'>
-                                        <Icon className='text-[#AAAAAA] text-[16px]' path={mdiAccount} size={1} />
-                                    </button>
-                                </div>
-                                <div className='w-full md:mt-[24px] mt-0'>
-                                    <div className='flex justify-between w-full items-center'>
-                                        <h2 className='mb-2 text-[20px]'>Maulik Kanani</h2>
-                                        <button className='mb-[16px] md:hidden block'>
-                                            <Icon className='text-[#AAAAAA] text-[16px]' path={mdiAccount} size={1} />
-                                        </button>
-                                    </div>
-                                    <div className='2lg:block flex justify-between items-center'>
-                                        <div className='md:block flex gap-[24px]'>
-                                            <div className='flex items-center w-auto 2lg:w-1/2 md:w-full'>
-                                                <Icon className='text-[#1AB394] mr-[8px]' path={mdiPhone} size={0.7} />
-                                                <span className='text-[#888888] font-[300] text-[14px]'>094 275 99 609</span>
-                                            </div>
-                                            <div className='flex items-center w-auto 2lg:w-1/2 md:w-full'>
-                                                <Icon className='text-[#1AB394] mr-[8px]' path={mdiCakeVariant} size={0.8} />
-                                                <span className='text-[#888888] text-[14px]'>01/30/2018 (5 years)</span>
-                                            </div>
-                                        </div>
-                                        <div className='2lg:hidden flex items-center justify-end'>
-                                            <button className='text-[#1AB394] border border-[#1AB394] hover:text-white rounded-[3px] px-[10px] py-[5px] trnasition duration-200 hover:bg-[#1AB394]'>
-                                                Send message
-                                            </button>
-                                            <button className=' border border-[#1AB394] text-white rounded-[3px] ml-2 px-[10px] py-[5px] hover:bg-[#18a689] hover:border-[#18a689] trnasition duration-200 bg-[#1AB394]'>
-                                                Schedule appointment
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='hidden 2lg:flex items-center w-full mt-[24px]'>
-                                <button className='text-[#1AB394] border border-[#1AB394] hover:text-white rounded-[3px] px-[10px] py-[5px] trnasition duration-200 hover:bg-[#1AB394] w-full'>
-                                    Send message
-                                </button>
-                                <button className=' border border-[#1AB394] text-white rounded-[3px] ml-2 px-[10px] py-[5px] hover:bg-[#18a689] hover:border-[#18a689] trnasition duration-200 bg-[#1AB394] w-full'>
-                                    Schedule appointment
-                                </button>
-                            </div>
-                        </div>
-                        <div className='bg-[#FAFAFB] hover:bg-[#f2f2f4] text-[13px] cursor-pointer text-[#717171] flex items-center justify-center gap-1 h-[40px] border border-[#EEEEEE] py-[11px] px-[24px]'>
-                            <span>More Details</span> <Icon path={mdiChevronDown} size={0.8} />
-                        </div>
-                    </div>
+                    <ClientDetail />
                     <div className='pt-[25px] pb-[125px]'>
-                        <div className='rounded-[5px] overflow-hidden bg-white flex shadow-box1'>
-                            <div className='w-[54px] flex items-center justify-center bg-[#EA9F77] p-[15px] text-white'>
-                                <Icon path={mdiInformationOutline} size={1} />
-                            </div>
-                            <div className='px-[35px] flex-1 2lg:block flex items-center justify-between py-[20px]'>
-                                <div className='basis-[80%]'>
-                                    <h3 className='text-[20px] leading-[20px] text-[#EA9F77] mb-2.5'>It's not possible to edit the current client's information</h3>
-                                    <span className='text-[12px] text-[#888888]'>
-                                        You can't edit any client because your subscription expired.
-                                    </span>
-                                </div>
-                                <button className='text-white basis-[20%] active:shadow-innershdaow py-[6px] px-[12px] hover:bg-[#e8966a] bg-[#EA9F77] text-[14px] border border-[#EA9F77] rounded-[3px] mt-0 2lg:mt-[10px] 2lg:w-full w-auto'>
-                                    Subscribe now
-                                </button>
-                            </div>
-                        </div>
+                        <ClientSubscribe />
                         <div className='mt-[25px]'>
                             <Steps />
                         </div>
