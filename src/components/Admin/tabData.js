@@ -8,42 +8,42 @@ export const tabTitle = [
         title: "Homepage",
         icon: mdiHome,
         feature:false,
-        route: "home"
+        route: "/admin/professionals/home"
     },
     {
         id: 2,
         title: "Calendar",
         icon: mdiCalendar,
         feature:false,
-        route: "appointments"
+        route: "/admin/professionals/appointments"
     },
     {
         id: 3,
         title: "Clients",
         icon: mdiAccountMultiple,
         feature:false,
-        route: "patients"
+        route: "/admin/professionals/patients"
     },
     {
         id: 4,
         title: "Messages",
         icon: mdiMessageReplyText,
         feature:true,
-        route: "conversations"
+        route: "/admin/professionals/conversations"
     },
     {
         id: 5,
         title: "Follow-up",
         icon: mdiHeart,
         feature:true,
-        route: "follow_up"
+        route: "/admin/professionals/follow_up"
     },
     {
         id: 6,
         title: "Website and blog",
         icon: mdiEarth,
         feature:false,
-        route: "website"
+        route: "/admin/professionals/website"
     },
     {
         id: 7,

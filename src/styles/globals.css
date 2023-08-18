@@ -10,9 +10,13 @@
   --fa-font-brands: normal 400 1em/1 'Font Awesome 6 Brands';
 }
 
-body::-webkit-scrollbar {
-  display: none;
+body {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+/* body::-webkit-scrollbar {
+  display: none;
+} */
 
 .ps__rail-y {
   background-color: red;
@@ -25,15 +29,17 @@ body::-webkit-scrollbar {
     --background-end-rgb: 0, 0, 0;
   }
 }
+
 @font-face {
   font-family: 'Geomanist-Book';
-  src: url('/public/font/geomanist-regular-webfont.woff');
+  src: url('/font/geomanist-regular-webfont.woff') format('woff');
   font-display: swap;
 }
 
 
 body {
-  font-family: 'Geomanist-Book', sans-serif !important; 
+  font-family: 'Geomanist-Book', sans-serif !important;
+  /* font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif; */
   color: #676a6c;
   font-size: 13px;
 }
@@ -47,7 +53,11 @@ h2 {
 }
 
 .card-shadow {
-  box-shadow: 0 2px 2px 0 rgba(144,144,144,0.14),0 3px 1px -2px transparent,0 1px 5px 0 rgba(145,145,145,0.12);
+  box-shadow: 0 2px 2px 0 rgba(144, 144, 144, 0.14), 0 3px 1px -2px transparent, 0 1px 5px 0 rgba(145, 145, 145, 0.12);
+}
+
+.select2-container {
+  z-index: 9999;
 }
 
 .admin-select-field .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -64,11 +74,11 @@ h2 {
   display: block;
 }
 
-.admin-select-field .select2-container--default .selection .select2-selection  {
+.admin-select-field .select2-container--default .selection .select2-selection {
   height: 100% !important;
 }
 
-.admin-select-field .select2-selection--single:focus{
+.admin-select-field .select2-selection--single:focus {
   border: none !important;
 }
 
@@ -77,7 +87,7 @@ h2 {
   outline: 0;
 }
 
-.admin-select-field  .select2-selection__rendered {
+.admin-select-field .select2-selection__rendered {
   line-height: 36px !important;
 }
 
@@ -108,7 +118,7 @@ h2 {
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: url(/image/searchField-icon.png) no-repeat 100% -22px,linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0;
+  background: url(/image/searchField-icon.png) no-repeat 100% -22px, linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0;
 }
 
 .select2-container--default .select2-results>.select2-results__options {
@@ -121,7 +131,7 @@ h2 {
 }
 
 .clr-grn {
-   color: #1ab394;
+  color: #1ab394;
 }
 
 .clr-org {
@@ -141,8 +151,16 @@ h2 {
   height: 34px !important;
 }
 
-.select2-selection--single:focus{
+.select2-selection--single:focus {
   border: 1px solid #1ab394 !important;
+}
+
+.service-modal .select2-selection--single:focus {
+  border: none !important;
+} 
+
+.service-modal .select2-container--default .select2-selection--single {
+  border: none;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
@@ -168,10 +186,12 @@ h2 {
   background-color: transparent !important;
   font-size: 13px;
 }
+
 .select2-results__option {
   color: #6e7c91 !important;
 
 }
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: #6e7c91 !important;
   font-size: 13px;
@@ -190,6 +210,10 @@ h2 {
 .select2-search__field {
   border-radius: 6px;
   height: 34px;
+}
+
+.select2-dropdown .select2-dropdown {
+  width: 159.328px !important;
 }
 
 .select2-selection__choice {
@@ -235,28 +259,30 @@ h2 {
   .benefits-container .slick-track {
     width: 100% !important;
   }
-  
+
   .benefits-container .slick-slide {
     width: 33.33% !important;
   }
-  
+
 }
 
 
-.testimonials .slick-prev, .testimonials .slick-next ,
-.info-card .slick-prev, .info-card .slick-next{
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    background: url(../../public/icon/sliderIcon_right.svg);
-    -webkit-box-shadow: 0 0 50px -5px rgba(0,0,0,0.3);
-    box-shadow: 0 0 50px -5px rgba(0,0,0,0.3);
-    cursor: pointer;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    content: "" !important;
-    z-index: 1;
+.testimonials .slick-prev,
+.testimonials .slick-next,
+.info-card .slick-prev,
+.info-card .slick-next {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  background: url(../../public/icon/sliderIcon_right.svg);
+  -webkit-box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  content: "" !important;
+  z-index: 1;
 }
 
 .testimonials .slick-next {
@@ -265,7 +291,7 @@ h2 {
   z-index: 222222;
 }
 
-.info-card .slick-next{
+.info-card .slick-next {
   right: -5px;
   transform: translate(0, -50%);
   z-index: 222222;
@@ -274,46 +300,53 @@ h2 {
 .testimonials .slick-next:before,
 .testimonials .slick-prev:before,
 .info-card .slick-next:before,
-.info-card .slick-prev:before{
+.info-card .slick-prev:before {
   content: "" !important;
 }
 
-.testimonials .slick-prev{
+.testimonials .slick-prev {
   left: -25px;
   transform: translate(0, -50%) rotate(180deg);
 }
 
-.info-card .slick-prev{
+.info-card .slick-prev {
   left: -5px;
   transform: translate(0, -50%) rotate(180deg);
 }
 
-.testimonials .slick-prev:hover,.testimonials .slick-prev:focus,.testimonials .slick-next:hover,.testimonials .slick-next:focus,
-.info-card .slick-prev:hover,.info-card .slick-prev:focus,.info-card .slick-next:hover,.info-card .slick-next:focus {
+.testimonials .slick-prev:hover,
+.testimonials .slick-prev:focus,
+.testimonials .slick-next:hover,
+.testimonials .slick-next:focus,
+.info-card .slick-prev:hover,
+.info-card .slick-prev:focus,
+.info-card .slick-next:hover,
+.info-card .slick-next:focus {
   color: transparent;
   outline: none;
   background: url(../../public/icon/sliderIcon_right.svg) !important;
 
 }
 
-.testimonials .slick-list{
+.testimonials .slick-list {
   border-radius: 5px;
   box-shadow: 0 0 50px -5px rgb(0 0 0 / 30%);
 }
-.info-card .slick-list{
+
+.info-card .slick-list {
   border-radius: 5px;
   box-shadow: none;
 }
 
 .divider_bg {
-  background: linear-gradient(to right, rgba(255,255,255,0), #fff, rgba(255,255,255,0));
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
 }
 
 .about-page .language {
-  background: linear-gradient(to right, rgba(18,137,110,0.3), rgba(26,179,149,0.3));
+  background: linear-gradient(to right, rgba(18, 137, 110, 0.3), rgba(26, 179, 149, 0.3));
 }
 
-.more-feature .slick-slide > :first-child {
+.more-feature .slick-slide> :first-child {
   margin: 20px;
   width: auto;
   display: flex;
@@ -325,8 +358,8 @@ h2 {
 }
 
 @media screen and (max-width:1299px) {
-  
-  .text-ellips{
+
+  .text-ellips {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -348,3 +381,46 @@ h2 {
   }
 }
 
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.curly_arrow{
+  background-image: url(../../public/image/curly-arrow.svg);
+  height: 100%;
+  margin-right: 5px;
+  align-self: flex-start;
+  flex: 3 0 0;
+  background-position-x: right;
+    background-position-y: center;
+    background-size: initial;
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+
+@media (max-width:500px){
+  .notification_bar .notification_bar_box{
+    align-items: stretch !important;
+  }.notification_bar .notification_bar_box .action {
+    flex: 1;
+  }
+.calender-main .rbc-toolbar:nth-child(2) {
+  display: none;
+}
+
+.calender-main .rbc-active {
+  background-color: #1AB394 !important;
+  border-color: #1AB394 !important;
+  color: #FFFFFF;
+}
+.calender-main .rbc-toolbar-label{
+  font-size: 22px;
+}
+.rbc-btn-group button{
+  font-size: 13px;
+  padding: 3px 8px !important;
+}
+}

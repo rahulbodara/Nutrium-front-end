@@ -1,6 +1,9 @@
 import MainLayout from '@/components/Admin/MainLayout'
 import PersonalInformation from '@/components/Admin/professionals/PersonalInformation'
 import ProfessionalInformation from '@/components/Admin/professionals/ProfessionalInformation'
+import Secretaries from '@/components/Admin/professionals/Secretaries'
+import Services from '@/components/Admin/professionals/Services'
+import Workplaces from '@/components/Admin/professionals/Workplaces'
 import React from 'react'
 
 function ProfessionalProfile() {
@@ -11,6 +14,16 @@ function ProfessionalProfile() {
                     <ProfessionalInformation />
                     <PersonalInformation />
                 </div>
+                <div>
+                    <Workplaces />
+                </div>
+                <div>
+                    <Services />
+                </div>
+                <div>
+                    <Secretaries />
+                </div>
+                
             </div>
         </MainLayout>
     )

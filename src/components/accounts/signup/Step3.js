@@ -4,14 +4,14 @@ import MultiSelect from "@/components/common/Multiselect";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { signUpSchemaStep3, signUpSchemaStep3Student } from '@/schema/signup';
 import CustomSelect from './customSelect';
-import { useSignUpUserMutation } from '@/store/api/myAccount';
 import {toast} from 'react-toastify'
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { signUp } from '@/redux/action/auth';
 const Step3 = ({ handleSubmit, handleMultiSelectChange,userData }) => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const profession = userData?.profession
-  console.log("🚀 ~ file: Step3.jsx:10 ~ Step3 ~ userData:", profession === "Student")
-  const [signUpUser, { isLoading }] = useSignUpUserMutation();
 
   
   const nutrium = [
@@ -50,8 +50,8 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange,userData }) => {
   const HandleForm = async (values) => {
     // setData({...data,...values})
     const body = {...userData,...values}
-    const response = await signUpUser(body) 
-    console.log("🚀 ~ file: Step3.jsx:51 ~ HandleForm ~ response:", response?.data?.success === true)
+    const response = await dispatch(signUp(body))
+    console.log("🚀 ~ file: Step3.jsx:51 ~ HandleForm ~ response:", response)
     if(response?.data?.success === true){
       localStorage.setItem("token",response?.data?.token)
       toast.success(response?.data?.message)
