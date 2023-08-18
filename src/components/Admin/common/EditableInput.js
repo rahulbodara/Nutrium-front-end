@@ -15,7 +15,7 @@ const EditableInput = (props) => {
   //   }
   // };
   const handleInput = (event) => {
-    const value = event.target.value;
+    const value = event?.target?.value;
     onInputChange(value); // Pass the input name and value to the callback
     setIsInputEmpty(value === '');
   };

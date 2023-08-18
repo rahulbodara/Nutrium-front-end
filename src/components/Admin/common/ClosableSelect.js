@@ -87,6 +87,7 @@ const ClosableSelect = (props) => {
         >
           <select
             ref={selectRef}
+            
             className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
             onChange={handleSelectChange}
             defaultValue={selectedValue}
