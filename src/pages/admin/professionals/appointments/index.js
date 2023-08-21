@@ -1,10 +1,18 @@
 import AppointmentSystem from '@/components/Admin/Appointments/AppointmentSystem'
 import SheduleAppointment from '@/components/Admin/Appointments/SheduleAppointment'
 import MainLayout from '@/components/Admin/MainLayout'
-import React from 'react'
+import React, { useState } from 'react'
+
+import CalenderSchedule from '@/components/Admin/Appointments/CalenderSchedule'
+import GeneralInfo from '@/components/Admin/Appointments/GeneralInfo'
+
+
+
 
 export default function Appointments() {
+  const [open, setOpen] = useState(false)
   return (
+
     <>
 
       <MainLayout head={"Your calendar"} text={"Check information about your calendar"}>
@@ -13,8 +21,15 @@ export default function Appointments() {
           <div>
             <SheduleAppointment />
           </div>
+          <div>
+            <CalenderSchedule />
+          </div>
+          <div>
+            <GeneralInfo />
+          </div>
         </div>
       </MainLayout>
+
     </>
   )
 }

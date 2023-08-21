@@ -53,7 +53,7 @@ const CustomToolbar = ({ label, date, view, onNavigate, onView }) => {
   );
 };
 
-const CustomCalendar = () => {
+const CustomCalendar = (props) => {
   const [currentView, setCurrentView] = useState('month'); // Initial view
   const [date, setDate] = useState(new Date()); // Initialize with the current date
 
@@ -76,7 +76,7 @@ const CustomCalendar = () => {
         events={[]}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: props?.height }}
         components={{
           toolbar: (props) => (
             <CustomToolbar

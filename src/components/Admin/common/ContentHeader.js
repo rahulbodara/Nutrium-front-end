@@ -107,7 +107,7 @@ const ContentHeader = (props) => {
                     </div>
                 </nav>
             </div>
-            <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow'>
+            <div className={`breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow ${router.pathname.includes('professionals/follow_up') ? 'border-b-[2px] border-[#EA9F77] ': ''} `}>
                 <div className='2lg:block flex'>
                     <div className="2lg:w-full w-1/2 relative min-h-[1px] h-auto pr-[15px]">
                         <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>
