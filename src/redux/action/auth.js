@@ -96,3 +96,47 @@ export const updateProfile = () => {
     }
   };
 };
+
+export const registerClient = (data) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.post(`${baseUrl}/client`, data, { headers });
+      return dispatch({
+        type: Types.CLIENT_DATA,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.CLIENT_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const clientData = () => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.get(`${baseUrl}/client`, { headers });
+      return dispatch({
+        type: Types.CLIENT_DATA,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.CLIENT_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};

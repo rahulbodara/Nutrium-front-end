@@ -15,6 +15,9 @@ export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const FORGOT_PASSWORD_FAILURE = 'FORGOT_PASSWORD_FAILURE';
 
 //get user profile types
-
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_PROFILE_FAILURE = 'UPDATE_PROFILE_FAILURE';
+
+//client types
+export const CLIENT_DATA = "CLIENT_DATA"
+export const CLIENT_DATA_FAILURE = "CLIENT_DATA_FAILURE"
