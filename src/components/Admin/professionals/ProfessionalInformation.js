@@ -4,7 +4,7 @@ import ClosableSelect from '../common/ClosableSelect';
 import EditableInput from '../common/EditableInput';
 import Icon from '@mdi/react';
 import { mdiCamera } from '@mdi/js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '@/redux/action/auth';
 
 function ProfessionalInformation() {
@@ -42,7 +42,8 @@ function ProfessionalInformation() {
   ];
 
   const userData = useSelector((item) => item?.auth?.userData[0]);
-  const [formData, setFormData] = useState(userData);
+  const [formData, setFormData] = useState({ ...userData });
+  const dispatch = useDispatch();
   console.log('formData----------->', formData);
   useEffect(() => {
     userData;
@@ -57,6 +58,7 @@ function ProfessionalInformation() {
   // };
 
   const handleSubmit = () => {
+    console.log('submit button clicked!!!');
     dispatch(updateProfile(formData)); // Dispatch the updateProfile action with updated data
   };
 
@@ -118,8 +120,8 @@ function ProfessionalInformation() {
                       professionCardNumber: value,
                     }))
                   }
-                  onSubmit={handleSubmit}
-                  onCancel={handleCancel}
+                  handleSubmit={handleSubmit}
+                  handleCancel={handleCancel}
                 />
                 <ClosableSelect
                   labelWidth="basis-[240px] min-w-[240px]"
