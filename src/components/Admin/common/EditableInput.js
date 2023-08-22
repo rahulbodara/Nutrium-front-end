@@ -8,6 +8,7 @@ const EditableInput = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const [inputValue, setInputValue] = useState(props?.initialValue || '');
+  console.log("🚀 ~ file: EditableInput.js:11 ~ EditableInput ~ inputValue:", inputValue)
 
   // const handleInput = (event) => {
   //   if (event.target) {
@@ -66,7 +67,7 @@ const EditableInput = (props) => {
                 path={mdiCheck}
                 size="18px"
                 color="#1ab394"
-                onClick={props?.handleSubmit}
+                onClick={()=>{props?.handleSubmit();handleBlur();}}
               />
             </div>
             <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
@@ -74,13 +75,13 @@ const EditableInput = (props) => {
                 path={mdiClose}
                 size="18px"
                 color={'#DB4965'}
-                onClick={props?.handleCancel}
+                onClick={()=>{props?.handleCancel;handleBlur()}}
               />
             </div>
           </>
         ) : (
           <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
-            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} />
+            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} onClick={handleFocus}/>
           </div>
         )}
       </div>

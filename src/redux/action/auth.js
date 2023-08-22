@@ -75,7 +75,7 @@ export const forgotPassword = (data) => {
   };
 };
 
-export const updateProfile = () => {
+export const updateProfile = (data) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem('token');
@@ -83,7 +83,7 @@ export const updateProfile = () => {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
       };
-      const response = await axios.put(`${baseUrl}/professionals`, { headers });
+      const response = await axios.put(`${baseUrl}/professionals`,data,{ headers });
       return dispatch({
         type: Types.UPDATE_PROFILE,
         data: response?.data,
