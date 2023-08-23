@@ -224,7 +224,7 @@ const Patients = () => {
                 Clients added in the last 6 weeks
               </span>
               <div>
-                <NewClientsChart />
+                <NewClientsChart height={100} />
               </div>
             </div>
             <div className="bg-white shadow-box1 rounded p-[20px]">

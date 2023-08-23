@@ -468,3 +468,13 @@ h2 {
   background-position: 0 0;
 }
 }
+
+.row::before,
+.row::after {
+  display: table;
+  content: " ";
+}
+
+.row::after {
+  clear: both;
+}
