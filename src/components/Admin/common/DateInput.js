@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import moment from "moment";
 const DateInput = (props) => {
   const [isFocused, setIsFocused] = useState(false);
-  const dob = moment(props.userData.dateOfBirth, "DD-MM-YYYY");
+  const dob = moment(props?.userData?.dateOfBirth, "DD-MM-YYYY");
   const now = moment();
   const formattedDOB = dob.format("DD/MM/YYYY");
   const formattedNow = now.format("DD/MM/YYYY");

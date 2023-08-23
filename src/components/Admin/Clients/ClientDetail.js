@@ -33,16 +33,14 @@ const ClientDetail = () => {
     const workplace = [
         {
             id: 1,
-            option: 'All workplaces',
+            name: 'All workplaces',
             value: 'All workplaces'
         },
         {
             id: 2,
-            option: 'online',
+            namex: 'online',
             value: 'online'
         },
-
-
     ]
     return (
         <div>

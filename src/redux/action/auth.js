@@ -140,3 +140,92 @@ export const clientData = () => {
     }
   };
 };
+
+export const WorkplaceDataCreation = (data) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.post(`${baseUrl}/workplaces`,data,{headers});
+      return dispatch({
+        type: Types.WORKPLACE_DATA,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.WORKPLACE_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const GetAllWorkplace = () => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.get(`${baseUrl}/workplaces`,{headers});
+      return dispatch({
+        type: Types.WORKPLACE_DATA,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.WORKPLACE_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const GetIndividualWorkplace = (id) => {
+  console.log("ID-------->",id)
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.get(`${baseUrl}/workplaces/${id}`,{headers});
+      return dispatch({
+        type: Types.GET_INDIVIDUAL_WORKPLACE_SUCCES,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.WORKPLACE_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const WorkplaceDataEdit = (data,id) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.put(`${baseUrl}/workplaces/${id}`,data,{headers});
+      return dispatch({
+        type: Types.WORKPLACE_DATA,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.WORKPLACE_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};

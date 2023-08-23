@@ -12,6 +12,7 @@ import $ from "jquery";
 import "select2";
 
 const ClosableSelect = (props) => {
+  console.log("PROPS",props.option)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const selectRef = useRef(null);
   const [selectedValue, setSelectedValue] = useState(props.initialValue || "");
@@ -98,7 +99,6 @@ const ClosableSelect = (props) => {
         >
           <select
             ref={selectRef}
-            
             className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
             onChange={handleSelectChange}
             defaultValue={selectedValue}
@@ -106,7 +106,7 @@ const ClosableSelect = (props) => {
             {props?.option?.map((item, index) => (
               <>
                 <option key={index} value={item.value}>
-                  {item.option}
+                  {item.name}
                 </option>
               </>
             ))}

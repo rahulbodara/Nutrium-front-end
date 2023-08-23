@@ -16,17 +16,17 @@ function PersonalInformation() {
   const genderOption = [
     {
       id: 1,
-      option: 'Male',
+      name: 'Male',
       value: 'Male',
     },
     {
       id: 2,
-      option: 'Female',
+      name: 'Female',
       value: 'Female',
     },
     {
       id: 3,
-      option: 'Other',
+      name: 'Other',
       value: 'Other',
     },
   ];

@@ -13,27 +13,27 @@ import PriceField from '../common/PriceField';
 const serviceType = [
     {
         id: 1,
-        option: 'Choose a service',
+        name: 'Choose a service',
         value: 'Choose a service'
     },
     {
         id: 2,
-        option: 'Face-to-face appointment',
+        name: 'Face-to-face appointment',
         value: 'Face-to-face appointment'
     },
     {
         id: 3,
-        option: 'Online appointment',
+        name: 'Online appointment',
         value: 'Online appointment'
     },
     {
         id: 4,
-        option: 'Home appointment',
+        name: 'Home appointment',
         value: 'Home appointment'
     },
     {
         id: 5,
-        option: 'Other',
+        name: 'Other',
         value: 'Other'
     }
 ]
@@ -41,17 +41,17 @@ const serviceType = [
 const clientType = [
     {
         id: 1,
-        option: 'Available to all clients',
+        name: 'Available to all clients',
         value: 'Available to all clients'
     },
     {
         id: 2,
-        option: 'New clients',
+        name: 'New clients',
         value: 'New clients'
     },
     {
         id: 3,
-        option: 'Recurring clients',
+        name: 'Recurring clients',
         value: 'Recurring clients'
     }
 ]
