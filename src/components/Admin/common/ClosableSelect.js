@@ -1,15 +1,10 @@
-import Icon from "@mdi/react";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  mdiChevronDown,
-  mdiChevronUp,
-  mdiCloseCircleOutline,
-  mdiCheck,
-  mdiClose,
-} from "@mdi/js";
-import "select2/dist/css/select2.min.css";
-import $ from "jquery";
-import "select2";
+import Icon from '@mdi/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { mdiChevronDown, mdiChevronUp, mdiCloseCircleOutline } from '@mdi/js';
+import 'select2/dist/css/select2.min.css';
+import $ from 'jquery';
+import 'select2';
+import { useSelector } from 'react-redux';
 
 const ClosableSelect = (props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
