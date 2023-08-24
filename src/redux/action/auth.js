@@ -140,3 +140,47 @@ export const clientData = () => {
     }
   };
 };
+
+export const getClientById = (clientId) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.get(`${baseUrl}/client/${clientId}`, { headers });
+      return dispatch({
+        type: Types.CLIENT_BY_ID,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.CLIENT_BY_ID_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const deleteClient = (clientId) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      };
+      const response = await axios.delete(`${baseUrl}/client/${clientId}`, { headers });
+      return dispatch({
+        type: Types.CLIENT_BY_ID,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.CLIENT_BY_ID_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};

@@ -21,3 +21,7 @@ export const UPDATE_PROFILE_FAILURE = 'UPDATE_PROFILE_FAILURE';
 //client types
 export const CLIENT_DATA = "CLIENT_DATA"
 export const CLIENT_DATA_FAILURE = "CLIENT_DATA_FAILURE"
+
+//client types
+export const CLIENT_BY_ID = "CLIENT_BY_ID"
+export const CLIENT_BY_ID_FAILURE = "CLIENT_BY_ID_FAILURE"
