@@ -1,8 +1,9 @@
-import * as Types from '../constants/actionTypes';
+import * as Types from "../constants/actionTypes";
 
 const initialState = {
   userData: [],
   clientData: [],
+  individualWorkplace: null,
   error:null,
 };
 
@@ -32,6 +33,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.data, 
+      };
+    case Types.GET_INDIVIDUAL_WORKPLACE_SUCCES:
+      return {
+        ...state,
+        individualWorkplace: action.data,
       };
     default:
       return state;

@@ -13,12 +13,12 @@ import Switcher from '../common/Switcher';
 const workplaceOption = [
     {
         id: 1,
-        option: 'All workplaces',
+        name: 'All workplaces',
         value: 'All workplaces'
     },
     {
         id: 2,
-        option: 'online',
+        name: 'online',
         value: 'online'
     }
 ];

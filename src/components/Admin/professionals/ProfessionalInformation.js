@@ -11,32 +11,32 @@ function ProfessionalInformation() {
   const professionOptions = [
     {
       id: 1,
-      option: 'Nutritionist',
+      name: 'Nutritionist',
       value: 'Nutritionist',
     },
     {
       id: 2,
-      option: 'Dietitian',
+      name: 'Dietitian',
       value: 'Dietitian',
     },
     {
       id: 3,
-      option: 'Nutritional Therapist',
+      name: 'Nutritional Therapist',
       value: 'Nutritional Therapist',
     },
     {
       id: 4,
-      option: 'Health Coach',
+      name: 'Health Coach',
       value: 'Health Coach',
     },
     {
       id: 5,
-      option: 'Student',
+      name: 'Student',
       value: 'Student',
     },
     {
       id: 6,
-      option: 'India',
+      name: 'India',
       value: 'India',
     },
   ];
