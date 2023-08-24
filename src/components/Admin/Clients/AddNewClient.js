@@ -12,27 +12,35 @@ import {
   mdiPhone,
 } from '@mdi/js';
 import Icon from '@mdi/react';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoCloseSharp } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
-import { registerClient } from '@/redux/action/auth';
-import { useDispatch } from 'react-redux';
+import { registerClient, GetAllWorkplace } from '@/redux/action/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { addNewClient } from '@/schema/client';
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState('');
   const [formData, setFormData] = useState({});
+  console.log(formData,"formDataformdata")
   
   const dispatch = useDispatch();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values) => {
+    console.log("🚀 ~ file: AddNewClient.js:32 ~ handleSubmit ~ values:", values)
     try {
-      const formattedDateOfBirth = startDate.toLocaleDateString('en-GB');
+      // const formattedDateOfBirth = startDate.toLocaleDateString('en-GB');
+      const dateParts = values.dateOfBirth.split('-');
+      const formattedDateOfBirth = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
       const updatedFormData = {
-        ...formData,
+        ...values,
         dateOfBirth: formattedDateOfBirth,
       };
+      console.log(formattedDateOfBirth,"formattedDateOfBirthformattedDateOfBirth")
+ 
       const response = await dispatch(registerClient(updatedFormData)).then((res) => {
         toast.error(res?.data?.data?.message);
         return res;
@@ -49,6 +57,10 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  useEffect(() => {
+    isOpen && dispatch(GetAllWorkplace())
+  }, [isOpen]);
+const workSpaceData = useSelector((state) => state.auth.workplaceData)
 
   return (
     <div>
@@ -93,6 +105,12 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                       appointment
                     </span>
                   </div>
+                  <Formik
+                    initialValues={{fullName: '', dateOfBirth: '', gender: 'Male', workplace: 'All', occupation: '', country: 'All', zipcode: '', phoneNumber: '', email: ''}}
+                    validationSchema={addNewClient}
+                    onSubmit={(values) => handleSubmit(values)}
+                  >
+            <Form>
                   <div className="px-[30px] pb-[20px]">
                     <div className="grid gap-x-[30px] gap-y-[15px] grid-cols-2">
                       <div className="col-span-2">
@@ -109,10 +127,14 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
                             <Icon path={mdiAccount} size={0.7} />
                           </div>
-                          <input
+                          <Field
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="fullName"
-                            onChange={handlechange}
+                          />
+                          <ErrorMessage
+                            name="fullName"
+                            component="div"
+                            className="text-red-500"
                           />
                         </div>
                       </div>
@@ -133,12 +155,12 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <select
                             className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="gender"
-                            onChange={handlechange}
                           >
                             <option>Male</option>
                             <option>Female</option>
                             <option>Other</option>
                           </select>
+                          <ErrorMessage name="gender" component="div" className="text-red-500" />
                         </div>
                       </div>
                       <div className="">
@@ -152,11 +174,15 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <select
                             className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="workplace"
-                            onChange={handlechange}
                           >
-                            <option>All workplaces</option>
-                            <option>Globalia</option>
-                            <option>globaliya 11</option>
+                          <option>All workplaces</option>
+                            {
+                              workSpaceData?.map((data) => {
+                                return (
+                                  <option>{data.name}</option>
+                                )
+                              })
+                            }
                           </select>
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
                             <Icon path={mdiInformationOutline} size={0.6} />
@@ -177,14 +203,14 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
                             <Icon path={mdiCalendar} size={0.7} />
                           </div>
-
-                          <DatePicker
-                            className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]"
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
+                           <Field type="date" name="dateOfBirth" className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]" />
+                          <ErrorMessage
+                            name="dateOfBirth"
+                            component="div"
+                            className="text-red-500"
                           />
+                          </div>
                         </div>
-                      </div>
                       <div className="">
                         <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
                           Occupation
@@ -193,10 +219,14 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
                             <Icon path={mdiClipboardAccount} size={0.7} />
                           </div>
-                          <input
+                          <Field
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="occupation"
-                            onChange={handlechange}
+                          />
+                          <ErrorMessage
+                            name="occupation"
+                            component="div"
+                            className="text-red-500"
                           />
                         </div>
                       </div>
@@ -211,7 +241,6 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <select
                             className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="country"
-                            onChange={handlechange}
                           >
                             <option>All workplaces</option>
                             <option>Globalia</option>
@@ -227,10 +256,14 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
                             <Icon path={mdiMapMarker} size={0.7} />
                           </div>
-                          <input
+                          <Field
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="zipcode"
-                            onChange={handlechange}
+                          />
+                          <ErrorMessage
+                            name="zipcode"
+                            component="div"
+                            className="text-red-500"
                           />
                         </div>
                       </div>
@@ -245,10 +278,14 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <div className="border h-[34px] w-[43px] ml-[-1px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
                             <span>+91</span>
                           </div>
-                          <input
+                          <Field
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="phoneNumber"
-                            onChange={handlechange}
+                          />
+                          <ErrorMessage
+                            name="phoneNumber"
+                            component="div"
+                            className="text-red-500"
                           />
                         </div>
                       </div>
@@ -263,7 +300,11 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                           <input
                             className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="email"
-                            onChange={handlechange}
+                          />
+                          <ErrorMessage
+                            name="email"
+                            component="div"
+                            className="text-red-500"
                           />
 
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
@@ -290,12 +331,15 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
                       Cancel
                     </button>
                     <button
+                    type="submit"
                       className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
-                      onClick={handleSubmit}
+                      // onClick={handleSubmit}
                     >
                       Register client
                     </button>
                   </div>
+                  </Form>
+                  </Formik>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

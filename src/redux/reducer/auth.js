@@ -5,6 +5,7 @@ const initialState = {
   clientData: [],
   individualWorkplace: null,
   error:null,
+  workplaceData: [],
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +40,12 @@ export default (state = initialState, action) => {
         ...state,
         individualWorkplace: action.data,
       };
+    case Types.WORKPLACE_DATA:
+      return {
+        ...state,
+        workplaceData: action.data,
+        error: null,
+      }
     default:
       return state;
   }

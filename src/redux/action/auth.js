@@ -273,3 +273,25 @@ export const deleteClient = (clientId) => {
     }
   };
 };
+
+// export const getWorkspace = () => {
+//   return async(dispatch) => {
+//     try {
+//       const token = window.localStorage.getItem('token');
+//       const headers = {
+//         'Content-Type': 'application/json',
+//         Authorization: `${token}`,
+//       };
+//       const response = await axios.get(`${baseUrl}/workplaces`, {headers})
+//       return dispatch({
+//         type: Types.WORKPLACE_DATA,
+//         data: response?.data
+//       })
+//     } catch (err) {
+//       return dispatch({
+//         type: Types.WORKPLACE_DATA_FAILURE,
+//         data: err.response,
+//       });
+//     }
+//   }
+// }
