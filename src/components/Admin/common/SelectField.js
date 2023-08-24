@@ -5,6 +5,27 @@ import 'select2';
 
 const SelectField = (props) => {
     const selectRef = useRef(null);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // if (name.includes(".")) {
+        //   const [parentName, childName] = name.split(".");
+        //   props.setFormData((prevFormData) => ({
+        //     ...prevFormData,
+        //     [parentName]: {
+        //       ...prevFormData[parentName],
+        //       [childName]: value,
+        //     },
+        //   }));
+        // } else {
+            const select = $(selectRef.current);
+            select.value = value;
+            console.log("🚀 ~ file: SelectField.js:22 ~ handleChange ~ select.value:", select.value)
+          props.setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+          }));
+        // }
+      };
     useEffect(() => {
         const $select = $(selectRef.current);
 
@@ -32,11 +53,14 @@ const SelectField = (props) => {
                 <div className='relative flex-grow select-none border border-[#EEEEEE]'>
                     <select
                         ref={selectRef}
+                        name={props.name}
                         className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
-                    >
+                        value={props.value ? props.value: ''}
+                        handleChange={handleChange}
+                    > 
                         {props?.option?.map((item, index) => (
                             <>
-                                <option key={index} value={item.value} >{item.option}</option>
+                                <option key={index} value={item.value}>{item.name}</option>
                             </>
                         ))}
                     </select>

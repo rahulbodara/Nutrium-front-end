@@ -8,7 +8,7 @@ import CountrySelect from "../common/ContrySelect";
 import InputField from "../common/InputField";
 import Switcher from "../common/Switcher";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { WorkplaceDataCreation } from "@/redux/action/auth";
+import { GetAllWorkplace, WorkplaceDataCreation } from "@/redux/action/auth";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -44,6 +44,7 @@ const AddNewWorkplace = ({ isOpen, setIsOpen }) => {
       setIsOpen(false)
       if(response){
         toast.success("Workplace successfully created");
+        await dispatch(GetAllWorkplace())
         setFormData({
           name: "",
           country: "",

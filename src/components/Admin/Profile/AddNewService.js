@@ -65,7 +65,6 @@ const selectWorkplaces = [
 ];
 
 const AddNewService = ({ isOpen, setIsOpen }) => {
-
     return (
         <div className='modal'>
             <Transition appear show={isOpen} as={Fragment}>
