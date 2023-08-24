@@ -3,6 +3,7 @@ import Icon from "@mdi/react";
 import React, { useState } from "react";
 import moment from "moment";
 const DateInput = (props) => {
+  console.log("🚀 ~ file: DateInput.js:6 ~ DateInput ~ props:", props)
   const [isFocused, setIsFocused] = useState(false);
   const dob = moment(props?.userData?.dateOfBirth, "DD-MM-YYYY");
   const now = moment();

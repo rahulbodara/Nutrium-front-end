@@ -28,8 +28,8 @@ const CustomToolbar = ({ label, date, view, onNavigate, onView }) => {
   };
   return (
     <div className="rbc-toolbar-label flex items-center justify-between mb-[19px] custom-toolbar">
-      <div className='flex gap-[12px]'>
-        <div className='flex'>
+      <div className='flex sm:flex-col flex-row  gap-[12px]'>
+        <div className='flex '>
         <button className='border px-[7.5px] rounded-l-[0.25em]' onClick={handleNavigateBack}>
             <Icon path={mdiChevronLeft} size={1} />
           </button>

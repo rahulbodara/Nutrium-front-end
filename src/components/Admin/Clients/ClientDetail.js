@@ -258,7 +258,7 @@ const ClientDetail = ({ clientId }) => {
                 label="Birthdate"
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 closable={false}
-                clientData={clientData}
+                userData={clientData}
               />
             </div>
             <div>
