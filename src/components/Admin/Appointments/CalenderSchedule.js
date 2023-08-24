@@ -7,28 +7,6 @@ import { mdiPlus, mdiTimetable } from '@mdi/js'
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import CustomCalendar from '../Clients/Calander/CustomCalendar';
 
-const status = [
-    {
-        color: '#1AB394',
-        title: 'Compliant',
-        description: 'No significant changes were made to the meal plan'
-    },
-    {
-        color: '#EA9F77',
-        title: 'Struggling',
-        description: 'Some significant changes were made to the meal plan'
-    },
-    {
-        color: '#DB4965',
-        title: 'Not compliant',
-        description: 'A high number of significant changes were made to the meal plan'
-    },
-    {
-        color: '#DDDDDD',
-        title: 'Insufficient data',
-        description: 'The client did not register enough information'
-    },
-]
 
 const CalenderSchedule = () => {
     return (
@@ -48,7 +26,7 @@ const CalenderSchedule = () => {
                 </div>
                 <div className='calender-main p-[0_20px_20px]'>
                     <CustomCalendar height={379} />
-                    <div className='p-[10px_0px_5px] flex gap-[10px] text-[11px] justify-center'>
+                    <div className='p-[10px_0px_5px] flex-wrap flex gap-[10px] text-[11px] justify-center'>
                         <div className='flex items-center ml-[25px]'><span className='mr-[5px] bg-[#1AB394] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888]'>Confirmed</p></div>
                         <div className='flex items-center ml-[25px]'><span className='mr-[5px] bg-[#EA9F77] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888]'>Not confirmed</p></div>
                         <div className='flex items-center ml-[25px]'><span className='mr-[5px] bg-[#DB4965] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888]'>Canceled</p></div>

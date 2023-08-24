@@ -15,7 +15,9 @@ import ImportClients from '@/components/Admin/Clients/ImportClients';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { clientData } from '@/redux/action/auth';
+import { useRouter } from 'next/router';
 const Patients = () => {
+  const router = useRouter();
   let [isOpen, setIsOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
@@ -27,6 +29,14 @@ const Patients = () => {
     fetch();
   }, [dispatch]);
   const clients = useSelector((state) => state?.auth?.clientData);
+
+  const handleClientClick = (clientId) => {
+    router.push({
+      pathname: '/admin/professionals/patients/information',
+      query: { id: clientId },
+    });
+    dispatch(clientData(clientId));
+  };
   return (
     <div>
       <MainLayout
@@ -104,44 +114,45 @@ const Patients = () => {
 
                   {Array.isArray(clients) &&
                     clients.map((items, key) => (
-                      <Link href="/admin/professionals/patients/information">
-                        <div className="flex border rounded-[1px] border-solid border-[#e5e6e7] hover:border-[#1AB394] p-[10px]">
-                          <div className="relative">
-                            <div className="bg-[#1AB394] absolute end-0 bottom-0 w-[17px] h-[17px] rounded-full"></div>
-                            <Image
-                              src={clientPro}
-                              className="rounded-full max-h-[80px] max-w-[80px]"
-                            />
-                          </div>
-                          <div className="flex flex-col flex-1 pl-3">
-                            <h1 className="text-[16px] text-[#676a6c]">
-                              {items?.fullName}
-                            </h1>
-                            <span className="text-[13px] text-[#676a6c]">
-                              {items?.occupation}
+                      <div
+                        className="flex border rounded-[1px] border-solid border-[#e5e6e7] hover:border-[#1AB394] p-[10px]"
+                        onClick={() => handleClientClick(items?._id)}
+                      >
+                        <div className="relative">
+                          <div className="bg-[#1AB394] absolute end-0 bottom-0 w-[17px] h-[17px] rounded-full"></div>
+                          <Image
+                            src={clientPro}
+                            className="rounded-full max-h-[80px] max-w-[80px]"
+                          />
+                        </div>
+                        <div className="flex flex-col flex-1 pl-3">
+                          <h1 className="text-[16px] text-[#676a6c]">
+                            {items?.fullName}
+                          </h1>
+                          <span className="text-[13px] text-[#676a6c]">
+                            {items?.occupation}
+                          </span>
+                          <div className="flex gap-1 mb-1">
+                            <div className="bg-[#E0FAF1] flex items-center justify-center w-4 h-4 rounded-full">
+                              <MdLocationOn className="text-[#12896D]" />
+                            </div>
+                            <span className="text-[11px] text-[#676a6c]">
+                              {items?.workplace}
                             </span>
-                            <div className="flex gap-1 mb-1">
-                              <div className="bg-[#E0FAF1] flex items-center justify-center w-4 h-4 rounded-full">
-                                <MdLocationOn className="text-[#12896D]" />
-                              </div>
-                              <span className="text-[11px] text-[#676a6c]">
-                                {items?.workplace}
-                              </span>
-                            </div>
-                            <div className="flex gap-1">
-                              <div className="bg-[#E0FAF1] flex items-center justify-center w-4 h-4 rounded-full">
-                                <IoMdCalendar className="text-[#12896D] scale-x-[-1]" />
-                              </div>
-                              <span className="text-[11px] text-[#676a6c]">
-                                No appointments yet
-                              </span>
-                            </div>
                           </div>
-                          <div className="">
-                            <FaUser className="text-[#AAAAAA]" />
+                          <div className="flex gap-1">
+                            <div className="bg-[#E0FAF1] flex items-center justify-center w-4 h-4 rounded-full">
+                              <IoMdCalendar className="text-[#12896D] scale-x-[-1]" />
+                            </div>
+                            <span className="text-[11px] text-[#676a6c]">
+                              No appointments yet
+                            </span>
                           </div>
                         </div>
-                      </Link>
+                        <div className="">
+                          <FaUser className="text-[#AAAAAA]" />
+                        </div>
+                      </div>
                     ))}
 
                   <div
