@@ -44,7 +44,7 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
         color: individualWorkplace.color,
         associateAddress: individualWorkplace.isActive === 1 ? true : false,
         address: {
-          street: individualWorkplace.address.street,
+          street: individualWorkplace.address?.street,
           city: individualWorkplace.address.city,
           zipCode: individualWorkplace.address.zipCode,
         },
