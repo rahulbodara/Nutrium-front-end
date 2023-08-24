@@ -7,3 +7,13 @@ export const clientValidationSchema = yup.object().shape({
   dateOfBirth: yup.string().required(DATE_OF_BIRTH).nullable(),
   fullName: yup.string().required(USER_NAME).nullable(),
 });
+
+export const addNewClient = yup.object().shape({
+  fullName: yup.string().required(USER_NAME).nullable(),
+  dateOfBirth: yup.string().required(DATE_OF_BIRTH).nullable(),
+  email: yup.string().required(EMAIL_REQUIRED).email(INVALID_EMAIL).nullable(),
+  phoneNumber: yup.string().required(USER_NAME).nullable(),
+  zipcode: yup.string().required(USER_NAME).nullable(),
+  occupation: yup.string().required(USER_NAME).nullable(),
+  gender: yup.string().required(USER_NAME).nullable()
+})
