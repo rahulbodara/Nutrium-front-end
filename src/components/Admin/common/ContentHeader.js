@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 
 const ContentHeader = (props) => {
     const { isCollapsed, setIsCollapsed, head, text } = props;
-    // const userData = useSelector((item) => item?.auth?.userData[0])
+    const userData = useSelector((item) => item?.auth?.userData[0])
 
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter()
@@ -73,7 +73,7 @@ const ContentHeader = (props) => {
                         <Menu>
                             <Menu.Button onClick={toggleMenu} className="relative py-[20px] pl-[10px] flex items-center justify-end text-[14px] min-h-[50px] text-[#a7b1c2] font-[600]">
                                 <Image src={userIcon} width={35} className='block 2lg:hidden h-[35px] w-[35px] mr-[10px] rounded-full' alt="user-icon" />
-                                {/* <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span> */}
+                                <span className='text-[#888888] font-normal text-[1.1em] text-ellipsis overflow-hidden whitespace-nowrap'>{userData?.fullName}</span>
                                 <BiCaretDown />
                             </Menu.Button>
 
@@ -107,7 +107,7 @@ const ContentHeader = (props) => {
                     </div>
                 </nav>
             </div>
-            <div className='breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow'>
+            <div className={`breadcrumb bg-white mx-[-15px] my-0 p-5 card-shadow ${router.pathname.includes('professionals/follow_up') ? 'border-b-[2px] border-[#EA9F77] ': ''} `}>
                 <div className='2lg:block flex'>
                     <div className="2lg:w-full w-1/2 relative min-h-[1px] h-auto pr-[15px]">
                         <h2 className='mb-[5px] text-[24px] font-[100] leading-[1.1]'>{head}</h2>

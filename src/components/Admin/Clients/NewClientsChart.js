@@ -71,10 +71,10 @@ export const data = {
     ],
 };
 
-const NewClientsChart = () => {
+const NewClientsChart = (props) => {
     return (
         <div>
-            <Line height={100} options={options} data={data} />
+            <Line height={props.height} options={options} data={data} />
         </div>
     )
 }

@@ -34,7 +34,7 @@ const ImportClients = ({ setOpenModal, openModal }) => {
                             >
                                 <Dialog.Panel className="w-full max-w-[896px] transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
                                     <div className='p-[25px] relative'>
-                                        <button onClick={() => setOpenModal(false)} className='absolute right-[10px] top-[10px]'>
+                                        <button onClick={() => setOpenModal(false)} className='absolute right-[10px] top-[10px] outline-none'>
                                             <IoCloseSharp className='text-[18px]' />
                                         </button>
                                         <h2 className='text-[28px] leading-[40px] text-center'>Import clients</h2>

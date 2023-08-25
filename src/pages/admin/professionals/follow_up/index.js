@@ -1,6 +1,5 @@
 import MainLayout from '@/components/Admin/MainLayout'
 import React from 'react'
-import ClosableSelect from '@/components/Admin/common/ClosableSelect';
 import Icon from '@mdi/react'
 import { mdiCheck, mdiClock, mdiClose, mdiEmailOutline, mdiHeartBoxOutline, mdiHeartOutline, mdiHelp, mdiRun, mdiSwapHorizontal } from '@mdi/js'
 import 'select2/dist/css/select2.min.css';
@@ -59,7 +58,7 @@ export default function FollowUp(props) {
 
       <MainLayout head={"Follow-up"} text={"Follow up on your clients and check their latest progress"}>
         {/* <Dropdown /> */}
-        <div className='lg:flex-wrap flex pt-5 gap-7'>
+        <div className='lg:flex-wrap flex pt-5 gap-7 follow_up'>
           <div className='w-[50%] lg:w-full bg-[#fff] rounded lg:order-2 sm:-mx-[15px]'>
             <div className='flex items-center px-5 pt-5 pb-4'>
               <div className='flex-grow'>
@@ -73,10 +72,12 @@ export default function FollowUp(props) {
                       ref={selectRef}
                       className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
                     >
-                      <option>hello1</option>
-                      <option>hello2</option>
-                      <option>hello3</option>
-                      <option>hello4</option>
+                      <option>All activities</option>
+                      <option>Appointments</option>
+                      <option>Food diary</option>
+                      <option>Physical activity</option>
+                      <option>Weight log</option>
+                      <option>Mobile app</option>
                       {/* {props?.option?.map((item, index) => (
                         <>
                           <option key={index} value={item.value} >{item.option}</option>
@@ -85,7 +86,6 @@ export default function FollowUp(props) {
                     </select>
                   </div>
                 </div>
-                {/* <ClosableSelect labelWidth="basis-[40px] min-w-[40px] sm:basis-[0px] sm:min-w-[0px] py-0 px-0" searchOption={false} option={professionOptions} className="mt-0 w-full h-[38px]" /> */}
               </div>
             </div>
             <div className='border-b-1 p-5 pt-[5px]'>
@@ -123,7 +123,7 @@ export default function FollowUp(props) {
                     </div>
                     <div className='ml-[10px]'>
                       <div className='text-[14px] leading-[14px] font-[600] text-[#676A6C]'>60 min</div>
-                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C]'>Duration</div>
+                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C] opacity-[0.6]'>Duration</div>
                     </div>
                   </div>
                   <div className='mt-[10px] py-2 px-3 rounded mr-[10px] bg-[#fff] flex border md:grow'>
@@ -132,7 +132,7 @@ export default function FollowUp(props) {
                     </div>
                     <div className='ml-[10px]'>
                       <div className='text-[14px] leading-[14px] font-[600] text-[#676A6C]'>240 kcal</div>
-                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C]'>Energy</div>
+                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C] opacity-[0.6]'>Energy</div>
                     </div>
                   </div>
                   <div className='mt-[10px] py-2 px-3 rounded mr-[10px] bg-[#fff] flex border md:grow'>
@@ -141,7 +141,7 @@ export default function FollowUp(props) {
                     </div>
                     <div className='ml-[10px]'>
                       <div className='text-[14px] leading-[14px] font-[600] text-[#676A6C]'>2.05 km</div>
-                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C]'>Distance</div>
+                      <div className='text-[11px] leading-[11px] font-[300] text-[#676A6C] opacity-[0.6]'>Distance</div>
                     </div>
                   </div>
                 </div>
@@ -495,7 +495,7 @@ export default function FollowUp(props) {
                           </div>
                           <div className='ml-[10px] grow'>
                             <a className='font-[600] text-[15px] '>Example client</a>
-                            <div className='text-[12px] font-[300]'>No information</div>
+                            <div className='text-[12px] font-[300] opacity-[0.6]'>No information</div>
                           </div>
                           <div className='border rounded ml-2 text-[#1AB394]'>
                             <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>

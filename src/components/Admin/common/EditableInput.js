@@ -3,11 +3,12 @@ import Icon from '@mdi/react';
 import React, { useState } from 'react';
 
 const EditableInput = (props) => {
-  const { initialValue, onInputChange, onCancel, onSubmit } = props;
-  console.log('props-------------->', props);
+  // const { initialValue, onInputChange, handleCancel, handleSubmit } = props;
+  // console.log('props-------------->', props);
   const [isFocused, setIsFocused] = useState(false);
   const [isInputEmpty, setIsInputEmpty] = useState(true);
-  const [inputValue, setInputValue] = useState(initialValue || '');
+  const [inputValue, setInputValue] = useState(props?.initialValue || '');
+  console.log("🚀 ~ file: EditableInput.js:11 ~ EditableInput ~ inputValue:", inputValue)
 
   // const handleInput = (event) => {
   //   if (event.target) {
@@ -15,8 +16,8 @@ const EditableInput = (props) => {
   //   }
   // };
   const handleInput = (event) => {
-    const value = event.target.value;
-    onInputChange(value); // Pass the input name and value to the callback
+    const value = event?.target?.value;
+    props?.onInputChange(value); // Pass the input name and value to the callback
     setIsInputEmpty(value === '');
   };
 
@@ -66,7 +67,7 @@ const EditableInput = (props) => {
                 path={mdiCheck}
                 size="18px"
                 color="#1ab394"
-                onClick={onSubmit}
+                onClick={()=>{props?.handleSubmit();handleBlur();}}
               />
             </div>
             <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
@@ -74,13 +75,13 @@ const EditableInput = (props) => {
                 path={mdiClose}
                 size="18px"
                 color={'#DB4965'}
-                onClick={onCancel}
+                onClick={()=>{props?.handleCancel;handleBlur()}}
               />
             </div>
           </>
         ) : (
           <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
-            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} />
+            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} onClick={handleFocus}/>
           </div>
         )}
       </div>

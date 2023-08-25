@@ -34,22 +34,22 @@ export default function Recipes() {
   const professionOptions = [
     {
       id: 1,
-      option: 'Sort by Nutrient',
+      name: 'Sort by Nutrient',
       value: 'Sort by Nutrient'
     },
     {
       id: 2,
-      option: 'Dietitian',
+      name: 'Dietitian',
       value: 'Dietitian'
     },
     {
       id: 3,
-      option: 'Nutritional Therapist',
+      name: 'Nutritional Therapist',
       value: 'Nutritional Therapist'
     },
     {
       id: 4,
-      option: 'Health Coach',
+      name: 'Health Coach',
       value: 'Health Coach'
     }
   ]

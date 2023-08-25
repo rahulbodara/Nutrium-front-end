@@ -28,7 +28,7 @@ import Testimonial from '@/components/testimonial/testimonial'
 import Footer from '@/components/common/Footer'
 import SliderComponent from '@/components/common/Slider'
 import { Home_info_slider } from '@/components/slider-data/data'
-
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function Home() {
   var settings = {
