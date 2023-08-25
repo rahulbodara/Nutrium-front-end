@@ -47,6 +47,8 @@ const status = [
 ]
 const Followup = () => {
     const chartData = ['data1', 30, 20, 110, 40, 15, 25, 30, 20, 100, 30, 20, 110,]
+    const chartData1 = ['data1', 30, 20, 110, 40, 15, 25, 30, 20, 100, 30, 20, 110,]
+
     const [open, setOpen] = useState(false)
     const selectRef = useRef(null);
     useEffect(() => {
@@ -263,15 +265,20 @@ const Followup = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='grid grid-cols-2'>
-                                    <div>
-                                        <DynamicC3Chart data={chartData} />
+                                <div className='mt-[24px]'>
+                                    <div className='grid barchart grid-cols-2'>
+                                        <div>
+                                            <DynamicC3Chart data={chartData} chartId="chart1" />
+                                        </div>
+                                        <div>
+                                            <DynamicC3Chart data={chartData1} chartId="chart2" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <DynamicC3Chart data={chartData} />
-
+                                    <div className='flex items-center justify-center'>
+                                        <div className='w-[10px] h-[10px] mr-[3px] bg-[#1AB394] inline-block'>
+                                        </div>
+                                        <span className='text-[#676A6C] text-[12px]'>Percentage calculated from the meal plan targets</span>
                                     </div>
-
                                 </div>
                             </div>
 

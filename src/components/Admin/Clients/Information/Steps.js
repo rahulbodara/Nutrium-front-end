@@ -23,17 +23,17 @@ const setpdDetail = [
     },
     {
         id: 3,
-        name: ' Measurements',
+        name: 'Measurements',
         detail: "Measurements and progress",
         icon: mdiFaceMan,
-        href: '#',
+        href: '/admin/professionals/patients/measurements',
     },
     {
         id: 4,
         name: 'Planning',
         detail: "Planning of client's meal plan",
         icon: mdiTune,
-        href: '#',
+        href: '/admin/professionals/patients/planning',
     },
     {
         id: 5,

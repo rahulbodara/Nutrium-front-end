@@ -45,8 +45,8 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
         associateAddress: individualWorkplace.isActive === 1 ? true : false,
         address: {
           street: individualWorkplace.address?.street,
-          city: individualWorkplace.address.city,
-          zipCode: individualWorkplace.address.zipCode,
+          city: individualWorkplace.address?.city,
+          zipCode: individualWorkplace.address?.zipCode,
         },
       }));
     }
