@@ -1,17 +1,55 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { mdiAccount, mdiAt, mdiCalendar, mdiClipboardAccount, mdiFlagVariant, mdiHumanMaleFemale, mdiInformationOutline, mdiMapMarker, mdiMapMarkerRadius, mdiPhone } from '@mdi/js';
+import {  mdiExitToApp, mdiMinusCircleOutline, mdiPlusCircleOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { Fragment, useState } from 'react'
-import { BiSolidUser } from 'react-icons/bi';
 import { IoCloseSharp } from "react-icons/io5";
-import DatePicker from "react-datepicker";
+import Switcher from '../common/Switcher';
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
+const dayList = [
+    {
+        id: 1,
+        label: 'Monday',
+        isChecked: false
+    },
+    {
+        id: 2,
+        label: 'Tuseday',
+        isChecked: false
+    },
+    {
+        id: 3,
+        label: 'Wednesday',
+        isChecked: false
+    },
+    {
+        id: 4,
+        label: 'Thursday',
+        isChecked: false
+    },
+    {
+        id: 5,
+        label: 'Friday',
+        isChecked: false
+    },
+    {
+        id: 6,
+        label: 'Saturday',
+        isChecked: false
+    },
+    {
+        id: 7,
+        label: 'Sunday',
+        isChecked: false
+    },
+]
 
 const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
     const [startDate, setStartDate] = useState(new Date());
 
-  return (
-    <div>
-        <Transition appear show={isSheduleOpen} as={Fragment}>
+    return (
+        <div>
+            <Transition appear show={isSheduleOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-[9999]" onClose={setIsSheduleOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -36,148 +74,73 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-[896px] transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-[600px] transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
                                     <div className='p-[25px] relative'>
-                                        <button onClick={() => setIsSheduleOpen(false)} className='absolute right-[10px] top-[10px]'>
+                                        <button onClick={() => setIsSheduleOpen(false)} className='absolute right-[10px] top-[10px] outline-none'>
                                             <IoCloseSharp className='text-[18px]' />
                                         </button>
                                         <h2 className='text-[28px] leading-[40px] text-center'>Set schedule</h2>
                                         <span className='text-[13px] text-center block' >Set schedule for each day of the week</span>
                                     </div>
-                                    <div className='px-[30px] pb-[20px]'>
-                                        <div className='grid gap-x-[30px] gap-y-[15px] grid-cols-2'>
-                                            <div className='col-span-2'>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'><abbr title="required" className='no-underline font-semibold text-[#1ab394]' >*</abbr> Full name</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiAccount} size={0.7} />
+                                    <div className='py-[20px]'>
+                                        {
+                                            dayList.map((day, index) => {
+                                                return (
+                                                    <div className={`px-[30px] py-[20px] bg-[#fafafb] border-t-[1px] border-[#DDDDDD] ${index === dayList.length - 1 ? 'border-b-[1px]' : ''}`} key={index}>
+                                                        <div className='flex items-center'>
+                                                            <div className='flex-grow flex items-center'>
+                                                                <div className='flex-grow flex items-center'>
+                                                                    <div className='flex-grow text-[#aaaaaa] text-[14px] font-[600]'>{day.label}</div>
+                                                                </div>
+                                                                <div className='ml-[10px] p-[6px_12px]'>
+                                                                    <button className='p-[6px_8px] bg-white border-[1px] border-[#eeeeee] rounded-[3px] inline-block text-center whitespace-nowrap align-middle cursor-pointer select-none' data-tooltip-id='importIcon'>
+                                                                        <Icon path={mdiExitToApp} className="rotate-[90deg]" size={"18px"} color='#676A6C' />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className='text-end'>
+                                                                <Switcher label1="Enabled" label2="Disabled" />
+                                                            </div>
+                                                        </div>
+                                                        <div className='mt-[20px]'>
+                                                            <div className='flex'>
+                                                                <div className='flex flex-grow'>
+                                                                    <div className='hidden flex-grow basis-0 mr-[10px] w-[100px]'>
+                                                                        <div className='text-[12px] font-light ml-[3px] mb-[3px]'>Workplace</div>
+                                                                    </div>
+                                                                    <div className='flex-grow basis-0 mr-[10px] w-[100px]'>
+                                                                        <div className='text-[12px] font-light ml-[3px] mb-[3px]'>Start time</div>
+                                                                        <div>
+                                                                            <input type={"text"} className='text-[14px] h-[32px] p-[5px] rounded-[5px] border-solid !border-[#AAAAAA] text-center focus:ring-0 bg-white input-transition focus:!border-[#1ab394] w-full' />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='flex-grow basis-0 w-[100px]'>
+                                                                        <div className='text-[12px] font-light ml-[3px] mb-[3px]'>End time</div>
+                                                                        <div>
+                                                                            <input type={"text"} className='text-[14px] h-[32px] p-[5px] rounded-[5px] border-solid !border-[#AAAAAA] text-center focus:ring-0 bg-white input-transition focus:!border-[#1ab394] w-full' />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className='flex items-center'>
+                                                                    <div className='mt-[20px] ml-[10px] cursor-pointer'><Icon path={mdiMinusCircleOutline} color="#DB4965" size={"18px"} /></div>
+                                                                </div>
+                                                                <div className='flex items-center'>
+                                                                    <div className='mt-[20px] ml-[10px] cursor-pointer'><Icon path={mdiPlusCircleOutline} color="#1AB394" size={"18px"} /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div className='hidden'></div>
+                                                        </div>
                                                     </div>
-                                                    <input className='px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]' />
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'><abbr title="required" className='no-underline  font-semibold text-[#1ab394]' >*</abbr>  Gender</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-
-                                                        <Icon path={mdiHumanMaleFemale} size={0.7} />
-
-                                                    </div>
-                                                    <select className='px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]'>
-                                                        <option>
-                                                            Male
-                                                        </option>
-                                                        <option>Female</option>
-                                                        <option>Other</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'>Workplace</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-
-                                                        <Icon path={mdiMapMarkerRadius} size={0.7} />
-                                                    </div>
-                                                    <select className='px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]'>
-                                                        <option>
-                                                            All workplaces
-                                                        </option>
-                                                        <option>Globalia</option>
-                                                        <option>globaliya 11</option>
-                                                    </select>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiInformationOutline} size={0.6} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'><abbr title="required" className='no-underline font-semibold text-[#1ab394]' >*</abbr>  Birthdate</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiCalendar} size={0.7} />
-                                                    </div>
-
-                                                    <DatePicker className='px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]' selected={startDate} onChange={(date) => setStartDate(date)} />
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'>Occupation</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiClipboardAccount} size={0.7} />
-                                                    </div>
-                                                    <input className='px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]' />
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'>Country of residence</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiFlagVariant} size={0.7} />
-                                                    </div>
-                                                    <select className='px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]'>
-                                                        <option>
-                                                            All workplaces
-                                                        </option>
-                                                        <option>Globalia</option>
-                                                        <option>globaliya 11</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'>Zip code</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiMapMarker} size={0.7} />
-                                                    </div>
-                                                    <input className='px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]' />
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'>Zip code</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiPhone} size={0.7} />
-                                                    </div>
-                                                    <div className='border h-[34px] w-[43px] ml-[-1px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <span>+91</span>
-                                                    </div>
-                                                    <input className='px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]' />
-                                                </div>
-                                            </div>
-                                            <div className=''>
-                                                <label className='font-bold text-[13px] flex  mb-[5px] gap-1'>Workplace</label>
-                                                <div className='flex'>
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]'>
-
-                                                        <Icon path={mdiAt} size={0.7} />
-                                                    </div>
-                                                    <input className='px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]' />
-
-                                                    <div className='border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]'>
-                                                        <Icon path={mdiInformationOutline} size={0.6} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='flex gap-2  items-center mt-7 mb-2.5'>
-                                            <input
-                                                id="comments"
-                                                name="comments"
-                                                type="checkbox"
-                                                className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
-                                            />
-                                            <span className='text-[13px]'>Send nutrition assessment form via message and email</span> <Icon path={mdiInformationOutline} size={0.6} />
-                                        </div>
+                                                )
+                                            })
+                                        }
                                     </div>
-                                    <div className='flex items-center px-[30px] pb-[15px] justify-between'>
-                                        <button className='px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]'>
+                                    <div className='flex items-center px-[30px] pb-[15px] justify-end'>
+                                        <button className='px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]' onClick={() => setIsSheduleOpen(false)}>
                                             Cancel
                                         </button>
-                                        <button className='px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]'>
-                                            Register client
+                                        <button className='px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]'>
+                                            Save
                                         </button>
                                     </div>
                                 </Dialog.Panel>
@@ -186,8 +149,14 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
                     </div>
                 </Dialog>
             </Transition>
-    </div>
-  )
+            <ReactTooltip
+                id="importIcon"
+                place="top"
+                content="Import"
+                className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9]'
+            />
+        </div>
+    )
 }
 
 export default SetShedule

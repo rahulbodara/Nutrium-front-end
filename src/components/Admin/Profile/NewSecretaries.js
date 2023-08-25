@@ -55,7 +55,7 @@ const NewSecretaries = ({ isOpen, setIsOpen }) => {
                             >
                                 <Dialog.Panel className="w-full max-w-[600px] md:max-w-full transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
                                     <div className='p-[25px] pb-[48px] relative'>
-                                        <button onClick={() => setIsOpen(false)} className='absolute right-[10px] top-[10px]'>
+                                        <button onClick={() => setIsOpen(false)} className='absolute right-[10px] top-[10px] outline-none'>
                                             <IoCloseSharp className='text-[18px] opacity-[0.4]' />
                                         </button>
                                         <h2 className='text-[28px] leading-[40px] text-center'>Register new secretary</h2>

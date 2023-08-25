@@ -11,8 +11,8 @@ const Switcher = (props) => {
     }
     return (
         <div>
-            <div className='relative mt-[10px]'>
-                <div className='w-[100px] h-[34px] bg-white border border-[#eeeeee] min-w-[59px] min-h-[34px] text-white relative overflow-hidden rounded-[3px] inline-block text-center'>
+            <div className='relative'>
+                <div className='w-[100px] h-[34px] align-middle bg-white border border-[#eeeeee] my-[10px] min-w-[59px] min-h-[34px] text-white relative overflow-hidden rounded-[3px] inline-block text-center'>
                     <input type="checkbox" id='switcher' onChange={handleSwitch} defaultChecked={isSwitchOn} className='hidden' />
                     <div className={` ${isSwitchOn ? "left-0" : "-left-full"} absolute w-[200%] inset-y-0 select-none transition-[left] duration-[0.35s]`}>
                         {

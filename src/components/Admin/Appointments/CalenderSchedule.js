@@ -7,28 +7,6 @@ import { mdiPlus, mdiTimetable } from '@mdi/js'
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import CustomCalendar from '../Clients/Calander/CustomCalendar';
 
-const status = [
-    {
-        color: '#1AB394',
-        title: 'Compliant',
-        description: 'No significant changes were made to the meal plan'
-    },
-    {
-        color: '#EA9F77',
-        title: 'Struggling',
-        description: 'Some significant changes were made to the meal plan'
-    },
-    {
-        color: '#DB4965',
-        title: 'Not compliant',
-        description: 'A high number of significant changes were made to the meal plan'
-    },
-    {
-        color: '#DDDDDD',
-        title: 'Insufficient data',
-        description: 'The client did not register enough information'
-    },
-]
 
 const CalenderSchedule = () => {
     return (

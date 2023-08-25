@@ -93,7 +93,7 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                   <div className="p-[25px] relative">
                     <button
                       onClick={() => setIsOpen(false)}
-                      className="absolute right-[10px] top-[10px]"
+                      className="absolute right-[10px] top-[10px] outline-none"
                     >
                       <IoCloseSharp className="text-[18px]" />
                     </button>

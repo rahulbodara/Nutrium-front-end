@@ -24,7 +24,7 @@ export default function Appointments() {
           <div>
             <CalenderSchedule />
           </div>
-          <div>
+          <div className='md:hidden'>
             <GeneralInfo />
           </div>
         </div>
