@@ -304,11 +304,7 @@ const Followup = () => {
                                                 <option>Physical activity</option>
                                                 <option>Weight log</option>
                                                 <option>Mobile app</option>
-                                                {/* {props?.option?.map((item, index) => (
-                        <>
-                          <option key={index} value={item.value} >{item.option}</option>
-                        </>
-                      ))} */}
+                                                
                                             </select>
                                         </div>
                                     </div>
