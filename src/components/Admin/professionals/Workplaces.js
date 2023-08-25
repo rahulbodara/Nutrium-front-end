@@ -52,7 +52,7 @@ const Workplaces = () => {
             />
           </div>
           <div>
-            <div className="-mx-[15px] flex lg:flex-wrap">
+            <div className="-mx-[15px] flex flex-wrap">
               {workplaceData?.map((data) => {
                 return (
                   <div className="w-1/3 relative px-[15px] lg:w-full">

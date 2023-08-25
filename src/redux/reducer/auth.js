@@ -4,8 +4,8 @@ const initialState = {
   userData: [],
   clientData: [],
   individualWorkplace: null,
-  error:null,
-  workplaceData: [],
+  individualService:null,
+  error: null,
 };
 
 export default (state = initialState, action) => {
@@ -14,38 +14,37 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userData: [action.data],
-        error:null,
+        error: null,
       };
     case Types.CLIENT_DATA:
       return {
         ...state,
         clientData: action.data,
-        error:null,
+        error: null,
       };
-      case Types.CLIENT_BY_ID: 
+    case Types.CLIENT_BY_ID:
       return {
         ...state,
         clientData: action.data,
-        error:null,
+        error: null,
       };
-      case Types.USER_DATA:
-      case Types.CLIENT_DATA_FAILURE:
+    case Types.USER_DATA:
+    case Types.CLIENT_DATA_FAILURE:
     case Types.CLIENT_BY_ID_FAILURE:
       return {
         ...state,
-        error: action.data, 
+        error: action.data,
       };
     case Types.GET_INDIVIDUAL_WORKPLACE_SUCCES:
       return {
         ...state,
         individualWorkplace: action.data,
       };
-    case Types.WORKPLACE_DATA:
+    case Types.GET_INDIVIDUAL_SERVICE_SUCCESS:
       return {
         ...state,
-        workplaceData: action.data,
-        error: null,
-      }
+        individualService: action.data,
+      };
     default:
       return state;
   }
