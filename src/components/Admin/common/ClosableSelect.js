@@ -11,6 +11,7 @@ const ClosableSelect = (props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const selectRef = useRef(null);
   const [selectedValue, setSelectedValue] = useState(props.initialValue || "");
+
   const handleonClick = () => {
     setIsDropdownOpen(true);
   };
@@ -19,7 +20,6 @@ const ClosableSelect = (props) => {
   };
   useEffect(() => {
     const $select = $(selectRef.current);
-
     $(".select2-container--default .select2-results__option--selected").css(
       "background-color",
       "red !important"

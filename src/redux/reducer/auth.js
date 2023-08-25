@@ -4,7 +4,9 @@ const initialState = {
   userData: [],
   clientData: [],
   individualWorkplace: null,
-  individualService:null,
+  individualService: null,
+  workplaceData: [],
+  serviceData: [],
   error: null,
 };
 
@@ -44,6 +46,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         individualService: action.data,
+      };
+    case Types.WORKPLACE_DATA:
+      return {
+        ...state,
+        workplaceData: action.data,
+        error: null,
+      };
+    case Types.SERVICES:
+      return {
+        ...state,
+        serviceData: action.data,
+        error: null,
       };
     default:
       return state;

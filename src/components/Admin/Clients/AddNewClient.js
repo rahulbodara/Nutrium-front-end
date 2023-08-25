@@ -61,7 +61,6 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
     isOpen && dispatch(GetAllWorkplace())
   }, [isOpen]);
 const workSpaceData = useSelector((state) => state.auth.workplaceData)
-
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -131,12 +130,12 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="fullName"
                           />
+                        </div>
                           <ErrorMessage
                             name="fullName"
                             component="div"
-                            className="text-red-500"
+                            className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
                           />
-                        </div>
                       </div>
                       <div className="">
                         <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
@@ -160,8 +159,8 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                             <option>Female</option>
                             <option>Other</option>
                           </select>
-                          <ErrorMessage name="gender" component="div" className="text-red-500" />
                         </div>
+                          <ErrorMessage name="gender" component="div" className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"/>
                       </div>
                       <div className="">
                         <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
@@ -204,12 +203,12 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                             <Icon path={mdiCalendar} size={0.7} />
                           </div>
                            <Field type="date" name="dateOfBirth" className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]" />
+                          </div>
                           <ErrorMessage
                             name="dateOfBirth"
                             component="div"
-                            className="text-red-500"
+                            className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
                           />
-                          </div>
                         </div>
                       <div className="">
                         <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
@@ -222,11 +221,6 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                           <Field
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="occupation"
-                          />
-                          <ErrorMessage
-                            name="occupation"
-                            component="div"
-                            className="text-red-500"
                           />
                         </div>
                       </div>
@@ -260,11 +254,6 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="zipcode"
                           />
-                          <ErrorMessage
-                            name="zipcode"
-                            component="div"
-                            className="text-red-500"
-                          />
                         </div>
                       </div>
                       <div className="">
@@ -282,11 +271,6 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                             className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="phoneNumber"
                           />
-                          <ErrorMessage
-                            name="phoneNumber"
-                            component="div"
-                            className="text-red-500"
-                          />
                         </div>
                       </div>
                       <div className="">
@@ -300,11 +284,6 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                           <input
                             className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                             name="email"
-                          />
-                          <ErrorMessage
-                            name="email"
-                            component="div"
-                            className="text-red-500"
                           />
 
                           <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
@@ -327,7 +306,7 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                     </div>
                   </div>
                   <div className="flex items-center px-[30px] pb-[15px] justify-between">
-                    <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]">
+                    <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={()=>{setIsOpen(false)}}>
                       Cancel
                     </button>
                     <button
