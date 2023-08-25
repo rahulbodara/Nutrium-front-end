@@ -4,6 +4,8 @@ import React, { useEffect, useRef } from 'react';
 import Icon from '@mdi/react';
 import { tabTitle } from './tabData';
 import { mdiAccountPlus, mdiAlarmPlus, mdiStarCircle } from '@mdi/js';
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 
 
 
@@ -40,29 +42,30 @@ const Sidebar = (props) => {
                       // const isActive = router.pathname.split('/').slice(-1)[0] === item.route;
 
                       return (
-                        <li className='#293846' key={index}>
-                          <Link href={item.route} className={`${
-                            item.route === router.pathname &&  'bg-[#293846]'
-                          } flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]`}>
-                              <div className={`flex min-w-[30px] min-h-[30px] relative items-center rounded-[50%] justify-center ${ item.route === router.pathname ? "bg-[#1AB394]" : "bg-[#ffffff1a]"}  h-[30px]`}>
-                              <Icon path={item.icon} size="18px" color={ item.route === router.pathname ? '#fff' : '#a7b1c2'}  />
-                              {
-                                item.feature === true ? 
-                                <div className=' right-[-5px] text-[#EA9F77] leading-[0] absolute bg-[#2F4050] rounded-[50%] -bottom-0.5'>
-                                  <Icon path={mdiStarCircle} size="14px"/>
-                                </div>: ""
-                              }
+                        <>
+                          <li className='#293846' key={index}>
+                            <Link href={item.route} className={`${item.route === router.pathname && 'bg-[#293846]'
+                              } flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]`} data-tooltip-id={`${isCollapsed === true ? item.tooltipId : 'q'}`}>
+                              <div className={`flex min-w-[30px] min-h-[30px] relative items-center rounded-[50%] justify-center ${item.route === router.pathname ? "bg-[#1AB394]" : "bg-[#ffffff1a]"}  h-[30px]`} >
+                                <Icon path={item.icon} size="18px" color={item.route === router.pathname ? '#fff' : '#a7b1c2'} />
+                                {
+                                  item.feature === true ?
+                                    <div className=' right-[-5px] text-[#EA9F77] leading-[0] absolute bg-[#2F4050] rounded-[50%] -bottom-0.5'>
+                                      <Icon path={mdiStarCircle} size="14px" />
+                                    </div> : ""
+                                }
                               </div>
                               {
                                 isCollapsed === true ?
-                                <span className={`flex-grow ml-[7px] hidden md:block tracking-[0.5px]`}>{item.title}</span>
-                                :
-                                <span className={`flex-grow ml-[7px] tracking-[0.5px]`}>{item.title}</span>
-                                
+                                  <span className={`flex-grow ml-[7px] hidden md:block tracking-[0.5px]`}>{item.title}</span>
+                                  :
+                                  <span className={`flex-grow ml-[7px] tracking-[0.5px]`}>{item.title}</span>
                               }
-                          </Link>
+                            </Link>
+
+                          </li>
                           
-                        </li>
+                        </>
                       )
                     })
                   }
@@ -101,6 +104,16 @@ const Sidebar = (props) => {
             
           </ul>
       </nav>
+      {
+        tabTitle.map((item) => (
+          <ReactTooltip
+            id={item.tooltipId}
+            place="right"
+            content={item.title}
+            className='!p-[3px_8px] !left-[80px] !bg-[#2f4050] !w-auto text-center opacity-[.9] z-[99999999]'
+          />
+        ))
+      }
     </>
   )
 }

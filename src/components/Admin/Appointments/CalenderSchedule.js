@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoHelpOutline } from 'react-icons/io5'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/en-gb';
@@ -6,9 +6,13 @@ import Icon from '@mdi/react'
 import { mdiPlus, mdiTimetable } from '@mdi/js'
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import CustomCalendar from '../Clients/Calander/CustomCalendar';
+import SetShedule from './SetShedule';
+import SetDateModal from './SetDateModal';
 
 
 const CalenderSchedule = () => {
+    const [isSheduleOpen, setIsSheduleOpen] = useState(false)
+    const [isDateModalOpen, setIsDateModalOpen] = useState(false);
     return (
         <>
             <div className='rounded-[5px]  bg-white shadow-box1 mb-[25px]'>
@@ -20,8 +24,8 @@ const CalenderSchedule = () => {
                         </span>
                     </div>
                     <div>
-                        <Icon path={mdiTimetable} size="22px" className='mr-[10px] cursor-pointer inline-block text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="sheduleTimeTable" />
-                        <Icon path={mdiPlus} size="22px" className='inline-block cursor-pointer text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="AddShedule" />
+                        <Icon path={mdiTimetable} size="22px" className='outline-none mr-[10px] cursor-pointer inline-block text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="sheduleTimeTable" onClick={()=> setIsSheduleOpen(true)} />
+                        <Icon path={mdiPlus} size="22px" className='outline-none inline-block cursor-pointer text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="AddShedule" onClick={()=> setIsDateModalOpen(true)}/>
                     </div>
                 </div>
                 <div className='calender-main p-[0_20px_20px]'>
@@ -47,6 +51,8 @@ const CalenderSchedule = () => {
                 content="Set a date on your calendar"
                 className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9]'
             />
+            <SetShedule isSheduleOpen={isSheduleOpen} setIsSheduleOpen={setIsSheduleOpen} />
+            <SetDateModal isDateModalOpen={isDateModalOpen} setIsDateModalOpen={setIsDateModalOpen} />
         </>
     )
 }

@@ -76,7 +76,7 @@ const SheduleAppointment = () => {
                             </div>
                             <div className='flex flex-col flex-[1] flex-grow'>
                                 <div className='flex gap-[8px]'>
-                                    <h3 className='break-words text-[16px]'><Link href={""} className="text-[#676a6c]">Example client</Link></h3>
+                                    <h3 className='break-words text-[16px]'><Link href={""} className="text-[#676a6c] hover:text-[#1AB394]">Example client</Link></h3>
                                 </div>
                                 <div className='h-[18px] overflow-hidden whitespace-nowrap text-ellipsis font-[300] opacity-[0.6]'>Occupation example</div>
                                 <div className='mt-[4px] font-[300] '>

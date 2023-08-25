@@ -228,6 +228,10 @@ h2 {
   width: 159.328px !important;
 }
 
+.select2-search__field:focus {
+  --tw-ring-color: #ffff
+}
+
 .select2-selection__choice {
   height: 25px !important;
   margin: 3px 0 3px 3px !important;
