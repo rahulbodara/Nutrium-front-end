@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -11,7 +12,7 @@
 }
 
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* body::-webkit-scrollbar {
@@ -38,7 +39,7 @@ body {
 
 
 body {
-  font-family: 'Geomanist-Book', sans-serif !important;
+  /* font-family: 'Geomanist-Book', sans-serif !important; */
   /* font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif; */
   color: #676a6c;
   font-size: 13px;
@@ -480,4 +481,15 @@ h2 {
 
 .row::after {
   clear: both;
+}
+.barchart .c3 path, .barchart  .c3 line{
+  opacity: 0;
+  
+}
+.c3-axis-x .tick text, .c3-axis-y .tick text {
+  fill: #676A6C;
+}
+.c3-text.c3-empty {
+  fill: #808080;
+  font-size: 2em;
 }
