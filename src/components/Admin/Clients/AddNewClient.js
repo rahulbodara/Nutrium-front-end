@@ -16,11 +16,12 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoCloseSharp } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
-import { registerClient, GetAllWorkplace } from '@/redux/action/auth';
+import { registerClient } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addNewClient } from '@/schema/client';
+import { GetAllWorkplace } from '@/redux/action/workplace';
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
   const [selectedDate, setSelectedDate] = useState('');
@@ -60,7 +61,7 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
     isOpen && dispatch(GetAllWorkplace())
   }, [isOpen]);
-const workSpaceData = useSelector((state) => state.auth.workplaceData)
+const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>

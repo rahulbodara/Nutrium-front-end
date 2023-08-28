@@ -1,6 +1,9 @@
 import * as Types from '../constants/actionTypes';
 import baseUrl from '../../util/baseUrl';
 import axios from 'axios';
+import createHeaders from '../../util/headers';
+
+
 
 export const login = (data) => {
   return async (dispatch) => {
@@ -39,11 +42,8 @@ export const signUp = (data) => {
 export const userData = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.get(`${baseUrl}/professionals`, { headers });
       return dispatch({
         type: Types.USER_DATA,
@@ -78,11 +78,8 @@ export const forgotPassword = (data) => {
 export const updateProfile = (data) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.put(`${baseUrl}/professionals`,data,{ headers });
       return dispatch({
         type: Types.UPDATE_PROFILE,
@@ -100,11 +97,8 @@ export const updateProfile = (data) => {
 export const registerClient = (data) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.post(`${baseUrl}/client`, data, { headers });
       return dispatch({
         type: Types.CLIENT_DATA,
@@ -122,11 +116,8 @@ export const registerClient = (data) => {
 export const clientData = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.get(`${baseUrl}/client`, { headers });
       return dispatch({
         type: Types.CLIENT_DATA,
@@ -144,11 +135,8 @@ export const clientData = () => {
 export const WorkplaceDataCreation = (data) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.post(`${baseUrl}/workplaces`,data,{headers});
       return dispatch({
         type: Types.WORKPLACE_DATA,
@@ -163,36 +151,12 @@ export const WorkplaceDataCreation = (data) => {
   };
 };
 
-export const GetAllWorkplace = () => {
-  return async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
-      const response = await axios.get(`${baseUrl}/workplaces`,{headers});
-      return dispatch({
-        type: Types.WORKPLACE_DATA,
-        data: response?.data,
-      });
-    } catch (err) {
-      return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
-        data: err.response,
-      });
-    }
-  };
-};
 
 export const GetIndividualWorkplace = (id) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.get(`${baseUrl}/workplaces/${id}`,{headers});
       return dispatch({
         type: Types.GET_INDIVIDUAL_WORKPLACE_SUCCES,
@@ -210,11 +174,8 @@ export const GetIndividualWorkplace = (id) => {
 export const WorkplaceDataEdit = (data,id) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.put(`${baseUrl}/workplaces/${id}`,data,{headers});
       return dispatch({
         type: Types.WORKPLACE_DATA,
@@ -232,11 +193,8 @@ export const WorkplaceDataEdit = (data,id) => {
 export const getClientById = (clientId) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.get(`${baseUrl}/client/${clientId}`, { headers });
       return dispatch({
         type: Types.CLIENT_BY_ID,
@@ -254,11 +212,8 @@ export const getClientById = (clientId) => {
 export const deleteClient = (clientId) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.delete(`${baseUrl}/client/${clientId}`, { headers });
       return dispatch({
         type: Types.CLIENT_BY_ID,
@@ -276,11 +231,8 @@ export const deleteClient = (clientId) => {
 export const GetAllServices = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.get(`${baseUrl}/services`, { headers });
       return dispatch({
         type: Types.SERVICES,
@@ -298,11 +250,8 @@ export const GetAllServices = () => {
 export const GetIndividualService = (id) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.get(`${baseUrl}/services/${id}`,{headers});
       return dispatch({
         type: Types.GET_INDIVIDUAL_SERVICE_SUCCESS,
@@ -320,11 +269,8 @@ export const GetIndividualService = (id) => {
 export const ServiceDataEdit = (data,id) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      };
+      const headers = createHeaders(); // Use the createHeaders function here
+
       const response = await axios.put(`${baseUrl}/services/${id}`,data,{headers});
       return dispatch({
         type: Types.UPDATE_SERVICES,
