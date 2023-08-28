@@ -40,7 +40,7 @@ const setpdDetail = [
         name: 'Meal Plan',
         detail: "Defining meals of the meal plan",
         icon: mdiSilverware,
-        href: '#',
+        href: '/admin/professionals/patients/meal_plan',
     },
     {
         id: 6,

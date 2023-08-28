@@ -92,7 +92,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                                 placeholder='Search clients by name, occupation, identification number or contact...'
                                                             />
                                                         </div>
-                                                        <SelectMenu option={options} />
+                                                        <SelectMenu option={options}  />
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <div className='my-[5px]'>
