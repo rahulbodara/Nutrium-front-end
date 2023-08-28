@@ -13,24 +13,27 @@ import {
 } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { Fragment, useState, useEffect } from 'react';
+import countries from 'countries.json';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoCloseSharp } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
-import { registerClient, GetAllWorkplace } from '@/redux/action/auth';
+import { registerClient } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addNewClient } from '@/schema/client';
+import { GetAllWorkplace } from '@/redux/action/workplace';
+import CustomSelect from '../common/CustomSelect';
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [formData, setFormData] = useState({});
-  console.log(formData,"formDataformdata")
-  
+  console.log(formData, "formDataformdata")
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (values) => {
-    console.log("🚀 ~ file: AddNewClient.js:32 ~ handleSubmit ~ values:", values)
+    console.log("🚀  file: AddNewClient.js:32  handleSubmit ~ values:", values)
     try {
       // const formattedDateOfBirth = startDate.toLocaleDateString('en-GB');
       const dateParts = values.dateOfBirth.split('-');
@@ -39,8 +42,8 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
         ...values,
         dateOfBirth: formattedDateOfBirth,
       };
-      console.log(formattedDateOfBirth,"formattedDateOfBirthformattedDateOfBirth")
- 
+      console.log(formattedDateOfBirth, "formattedDateOfBirthformattedDateOfBirth")
+
       const response = await dispatch(registerClient(updatedFormData)).then((res) => {
         toast.error(res?.data?.data?.message);
         return res;
@@ -60,7 +63,21 @@ const AddNewClient = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
     isOpen && dispatch(GetAllWorkplace())
   }, [isOpen]);
-const workSpaceData = useSelector((state) => state.auth.workplaceData)
+const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
+  const gender = [
+    {
+      id: 1,
+      name: 'Male'
+    },
+    {
+      id: 2,
+      name: 'Female'
+    },
+    {
+      id: 3,
+      name: 'Other'
+    },
+  ]
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -105,219 +122,201 @@ const workSpaceData = useSelector((state) => state.auth.workplaceData)
                     </span>
                   </div>
                   <Formik
-                    initialValues={{fullName: '', dateOfBirth: '', gender: 'Male', workplace: 'All', occupation: '', country: 'All', zipcode: '', phoneNumber: '', email: ''}}
+                    initialValues={{ fullName: '', dateOfBirth: '', gender: 'Male', workplace: 'All', occupation: '', country: 'All', zipcode: '', phoneNumber: '', email: '' }}
                     validationSchema={addNewClient}
                     onSubmit={(values) => handleSubmit(values)}
                   >
-            <Form>
-                  <div className="px-[30px] pb-[20px]">
-                    <div className="grid gap-x-[30px] gap-y-[15px] grid-cols-2">
-                      <div className="col-span-2">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          <abbr
-                            title="required"
-                            className="no-underline font-semibold text-[#1ab394]"
-                          >
-                            *
-                          </abbr>{' '}
-                          Full name
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiAccount} size={0.7} />
+                    <Form>
+                      <div className="px-[30px] pb-[20px]">
+                        <div className="grid gap-x-[30px] gap-y-[15px] grid-cols-2">
+                          <div className="col-span-2">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              <abbr
+                                title="required"
+                                className="no-underline font-semibold text-[#1ab394]"
+                              >
+                                *
+                              </abbr>{' '}
+                              Full name
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiAccount} size={0.7} />
+                              </div>
+                              <Field
+                                className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                name="fullName"
+                              />
+                            </div>
+                            <ErrorMessage
+                              name="fullName"
+                              component="div"
+                              className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                            />
                           </div>
-                          <Field
-                            className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="fullName"
-                          />
-                        </div>
-                          <ErrorMessage
-                            name="fullName"
-                            component="div"
-                            className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                          />
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          <abbr
-                            title="required"
-                            className="no-underline  font-semibold text-[#1ab394]"
-                          >
-                            *
-                          </abbr>{' '}
-                          Gender
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiHumanMaleFemale} size={0.7} />
-                          </div>
-                          <select
-                            className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="gender"
-                          >
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                          </select>
-                        </div>
-                          <ErrorMessage name="gender" component="div" className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"/>
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          Workplace
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiMapMarkerRadius} size={0.7} />
-                          </div>
-                          <select
-                            className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="workplace"
-                          >
-                          <option>All workplaces</option>
-                            {
-                              workSpaceData?.map((data) => {
-                                return (
-                                  <option>{data.name}</option>
-                                )
-                              })
-                            }
-                          </select>
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiInformationOutline} size={0.6} />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          <abbr
-                            title="required"
-                            className="no-underline font-semibold text-[#1ab394]"
-                          >
-                            *
-                          </abbr>{' '}
-                          Birthdate
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiCalendar} size={0.7} />
-                          </div>
-                           <Field type="date" name="dateOfBirth" className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]" />
-                          </div>
-                          <ErrorMessage
-                            name="dateOfBirth"
-                            component="div"
-                            className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                          />
-                        </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          Occupation
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiClipboardAccount} size={0.7} />
-                          </div>
-                          <Field
-                            className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="occupation"
-                          />
-                        </div>
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          Country of residence
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiFlagVariant} size={0.7} />
-                          </div>
-                          <select
-                            className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="country"
-                          >
-                            <option>All workplaces</option>
-                            <option>Globalia</option>
-                            <option>globaliya 11</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          Zip code
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiMapMarker} size={0.7} />
-                          </div>
-                          <Field
-                            className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="zipcode"
-                          />
-                        </div>
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          Mobile phone number
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiPhone} size={0.7} />
-                          </div>
-                          <div className="border h-[34px] w-[43px] ml-[-1px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <span>+91</span>
-                          </div>
-                          <Field
-                            className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="phoneNumber"
-                          />
-                        </div>
-                      </div>
-                      <div className="">
-                        <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                          Email
-                        </label>
-                        <div className="flex">
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiAt} size={0.7} />
-                          </div>
-                          <input
-                            className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                            name="email"
-                          />
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              <abbr
+                                title="required"
+                                className="no-underline  font-semibold text-[#1ab394]"
+                              >
+                                *
+                              </abbr>{' '}
+                              Gender
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiHumanMaleFemale} size={0.7} />
+                              </div>
+                              <div className='w-full -ml-px select-clinet border-select '>
 
-                          <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
-                            <Icon path={mdiInformationOutline} size={0.6} />
+                                <CustomSelect option={gender} className="h-[34px]" SelectClassName="focus:border-[#1ab394] border" searchOption={false} />
+                              </div>
+                            </div>
+                            <ErrorMessage name="gender" component="div" className="block mt-[5px] font-bold text-[13px] text-[#cc5965]" />
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              Workplace
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiMapMarkerRadius} size={0.7} />
+                              </div>
+                              <div className='w-full  -ml-px select-clinet border-select '>
+                                <CustomSelect defaultOptions={"All workplaces"} option={workSpaceData} className="h-[34px]" SelectClassName="focus:border-[#1ab394] border" searchOption={false} />
+                              </div>
+                        
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiInformationOutline} size={0.6} />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              <abbr
+                                title="required"
+                                className="no-underline font-semibold text-[#1ab394]"
+                              >
+                                *
+                              </abbr>{' '}
+                              Birthdate
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiCalendar} size={0.7} />
+                              </div>
+                              <Field type="date" name="dateOfBirth" className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]" />
+                            </div>
+                            <ErrorMessage
+                              name="dateOfBirth"
+                              component="div"
+                              className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                            />
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              Occupation
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiClipboardAccount} size={0.7} />
+                              </div>
+                              <Field
+                                className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                name="occupation"
+                              />
+                            </div>
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              Country of residence
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiFlagVariant} size={0.7} />
+                              </div>
+                              <div className='w-full  -ml-px select-clinet border-select '>
+                                <CustomSelect option={countries} className="h-[34px]" SelectClassName="focus:border-[#1ab394] border" searchOption={false} />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              Zip code
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiMapMarker} size={0.7} />
+                              </div>
+                              <Field
+                                className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                name="zipcode"
+                              />
+                            </div>
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              Mobile phone number
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiPhone} size={0.7} />
+                              </div>
+                              <div className="border h-[34px] w-[43px] ml-[-1px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <span>+91</span>
+                              </div>
+                              <Field
+                                className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                name="phoneNumber"
+                              />
+                            </div>
+                          </div>
+                          <div className="">
+                            <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                              Email
+                            </label>
+                            <div className="flex">
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiAt} size={0.7} />
+                              </div>
+                              <input
+                                className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                name="email"
+                              />
+
+                              <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
+                                <Icon path={mdiInformationOutline} size={0.6} />
+                              </div>
+                            </div>
                           </div>
                         </div>
+                        <div className="flex gap-2  items-center mt-7 mb-2.5">
+                          <input
+                            id="comments"
+                            name="comments"
+                            type="checkbox"
+                            className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
+                          />
+                          <span className="text-[13px]">
+                            Send nutrition assessment form via message and email
+                          </span>{' '}
+                          <Icon path={mdiInformationOutline} size={0.6} />
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex gap-2  items-center mt-7 mb-2.5">
-                      <input
-                        id="comments"
-                        name="comments"
-                        type="checkbox"
-                        className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
-                      />
-                      <span className="text-[13px]">
-                        Send nutrition assessment form via message and email
-                      </span>{' '}
-                      <Icon path={mdiInformationOutline} size={0.6} />
-                    </div>
-                  </div>
-                  <div className="flex items-center px-[30px] pb-[15px] justify-between">
-                    <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={()=>{setIsOpen(false)}}>
-                      Cancel
-                    </button>
-                    <button
-                    type="submit"
-                      className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
-                      // onClick={handleSubmit}
-                    >
-                      Register client
-                    </button>
-                  </div>
-                  </Form>
+                      <div className="flex items-center px-[30px] pb-[15px] justify-between">
+                        <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={() => { setIsOpen(false) }}>
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
+                        // onClick={handleSubmit}
+                        >
+                          Register client
+                        </button>
+                      </div>
+                    </Form>
                   </Formik>
                 </Dialog.Panel>
               </Transition.Child>

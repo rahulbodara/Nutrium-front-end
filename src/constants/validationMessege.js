@@ -5,3 +5,4 @@ export const PASSWORD_REQUIRED = "Password Is Required";
 export const TERMS_AND_CONDITION="You must accept the Terms and Conditions of Use and the Privacy Policy to continue."
 export const DATE_OF_BIRTH = "This field is required"
 export const USER_NAME = "This field is required"
+export const TYPE_OF_SERVICE = "This field is required"

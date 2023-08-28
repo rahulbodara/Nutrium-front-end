@@ -139,6 +139,7 @@ const Services = () => {
           </div>
         </div>
       </div>
+      {/* Add new Service */}
       <AddNewService isOpen={isOpen} setIsOpen={setIsOpen} />
       <EditService
         isEditModalOpen={isEditModalOpen}

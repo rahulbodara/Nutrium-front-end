@@ -5,7 +5,6 @@ const initialState = {
   clientData: [],
   individualWorkplace: null,
   individualService: null,
-  workplaceData: [],
   serviceData: [],
   error: null,
 };
@@ -46,12 +45,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         individualService: action.data,
-      };
-    case Types.WORKPLACE_DATA:
-      return {
-        ...state,
-        workplaceData: action.data,
-        error: null,
       };
     case Types.SERVICES:
       return {

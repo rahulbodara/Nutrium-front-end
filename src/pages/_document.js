@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head >
-        <link rel="icon" type="image/x-icon" href="../styles.favicon.css" />
+        <link rel="icon" type="image/x-icon" href="./styles/favicon.css" />
         <script src="https://kit.fontawesome.com/b2d7d31579.js" crossorigin="anonymous"></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,8 +1,12 @@
-import { combineReducers } from 'redux'
-import auth from './auth'
+import { combineReducers } from "redux";
+import auth from "./auth";
+import { Workplace } from "./workplace";
+import { Services } from "./profile.services";
 
 const rootReducer = combineReducers({
-    auth,
-})
+  auth,
+  Workplace: Workplace,
+  Service: Services,
+});
 
-export default rootReducer
+export default rootReducer;
