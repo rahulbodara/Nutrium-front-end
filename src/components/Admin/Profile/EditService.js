@@ -79,7 +79,7 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
   const individualservice = useSelector(
     (state) => state?.auth?.individualService
   );
-  const workplaceData = useSelector((state)=>state?.auth?.workplaceData)
+  const workplaceData = useSelector((state) => state?.auth?.workplaceData);
   const dispatch = useDispatch();
   // const [workplaceData, setworkplaceData] = useState();
   const [formData, setFormData] = useState({
@@ -129,6 +129,9 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
       console.log("error-------------->", error);
     }
   };
+  function HandleValue(value) {
+    console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
+  }
   return (
     <div className="modal">
       <Transition appear show={isEditModalOpen} as={Fragment}>
@@ -182,11 +185,19 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                         <SelectField
                           searchOption={false}
                           option={serviceType}
+                          onChange={HandleValue}
+                          value={formData.typeOfService || ""}
+                          label="Type of service"
+                        />
+                        {/* <SelectField
+                          searchOption={false}
+                          option={serviceType}
                           label="Type of service"
                           name="typeOfService"
+                          onChange={HandleValue}
                           value={formData.typeOfService || ""}
                           setFormData={setFormData}
-                        />
+                        /> */}
                         <SelectField
                           searchOption={false}
                           option={clientType}
@@ -196,7 +207,7 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                           value={formData.typeOfClients || ""}
                           setFormData={setFormData}
                         />
-                  
+
                         <InputField
                           labelStyle="min-w-[160px] flex-basis-[160px]"
                           className="mt-[7px]"

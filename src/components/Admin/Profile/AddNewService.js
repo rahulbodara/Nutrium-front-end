@@ -65,10 +65,8 @@ const selectWorkplaces = [
 ];
 
 const AddNewService = ({ isOpen, setIsOpen }) => {
-
     function HandleValue (value){
     console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value)
-
     }
     return (
         <div className='modal'>
