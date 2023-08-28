@@ -3,9 +3,6 @@ import * as Types from "../constants/actionTypes";
 const initialState = {
   userData: [],
   clientData: [],
-  individualWorkplace: null,
-  individualService: null,
-  serviceData: [],
   error: null,
 };
 
@@ -35,22 +32,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.data,
-      };
-    case Types.GET_INDIVIDUAL_WORKPLACE_SUCCES:
-      return {
-        ...state,
-        individualWorkplace: action.data,
-      };
-    case Types.GET_INDIVIDUAL_SERVICE_SUCCESS:
-      return {
-        ...state,
-        individualService: action.data,
-      };
-    case Types.SERVICES:
-      return {
-        ...state,
-        serviceData: action.data,
-        error: null,
       };
     default:
       return state;

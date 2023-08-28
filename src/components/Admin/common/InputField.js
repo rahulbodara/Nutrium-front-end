@@ -13,7 +13,7 @@ const InputField = (props) => {
         },
       }));
     } else {
-      props?.setFormData((prevFormData) => ({
+      props.setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: value,
       }));
