@@ -12,7 +12,7 @@ import {
   mdiPhone,
 } from "@mdi/js";
 import Icon from "@mdi/react";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
 import DatePicker from "react-datepicker";
@@ -22,7 +22,7 @@ import InputField from "../common/InputField";
 import PriceField from "../common/PriceField";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    GetAllServices,
+  GetAllServices,
   GetAllWorkplace,
   GetIndividualService,
   ServiceDataEdit,
@@ -79,8 +79,9 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
   const individualservice = useSelector(
     (state) => state?.auth?.individualService
   );
+  const workplaceData = useSelector((state) => state?.auth?.workplaceData);
   const dispatch = useDispatch();
-  const [workplaceData, setworkplaceData] = useState();
+  // const [workplaceData, setworkplaceData] = useState();
   const [formData, setFormData] = useState({
     typeOfService: "",
     typeOfClients: "",
@@ -107,13 +108,6 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
       }));
     }
   }, [individualservice]);
-  useEffect(() => {
-    const fetch = async () => {
-      const response = await dispatch(GetAllWorkplace());
-      setworkplaceData(response.data);
-    };
-    fetch();
-  }, [dispatch]);
   const handleSubmit = async () => {
     try {
       const updatedFormData = {
@@ -125,17 +119,19 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
         toast.error(res?.data?.data?.message);
         return res;
       });
+      await dispatch(GetAllServices());
       setIsEditModalOpen(false);
       if (response) {
         toast.success("Service successfully Edited");
-        await dispatch(GetAllServices())
       }
       console.log("response---->", response);
     } catch (error) {
       console.log("error-------------->", error);
     }
   };
-  
+  function HandleValue(value) {
+    console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
+  }
   return (
     <div className="modal">
       <Transition appear show={isEditModalOpen} as={Fragment}>
@@ -189,26 +185,34 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                         <SelectField
                           searchOption={false}
                           option={serviceType}
+                          onChange={HandleValue}
+                          value={formData.typeOfService || ""}
                           label="Type of service"
-                          name="typeofservices"
+                        />
+                        {/* <SelectField
+                          searchOption={false}
+                          option={serviceType}
+                          label="Type of service"
+                          name="typeOfService"
+                          onChange={HandleValue}
                           value={formData.typeOfService || ""}
                           setFormData={setFormData}
-                        />
+                        /> */}
                         <SelectField
                           searchOption={false}
                           option={clientType}
                           label="Type of clients"
                           className="mt-[7px]"
-                          name="typeofclients"
+                          name="typeOfClients"
                           value={formData.typeOfClients || ""}
                           setFormData={setFormData}
                         />
+
                         <InputField
                           labelStyle="min-w-[160px] flex-basis-[160px]"
                           className="mt-[7px]"
-                          label="Name of the service"
-                          placeholder="e.g. Appointment and grocery shopping"
-                          name="servicename"
+                          label="Name of the Service"
+                          name="nameOfService"
                           value={formData.nameOfService || ""}
                           setFormData={setFormData}
                         />
@@ -247,10 +251,11 @@ const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                     >
                       Cancel
                     </button>
-                    <button className="px-3 
+                    <button
+                      className="px-3 
                     rounded-[3px] border hover:bg-[#18a689] 
                     border-[#1AB394] bg-[#1AB394] ml-[5px] text-[#FFFFFF] text-[14px] py-[6px]"
-                    onClick={handleSubmit}
+                      onClick={handleSubmit}
                     >
                       Add
                     </button>

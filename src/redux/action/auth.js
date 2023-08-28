@@ -186,7 +186,6 @@ export const GetAllWorkplace = () => {
 };
 
 export const GetIndividualWorkplace = (id) => {
-  console.log("ID-------->",id)
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem('token');
@@ -328,12 +327,12 @@ export const ServiceDataEdit = (data,id) => {
       };
       const response = await axios.put(`${baseUrl}/services/${id}`,data,{headers});
       return dispatch({
-        type: Types.SERVICES,
+        type: Types.UPDATE_SERVICES,
         data: response?.data,
       });
     } catch (err) {
       return dispatch({
-        type: Types.SERVICES_FAILURE,
+        type: Types.UPDATE_SERVICES_FAILURE,
         data: err.response,
       });
     }
