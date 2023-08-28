@@ -3,7 +3,7 @@ import Icon from "@mdi/react";
 import React, { useEffect, useState } from "react";
 import AddNewService from "../Profile/AddNewService";
 import { GetAllServices } from "@/redux/action/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EditService from "../Profile/EditService";
 
 const Services = () => {
