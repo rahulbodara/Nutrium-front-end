@@ -152,7 +152,9 @@ h2 {
 
 .select2-selection {
   color: #6e7c91;
-  height: 34px !important;
+  height: 100%;
+  min-height: 32px;
+  /* height: 34px !important; */
 }
 
 .select2-selection--single:focus {
@@ -496,4 +498,15 @@ h2 {
 .c3-text.c3-empty {
   fill: #808080;
   font-size: 2em;
+}
+.select-clinet .select2-container--default .select2-selection--single {
+  background-color: #fff;
+  border: 0px solid #aaa !important;
+  border-radius: 0px !important;
+}
+.select-clinet .select2-container--default .select2-selection--single .select2-selection__arrow{
+  height: 100% !important;
+}
+.select-clinet.border-select .select2-selection--single:focus {
+  border: 1px solid #1ab394 !important;
 }

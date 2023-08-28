@@ -16,6 +16,10 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { clientData } from '@/redux/action/auth';
 import { useRouter } from 'next/router';
+import Select from '@/components/common/select';
+import SelectMenu from '@/components/Admin/common/SelectMenu';
+import CustomSelect from '@/components/Admin/common/CustomSelect';
+import SelectField from '@/components/Admin/common/SelectField';
 const Patients = () => {
   const router = useRouter();
   let [isOpen, setIsOpen] = useState(false);
@@ -37,6 +41,28 @@ const Patients = () => {
     });
     dispatch(clientData(clientId));
   };
+  const options = [
+    {
+      id: 1,
+      name: 'All clients'
+    },
+    {
+      id: 2,
+      name: 'Active clients this month'
+    },
+
+  ]
+  const workOptions = [
+    {
+      id: 1,
+      name: 'All clients'
+    },
+    {
+      id: 2,
+      name: 'Active clients this month'
+    },
+
+  ]
   return (
     <div>
       <MainLayout
@@ -68,7 +94,7 @@ const Patients = () => {
                 <div className="w-full pt-3">
                   <input
                     type="text"
-                    className="block border-[1px] border-[#e5e6e7] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
+                    className="block border-[1px] border-[#e5e6e7] rounded-[0px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                     placeholder="Search clients by name, occupation, identification number or contact..."
                   />
                 </div>
@@ -175,21 +201,11 @@ const Patients = () => {
                 <span className="text-[12px] text-[#888888] mb-5 block">
                   Filter which clients you want to see
                 </span>
-                <div>
-                  <select
-                    className="border border-solid mb-2 p-1.5 h-[34px] focus:outline-none border-[#e5e6e7] bg-transparent block w-full "
-                    defaultValue="All clients"
-                  >
-                    <option>All clients</option>
-                    <option>Active clients this month</option>
-                  </select>
-                  <select
-                    className="border border-solid p-1.5 h-[34px] focus:outline-none border-[#e5e6e7] bg-transparent block w-full "
-                    defaultValue="All clients"
-                  >
-                    <option>All workplaces</option>
-                    <option>Active clients this month</option>
-                  </select>
+                <div className='w-full select-clinet'>
+                  <CustomSelect option={options} className="w-full" searchOption={false} />
+                  <CustomSelect option={workOptions} className="w-full mt-3" searchOption={false} />
+
+
                 </div>
               </div>
             </div>

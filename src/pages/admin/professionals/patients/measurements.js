@@ -5,7 +5,7 @@ import MainLayout from '@/components/Admin/MainLayout'
 import { mdiCog, mdiMinus, mdiTrendingDown } from '@mdi/js'
 import Icon from '@mdi/react'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import dynamic from 'next/dynamic';
 
 
@@ -107,7 +107,8 @@ const bodycomposition = [
     },
 ]
 const Measurements = () => {
-    return (
+    const [selected , setSelected] = useState(1)
+  return (
         <div>
             <MainLayout head={"Client profile"} text={"Check and update information about the client"}>
                 <div className='mt-[-20px]'>
@@ -130,8 +131,9 @@ const Measurements = () => {
                                 {
                                     anthropometric.map((item, index) => {
                                         return (
+                                        <div>
 
-                                            <div key={index} className='hover:border-l-[5px] cursor-pointer text-[15px] flex items-cemter  py-[15px] px-[20px] hover:border-[#EEEEEE]'>
+                                            <div onClick={()=> setSelected(index + 1)} key={index} className={`${selected === index + 1 ? 'border-l-[5px] border-[#1AB394]' : 'hover:border-l-[5px]  hover:border-[#EEEEEE]'}   cursor-pointer text-[15px] flex items-cemter  py-[15px] px-[20px]`}>
                                                 <span className='flex-1'>
                                                     {item.name}
                                                 </span>
@@ -146,6 +148,7 @@ const Measurements = () => {
                                                     }
                                                 </span>
                                             </div>
+                                        </div>
                                         )
                                     })
                                 }
