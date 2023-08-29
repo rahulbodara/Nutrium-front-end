@@ -8,13 +8,13 @@ import CountrySelect from "../common/ContrySelect";
 import InputField from "../common/InputField";
 import Switcher from "../common/Switcher";
 import { useDispatch, useSelector } from "react-redux";
-import { GetIndividualWorkplace, WorkplaceDataEdit } from "@/redux/action/auth";
+import { GetIndividualWorkplace, WorkplaceDataEdit } from "@/redux/action/workplace";
 import { toast } from "react-toastify";
 
 const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
   const [associateAddress, setAssociateAddress] = useState(2);
   const individualWorkplace = useSelector(
-    (state) => state?.auth?.individualWorkplace
+    (state) => state?.Workplace?.individualWorkplace
   );
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({

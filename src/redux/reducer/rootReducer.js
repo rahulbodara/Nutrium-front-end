@@ -6,7 +6,7 @@ import { Services } from "./profile.services";
 const rootReducer = combineReducers({
   auth,
   Workplace: Workplace,
-  Service: Services,
+  Services: Services,
 });
 
 export default rootReducer;
