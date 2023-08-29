@@ -12,13 +12,12 @@ const Workplaces = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [workplaceData, setworkplaceData] = useState();
+  const [workplaceData, setworkplaceData] = useState(state);
   const [dataId, setdataId] = useState();
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await dispatch(GetAllWorkplace());
-      setworkplaceData(state);
+      await dispatch(GetAllWorkplace());
     };
     fetch();
   }, [dispatch]);
@@ -56,8 +55,8 @@ const Workplaces = () => {
           </div>
           <div>
             <div className="-mx-[15px] flex flex-wrap">
-              {workplaceData &&
-                workplaceData?.map((data) => {
+              {state &&
+                state?.map((data) => {
                   return (
                     <div className="w-1/3 relative px-[15px] lg:w-full">
                       <div

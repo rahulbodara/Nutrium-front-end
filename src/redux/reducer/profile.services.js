@@ -20,6 +20,16 @@ export const Services = (state = initialState, action) => {
         ...state,
         individualService: action.data,
       };
+    case Types.UPDATE_SERVICES:
+      const updatedServiceDetail = action.payload;
+      const updatedServicesDetails = state.servicesData.map((services) => {
+        if (services._id === updatedServiceDetail._id) {
+          return updatedServiceDetail;
+        } else {
+          return workplace;
+        }
+      });
+      return { ...state, servicesData: updatedServicesDetails };
     default:
       return state;
   }

@@ -8,7 +8,10 @@ import CountrySelect from "../common/ContrySelect";
 import InputField from "../common/InputField";
 import Switcher from "../common/Switcher";
 import { useDispatch, useSelector } from "react-redux";
-import { GetIndividualWorkplace, WorkplaceDataEdit } from "@/redux/action/workplace";
+import {
+  GetIndividualWorkplace,
+  WorkplaceDataEdit,
+} from "@/redux/action/workplace";
 import { toast } from "react-toastify";
 
 const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
@@ -56,33 +59,32 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
       const updatedFormData = {
         ...formData,
       };
-      console.log("updatedFormData:---->", updatedFormData);
-        const response = await dispatch(
-          WorkplaceDataEdit(updatedFormData,id)
-        ).then((res) => {
-          toast.error(res?.data?.data?.message);
-          return res;
-        });
-        setIsEditModalOpen(false);
-        if (response) {
-          toast.success("Workplace successfully Edited");
-          if (individualWorkplace) {
-            setFormData((prevFormData) => ({
-              ...prevFormData,
-              name: individualWorkplace.name,
-              country: individualWorkplace.country,
-              phoneNumber: individualWorkplace.phoneNumber,
-              color: individualWorkplace.color,
-              associateAddress: individualWorkplace.isActive === 1 ? true : false,
-              address: {
-                street: individualWorkplace.address.street,
-                city: individualWorkplace.address.city,
-                zipCode: individualWorkplace.address.zipCode,
-              },
-            }));
-          }
+      const response = await dispatch(
+        WorkplaceDataEdit(updatedFormData, id)
+      ).then((res) => {
+        toast.error(res?.data?.data?.message);
+        return res;
+      });
+      setIsEditModalOpen(false);
+      if (response) {
+        toast.success("Workplace successfully Edited");
+        if (individualWorkplace) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            name: individualWorkplace.name,
+            country: individualWorkplace.country,
+            phoneNumber: individualWorkplace.phoneNumber,
+            color: individualWorkplace.color,
+            associateAddress: individualWorkplace.isActive === 1 ? true : false,
+            address: {
+              street: individualWorkplace.address.street,
+              city: individualWorkplace.address.city,
+              zipCode: individualWorkplace.address.zipCode,
+            },
+          }));
         }
-        console.log("response---->", response);
+      }
+      console.log("response---->", response);
     } catch (error) {
       console.log("error-------------->", error);
     }
