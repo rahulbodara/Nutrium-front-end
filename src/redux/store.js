@@ -26,7 +26,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Workplace","Services","auth"],
+  whitelist: ["Workplace","Services","Secreataries","auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
