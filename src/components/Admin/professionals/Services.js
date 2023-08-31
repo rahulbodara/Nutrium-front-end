@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import EditService from "../Profile/EditService";
 
 const Services = () => {
-  const state = useSelector((state)=>state?.Services?.servicesData)
   const [isOpen, setIsOpen] = useState(false);
   const [servicesData, setservicesData] = useState();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -16,10 +15,10 @@ const Services = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await dispatch(GetAllServices());
-      setservicesData(state);
     };
     fetch();
   }, [dispatch]);
+  const state = useSelector((state)=>state?.Services?.servicesData)
   return (
     <>
       <div className="bg-white my-[25px] card-shadow rounded-[5px]">
@@ -43,7 +42,7 @@ const Services = () => {
           </div>
         </div>
         <div className="p-[20px] pt-0 lg:gap-[8px] gap-[30px] grid lg:grid-cols-1 grid-cols-2">
-          {servicesData?.map((item) => {
+          {state?.map((item) => {
             return (
               <div className="border border-[#EEEEEE] p-[-1px] hover:border-[#1ab394]" onClick={() => {setIsEditModalOpen(true);setdataId(item._id)}}>
                 <div className="flex select-none admin-select-field">

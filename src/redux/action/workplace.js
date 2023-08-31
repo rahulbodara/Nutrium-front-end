@@ -62,15 +62,14 @@ export const WorkplaceDataEdit = (data,id) => {
     try {
       const headers = createHeaders(); // Use the createHeaders function here
       const response = await axios.put(`${baseUrl}/workplaces/${id}`,data,{headers});
-      GetAllWorkplace()
       return dispatch({
-        type: Types.WORKPLACE_DATA,
-        data: response?.data,
+        type: Types.EDIT_WORKPLACE_SUCCESS,
+        payload: response?.data,
       });
     } catch (err) {
       return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
-        data: err.response,
+        type: Types.EDIT_WORKPLACE_FAILURE,
+        payload: err.response,
       });
     }
   };
