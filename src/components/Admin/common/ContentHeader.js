@@ -9,11 +9,12 @@ import { useSelector } from 'react-redux'
 import { Menu, Transition } from '@headlessui/react'
 import { ProfileMenuData } from '../ProfileMenuData'
 import { useRouter } from 'next/router'
+import moment from 'moment';
 
 const ContentHeader = (props) => {
+    const currentTime = moment().format('dddd, MMMM D, YYYY h:mm A');
     const { isCollapsed, setIsCollapsed, head, text } = props;
     const userData = useSelector((item) => item?.auth?.userData[0])
-
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter()
 
@@ -119,11 +120,11 @@ const ContentHeader = (props) => {
                         <div className='text-right flex justify-end items-center'>
                             <div className='inline-block font-[100] mr-[5px] text-[18px]'>Currently at</div>
                             <div className='inline-block font-[400]'>
-                                <div className='max-w-[300px] text-[20px] whitespace-nowrap text-ellipsis'>online</div>
+                                <div className='max-w-[300px] text-[20px] whitespace-nowrap text-ellipsis'>{userData?.workplace ? userData?.workplace : 'Online'}</div>
                             </div>
                         </div>
                         <div className='font-[100px] text-[#888888]'>
-                            <p className='text-right'>Friday, August 4, 2023 5:23 PM</p>
+                            <p className='text-right'>{currentTime}</p>
                         </div>
                     </div>
                 </div>
