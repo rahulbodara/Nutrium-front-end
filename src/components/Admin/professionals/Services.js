@@ -8,9 +8,9 @@ import EditService from "../Profile/EditService";
 
 const Services = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [servicesData, setservicesData] = useState();
+  // const [servicesData, setservicesData] = useState();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [dataId, setdataId] = useState();
+  const [editData, setEditData] = useState()
   const dispatch = useDispatch();
   useEffect(() => {
     const fetch = async () => {
@@ -18,7 +18,7 @@ const Services = () => {
     };
     fetch();
   }, [dispatch]);
-  const state = useSelector((state)=>state?.Services?.servicesData)
+  const state = useSelector((state) => state?.Services?.servicesData)
   return (
     <>
       <div className="bg-white my-[25px] card-shadow rounded-[5px]">
@@ -44,7 +44,10 @@ const Services = () => {
         <div className="p-[20px] pt-0 lg:gap-[8px] gap-[30px] grid lg:grid-cols-1 grid-cols-2">
           {state?.map((item) => {
             return (
-              <div className="border border-[#EEEEEE] p-[-1px] hover:border-[#1ab394]" onClick={() => {setIsEditModalOpen(true);setdataId(item._id)}}>
+              <div className="border border-[#EEEEEE] p-[-1px] hover:border-[#1ab394]" onClick={() => {
+                setIsOpen(true);
+                setEditData(item)
+              }} >
                 <div className="flex select-none admin-select-field">
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Type of service
@@ -140,11 +143,12 @@ const Services = () => {
         </div>
       </div>
       {/* Add new Service */}
-      <AddNewService isOpen={isOpen} setIsOpen={setIsOpen} />
+      {/* <AddNewService isOpen={isOpen} setIsOpen={setIsOpen} /> */}
       <EditService
-        isEditModalOpen={isEditModalOpen}
-        setIsEditModalOpen={setIsEditModalOpen}
-        id={dataId}
+        // isEditModalOpen={isEditModalOpen}
+        isOpen={isOpen} setIsOpen={setIsOpen}
+        // setIsEditModalOpen={setIsEditModalOpen}
+        setEditData={setEditData} editData={editData}
       />
     </>
   );

@@ -1,12 +1,11 @@
 import React from "react";
 
 const InputField = (props) => {
-  console.log(props,"=>>>>>>>>>");
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes(".")) {
       const [parentName, childName] = name.split(".");
-      props.setFormData((prevFormData) => ({
+      props?.setFormData((prevFormData) => ({
         ...prevFormData,
         [parentName]: {
           ...prevFormData[parentName],

@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { mdiMapMarker, mdiWeb } from "@mdi/js";
 import Icon from "@mdi/react";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import ColorPickerField from "../common/ColorPickerField";
 import CountrySelect from "../common/ContrySelect";
@@ -9,86 +9,139 @@ import InputField from "../common/InputField";
 import Switcher from "../common/Switcher";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  GetAllWorkplace,
   GetIndividualWorkplace,
+  WorkplaceDataCreation,
   WorkplaceDataEdit,
 } from "@/redux/action/workplace";
 import { toast } from "react-toastify";
+import { handleApiCall } from "@/util/apiUtils";
 
-const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
+const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
   const [associateAddress, setAssociateAddress] = useState(2);
   const individualWorkplace = useSelector(
     (state) => state?.Workplace?.individualWorkplace
   );
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: "",
-    country: "",
-    phoneNumber: "",
-    color: "",
-    associateAddress: true,
-    address: {
-      street: "",
-      city: "",
-      zipCode: "",
-    },
-  });
-  useEffect(() => {
-    if (isEditModalOpen && id) {
-      dispatch(GetIndividualWorkplace(id));
-    }
-  }, [isEditModalOpen, id, dispatch]);
-  useEffect(() => {
-    if (individualWorkplace) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        name: individualWorkplace.name,
-        country: individualWorkplace.country,
-        phoneNumber: individualWorkplace.phoneNumber,
-        color: individualWorkplace.color,
-        associateAddress: individualWorkplace.isActive === 1 ? true : false,
-        address: {
-          street: individualWorkplace.address?.street,
-          city: individualWorkplace.address?.city,
-          zipCode: individualWorkplace.address?.zipCode,
-        },
-      }));
-    }
-  }, [individualWorkplace]);
+  const [formData, setFormData] = useState();
+  console.log(formData, "formDetailsgdododoododood");
+  // useEffect(() => {
+  //   if (isEditModalOpen && id) {
+  //     dispatch(GetIndividualWorkplace(id));
+  //   }
+  // }, [isEditModalOpen, id, dispatch]);
+  // useEffect(() => {
+  //   if (individualWorkplace) {
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       name: individualWorkplace.name,
+  //       country: individualWorkplace.country,
+  //       phoneNumber: individualWorkplace.phoneNumber,
+  //       color: individualWorkplace.color,
+  //       associateAddress: individualWorkplace.isActive === 1 ? true : false,
+  //       address: {
+  //         street: individualWorkplace.address?.street,
+  //         city: individualWorkplace.address?.city,
+  //         zipCode: individualWorkplace.address?.zipCode,
+  //       },
+  //     }));
+  //   }
+  // }, [individualWorkplace]);
   const handleSubmit = async () => {
+    // try {
+    //   const updatedFormData = {
+    //     ...formData,
+    //   };
+    //   const response = await dispatch(
+    //     WorkplaceDataEdit(updatedFormData, id)
+    //   ).then((res) => {
+    //     toast.error(res?.data?.data?.message);
+    //     return res;
+    //   });
+    //   setIsOpen(false);
+    //   if (response) {
+    //     toast.success("Workplace successfully Edited");
+    //     if (individualWorkplace) {
+    //       setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         name: individualWorkplace.name,
+    //         country: individualWorkplace.country,
+    //         phoneNumber: individualWorkplace.phoneNumber,
+    //         color: individualWorkplace.color,
+    //         associateAddress: individualWorkplace.isActive === 1 ? true : false,
+    //         address: {
+    //           street: individualWorkplace.address.street,
+    //           city: individualWorkplace.address.city,
+    //           zipCode: individualWorkplace.address.zipCode,
+    //         },
+    //       }));
+    //     }
+    //   }
+    //   console.log("response---->", response);
+    // } catch (error) {
+    //   console.log("error-------------->", error);
+    // }
     try {
       const updatedFormData = {
         ...formData,
       };
-      const response = await dispatch(
-        WorkplaceDataEdit(updatedFormData, id)
-      ).then((res) => {
-        toast.error(res?.data?.data?.message);
-        return res;
-      });
-      setIsEditModalOpen(false);
-      if (response) {
-        toast.success("Workplace successfully Edited");
-        if (individualWorkplace) {
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            name: individualWorkplace.name,
-            country: individualWorkplace.country,
-            phoneNumber: individualWorkplace.phoneNumber,
-            color: individualWorkplace.color,
-            associateAddress: individualWorkplace.isActive === 1 ? true : false,
-            address: {
-              street: individualWorkplace.address.street,
-              city: individualWorkplace.address.city,
-              zipCode: individualWorkplace.address.zipCode,
-            },
-          }));
+      if (editData) {
+        const success = await handleApiCall(
+          dispatch,
+          WorkplaceDataEdit(updatedFormData, editData._id),
+          'Workplace Updated Successfully'
+        );
+        if (success) {
+          dispatch(GetAllWorkplace());
+          setIsOpen(false);
+        }
+      } else {
+        const success = await handleApiCall(
+          dispatch,
+          WorkplaceDataCreation(updatedFormData),
+          'Workplace successfully created'
+        );
+        if (success) {
+          dispatch(GetAllWorkplace());
+          setIsOpen(false);
         }
       }
-      console.log("response---->", response);
     } catch (error) {
-      console.log("error-------------->", error);
+      console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (editData) {
+      setFormData({
+        name: editData?.name,
+        country: editData?.country,
+        phoneNumber: editData?.phoneNumber,
+        color: editData?.color,
+        streetAddress: editData?.streetAddress,
+        cityAddress: editData?.cityAddress,
+        zipCodeAddress: editData?.zipCodeAddress
+      });
+    }
+  }, [editData]);
+
+  useMemo(() => {
+    setFormData({
+      ...formData,
+      name: editData?.name,
+      country: editData?.country,
+      phoneNumber: editData?.phoneNumber,
+      color: editData?.color,
+      streetAddress: editData?.streetAddress,
+      cityAddress: editData?.cityAddress,
+      zipCodeAddress: editData?.zipCodeAddress
+    })
+    if (isOpen === false) {
+      setFormData()
+      setEditData()
+    }
+  }, [editData, isOpen])
+
 
   const handleAssociateAdd = (val) => {
     setAssociateAddress(val);
@@ -96,11 +149,11 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
 
   return (
     <div className="modal">
-      <Transition appear show={isEditModalOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-[9999]"
-          onClose={setIsEditModalOpen}
+          onClose={setIsOpen}
         >
           <Transition.Child
             as={Fragment}
@@ -128,7 +181,7 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                 <Dialog.Panel className="w-full max-w-[900px] md:max-w-full transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
                   <div className="p-[25px] pb-[48px] relative">
                     <button
-                      onClick={() => setIsEditModalOpen(false)}
+                      onClick={() => setIsOpen(false)}
                       className="absolute right-[10px] top-[10px]"
                     >
                       <IoCloseSharp className="text-[18px] opacity-[0.4]" />
@@ -165,14 +218,14 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                             className="mt-[7px] h-[40px]"
                             label="Name"
                             name="name"
-                            value={formData.name || ""}
+                            value={formData?.name || ""}
                             setFormData={setFormData}
                           />
                           <CountrySelect
                             className="mt-[7px] h-[40px]"
                             label="Country"
                             name="country"
-                            value={formData.country || ""}
+                            value={formData?.country || ""}
                             setFormData={setFormData}
                           />
                           <InputField
@@ -181,7 +234,7 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                             label="Phone number"
                             mobile="mobile"
                             name="phoneNumber"
-                            value={formData.phoneNumber || ""}
+                            value={formData?.phoneNumber || ""}
                             setFormData={setFormData}
                           />
                           <ColorPickerField
@@ -189,43 +242,39 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                             label="Color"
                             color="color"
                             name="color"
-                            value={formData.color || ""}
+                            value={formData?.color || ""}
                             setFormData={setFormData}
                           />
                         </div>
                       </div>
                       <div className="mt-[32px] flex items-center ">
                         <div
-                          className={`w-6/12 rounded px-3 py-[9px] ${
-                            associateAddress === 1
-                              ? "text-[#1AB394] border-[#1AB394] "
-                              : "text-[#676a6c] border-[#dddddd]"
-                          }  bg-[rgba(255,255,255,0)] transition-all  duration-[0.5s] font-normal text-center whitespace-nowrap align-middle touch-manipulation cursor-pointer bg-none border text-sm leading-[1.42857143] select-none mb-0 border-solid`}
+                          className={`w-6/12 rounded px-3 py-[9px] ${associateAddress === 1
+                            ? "text-[#1AB394] border-[#1AB394] "
+                            : "text-[#676a6c] border-[#dddddd]"
+                            }  bg-[rgba(255,255,255,0)] transition-all  duration-[0.5s] font-normal text-center whitespace-nowrap align-middle touch-manipulation cursor-pointer bg-none border text-sm leading-[1.42857143] select-none mb-0 border-solid`}
                           onClick={() => handleAssociateAdd(1)}
                         >
                           <Icon
                             path={mdiMapMarker}
-                            color={`${
-                              associateAddress === 1 ? "#1AB394" : "#888888"
-                            }`}
+                            color={`${associateAddress === 1 ? "#1AB394" : "#888888"
+                              }`}
                             size="18px"
                             className="inline align-middle m-[-4px_10px_0_0]"
                           />
                           <span>Associate address</span>
                         </div>
                         <div
-                          className={`w-6/12 rounded px-3 py-[9px] ml-[4px] ${
-                            associateAddress === 2
-                              ? "text-[#1AB394] border-[#1AB394] "
-                              : "text-[#676a6c] border-[#dddddd]"
-                          }  bg-[rgba(255,255,255,0)] transition-all  duration-[0.5s] font-normal text-center whitespace-nowrap align-middle touch-manipulation cursor-pointer bg-none border text-sm leading-[1.42857143] select-none mb-0 border-solid`}
+                          className={`w-6/12 rounded px-3 py-[9px] ml-[4px] ${associateAddress === 2
+                            ? "text-[#1AB394] border-[#1AB394] "
+                            : "text-[#676a6c] border-[#dddddd]"
+                            }  bg-[rgba(255,255,255,0)] transition-all  duration-[0.5s] font-normal text-center whitespace-nowrap align-middle touch-manipulation cursor-pointer bg-none border text-sm leading-[1.42857143] select-none mb-0 border-solid`}
                           onClick={() => handleAssociateAdd(2)}
                         >
                           <Icon
                             path={mdiWeb}
-                            color={`${
-                              associateAddress === 2 ? "#1AB394" : "#888888"
-                            }`}
+                            color={`${associateAddress === 2 ? "#1AB394" : "#888888"
+                              }`}
                             size="18px"
                             className="inline align-middle m-[-4px_10px_0_0]"
                           />
@@ -240,24 +289,24 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                             labelStyle="min-w-[160px] flex-basis-[160px]"
                             className="mt-[7px] h-[40px]"
                             label="Address"
-                            name="address.street"
-                            value={formData.address.street || ""}
+                            name="streetAddress"
+                            value={formData?.streetAddress || ""}
                             setFormData={setFormData}
                           />
                           <InputField
                             labelStyle="min-w-[160px] flex-basis-[160px]"
                             className="mt-[7px] h-[40px]"
                             label="City"
-                            name="address.city"
-                            value={formData.address.city || ""}
+                            name="cityAddress"
+                            value={formData?.cityAddress || ""}
                             setFormData={setFormData}
                           />
                           <InputField
                             labelStyle="min-w-[160px] flex-basis-[160px]"
                             className="mt-[7px] h-[40px]"
                             label="Zip code"
-                            name="address.zipCode"
-                            value={formData.address.zipCode || ""}
+                            name="zipCodeAddress"
+                            value={formData?.zipCodeAddress || ""}
                             setFormData={setFormData}
                           />
                         </div>
@@ -275,7 +324,7 @@ const Editworkplace = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
                     <div>
                       <button
                         className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
-                        onClick={() => setIsEditModalOpen(false)}
+                        onClick={() => setIsOpen(false)}
                       >
                         Cancel
                       </button>

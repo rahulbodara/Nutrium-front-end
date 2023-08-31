@@ -26,9 +26,10 @@ export const WorkplaceDataCreation = (data) => {
     try {
       const headers = createHeaders(); // Use the createHeaders function here
       const response = await axios.post(`${baseUrl}/workplaces`,data,{headers});
+      console.log(response,"hdhdhhdhhdhhdhd");
       return dispatch({
         type: Types.WORKPLACE_DATA,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({
@@ -64,7 +65,7 @@ export const WorkplaceDataEdit = (data,id) => {
       const response = await axios.put(`${baseUrl}/workplaces/${id}`,data,{headers});
       return dispatch({
         type: Types.EDIT_WORKPLACE_SUCCESS,
-        payload: response?.data,
+        payload: response,
       });
     } catch (err) {
       return dispatch({

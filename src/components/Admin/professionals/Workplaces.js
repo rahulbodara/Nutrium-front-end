@@ -8,13 +8,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetAllWorkplace } from "@/redux/action/workplace";
 
 const Workplaces = () => {
-  const state = useSelector((state) => state.Workplace?.workplaceData);
+  const [editData, setEditData] = useState({})
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [workplaceData, setworkplaceData] = useState(state);
-  const [dataId, setdataId] = useState();
-
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const workplaceData = useSelector((state) => state.Workplace?.workplaceData);
+  const handleSearchValue = (value) => {
+    const searchSecretaries = workplaceData.filter((item) =>
+        item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(searchSecretaries);
+    setSearchValue(value);
+}
   useEffect(() => {
     const fetch = async () => {
       await dispatch(GetAllWorkplace());
@@ -51,20 +57,20 @@ const Workplaces = () => {
               name="fullName"
               className="block border-[1px] border-[#e5e6e7] placeholder:opacity-[0.6] focus:ring-0 py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none"
               placeholder="Search workspaces"
+              onChange={(e) => handleSearchValue(e.target.value)}
             />
           </div>
           <div>
             <div className="-mx-[15px] flex flex-wrap">
-              {state &&
-                state?.map((data) => {
+              {(searchValue === "" ? workplaceData : filteredData)?.map((data) => {
                   return (
                     <div className="w-1/3 relative px-[15px] lg:w-full">
                       <div
                         className="h-[140px] group flex p-[20px] items-start my-[5px] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer"
                         onClick={() => {
-                          setIsEditModalOpen(true);
-                          setdataId(data._id);
-                        }}
+                          setIsOpen(true);
+                          setEditData(data)
+                      }}
                       >
                         <div className="w-[70px] h-[100px] m-[0_30px_0_10px]">
                           <div className="flex relative w-[72px] h-[72px] rounded-full items-center justify-center border border-[#eeeeee]">
@@ -125,11 +131,9 @@ const Workplaces = () => {
           </div>
         </div>
       </div>
-      <AddNewWorkplace isOpen={isOpen} setIsOpen={setIsOpen} />
+      {/* <AddNewWorkplace isOpen={isOpen} setIsOpen={setIsOpen} /> */}
       <Editworkplace
-        isEditModalOpen={isEditModalOpen}
-        setIsEditModalOpen={setIsEditModalOpen}
-        id={dataId}
+        isOpen={isOpen} setIsOpen={setIsOpen} setEditData={setEditData} editData={editData}
       />
     </>
   );
