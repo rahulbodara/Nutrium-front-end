@@ -20,6 +20,16 @@ export const Workplace = (state = initialState, action) => {
         ...state,
         individualWorkplace: action.data,
       };
+    case Types.EDIT_WORKPLACE_SUCCESS:
+      const updatedWorkplaceDetail = action.payload;
+      const updatedWorkplaceDetails = state.workplaceData.map((workplace) => {
+        if (workplace._id === updatedWorkplaceDetail._id) {
+          return updatedWorkplaceDetail;
+        } else {
+          return workplace;
+        }
+      });
+      return { ...state, workplaceData: updatedWorkplaceDetails };
     default:
       return state;
   }

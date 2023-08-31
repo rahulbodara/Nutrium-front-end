@@ -59,8 +59,6 @@ export const GetIndividualService = (id) => {
   };
 };
 
-
-
 export const ServiceDataEdit = (data,id) => {
   return async (dispatch) => {
     try {
