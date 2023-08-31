@@ -1,6 +1,7 @@
 import React from "react";
 
 const InputField = (props) => {
+  console.log(props,"=>>>>>>>>>");
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes(".")) {
@@ -13,7 +14,7 @@ const InputField = (props) => {
         },
       }));
     } else {
-      props?.setFormData((prevFormData) => ({
+      props.setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: value,
       }));

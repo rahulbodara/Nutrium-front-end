@@ -8,7 +8,7 @@ import CountrySelect from "../common/ContrySelect";
 import InputField from "../common/InputField";
 import Switcher from "../common/Switcher";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { GetAllWorkplace, WorkplaceDataCreation } from "@/redux/action/auth";
+import { GetAllWorkplace, WorkplaceDataCreation } from "@/redux/action/workplace";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 

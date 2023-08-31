@@ -26,7 +26,7 @@ import {
   GetAllWorkplace,
   GetIndividualService,
   ServiceDataEdit,
-} from "@/redux/action/auth";
+} from "@/redux/action/profile.services";
 import { toast } from "react-toastify";
 
 const serviceType = [
@@ -77,9 +77,9 @@ const clientType = [
 
 const EditService = ({ isEditModalOpen, setIsEditModalOpen, id }) => {
   const individualservice = useSelector(
-    (state) => state?.auth?.individualService
+    (state) => state?.Services?.individualService
   );
-  const workplaceData = useSelector((state) => state?.auth?.workplaceData);
+  const workplaceData = useSelector((state) => state?.Workplace?.workplaceData);
   const dispatch = useDispatch();
   // const [workplaceData, setworkplaceData] = useState();
   const [formData, setFormData] = useState({

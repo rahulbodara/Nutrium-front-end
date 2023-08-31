@@ -2,11 +2,12 @@ import { mdiPlus, mdiPlusBox } from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useEffect, useState } from "react";
 import AddNewService from "../Profile/AddNewService";
-import { GetAllServices } from "@/redux/action/auth";
+import { GetAllServices } from "@/redux/action/profile.services";
 import { useDispatch, useSelector } from "react-redux";
 import EditService from "../Profile/EditService";
 
 const Services = () => {
+  const state = useSelector((state)=>state?.Services?.servicesData)
   const [isOpen, setIsOpen] = useState(false);
   const [servicesData, setservicesData] = useState();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -15,7 +16,7 @@ const Services = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await dispatch(GetAllServices());
-      setservicesData(response.data);
+      setservicesData(state);
     };
     fetch();
   }, [dispatch]);
