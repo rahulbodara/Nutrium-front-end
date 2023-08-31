@@ -44,7 +44,7 @@ const SelectField = (props) => {
           >
             {props.default &&
               <option selected disabled>
-                All Workplace
+                {props?.defaultValue}
               </option>
             }
             {props.option?.map((item, index) => (

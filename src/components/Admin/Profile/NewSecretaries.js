@@ -166,6 +166,7 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                                                             label="Workplace"
                                                             className="mt-[7px]"
                                                             default={true}
+                                                            defaultValue="All Workplace"
                                                         />
                                                     </div>
                                                 </div>
