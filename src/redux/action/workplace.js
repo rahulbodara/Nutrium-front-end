@@ -76,21 +76,3 @@ export const WorkplaceDataEdit = (data,id) => {
   };
 };
 
-export const SecretarieseDataEdit = (data,id) => {
-  return async (dispatch) => {
-    try {
-      const headers = createHeaders(); // Use the createHeaders function here
-
-      const response = await axios.put(`${baseUrl}/services/${id}`,data,{headers});
-      return dispatch({
-        type: Types.UPDATE_SECRETARIES,
-        data: response?.data,
-      });
-    } catch (err) {
-      return dispatch({
-        type: Types.UPDATE_SECRETARIES_FAILURE,
-        data: err.response,
-      });
-    }
-  };
-};

@@ -19,68 +19,10 @@ import { handleApiCall } from "@/util/apiUtils";
 
 const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
   const [associateAddress, setAssociateAddress] = useState(2);
-  const individualWorkplace = useSelector(
-    (state) => state?.Workplace?.individualWorkplace
-  );
   const dispatch = useDispatch();
   const [formData, setFormData] = useState();
   console.log(formData, "formDetailsgdododoododood");
-  // useEffect(() => {
-  //   if (isEditModalOpen && id) {
-  //     dispatch(GetIndividualWorkplace(id));
-  //   }
-  // }, [isEditModalOpen, id, dispatch]);
-  // useEffect(() => {
-  //   if (individualWorkplace) {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       name: individualWorkplace.name,
-  //       country: individualWorkplace.country,
-  //       phoneNumber: individualWorkplace.phoneNumber,
-  //       color: individualWorkplace.color,
-  //       associateAddress: individualWorkplace.isActive === 1 ? true : false,
-  //       address: {
-  //         street: individualWorkplace.address?.street,
-  //         city: individualWorkplace.address?.city,
-  //         zipCode: individualWorkplace.address?.zipCode,
-  //       },
-  //     }));
-  //   }
-  // }, [individualWorkplace]);
   const handleSubmit = async () => {
-    // try {
-    //   const updatedFormData = {
-    //     ...formData,
-    //   };
-    //   const response = await dispatch(
-    //     WorkplaceDataEdit(updatedFormData, id)
-    //   ).then((res) => {
-    //     toast.error(res?.data?.data?.message);
-    //     return res;
-    //   });
-    //   setIsOpen(false);
-    //   if (response) {
-    //     toast.success("Workplace successfully Edited");
-    //     if (individualWorkplace) {
-    //       setFormData((prevFormData) => ({
-    //         ...prevFormData,
-    //         name: individualWorkplace.name,
-    //         country: individualWorkplace.country,
-    //         phoneNumber: individualWorkplace.phoneNumber,
-    //         color: individualWorkplace.color,
-    //         associateAddress: individualWorkplace.isActive === 1 ? true : false,
-    //         address: {
-    //           street: individualWorkplace.address.street,
-    //           city: individualWorkplace.address.city,
-    //           zipCode: individualWorkplace.address.zipCode,
-    //         },
-    //       }));
-    //     }
-    //   }
-    //   console.log("response---->", response);
-    // } catch (error) {
-    //   console.log("error-------------->", error);
-    // }
     try {
       const updatedFormData = {
         ...formData,

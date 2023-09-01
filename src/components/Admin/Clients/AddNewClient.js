@@ -24,6 +24,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addNewClient } from '@/schema/client';
 import { GetAllWorkplace } from '@/redux/action/workplace';
 import CustomSelect from '../common/CustomSelect';
+import { handleApiCall } from '@/util/apiUtils';
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
   const [formData, setFormData] = useState({});
@@ -41,13 +42,15 @@ const dispatch = useDispatch();
         dateOfBirth: formattedDateOfBirth,
       };
 
-      const response = await dispatch(registerClient(updatedFormData)).then((res) => {
-        toast.error(res?.data?.data?.message);
-        return res;
-      });
-      setIsOpen(false)
-      toast.success(response?.data?.message);
-      console.log('response---->', response);
+      const success =await handleApiCall(
+        dispatch,
+        registerClient(updatedFormData),
+        'Client successfully created'
+      );
+      if (success) {
+        dispatch(GetAllWorkplace());
+      }
+      setIsOpen(false);
     } catch (error) {
       console.log('error-------------->', error);
     }
