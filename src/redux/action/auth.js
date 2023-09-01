@@ -100,7 +100,7 @@ export const registerClient = (data) => {
       const response = await axios.post(`${baseUrl}/client`, data, { headers });
       return dispatch({
         type: Types.CLIENT_DATA,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({

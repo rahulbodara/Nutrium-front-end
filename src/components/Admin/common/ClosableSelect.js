@@ -7,7 +7,7 @@ import 'select2';
 import { useSelector } from 'react-redux';
 
 const ClosableSelect = (props) => {
-  console.log("PROPS",props.option)
+  console.log("PROPS",props)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const selectRef = useRef(null);
   const [selectedValue, setSelectedValue] = useState(props.initialValue || "");

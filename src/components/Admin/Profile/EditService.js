@@ -106,7 +106,6 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
   //   }
   // }, [individualservice]);
   const handleServices = async () => {
-    debugger;
     try {
       const updatedFormData = {
         ...formData,
@@ -130,17 +129,7 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
         if (success) {
           dispatch(GetAllServices());
           setIsOpen(false);
-        } else {
-          const success = await handleApiCall(
-            dispatch,
-            CreateSecretaries(updatedFormData),
-            'Secretaries successfully created'
-          );
-          if (success) {
-            dispatch(GetAllServices());
-            setIsOpen(false);
-          }
-        }
+        } 
       }
     } catch (error) {
       console.log(error);

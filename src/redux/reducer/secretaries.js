@@ -11,17 +11,27 @@ export const Secreataries = (state = initialState, action) => {
         case Types.SECRETARIES_DATA:
             return {
                 ...state,
-                secreatariesData: action.payload,
+                secreatariesData: action.data,
             };
         case Types.SECRETARIES_DATA_FAILURE:
-            return { ...state, error: action?.payload?.response };
+            return { ...state, error: action?.data?.response };
         case Types.GET_INDIVIDUAL_SECRETARIES_SUCCESS:
             return {
                 ...state,
                 individualService: action.data,
             };
+        case Types.UPDATE_SECRETARIES:
+            const updatedSecretariesDetails = action.data;
+            const updatedWorkplaceDetails = state.workplaceData.map((secretaries) => {
+                if (workplace._id === updatedSecretariesDetails._id) {
+                    return updatedSecretariesDetails;
+                } else {
+                    return secretaries;
+                }
+            });
+            return { ...state, workplaceData: updatedWorkplaceDetails };
         case Types.REMOVE_SECRETARIES:
-            return { ...state, secreatariesData: action.payload }
+            return { ...state, secreatariesData: action.data }
         default:
             return state;
     }

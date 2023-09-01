@@ -45,6 +45,7 @@ const dispatch = useDispatch();
         toast.error(res?.data?.data?.message);
         return res;
       });
+      console.log(response,"resgytshshhshshh");
       setIsOpen(false)
       toast.success(response?.data?.message);
       console.log('response---->', response);

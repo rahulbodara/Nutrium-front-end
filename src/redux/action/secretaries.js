@@ -10,7 +10,7 @@ export const GetAllSecreatries = () => {
       const response = await axios.get(`${baseUrl}/secretaries`, { headers });
       return dispatch({
         type: Types.SECRETARIES_DATA,
-        payload: response?.data,
+        data: response?.data,
       });
     } catch (err) {
       return dispatch({
@@ -27,12 +27,12 @@ export const CreateSecretaries = (data) => {
       const headers = createHeaders(); 
       const response = await axios.post(`${baseUrl}/secretaries`,data,{headers});
       return dispatch({
-        type: Types.SECRETARIES_DATA,
+        type: Types.CREATE_SECRETARIES,
         data: response,
       });
     } catch (err) {
       return dispatch({
-        type: Types.SECRETARIES_DATA_FAILURE,
+        type: Types.CREATE_SECRETARIES_FAILURE,
         data: err.response,
       });
     }
@@ -50,7 +50,7 @@ export const GetIndividualSecreataries = (id) => {
       });
     } catch (err) {
       return dispatch({
-        type: Types.SECRETARIES_DATA_FAILURE,
+        type: Types.GET_INDIVIDUAL_SECRETARIES_FAILURE,
         data: err.response,
       });
     }
@@ -64,12 +64,12 @@ export const SecreatriesDataEdit = (data,id) => {
       const response = await axios.put(`${baseUrl}/secretaries/${id}`,data,{headers});
       console.log(response,"responseresponse");
       return dispatch({
-        type: Types.SECRETARIES_DATA,
+        type: Types.UPDATE_SECRETARIES,
         data: response,
       });
     } catch (err) {
       return dispatch({
-        type: Types.SECRETARIES_DATA_FAILURE,
+        type: Types.UPDATE_SECRETARIES_FAILURE,
         data: err.response,
       });
     }
@@ -88,7 +88,7 @@ export const RemoveSecretaries = (id) => {
         });
       } catch (err) {
         return dispatch({
-          type: Types.SECRETARIES_DATA_FAILURE,
+          type: Types.REMOVE_SECRETARIES_FAILURE,
           data: err.response,
         });
       }
