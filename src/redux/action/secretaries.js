@@ -69,9 +69,28 @@ export const SecreatriesDataEdit = (data,id) => {
       });
     } catch (err) {
       return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
+        type: Types.SECRETARIES_DATA_FAILURE,
         data: err.response,
       });
     }
   };
 };
+
+export const RemoveSecretaries = (id) => {
+    return async (dispatch) => {
+      try {
+        const headers = createHeaders();
+        const response = await axios.delete(`${baseUrl}/secretaries/${id}`,{headers});
+        console.log(response,"sssssssssss");
+        return dispatch({
+          type: Types.REMOVE_SECRETARIES,
+          data: response,
+        });
+      } catch (err) {
+        return dispatch({
+          type: Types.SECRETARIES_DATA_FAILURE,
+          data: err.response,
+        });
+      }
+    };
+  };

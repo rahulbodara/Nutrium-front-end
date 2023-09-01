@@ -20,6 +20,8 @@ export const Secreataries = (state = initialState, action) => {
                 ...state,
                 individualService: action.data,
             };
+        case Types.REMOVE_SECRETARIES:
+            return { ...state, secreatariesData: action.payload }
         default:
             return state;
     }
