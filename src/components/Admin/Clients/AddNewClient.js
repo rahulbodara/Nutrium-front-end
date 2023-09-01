@@ -19,11 +19,12 @@ import { IoCloseSharp } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import { registerClient } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addNewClient } from '@/schema/client';
 import { GetAllWorkplace } from '@/redux/action/workplace';
 import CustomSelect from '../common/CustomSelect';
+import { handleApiCall } from '../../../util/apiUtils';
+import { clientData } from '@/redux/action/auth';
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
   const [formData, setFormData] = useState({});
@@ -40,14 +41,15 @@ const dispatch = useDispatch();
         ...values,
         dateOfBirth: formattedDateOfBirth,
       };
-
-      const response = await dispatch(registerClient(updatedFormData)).then((res) => {
-        toast.error(res?.data?.data?.message);
-        return res;
-      });
-      setIsOpen(false)
-      toast.success(response?.data?.message);
-      console.log('response---->', response);
+      const success = await handleApiCall(
+        dispatch,
+        registerClient(updatedFormData),
+        'Client successfully created'
+      );
+      if(success) {
+        dispatch(clientData());
+        setIsOpen(false)
+      }
     } catch (error) {
       console.log('error-------------->', error);
     }

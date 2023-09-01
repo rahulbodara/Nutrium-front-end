@@ -14,9 +14,10 @@ import EditableTextarea from '../common/EditableTextarea';
 import DateInput from '../common/DateInput';
 import TagSelect from '../common/TagSelect';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteClient, getClientById } from '@/redux/action/auth';
+import { deleteClient, getClientById, updateClient } from '@/redux/action/auth';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { handleApiCall } from "@/util/apiUtils";
 
 const ClientDetail = ({ clientId }) => {
   const [collapse, setCollapse] = useState(false);
@@ -24,6 +25,7 @@ const ClientDetail = ({ clientId }) => {
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state?.auth?.clientData[0]);
   const error = useSelector((state) => state?.auth?.error);
+  const [singleValue, setSingleValue] = useState()
 
   const birthDate = clientData?.dateOfBirth || '';
   const calculateAge = (birthDate) => {
@@ -49,6 +51,23 @@ const ClientDetail = ({ clientId }) => {
       console.log('error---------->', error);
     }
   };
+
+  const handleSubmit = async (newValue) => {
+    console.log(newValue, "newValue")
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        updateClient(newValue, clientId),
+        'Client Updated Successfully'
+      );
+      if(success) {
+        dispatch(getClientById(clientId));
+      }
+    } catch(err) {
+      console.log("Error -->", err)
+    }
+  };
+
 
   const professionOptions = [
     {
@@ -169,6 +188,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Full name"
                 initialValue={clientData?.fullName || ''}
+                onInputChange={(value) => setSingleValue({["fullName"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
@@ -176,6 +197,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Occupation"
                 initialValue={clientData?.occupation || ''}
+                onInputChange={(value) => setSingleValue({["occupation"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
@@ -206,6 +229,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Address"
                 initialValue={clientData?.address || ''}
+                onInputChange={(value) => setSingleValue({["address"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
 
@@ -214,6 +239,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Zip code"
                 initialValue={clientData?.zipcode || ''}
+                onInputChange={(value) => setSingleValue({["zipcode"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
@@ -221,6 +248,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Mobile phone"
                 initialValue={clientData?.phoneNumber || ''}
+                onInputChange={(value) => setSingleValue({["phoneNumber"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
@@ -228,6 +257,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Email"
                 initialValue={clientData?.email || ''}
+                onInputChange={(value) => setSingleValue({["email"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
           </div>
@@ -280,6 +311,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Process number"
                 initialValue={clientData?.processNumber || ''}
+                onInputChange={(value) => setSingleValue({["processNumber"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
@@ -287,6 +320,8 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="National number"
                 initialValue={clientData?.nationalNumber || ''}
+                onInputChange={(value) => setSingleValue({["nationalNumber"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
@@ -294,13 +329,17 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Health number"
                 initialValue={clientData?.healthNumber || ''}
+                onInputChange={(value) => setSingleValue({["healthNumber"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
             <div>
               <EditableInput
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="VAT number"
-                initialValue={clientData?.vatNumber || ''}        
+                initialValue={clientData?.vatNumber || ''}   
+                onInputChange={(value) => setSingleValue({["vatNumber"]:value})}
+                handleSubmit={() => handleSubmit(singleValue)}     
               />
             </div>
           </div>

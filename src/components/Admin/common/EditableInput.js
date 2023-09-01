@@ -33,8 +33,14 @@ const EditableInput = (props) => {
 
   const handleBlur = () => {
     setIsFocused(false);
-    setIsInputEmpty(inputValue === '');
+    setInputValue('');
   };
+
+  const handleCancel = () => {
+    setIsFocused(false);
+    setInputValue(props?.initialValue);
+  };
+
   return (
     <div className="flex select-none admin-select-field mt-[7px]">
       <div
@@ -47,43 +53,45 @@ const EditableInput = (props) => {
           <input
             type="text"
             className="w-full h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0"
-            onKeyDown={handleInput}
+            // onKeyDown={handleInput}
             onFocus={handleFocus}
-            onBlur={handleBlur}
-            defaultValue={inputValue}
+            // onBlur={handleBlur}
+            value={inputValue}
+            onChange={(e) =>{ 
+              handleInput(e)
+              setInputValue(e.target.value)}}
           />
-          {!isInputEmpty ? (
-            <span className="absolute right-[4px] top-[26%] opacity-[0.7]">
+          {isFocused ? (
+            <span onClick={handleBlur} className="absolute right-[4px] top-[26%] opacity-[0.7]">
               <Icon path={mdiCloseCircle} size="15px" color="#aaaaaa" />
             </span>
           ) : (
             ''
           )}
         </div>
-        {isFocused ? (
+        {/* {isFocused ? ( */}
           <>
-            <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+            <button type="button" onClick={() => {props.handleSubmit(); setIsFocused(false)}} className={`${isFocused ? 'block' : 'hidden'} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
               <Icon
                 path={mdiCheck}
                 size="18px"
                 color="#1ab394"
-                onClick={()=>{props?.handleSubmit();handleBlur();}}
               />
-            </div>
-            <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+            </button>
+            <div className={`${isFocused ? 'block' : 'hidden'} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
               <Icon
                 path={mdiClose}
                 size="18px"
                 color={'#DB4965'}
-                onClick={()=>{props?.handleCancel;handleBlur()}}
+                onClick={handleCancel}
               />
             </div>
           </>
-        ) : (
-          <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
-            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} onClick={handleFocus}/>
-          </div>
-        )}
+        {/* ) : ( */}
+          <button type='button' onClick={handleFocus} className={`${isFocused ? 'hidden' : "block"} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
+            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} />
+          </button>
+        {/* )} */}
       </div>
     </div>
   );
