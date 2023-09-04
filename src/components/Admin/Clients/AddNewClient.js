@@ -19,12 +19,12 @@ import { IoCloseSharp } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import { registerClient } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addNewClient } from '@/schema/client';
 import { GetAllWorkplace } from '@/redux/action/workplace';
 import CustomSelect from '../common/CustomSelect';
-import { handleApiCall } from '@/util/apiUtils';
+import { handleApiCall } from '../../../util/apiUtils';
+import { clientData } from '@/redux/action/auth';
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
   const [formData, setFormData] = useState({});

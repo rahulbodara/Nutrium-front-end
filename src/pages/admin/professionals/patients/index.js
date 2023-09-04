@@ -26,7 +26,7 @@ const Patients = () => {
   const [openModal, setOpenModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterClient, setFilterClient] = useState('All clients');
-  const [filterWorkplace, setFilterWorkplace] = useState('')
+  const [filterWorkplace, setFilterWorkplace] = useState('All Workplace')
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Patients = () => {
       await dispatch(clientData());
     };
     fetch();
-  }, [dispatch, isOpen]);
+  }, [dispatch]);
   const clientsData = useSelector((state) => state?.auth?.clientData);
   const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
   console.log(workSpaceData,"workSpaceData")
@@ -83,11 +83,20 @@ const Patients = () => {
   const dataToMap =
   filterClient === "Active clients this month" ? currentMonthData : clients;
 
-  const filteredClients = dataToMap.filter((client) =>
+  let filteredClients = dataToMap;
+
+if (filterWorkplace !== "All Workplace") {
+  filteredClients = dataToMap.filter((client) =>
+    client.workplace === filterWorkplace
+  );
+} else {
+  console.log("test")
+  filteredClients = dataToMap.filter((client) =>
     client.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     client.occupation.toLowerCase().includes(searchQuery.toLowerCase()) ||
     client.workplace.toLowerCase().includes(searchQuery.toLowerCase())
   );
+}
 
   const activeClients = clients.filter(client => client.isActive === 1);
   const totalClients = clients.length;
@@ -202,6 +211,7 @@ const Patients = () => {
                     searchOption={false} 
                     onSelectChange={(value) => setFilterClient(value)} />
                     <CustomSelect 
+                      defaultOptions={"All Workplace"}
                       option={workSpaceData} 
                       className="w-full mt-3" 
                       searchOption={false}

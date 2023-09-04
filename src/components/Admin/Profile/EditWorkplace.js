@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   GetAllWorkplace,
   GetIndividualWorkplace,
+  RemoveWorkplace,
   WorkplaceDataCreation,
   WorkplaceDataEdit,
 } from "@/redux/action/workplace";
@@ -21,7 +22,6 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
   const [associateAddress, setAssociateAddress] = useState(2);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState();
-  console.log(formData, "formDetailsgdododoododood");
   const handleSubmit = async () => {
     try {
       const updatedFormData = {
@@ -52,6 +52,21 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
       console.log(error);
     }
   };
+  const handleDeleteItem = async (id) => {
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        RemoveWorkplace(id),
+        'Workplace Deleted Successfully'
+      );
+      if (success) {
+        dispatch(GetAllWorkplace());
+        setIsOpen(false);
+      }
+    } catch (error) {
+      console.error("Error deleting secretary:", error);
+    }
+  }
 
   useEffect(() => {
     if (editData) {
@@ -60,9 +75,12 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
         country: editData?.country,
         phoneNumber: editData?.phoneNumber,
         color: editData?.color,
-        streetAddress: editData?.streetAddress,
-        cityAddress: editData?.cityAddress,
-        zipCodeAddress: editData?.zipCodeAddress
+        associateAddress: editData?.associateAddress,
+        address: {
+          street: editData?.address?.street,
+          city: editData?.address?.city,
+          zipCode: editData?.address?.zipCode
+        }
       });
     }
   }, [editData]);
@@ -74,9 +92,12 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
       country: editData?.country,
       phoneNumber: editData?.phoneNumber,
       color: editData?.color,
-      streetAddress: editData?.streetAddress,
-      cityAddress: editData?.cityAddress,
-      zipCodeAddress: editData?.zipCodeAddress
+      associateAddress: editData?.associateAddress,
+      address: {
+        street: editData?.address?.street,
+        city: editData?.address?.city,
+        zipCode: editData?.address?.zipCode
+      }
     })
     if (isOpen === false) {
       setFormData()
@@ -86,6 +107,11 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
 
 
   const handleAssociateAdd = (val) => {
+    if (val === 1) {
+      setFormData({ ...formData, associateAddress: true })
+    } else {
+      setFormData({ ...formData, associateAddress: false })
+    }
     setAssociateAddress(val);
   };
 
@@ -129,7 +155,7 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
                       <IoCloseSharp className="text-[18px] opacity-[0.4]" />
                     </button>
                     <h2 className="text-[28px] leading-[40px] text-center">
-                      Edit workplace
+                      {editData ? "Edit workplace" : "New workplace"}
                     </h2>
                     <span className="text-[13px] text-center block">
                       Set a name, location, phone number, color and logo of your
@@ -231,24 +257,24 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
                             labelStyle="min-w-[160px] flex-basis-[160px]"
                             className="mt-[7px] h-[40px]"
                             label="Address"
-                            name="streetAddress"
-                            value={formData?.streetAddress || ""}
+                            name="address.street"
+                            value={formData?.address.street || ""}
                             setFormData={setFormData}
                           />
                           <InputField
                             labelStyle="min-w-[160px] flex-basis-[160px]"
                             className="mt-[7px] h-[40px]"
                             label="City"
-                            name="cityAddress"
-                            value={formData?.cityAddress || ""}
+                            name="address.city"
+                            value={formData?.address?.city || ""}
                             setFormData={setFormData}
                           />
                           <InputField
                             labelStyle="min-w-[160px] flex-basis-[160px]"
                             className="mt-[7px] h-[40px]"
                             label="Zip code"
-                            name="zipCodeAddress"
-                            value={formData?.zipCodeAddress || ""}
+                            name="address.zipCode"
+                            value={formData?.address?.zipCode || ""}
                             setFormData={setFormData}
                           />
                         </div>
@@ -258,11 +284,19 @@ const Editworkplace = ({ isOpen, setIsOpen, editData, setEditData }) => {
                     </form>
                   </div>
                   <div className="flex items-center px-[30px] pb-[15px] justify-between">
-                    <div>
-                      <button className="px-3 cursor-not-allowed rounded-[3px] border opacity-[.65] border-[#de5a73] bg-[#de5a73] ml-[5px] text-[#FFFFFF] text-[14px] py-[6px]">
+                    {editData && (
+                      <div>
+                        <button
+                          onClick={() => handleDeleteItem(editData._id)}
+                          className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
+                        >
+                          Remove
+                        </button>
+                        {/* <button  className="px-3 cursor-not-allowed rounded-[3px] border opacity-[.65] border-[#de5a73] bg-[#de5a73] ml-[5px] text-[#FFFFFF] text-[14px] py-[6px]">
                         Remove
-                      </button>
-                    </div>
+                      </button> */}
+                      </div>
+                    )}
                     <div>
                       <button
                         className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"

@@ -7,7 +7,8 @@ import { mdiCamera } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '@/redux/action/auth';
 
-function ProfessionalInformation() {
+function ProfessionalInformation({ formData, setFormData }) {
+  console.log(formData,"formDataformData");
   const professionOptions = [
     {
       id: 1,
@@ -42,29 +43,42 @@ function ProfessionalInformation() {
   ];
 
   const userData = useSelector((item) => item?.auth?.userData[0]);
-  const [formData, setFormData] = useState({ ...userData });
   const dispatch = useDispatch();
-  console.log('formData----------->', formData);
-  useEffect(() => {
-    userData;
-  }, []);
+  const handleProfessionChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      profession: value,
+    })); 
+  };
+  
+  const handleProfessionCardNumberChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      professionCardNumber: value,
+    }));
+  };
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleCountryChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      country: value,
+    }));
+  };
+
+  const handleEmailChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      email: value,
+    }));
+  };
 
   const handleSubmit = () => {
     console.log('submit button clicked!!!');
-    dispatch(updateProfile(formData)); // Dispatch the updateProfile action with updated data
+    dispatch(updateProfile(formData));
   };
 
   const handleCancel = () => {
-    setFormData({ ...userData }); // Reset the form data to original user data
-    // Handle other cancel logic if needed
+    setFormData({ ...userData });
   };
 
   return (
@@ -108,18 +122,17 @@ function ProfessionalInformation() {
                   closable={false}
                   className="mt-0"
                   label="Profession"
+                  value={formData?.profession || ""}
                   initialValue={userData?.profession || ''}
+                  setFormData={setFormData}
+                  onChange={handleProfessionChange}
                 />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Professional card number"
+                  value={formData?.professionCardNumber}
                   initialValue={formData?.professionCardNumber}
-                  onInputChange={(value) =>
-                    setFormData((prevData) => ({
-                      ...prevData,
-                      professionCardNumber: value,
-                    }))
-                  }
+                  onInputChange={handleProfessionCardNumberChange}
                   handleSubmit={handleSubmit}
                   handleCancel={handleCancel}
                 />
@@ -127,15 +140,19 @@ function ProfessionalInformation() {
                   labelWidth="basis-[240px] min-w-[240px]"
                   option={professionOptions}
                   searchOption={true}
+                  value={formData?.country}
                   closable={false}
                   className="mt-[7px]"
                   label="Country of residence"
                   initialValue={userData?.country || ''}
+                  onChange={handleCountryChange}
                 />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Email"
+                  value={formData?.email}
                   initialValue={userData?.email || ''}
+                  onInputChange={handleEmailChange}
                 />
               </div>
             </div>

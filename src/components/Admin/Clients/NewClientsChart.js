@@ -59,7 +59,7 @@ const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug',"Sept","Oc
 
 const NewClientsChart = (props) => {
     const monthlyCounts = Array(12).fill(0);
-    props?.data?.forEach(item => {
+    props.data?.forEach(item => {
         const createdAt = new Date(item.createdAt);
         const month = createdAt.getMonth();
         monthlyCounts[month]++;

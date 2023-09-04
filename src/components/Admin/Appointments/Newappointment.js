@@ -102,6 +102,9 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
       setsection(false);
     }
   };
+  const handleConfirmation = (e) => { 
+    setConfirmationStatus(e.target.value)
+ }
   return (
     <div>
       <Transition appear show={isNewAppModal} as={Fragment}>
