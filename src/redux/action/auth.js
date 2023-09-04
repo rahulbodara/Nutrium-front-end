@@ -165,3 +165,20 @@ export const deleteClient = (clientId) => {
   };
 };
 
+export const updateClient = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders(); 
+      const response = await axios.put(`${baseUrl}/client/${clientId}`,data, { headers });
+      return dispatch({
+        type: Types.CLIENT_BY_ID,
+        data: response,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.CLIENT_BY_ID_FAILURE, 
+        data: err.response,
+      });
+    }
+  };
+}
