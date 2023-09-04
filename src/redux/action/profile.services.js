@@ -3,6 +3,25 @@ import baseUrl from "../../util/baseUrl";
 import axios from "axios";
 import createHeaders from "../../util/headers";
 
+export const GetAllServices = () => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders(); // Use the createHeaders function here
+      const response = await axios.get(`${baseUrl}/services`, { headers });
+      console.log(response,"getallworkplace");
+      return dispatch({
+        type: Types.SERVICES_DATA,
+        data: response?.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.SERVICES__DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
 export const CreateProfileService = (data) => {
   return async (dispatch) => {
     try {
@@ -23,24 +42,7 @@ export const CreateProfileService = (data) => {
   };
 };
 
-export const GetAllServices = () => {
-  return async (dispatch) => {
-    try {
-      const headers = createHeaders(); // Use the createHeaders function here
-      const response = await axios.get(`${baseUrl}/services`, { headers });
-      console.log(response,"getallworkplace");
-      return dispatch({
-        type: Types.SERVICES,
-        payload: response?.data,
-      });
-    } catch (err) {
-      return dispatch({
-        type: Types.SERVICES_FAILURE,
-        data: err.response,
-      });
-    }
-  };
-};
+
 
 export const GetIndividualService = (id) => {
   return async (dispatch) => {
@@ -53,7 +55,7 @@ export const GetIndividualService = (id) => {
       });
     } catch (err) {
       return dispatch({
-        type: Types.SERVICES_FAILURE,
+        type: Types.GET_INDIVIDUAL_SERVICE_FAILURE,
         data: err.response,
       });
     }
@@ -91,7 +93,7 @@ export const RemoveServices = (id) => {
       });
     } catch (err) {
       return dispatch({
-        type: Types.SERVICES_FAILURE,
+        type: Types.REMOVE_SERVICES_FAILURE,
         data: err.response,
       });
     }

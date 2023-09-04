@@ -24,6 +24,7 @@ const Secretaries = () => {
     useEffect(() => {
         dispatch(GetAllSecreatries())
     }, [])
+    const dataToMapOver = searchValue === "" ? SecretariesData : filteredData;
     return (
         <>
             <div className='bg-white my-[25px] card-shadow rounded-[5px]'>
@@ -51,7 +52,7 @@ const Secretaries = () => {
                         />
                     </div>
                     <div className='-mx-[15px] flex flex-wrap'>
-                        {(searchValue === "" ? SecretariesData : filteredData)?.map((data) => {
+                        {Array.isArray(dataToMapOver) && dataToMapOver?.map((data) => {
                             return (
                                 <div className="w-1/3 relative px-[15px] lg:w-full">
                                     <div

@@ -55,7 +55,7 @@ const Services = () => {
                   <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                        {item.typeOfService}
+                        {item?.typeOfService}
                       </span>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ const Services = () => {
                   <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                        {item.typeOfClients}
+                        {item?.typeOfClients}
                       </span>
                     </div>
                   </div>
@@ -79,7 +79,7 @@ const Services = () => {
                   <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                        {item.nameOfService}
+                        {item?.nameOfService}
                       </span>
                     </div>
                   </div>
@@ -91,7 +91,7 @@ const Services = () => {
                   <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                        {item.duration}
+                        {item?.duration}
                       </span>
                     </div>
                   </div>
@@ -103,7 +103,7 @@ const Services = () => {
                   <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                        {item.pricing}
+                        {item?.pricing}
                       </span>
                     </div>
                   </div>
@@ -115,7 +115,7 @@ const Services = () => {
                   <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                        {item.workplace}
+                        {item?.workplace}
                       </span>
                     </div>
                   </div>
