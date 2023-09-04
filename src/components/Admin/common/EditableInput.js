@@ -42,9 +42,9 @@ const EditableInput = (props) => {
   };
 
   return (
-    <div className="flex select-none admin-select-field mt-[7px]">
+    <div className={`${props?.mainClass} flex select-none admin-select-field mt-[7px]`}>
       <div
-        className={`${props?.labelWidth} md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
+        className={`${props?.labelWidth} md:basis-[140px] md:min-w-[140px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
       >
         {props?.label}
       </div>

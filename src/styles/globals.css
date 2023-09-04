@@ -510,3 +510,17 @@ h2 {
 .select-clinet.border-select .select2-selection--single:focus {
   border: 1px solid #1ab394 !important;
 }
+
+.select-main-without-border .select2-container--default .select2-selection--single{
+  background-color: #fff;
+  border: 0px solid #aaa !important;
+  border-radius: 0px !important;
+}
+.select-main-with-focus-border{
+  border: 1px solid #1ab394 !important;
+}
+.select2-container--default .select2-selection--multiple{
+  background-color: #fff;
+  border: 0px solid #aaa !important;
+  border-radius: 0px !important;
+}

@@ -191,7 +191,7 @@ const MealPlan = () => {
                                 </div>
                                 <div className='p-2.5 border border-[#EEEEEE] bg-white hover:bg-[#fafafb]'>
                                     <span className='text-[13px] font-[600] text-[#585858]'>1 tsp of oil, olive, salad or cooking (5 g)</span>
-                                   
+
                                 </div>
                                 <div>
                                     <span className='text-[14.95px] font-[100] block mb-2.5 mt-[5px]'>Dessert</span>
@@ -212,7 +212,7 @@ const MealPlan = () => {
                         <div className="bg-white mb-[25px] shadow-box1 rounded-[5px]">
                             <div className="p-[20px] flex  justify-between pb-[15px] 2lg:mt-[25px] mt-0">
                                 <span className="text-[20px] border-b-[2px] border-dashed leading-[24px] ">
-                                Supper
+                                    Supper
                                 </span>
                                 <span className='text-[20px] font-[100] text-[#585858]'>12:00 AM</span>
                             </div>
@@ -220,9 +220,9 @@ const MealPlan = () => {
                                 <div className='p-2.5 border relative border-[#EEEEEE] bg-white hover:bg-[#fafafb]'>
                                     <span className='text-[13px] font-[600] text-[#585858]'>1/2 cup (8 fl oz) of tea, herb (119 g)</span>
                                     <div className='text-[#EA9F77]  after:content-[""] after:block after:border-t-[#EA9F77] after:border-l-[7px] after:border-t-[7px] after:border-l-transparent absolute top-0 right-0'></div>
-                                   
+
                                 </div>
-                           
+
                                 <HealthDetail energy={1} fat={0} carbohydrate={0} protein={0} fiber={0} />
                             </div>
                         </div>
@@ -234,7 +234,23 @@ const MealPlan = () => {
 
                             </div>
                             <div className='divide-y divide-[#EEEEEE]'>
-
+                                <div className="">
+                                    <div className="flex items-center mb-[5px] justify-between">
+                                        <span className="text-[13px] flex-1  text-[#676a6c] font-[]">Energy</span>
+                                        <div className="flex items-center">
+                                            <span className="text-[13px] font-semibold">2127</span>
+                                            <div className="flex items-end">
+                                                <span className="tw-text-sm">/2281 </span>
+                                                <span className="text-[11px] text-[#888888]">kcal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="">
+                                        <div className="bg-[#12896e4d] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                            <div className="bg-[#12896d] h-full" style={{ width: '68%' }} ></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
