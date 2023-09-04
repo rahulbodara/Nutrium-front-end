@@ -8,12 +8,10 @@ const SelectField = (props) => {
   useEffect(() => {
     const $select = $(selectRef.current);
 
-    // Initialize select2
     $select.select2({
       minimumResultsForSearch: props.searchOption === false ? Infinity : 0,
     });
 
-    // Handle change event
     $select.on("change", (e) => {
       const selectedValue = e.target.value;
       if (props?.onChange) {

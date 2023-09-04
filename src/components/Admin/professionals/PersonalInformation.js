@@ -1,18 +1,14 @@
 import { mdiDotsVertical } from '@mdi/js';
 import Icon from '@mdi/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DateInput from '../common/DateInput';
 import ClosableSelect from '../common/ClosableSelect';
 import EditableInput from '../common/EditableInput';
 import MobileInput from '../common/MobileInput';
 import { useSelector } from 'react-redux';
 import { Tooltip as ReactTooltip } from "react-tooltip";
-function PersonalInformation() {
+function PersonalInformation({formData,setFormData}) {
   const userData = useSelector((item) => item?.auth?.userData[0]);
-  useEffect(() => {
-    userData;
-  });
-
   const genderOption = [
     {
       id: 1,
@@ -61,6 +57,7 @@ function PersonalInformation() {
                 label="Birthdate"
                 labelWidth="basis-[160px] min-w-[160px]"
                 closable={false}
+                value={formData?.dateOfBirth}
                 userData={userData}
               />
             </div>
@@ -72,6 +69,7 @@ function PersonalInformation() {
                 closable={false}
                 className="mt-[7px]"
                 label="Gender"
+                value={formData?.gender}
                 initialValue={userData?.gender || ''}
               />
             </div>
@@ -79,6 +77,7 @@ function PersonalInformation() {
               <EditableInput
                 labelWidth="basis-[160px] min-w-[160px]"
                 label="Zip code"
+                value={formData?.zipcode}
                 initialValue={userData?.zipcode || ''}
               />
             </div>
@@ -86,6 +85,7 @@ function PersonalInformation() {
               <MobileInput
                 labelWidth="basis-[160px] min-w-[160px]"
                 label="Mobile phone"
+                value={formData?.phoneNumber}
                 userData={userData}
               />
             </div>
