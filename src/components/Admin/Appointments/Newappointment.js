@@ -9,11 +9,11 @@ import { MdLocationOn } from 'react-icons/md';
 import SelectMenu from '../common/SelectMenu';
 import clientPro from '../../../../public/image/clientprof.png';
 import Icon from '@mdi/react';
-import { mdiAccount, mdiAccountPlus, mdiCalendarToday, mdiVideo } from '@mdi/js';
-
-
+import { mdiAccount, mdiAccountPlus, mdiCalendarBlank, mdiCalendarCheck, mdiCalendarClock, mdiCalendarToday, mdiClock, mdiClose, mdiInformationOutline, mdiLinkOff, mdiMapMarker, mdiMapMarkerRadius, mdiPlus, mdiVideo } from '@mdi/js';
 
 const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
+    const [confirmationStatus, setConfirmationStatus] = useState('1');
+    console.log("🚀 ~ file: Newappointment.js:18 ~ Newappointment ~ confirmationStatus:", confirmationStatus)
     const options = [
         {
             id: 1,
@@ -28,6 +28,10 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
             option: 'sdf'
         }
     ]
+
+    const handleConfirmation = (e) => { 
+        setConfirmationStatus(e.target.value)
+     }
     return (
         <div>
             <Transition appear show={isNewAppModal} as={Fragment}>
@@ -170,9 +174,9 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                                 </div>
                                                                 <div className='mb-[15px]'>
                                                                     <div className='mb-[6px]'>
-                                                                        <div className='relative table border-separate'>
+                                                                        <div className='relative table border-separate w-full mb-[6px]'>
                                                                             <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
-                                                                                <Icon path={mdiVideo} size="18px" color='#aaaaaa' />
+                                                                                <Icon path={mdiVideo} size="18px" color='#676a6c' />
                                                                             </div>
                                                                             <select className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]'>
                                                                                 <option>Without video call</option>
@@ -181,8 +185,93 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                                                 <option>Other services</option>
                                                                             </select>
                                                                         </div>
+                                                                        <div className='relative table border-separate w-full'>
+                                                                            <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
+                                                                                <Icon path={mdiLinkOff} size="18px" color='#676a6c' />
+                                                                            </div>
+                                                                            <input className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed' placeholder='Not available in this option' readOnly />
+
+                                                                            <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
+                                                                                <Icon path={mdiInformationOutline} size="18px" color='#676a6c' />
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className='row -mx-[15px]'>
+                                                            <div className='px-[15px] float-left w-1/2'>
+                                                                <div className='mb-[15px]'>
+                                                                    <label className='inline-block max-w-full mb-[5px] font-[700]'> Start of appointment</label>
+                                                                    <div className='relative table border-separate w-full mb-[6px]'>
+                                                                        <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
+                                                                            <Icon path={mdiCalendarClock} size="18px" color='#676a6c' />
+                                                                        </div>
+                                                                        <input type="datetime-local" className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className='px-[15px] float-left w-1/2'>
+                                                                <div className='mb-[15px]'>
+                                                                    <label className='inline-block max-w-full mb-[5px] font-[700]'>End of appointment</label>
+                                                                    <div className='relative table border-separate w-full mb-[6px]'>
+                                                                        <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
+                                                                            <Icon path={mdiCalendarClock} size="18px" color='#676a6c' />
+                                                                        </div>
+                                                                        <input type="datetime-local" className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className='row -mx-[15px]'>
+                                                            <div className='px-[15px] float-left w-1/2'>
+                                                                <div>
+                                                                    <label className='inline-block max-w-full mb-[5px] font-[700]'>Appointment status</label>
+                                                                </div>
+                                                                <div className='mb-[15px]'>
+                                                                    <div className='mb-[6px]'>
+                                                                        <div className='relative table border-separate w-full mb-[6px]'>
+                                                                            <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
+                                                                                <Icon path={confirmationStatus === '0' ? mdiCalendarCheck : mdiCalendarBlank} size="18px" color='#676a6c' />
+                                                                            </div>
+                                                                            <select className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' defaultValue={confirmationStatus} onChange={handleConfirmation}>
+                                                                                <option value={'0'}>Confirmed</option>
+                                                                                <option value={'1'}>Not confirmed</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className='px-[15px] float-left w-1/2'>
+                                                                <div className='mb-[15px]'>
+                                                                    <label className='inline-block max-w-full mb-[5px] font-[700]'>End of appointment</label>
+                                                                    <div className='relative table border-separate w-full mb-[6px]'>
+                                                                        <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
+                                                                            <Icon path={mdiMapMarkerRadius} size="18px" color='#676a6c' />
+                                                                        </div>
+                                                                        <input type="text" readOnly placeholder='sdf' className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed' />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className='row -mx-[15px] mb-[10px]'>
+                                                            <div className='px-[15px] float-left w-full flex justify-between'>
+                                                                <div className='mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]'>Add scheduling notes</div>
+                                                                <div className='flex'><Icon path={mdiPlus} size="18px" color='#676a6c' /></div>
+                                                            </div>
+                                                            <div className='px-[15px] float-left w-full flex justify-between'>
+                                                                <div className='mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]'>Scheduling notes</div>
+                                                                <div className='flex mb-[5px] cursor-pointer text-[#CC5965] group'>
+                                                                    <div className='text-[#CC5965] hidden group-hover:block'>Remove</div>
+                                                                    <Icon path={mdiClose} size="18px" className='text-[#676a6c] group-hover:text-[#CC5965]' />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className='row -mx-[15px]'>
+                                                            <div className='mb-[5px] px-[15px] float-left w-full'>
+                                                            <textarea className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' rows="2" cols="2">
+                                                            </textarea>
                                                             </div>
                                                         </div>
                                                     </form>
