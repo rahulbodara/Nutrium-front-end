@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
 // import 'react-perfect-scrollbar/dist/css/styles.css';  
-
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);

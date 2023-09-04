@@ -26,11 +26,11 @@ const SelectField = (props) => {
   }, [props?.searchOption]);
 
   return (
-    <div className={`flex select-none ${props.className}`}>
+    <div className={`flex select-none ${props?.className}`}>
       <div
-        className={`${props.LabelclassName} field-title min-w-[160px] flex-basis-[160px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
+        className={`${props?.LabelclassName} field-title min-w-[160px] flex-basis-[160px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
       >
-        <label className="inline-block max-w-full">{props.label}</label>
+        <label className="inline-block max-w-full">{props?.label}</label>
       </div>
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">

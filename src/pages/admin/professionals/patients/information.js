@@ -1,17 +1,65 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Icon from '@mdi/react';
 import { Menu, Transition } from '@headlessui/react';
-import { mdiContentSave, mdiInformationOutline, mdiPrinter } from '@mdi/js';
+import { mdiContentSave, mdiInformationOutline, mdiPlus, mdiPrinter } from '@mdi/js';
 import { BsFilter } from 'react-icons/bs';
 import Steps from '@/components/Admin/Clients/Information/Steps';
 import MainLayout from '@/components/Admin/MainLayout';
 import ClientDetail from '@/components/Admin/Clients/ClientDetail';
 import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe';
 import { useRouter } from 'next/router';
-
+import EditableTextarea from '@/components/Admin/common/EditableTextarea';
+import EditableInput from '@/components/Admin/common/EditableInput';
+import CustomSelect from '@/components/Admin/common/CustomSelect';
+import TagSelect from '@/components/Admin/common/TagSelect';
+import SelectField from '@/components/Admin/common/SelectField';
+import ClosableSelect from '@/components/Admin/common/ClosableSelect';
+import TimePicker from '@/components/Admin/common/TimePicker';
+import AddObservations from '@/components/Admin/Clients/Information/AddObservations';
+import Pagination from '@/components/Admin/common/Pagination';
+import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
+const clientType = [
+  {
+    id: 1,
+    name: "Available to all clients",
+    value: "Available to all clients",
+  },
+  {
+    id: 2,
+    name: "New clients",
+    value: "New clients",
+  },
+  {
+    id: 3,
+    name: "Recurring clients",
+    value: "Recurring clients",
+  },
+];
 const Information = () => {
+
+  function HandleValue(value) {
+    console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
+  }
   const router = useRouter();
-  const { query} = router;
+  const [selectedHour1, setSelectedHour1] = useState("");
+  const [selectedMinute1, setSelectedMinute1] = useState("");
+
+  const [selectedHour2, setSelectedHour2] = useState("");
+  const [selectedMinute2, setSelectedMinute2] = useState("");
+
+
+  const [openObservations, setOpenObservations] = useState(false)
+
+  const handleTimeChange = (type, value) => {
+    // Use the "type" parameter to distinguish between hour and minute changes
+    if (type === "hour") {
+      setSelectedHour1(value);
+    } else if (type === "minute") {
+      setSelectedMinute1(value);
+    }
+    // You can do the same for the second TimePicker
+  };
+  const { query } = router;
   console.log(query.id, '=====================>>>>>>>>>>>>>>>>>>>.');
   return (
     <div>
@@ -20,7 +68,7 @@ const Information = () => {
         text={'Check and update information about the client'}
       >
         <div className="mt-[-20px]">
-          <ClientDetail clientId={query.id}/>
+          <ClientDetail clientId={query.id} />
           <div className="pt-[25px] pb-[125px]">
             <ClientSubscribe />
             <div className="mt-[25px]">
@@ -69,9 +117,8 @@ const Information = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              className={`${
-                                active ? 'bg-[#f5f5f5] text-[#1AB394]' : ''
-                              } group flex w-full items-center rounded p-[10px] text-[1.1em]`}
+                              className={`${active ? 'bg-[#f5f5f5] text-[#1AB394]' : ''
+                                } group flex w-full items-center rounded p-[10px] text-[1.1em]`}
                             >
                               Save as client's file
                             </button>
@@ -98,34 +145,44 @@ const Information = () => {
                     </span>
                   </div>
                   <div className="p-[0_20px_20px]">
-                    <div className="flex">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[56px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Reason for appointment
-                      </div>
-                      <div className="flex-1 border min-h-[56px] py-[5px] px-[10px] border-[#EEEEEE]"></div>
-                    </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Expectations
-                      </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></div>
+
+                    <EditableTextarea
+                      labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                      label="Appointment information"
+                    // initialValue={clientData?.address || ''}
+                    // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                    // handleSubmit={() => handleSubmit(singleValue)} 
+                    />
+                    <div className=" mt-[7px]">
+
+                      <EditableInput
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label=" Expectations" />
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Clinical goals
                       </div>
-                      <div className="w-full">
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]">
-                          None
-                        </div>
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-t-0"></div>
+                      <div className="w-full ">
+
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <EditableInput
+                          mainClass="!mt-0"
+                          labelWidth="!hidden"
+                          label="" />
+
                       </div>
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Other information
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE]"></div>
+                    <div className="mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label="Other information"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
+
                     </div>
                   </div>
                 </div>
@@ -141,57 +198,107 @@ const Information = () => {
                   </div>
                   <div className="p-[0_20px_20px]">
                     <div className="flex">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                      <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Bowel movements
                       </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                      <div className='flex flex-1 '>
+
+                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                          option={clientType}
+                          onChange={HandleValue}
+                        />
+                        <EditableInput
+                          mainClass="!mt-0 grow-[3] basis-[200px]"
+                          labelWidth="!hidden"
+                          label="" />
+                      </div>
+
                     </div>
                     <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                      <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Sleep quality
                       </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                      <div className='flex flex-1 '>
+                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                          option={clientType}
+                          onChange={HandleValue}
+                        />
+
+                        <EditableInput
+                          mainClass="!mt-0 grow-[3] basis-[200px]"
+                          labelWidth="!hidden"
+                          label="" />
+                      </div>
                     </div>
                     <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                      <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Smoker
                       </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                      <div className='flex flex-1 '>
+                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                          option={clientType}
+                          onChange={HandleValue}
+                        />
+                        <EditableInput
+                          mainClass="!mt-0 grow-[3] basis-[200px]"
+                          labelWidth="!hidden"
+                          label="" />
+                      </div>
                     </div>
                     <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                      <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Alcohol consumption
                       </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                      <div className='flex flex-1 '>
+                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                          option={clientType}
+                          onChange={HandleValue}
+                        />
+                        <EditableInput
+                          mainClass="!mt-0 grow-[3] basis-[200px]"
+                          labelWidth="!hidden"
+                          label="" />
+                      </div>
                     </div>
                     <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                      <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Marital status
                       </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                      <div className='flex flex-1 '>
+                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                          option={clientType}
+                          onChange={HandleValue}
+                        />
+                        <EditableInput
+                          mainClass="!mt-0 grow-[3] basis-[200px]"
+                          labelWidth="!hidden"
+                          label="" />
+                      </div>
+                    </div>
+                    <div className=" mt-[7px]">
+
+                      <EditableInput
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label="Physical activity" />
+
                     </div>
                     <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Physical activity
-                      </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                      <ClosableSelect label="  Race" labelWidth="basis-[210px] " className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                        option={clientType}
+                        onChange={HandleValue}
+                      />
+
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Race
-                      </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
-                    </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Other information
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className="mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label="Other information"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
                     </div>
                   </div>
                 </div>
@@ -205,85 +312,141 @@ const Information = () => {
                     </span>
                   </div>
                   <div className="p-[0_20px_20px]">
-                    <div className="flex">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Usual wake up time
-                      </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className="">
+                      <TimePicker
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label={"Usual wake up time 1"}
+                        minuteStep={1}
+                        hour={24}
+                        selectedHour={selectedHour1}
+                        selectedMinute={selectedMinute1}
+                        onChange={(type, value) => handleTimeChange(type, value)}
+                      />
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Usual bedtime
-                      </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <TimePicker
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label={" Usual bedtime"}
+                        minuteStep={1}
+                        hour={24}
+                        selectedHour={selectedHour2}
+                        selectedMinute={selectedMinute2}
+                        onChange={(type, value) => handleTimeChange(type, value)}
+                      />
+
+
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Types of diet
                       </div>
-                      <div className="w-full">
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]">
-                          None
-                        </div>
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-t-0"></div>
+                      <div className="w-full ">
+
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <EditableInput
+                          mainClass="!mt-0"
+                          labelWidth="!hidden"
+                          label="" />
+
                       </div>
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Favorite food
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label="Favorite food"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Disliked food
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label="Disliked food"
+
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
+
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Allergies
                       </div>
-                      <div className="w-full">
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]">
-                          None
-                        </div>
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-t-0"></div>
+                      <div className="w-full ">
+
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <EditableTextarea
+
+                          className="!mt-[-1px]"
+                          labelWidth="!hidden"
+                          textAreaClass="!min-h-[33px] text-[14px] h-full"
+                        // initialValue={clientData?.address || ''}
+                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                        // handleSubmit={() => handleSubmit(singleValue)} 
+                        />
+
                       </div>
                     </div>
+
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Food intolerances
                       </div>
-                      <div className="w-full">
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]">
-                          None
-                        </div>
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-t-0"></div>
+                      <div className="w-full ">
+
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <EditableTextarea
+
+                          className="!mt-[-1px]"
+                          labelWidth="!hidden"
+                          textAreaClass="!min-h-[33px] text-[14px] h-full"
+                        // initialValue={clientData?.address || ''}
+                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                        // handleSubmit={() => handleSubmit(singleValue)} 
+                        />
+
                       </div>
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Nutritional deficiencies
                       </div>
-                      <div className="w-full">
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]">
-                          None
-                        </div>
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-t-0"></div>
+                      <div className="w-full ">
+
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <EditableTextarea
+
+                          className="!mt-[-1px]"
+                          labelWidth="!hidden"
+                          textAreaClass="!min-h-[33px] text-[14px] h-full"
+                        // initialValue={clientData?.address || ''}
+                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                        // handleSubmit={() => handleSubmit(singleValue)} 
+                        />
+
                       </div>
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Water intake
-                      </div>
-                      <div className="flex-1 border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <ClosableSelect label="Water intake" labelWidth="basis-[210px] " className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                        option={clientType}
+                        onChange={HandleValue}
+                      />
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[210px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Other information
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
+                        label="Other information"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
                     </div>
                   </div>
                 </div>
@@ -303,15 +466,29 @@ const Information = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="p-[20px] pb-[15px]">
-                    <h3 className="text-[20px] leading-[24px] ">
-                      Observations
-                    </h3>
-                    <span className="text-[12px] text-[#888888]/[70%]">
-                      Other relevant information about the client
-                    </span>
+                  <div className="p-[20px] flex items-center justify-between pb-[15px]">
+                    <div>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Observations
+                      </h3>
+                      <span className="text-[12px] text-[#888888]/[70%]">
+                        Other relevant information about the client
+                      </span>
+
+                    </div>
+                    <button onClick={() => setOpenObservations(true)}>
+                      <Icon path={mdiPlus} size={1} />
+                    </button>
                   </div>
+                  {/* <AddObservations isOpen={openObservations} setIsOpen={setOpenObservations} /> */}
                   <div className="p-[0_20px_20px]">
+                    <div onClick={() => setOpenObservations(true)} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                      <div className='h-[95px] break-all'></div>
+                      <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>2023-09-04</div>
+                    </div>
+                    <div className='flex items-center justify-end'>
+                      <Pagination />
+                    </div>
                     <p className="text-[#888888] italic text-center">
                       You haven't logged any observations
                     </p>
@@ -320,14 +497,20 @@ const Information = () => {
               </div>
               <div className="col-span-5">
                 <div className="bg-white shadow-box1 rounded-[5px]">
-                  <div className="p-[20px] pb-[15px] 2lg:mt-[25px] mt-0">
-                    <h3 className="text-[20px] leading-[24px] ">
-                      Food Diaries
-                    </h3>
-                    <span className="text-[12px] text-[#888888]/[70%]">
-                      Log your client's food diaries
-                    </span>
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
+                    <div>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Food Diaries
+                      </h3>
+                      <span className="text-[12px] text-[#888888]/[70%]">
+                        Log your client's food diaries
+                      </span>
+                    </div>
+                    <button onClick={() => setOpenObservations(true)}>
+                      <Icon path={mdiPlus} size={1} />
+                    </button>
                   </div>
+                  <AddFoodDiary isOpen={openObservations} setIsOpen={setOpenObservations} />
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       You haven't logged any food diary
@@ -363,36 +546,57 @@ const Information = () => {
                       <div className="basis-[120px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Diseases
                       </div>
-                      <div className="w-full">
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]">
-                          None
-                        </div>
-                        <div className="w-full border min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE] border-t-0"></div>
+
+                      <div className="w-full ">
+
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <EditableInput
+                          mainClass="!mt-0"
+                          labelWidth="!hidden"
+                          label="" />
+
                       </div>
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[120px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Medication
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+
+                      <EditableTextarea
+                        labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
+                        label="  Medication"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[120px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Personal history
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
+                        label="Personal history"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[120px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Family history
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
+                        label="Family history"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
+
                     </div>
-                    <div className="flex mt-[7px]">
-                      <div className="basis-[120px] text-[1.1em] flex items-center min-h-[58px]  h-full border border-[#EEEEEE] min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        Other information
-                      </div>
-                      <div className="flex-1 border min-h-[58px] py-[5px] px-[10px] border-[#EEEEEE] border-l-0" />
+                    <div className=" mt-[7px]">
+                      <EditableTextarea
+                        labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
+                        label="Other information"
+                      // initialValue={clientData?.address || ''}
+                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      />
                     </div>
                   </div>
                 </div>
