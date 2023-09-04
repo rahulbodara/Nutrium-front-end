@@ -128,13 +128,13 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
                                                                         <div className='flex-grow basis-0 mr-[10px] w-[100px]'>
                                                                             <div className='text-[12px] font-light ml-[3px] mb-[3px]'>Start time</div>
                                                                             <div>
-                                                                                <input type={"text"} className='text-[14px] h-[32px] p-[5px] rounded-[5px] border-solid !border-[#AAAAAA] text-center focus:ring-0 bg-white input-transition focus:!border-[#1ab394] w-full' />
+                                                                                <input type={"time"} className='text-[14px] h-[32px] p-[5px] rounded-[5px] border-solid !border-[#AAAAAA] text-center focus:ring-0 bg-white input-transition focus:!border-[#1ab394] w-full' />
                                                                             </div>
                                                                         </div>
                                                                         <div className='flex-grow basis-0 w-[100px]'>
                                                                             <div className='text-[12px] font-light ml-[3px] mb-[3px]'>End time</div>
                                                                             <div>
-                                                                                <input type={"text"} className='text-[14px] h-[32px] p-[5px] rounded-[5px] border-solid !border-[#AAAAAA] text-center focus:ring-0 bg-white input-transition focus:!border-[#1ab394] w-full' />
+                                                                                <input type={"time"} className='text-[14px] h-[32px] p-[5px] rounded-[5px] border-solid !border-[#AAAAAA] text-center focus:ring-0 bg-white input-transition focus:!border-[#1ab394] w-full' />
                                                                             </div>
                                                                         </div>
                                                                     </div>

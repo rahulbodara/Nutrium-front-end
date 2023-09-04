@@ -9,11 +9,21 @@ import { MdLocationOn } from 'react-icons/md';
 import SelectMenu from '../common/SelectMenu';
 import clientPro from '../../../../public/image/clientprof.png';
 import Icon from '@mdi/react';
-import { mdiAccount, mdiAccountPlus, mdiCalendarBlank, mdiCalendarCheck, mdiCalendarClock, mdiCalendarToday, mdiClock, mdiClose, mdiInformationOutline, mdiLinkOff, mdiMapMarker, mdiMapMarkerRadius, mdiPlus, mdiVideo } from '@mdi/js';
+import { mdiAccount, mdiAccountPlus, mdiCalendarBlank, mdiCalendarCheck, mdiCalendarClock, mdiCalendarToday, mdiCheckCircle, mdiCircleOutline, mdiClock, mdiClose, mdiInformationOutline, mdiLinkOff, mdiMapMarkerRadius, mdiPlus, mdiRoundedCorner, mdiVideo } from '@mdi/js';
+import Modal from '../common/Modal';
+import AddNewClient from '../Clients/AddNewClient';
 
 const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
     const [confirmationStatus, setConfirmationStatus] = useState('1');
-    console.log("🚀 ~ file: Newappointment.js:18 ~ Newappointment ~ confirmationStatus:", confirmationStatus)
+    const [addSheduleNotes, setAddSheduleNotes] = useState(false);
+    const [appWithGoogleCalender, setAppWithGoogleCalender] = useState(false);
+    const [regClientModal, setRegClientModal] = useState(false);
+
+
+    const handleGoogleCalender = (e) => {
+        setAppWithGoogleCalender(e.target.checked)
+    }
+
     const options = [
         {
             id: 1,
@@ -74,12 +84,12 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                     <div className='pb-[20px]'>
                                                         <div className='row -mx-[15px]'>
                                                             <div className='w-1/2 float-left px-[15px]'>
-                                                                <div className='bg-[#1AB394] text-white text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE]'>
-                                                                    <div className='text-[1.1em] align-middle'>1. Select client</div>
+                                                                <div className={`cursor-pointer text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE] ${confirmationStatus === '1' ? 'bg-[#1AB394] text-white' : 'bg-white'}`} onClick={() => {setConfirmationStatus('1')}}>
+                                                                    <div className='text-[1.1em]  align-middle'>1. Select client</div>
                                                                 </div>
                                                             </div>
                                                             <div className='w-1/2 float-left px-[15px]'>
-                                                                <div className='bg-[#ffffff] text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE]'>
+                                                                <div className={`cursor-pointer text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE] ${confirmationStatus === '2' ? 'bg-[#1AB394] text-white' : 'bg-white'}`}  onClick={() => {setConfirmationStatus('2')}}>
                                                                     <div className='text-[1.1em] align-middle'>2. Confirm scheduling information</div>
                                                                 </div>
                                                             </div>
@@ -87,7 +97,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
 
                                                     </div>
                                                 </div>
-                                                <div className='hidden'>
+                                                <div className={`${confirmationStatus === '1' ? 'block' : 'hidden'}`}>
                                                     <div className='flex mb-[15px]'>
                                                         <div className='mr-[10px] flex-grow'>
                                                             <input
@@ -100,7 +110,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <div className='my-[5px]'>
-                                                            <div className="flex border group cursor-pointer rounded-[1px] border-solid border-[#eeeeee] hover:border-[#1AB394] p-[10px]">
+                                                            <div className="flex border group cursor-pointer rounded-[1px] border-solid border-[#eeeeee] hover:border-[#1AB394] p-[10px]" onClick={() => {setConfirmationStatus('2')}}>
                                                                 <div className="relative">
                                                                     <Image
                                                                         src={clientPro}
@@ -129,8 +139,10 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                             </div>
                                                         </div>
                                                         <div
-                                                            onClick={() => setIsOpen(true)}
-                                                            className="border rounded-[1px] cursor-pointer border-solid border-[#eeeeee] group hover:border-[#1AB394] flex p-5 gap-6 text-center items-center "
+                                                            className="border rounded-[1px] cursor-pointer border-solid border-[#eeeeee] group hover:border-[#1AB394] flex p-5 gap-6 text-center items-center " onClick={() => {
+                                                                setRegClientModal(true)
+                                                                setIsNewAppModal(false)
+                                                            }}
                                                         >
                                                             <Icon path={mdiAccountPlus} size="48px" className="text-[#888888] group-hover:text-[#1AB394]" />
                                                             <span className="text-[16px] group-hover:text-[#1AB394] text-[#888888] font-normal">
@@ -139,7 +151,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div className={`${confirmationStatus === '2' ? 'block' : 'hidden'}`}>
                                                     <form>
                                                         <div className='row -mx-[15px]'>
                                                             <div className='px-[15px] float-left w-1/2'>
@@ -245,7 +257,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                             </div>
                                                             <div className='px-[15px] float-left w-1/2'>
                                                                 <div className='mb-[15px]'>
-                                                                    <label className='inline-block max-w-full mb-[5px] font-[700]'>End of appointment</label>
+                                                                    <label className='inline-block max-w-full mb-[5px] font-[700]'>Workplace</label>
                                                                     <div className='relative table border-separate w-full mb-[6px]'>
                                                                         <div className='bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle'>
                                                                             <Icon path={mdiMapMarkerRadius} size="18px" color='#676a6c' />
@@ -256,22 +268,34 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                                             </div>
                                                         </div>
                                                         <div className='row -mx-[15px] mb-[10px]'>
-                                                            <div className='px-[15px] float-left w-full flex justify-between'>
+                                                            <div className={`px-[15px] float-left w-full  justify-between ${!addSheduleNotes ? 'flex':'hidden'}`}>
                                                                 <div className='mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]'>Add scheduling notes</div>
-                                                                <div className='flex'><Icon path={mdiPlus} size="18px" color='#676a6c' /></div>
+                                                                <div className='flex'><Icon path={mdiPlus} size="18px" className='text-[#676a6c] hover:text-[#1AB394] cursor-pointer' onClick={() => {setAddSheduleNotes(true)}}/></div>
                                                             </div>
-                                                            <div className='px-[15px] float-left w-full flex justify-between'>
+                                                            <div className={`px-[15px] float-left w-full flex justify-between ${addSheduleNotes ? "flex" : 'hidden'}`}>
                                                                 <div className='mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]'>Scheduling notes</div>
-                                                                <div className='flex mb-[5px] cursor-pointer text-[#CC5965] group'>
+                                                                <div className='flex mb-[5px] cursor-pointer text-[#CC5965] group' onClick={() => {setAddSheduleNotes(false)}}>
                                                                     <div className='text-[#CC5965] hidden group-hover:block'>Remove</div>
                                                                     <Icon path={mdiClose} size="18px" className='text-[#676a6c] group-hover:text-[#CC5965]' />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className='row -mx-[15px]'>
+                                                        <div className={`row -mx-[15px] mb-[10px] ${addSheduleNotes ? "block" : 'hidden'}`}>
                                                             <div className='mb-[5px] px-[15px] float-left w-full'>
-                                                            <textarea className='h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' rows="2" cols="2">
+                                                            <textarea className='text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]' rows="2" cols="2">
                                                             </textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div className='row -mx-[15px]'>
+                                                            <div className=' px-[15px] float-left w-full'>
+                                                                <div className='inline-block relative cursor-pointer pl-[20px] mt-[10px]'>
+                                                                    <input type='checkbox' checked={appWithGoogleCalender} onChange={handleGoogleCalender} id='appWithGoogleCalender' className='hidden' />
+                                                                    {appWithGoogleCalender ? 
+                                                                    <Icon path={mdiCheckCircle} color="#1ab394" size={'20px'} className="inline-block align-middle absolute left-0" /> :
+                                                                    <Icon path={mdiCircleOutline} color="#cccccc" size={'20px'} className="inline-block align-middle absolute left-0" />
+                                                                    }
+                                                                    <label className='pl-[5px] cursor-pointer' htmlFor='appWithGoogleCalender'>Synchronize appointment with Google Calendar</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -279,17 +303,35 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex items-center px-[30px] pb-[15px]'>
+                                    {
+                                        confirmationStatus === '1' ?
+                                        <div className='flex items-center px-[30px] pb-[15px]'>
+                                            <button className='px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]' onClick={() => setIsNewAppModal(false)}>
+                                                Back
+                                            </button>
+                                        </div> : 
+                                        <div className='flex items-center justify-between px-[30px] pb-[15px]'>
                                         <button className='px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]' onClick={() => setIsNewAppModal(false)}>
-                                            Back
+                                            Cancel
                                         </button>
+                                        <div>
+                                        <button className='px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]'>
+                                                Save
+                                            </button>
+                                            <button className='px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]'>
+                                                Save and close
+                                            </button>
+                                        </div>
                                     </div>
+                                    }
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
                     </div>
                 </Dialog>
             </Transition>
+            <AddNewClient isOpen={regClientModal} setIsOpen={setRegClientModal} />
+           
         </div>
     )
 }
