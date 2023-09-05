@@ -6,3 +6,4 @@ export const TERMS_AND_CONDITION="You must accept the Terms and Conditions of Us
 export const DATE_OF_BIRTH = "This field is required"
 export const USER_NAME = "This field is required"
 export const TYPE_OF_SERVICE = "This field is required"
+export const EVENT_TITLE = "The event title cannot be blank"

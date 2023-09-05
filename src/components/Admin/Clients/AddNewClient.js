@@ -28,7 +28,7 @@ import { clientData } from '@/redux/action/auth';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 
-const AddNewClient = ({ isOpen, setIsOpen }) => {
+const AddNewClient = ({ isOpen, setIsOpen,setIsNewAppModal }) => {
   const [formData, setFormData] = useState({});
   const userData = useSelector((item) => item?.auth?.userData[0])
 
@@ -352,7 +352,7 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                           </div>
                         </div>
                         <div className="flex items-center px-[30px] pb-[15px] justify-between">
-                          <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={() => { setIsOpen(false) }}>
+                          <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={() => { setIsOpen(false);}}>
                             Cancel
                           </button>
                           <button

@@ -12,9 +12,7 @@ import GeneralInfo from '@/components/Admin/Appointments/GeneralInfo'
 export default function Appointments() {
   const [open, setOpen] = useState(false)
   return (
-
     <>
-
       <MainLayout head={"Your calendar"} text={"Check information about your calendar"}>
         <div className='p-[25px_0_125px]'>
           <AppointmentSystem />

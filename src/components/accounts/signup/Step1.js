@@ -128,7 +128,7 @@ const Step1 = ({ nextstep, setIsTermApply, handleClick, signupStep, isTermApply,
                     name="fullName"
                     className="block border-[1px] border-[#aaaaaa] rounded-[3px] py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none placeholder:text-[#676a6c44]"
                     placeholder="E.g. Mary Smith"
-                  />
+                  /><br/>
                   <ErrorMessage
                     name="fullName"
                     component="span"
