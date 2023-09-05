@@ -621,6 +621,9 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                                   className="text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
                                   rows="2"
                                   cols="2"
+                                  name="schedulingNotes"
+                                  value={formData?.schedulingNotes}
+                                  onChange={handleChangeFormData}
                                 ></textarea>
                               </div>
                             </div>
