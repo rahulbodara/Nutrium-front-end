@@ -61,12 +61,14 @@ const CreateEvent = (props) => {
                   <Icon path={mdiPencil} size={0.7} />
                 </div>
                 <input
-                type="text"
-                {...register("title")}
-                className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                  type="text"
+                  {...register("title")}
+                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
                 />
               </div>
-                <p className="block mt-[5px] font-bold text-[13px] text-[#cc5965]">{errors.title?.message}</p>
+              <p className="block mt-[5px] font-bold text-[13px] text-[#cc5965]">
+                {errors.title?.message}
+              </p>
             </div>
             <div className="mb-[15px]">
               <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
@@ -145,36 +147,35 @@ const CreateEvent = (props) => {
                 Synchronize event with Google Calendar
               </label>{" "}
             </div>
-            <div className="flex items-center px-[30px] pb-[15px] justify-between">
-          <button
-            className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-            onClick={() => {
-              props.setIsOpen(false);
-              props.setDateModal(true);
-            }}
-          >
-            Back
-          </button>
-          <div>
-            <button
-              className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-              onClick={() => {
-                props.setIsOpen(false);
-              }}
-            >
-              Cancel
-            </button>
-            <button
-              className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
-              type="submit"
-            >
-              Create
-            </button>
-          </div>
-        </div>
+            <div className="flex items-center justify-between">
+              <button
+                className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                onClick={() => {
+                  props.setIsOpen(false);
+                  props.setDateModal(true);
+                }}
+              >
+                Back
+              </button>
+              <div>
+                <button
+                  className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                  onClick={() => {
+                    props.setIsOpen(false);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
+                  type="submit"
+                >
+                  Create
+                </button>
+              </div>
+            </div>
           </form>
         </div>
-       
       </Modal>
       <ReactTooltip
         id="blockCalender"
