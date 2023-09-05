@@ -557,3 +557,6 @@ h2 {
 .react-datepicker-popper{
   z-index: 99999 !important;
 }
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  background: none;
+}
