@@ -687,7 +687,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                         <button className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]" onClick={handleSubmit}>
                           Save
                         </button>
-                        <button className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]">
+                        <button className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]" onClick={handleSubmit}>
                           Save and close
                         </button>
                       </div>
