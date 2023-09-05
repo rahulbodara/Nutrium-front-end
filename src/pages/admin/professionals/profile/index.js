@@ -7,26 +7,15 @@ import Workplaces from '@/components/Admin/professionals/Workplaces'
 import React, { useState } from 'react'
 
 function ProfessionalProfile() {
-    const [formData, setFormData] = useState({
-        fullName: '',
-        dateOfBirth: '',
-        gender: '',
-        zipcode: '',
-        phoneNumber: '',
-        profession: '',
-        professionCardNumber: '',
-        country: '',
-        email: '',
-        image: ''
-    });
+
     return (
         <MainLayout>
             <div className='pt-[25px] pb-[125px] px-0'>
                 <div className='mx-[-15px] w-auto my-0 flex flex-wrap m-0 p-0'>
-                    <ProfessionalInformation formData={formData}
-                        setFormData={setFormData} />
-                    <PersonalInformation formData={formData}
-                        setFormData={setFormData} />
+                    <ProfessionalInformation
+                    />
+                    <PersonalInformation
+                    />
                 </div>
                 <div>
                     <Workplaces />

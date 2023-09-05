@@ -20,10 +20,12 @@ import { useRouter } from 'next/router';
 import { handleApiCall } from "@/util/apiUtils";
 
 const ClientDetail = ({ clientId }) => {
+  console.log(clientId,"clclclclcllclc");
   const [collapse, setCollapse] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state?.auth?.clientData[0]);
+  console.log(clientData,"clientclient")
   const error = useSelector((state) => state?.auth?.error);
   const [singleValue, setSingleValue] = useState()
 
