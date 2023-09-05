@@ -29,7 +29,9 @@ import Footer from '@/components/common/Footer'
 import SliderComponent from '@/components/common/Slider'
 import { Home_info_slider } from '@/components/slider-data/data'
 import 'react-circular-progressbar/dist/styles.css';
-
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 export default function Home() {
   var settings = {
     dots: true,

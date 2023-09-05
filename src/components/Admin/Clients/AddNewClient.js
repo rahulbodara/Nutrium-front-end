@@ -43,15 +43,16 @@ const dispatch = useDispatch();
         ...values,
         dateOfBirth: formattedDateOfBirth,
       };
-      const success = await handleApiCall(
+
+      const success =await handleApiCall(
         dispatch,
         registerClient(updatedFormData),
         'Client successfully created'
       );
-      if(success) {
-        dispatch(clientData());
-        setIsOpen(false)
+      if (success) {
+        dispatch(GetAllWorkplace());
       }
+      setIsOpen(false);
     } catch (error) {
       console.log('error-------------->', error);
     }
