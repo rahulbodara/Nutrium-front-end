@@ -4,13 +4,14 @@ import { mdiChevronDown, mdiChevronUp, mdiCloseCircleOutline } from '@mdi/js';
 import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';
 import 'select2';
-import { useSelector } from 'react-redux';
 
 const ClosableSelect = (props) => {
   console.log("PROPS", props)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectValue, setSelectValue] = useState(props.initialValue || '')
   const selectRef = useRef(null);
   const [selectedValue, setSelectedValue] = useState(props.initialValue || "");
+
   const handleonClick = () => {
     setIsDropdownOpen(true);
   };
@@ -19,33 +20,25 @@ const ClosableSelect = (props) => {
   };
   useEffect(() => {
     const $select = $(selectRef.current);
-    $(".select2-container--default .select2-results__option--selected").css(
-      "background-color",
-      "red !important"
-    );
 
-    $select.on("select2:open", () => {
-      setIsDropdownOpen(true);
+    $select.select2({
+      minimumResultsForSearch: props.searchOption === false ? Infinity : 0,
     });
 
-    $select.on("select2:close", () => {
-      setIsDropdownOpen(false);
-    });
-
-    $select.select2(
-      props?.searchOption === false && {
-        minimumResultsForSearch: Infinity,
+    $select.on("change", (e) => {
+      const selectedValue = e.target.value;
+      if (props?.onChange) {
+        props?.onChange(selectedValue);
+        const updatedValue = { [props.name]: selectedValue }
+        props.handleSubmit(updatedValue)
       }
-    );
-    if (isDropdownOpen) {
-      $select.select2("open");
-    }
+    });
+
     return () => {
-      $select.off("select2:open");
-      $select.off("select2:close");
+      $select.off("change");
       $select.select2("destroy");
     };
-  }, [isDropdownOpen]);
+  }, [props?.searchOption]);
 
   const handleSelectChange = (event) => {
     const value = event.target.value;
@@ -92,16 +85,16 @@ const ClosableSelect = (props) => {
           <select
             ref={selectRef}
             className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
-            onChange={handleSelectChange}
-            defaultValue={selectedValue}
+            value={selectValue}
           >
-            {props?.option?.map((item, index) => (
+            {props?.option?.map((item, index) => {
+              return (
               <>
                 <option key={index} value={item.value}>
-                  {item.name}
+                  {props.workData ? item : item.name}
                 </option>
               </>
-            ))}
+            )})}
           </select>
         </div>
         {props.closable ? (
