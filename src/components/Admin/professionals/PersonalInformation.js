@@ -5,10 +5,14 @@ import DateInput from '../common/DateInput';
 import ClosableSelect from '../common/ClosableSelect';
 import EditableInput from '../common/EditableInput';
 import MobileInput from '../common/MobileInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip as ReactTooltip } from "react-tooltip";
-function PersonalInformation({formData,setFormData}) {
+import { handleApiCall } from '@/util/apiUtils';
+import { updateProfile } from '@/redux/action/auth';
+function PersonalInformation() {
+  const [singleValue, setSingleValue] = useState()
   const userData = useSelector((item) => item?.auth?.userData[0]);
+  const dispatch = useDispatch();
   const genderOption = [
     {
       id: 1,
@@ -26,6 +30,17 @@ function PersonalInformation({formData,setFormData}) {
       value: 'Other',
     },
   ];
+  const handleSubmit = async (newValue) => {
+    try {
+      await handleApiCall(
+        dispatch,
+        updateProfile(newValue),
+        'Personal Information Updated Successfully'
+      );
+    } catch (err) {
+      console.log("Error -->", err)
+    }
+  };
   return (
     <>
       <div className="w-1/3 px-[15px] 2lg:w-full">
@@ -57,7 +72,6 @@ function PersonalInformation({formData,setFormData}) {
                 label="Birthdate"
                 labelWidth="basis-[160px] min-w-[160px]"
                 closable={false}
-                value={formData?.dateOfBirth}
                 userData={userData}
               />
             </div>
@@ -69,7 +83,6 @@ function PersonalInformation({formData,setFormData}) {
                 closable={false}
                 className="mt-[7px]"
                 label="Gender"
-                value={formData?.gender}
                 initialValue={userData?.gender || ''}
               />
             </div>
@@ -77,16 +90,18 @@ function PersonalInformation({formData,setFormData}) {
               <EditableInput
                 labelWidth="basis-[160px] min-w-[160px]"
                 label="Zip code"
-                value={formData?.zipcode}
+                onInputChange={(value) => setSingleValue({ ["zipcode"]: value })}
+                handleSubmit={() => handleSubmit(singleValue)}
                 initialValue={userData?.zipcode || ''}
               />
             </div>
             <div>
-              <MobileInput
+              <EditableInput
                 labelWidth="basis-[160px] min-w-[160px]"
                 label="Mobile phone"
-                value={formData?.phoneNumber}
-                userData={userData}
+                initialValue={userData?.phoneNumber || ''}
+                onInputChange={(value) => setSingleValue({ ["phoneNumber"]: value })}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
           </div>

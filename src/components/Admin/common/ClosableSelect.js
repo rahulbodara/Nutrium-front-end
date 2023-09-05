@@ -11,7 +11,6 @@ const ClosableSelect = (props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const selectRef = useRef(null);
   const [selectedValue, setSelectedValue] = useState(props.initialValue || "");
-
   const handleonClick = () => {
     setIsDropdownOpen(true);
   };
@@ -51,6 +50,9 @@ const ClosableSelect = (props) => {
   const handleSelectChange = (event) => {
     const value = event.target.value;
     setSelectedValue(value);
+    if (props.onValueChange) {
+      props.onValueChange(value);
+    }
   };
   return (
     <div className={`flex select-none admin-select-field ${props?.className}`}>
@@ -129,7 +131,7 @@ const ClosableSelect = (props) => {
         >
           {isDropdownOpen === false && (
             <div
-              className={`clr-grn flex h-full cursor-pointer items-center align-middle 
+              className={`clr-grn flex cursor-pointer items-center align-middle 
           ${isDropdownOpen && props?.focusEffect
                   ? "border-[#1ab394]"
                   : "border-[#EEEEEE]"

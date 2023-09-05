@@ -82,7 +82,7 @@ export const updateProfile = (data) => {
       const response = await axios.put(`${baseUrl}/professionals`,data,{ headers });
       return dispatch({
         type: Types.UPDATE_PROFILE,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({
