@@ -26,6 +26,7 @@ const ClientDetail = ({ clientId }) => {
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state?.auth?.clientData[0]);
   console.log(clientData,"clientclient")
+  const workplaceData = useSelector((state) => state?.Workplace?.workplaceData)
   const error = useSelector((state) => state?.auth?.error);
   const [singleValue, setSingleValue] = useState()
 
@@ -36,11 +37,11 @@ const ClientDetail = ({ clientId }) => {
     return currentYear - birthYear;
   };
 
-  useEffect(() => {
-    if (clientId) {
-      dispatch(getClientById(clientId));
-    }
-  }, [dispatch, clientId]);
+  // useEffect(() => {
+  //   if (clientId) {
+  //     dispatch(getClientById(clientId));
+  //   }
+  // }, [dispatch, clientId]);
 
   const handleDelete = async (clientId) => {
     try {
@@ -74,32 +75,34 @@ const ClientDetail = ({ clientId }) => {
   const professionOptions = [
     {
       id: 1,
-      option: 'Male',
+      name: 'Male',
       value: 'Male',
     },
     {
       id: 2,
-      option: 'Female',
+      name: 'Female',
       value: 'Female',
     },
     {
       id: 3,
-      option: 'Other',
+      name: 'Other',
       value: 'Other',
     },
   ];
   const workplace = [
     {
       id: 1,
-      option: 'All workplaces',
+      name: 'All workplaces',
       value: 'All workplaces',
     },
     {
       id: 2,
-      option: 'online',
+      name: 'online',
       value: 'online',
     },
   ];
+
+  const workplaceOption = workplaceData.map((item) => item.name)
   return (
     <div>
       <div className=" mx-[-15px] bg-[#FFFFFF] shadow-box1">
@@ -212,6 +215,9 @@ const ClientDetail = ({ clientId }) => {
                 className="mt-[7px]"
                 label="Gender"
                 initialValue={clientData?.gender || ''}
+                onChange={(value) => setSingleValue({["gender"]:value})}
+                handleSubmit={handleSubmit}
+                name={"gender"}
               />
             </div>
             <div>
@@ -223,7 +229,9 @@ const ClientDetail = ({ clientId }) => {
                 className="mt-[7px]"
                 label="Residence"
                 initialValue={clientData?.country || ''}        
-
+                onChange={(value) => setSingleValue({["country"]:value})}
+                handleSubmit={handleSubmit}
+                name={"country"}
               />
             </div>
             <div>
@@ -273,17 +281,24 @@ const ClientDetail = ({ clientId }) => {
                 className="mt-[7px]"
                 label="Tags"
                 initialValue={clientData?.tags || ''}
+                onChange={(value) => setSingleValue({['tags']:value})}
+                handleSubmit={handleSubmit}
+                name={"tags"}
               />
             </div>
             <div>
               <ClosableSelect
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
-                option={workplace}
+                option={workplaceOption}
                 searchOption={false}
                 closable={false}
                 className="mt-[7px]"
                 label="Workplace"
                 initialValue={clientData?.workplace || ''}
+                workData={true}
+                onChange={(value) => setSingleValue({["workplace"]:value})}
+                handleSubmit={handleSubmit}
+                name={"workplace"}
               />
             </div>
             <div className="mt-[7px]">
@@ -292,6 +307,9 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 closable={false}
                 userData={clientData}
+                onChange={(value) => setSingleValue({["dateOfBirth"]:value})}
+                handleSubmit={handleSubmit}
+                name={"dateOfBirth"}
               />
             </div>
             <div>

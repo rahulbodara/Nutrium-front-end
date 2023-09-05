@@ -182,3 +182,39 @@ export const updateClient = (data, clientId) => {
     }
   };
 }
+
+export const updateAppointment = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const response = await axios.put(`${baseUrl}/client/appointment/${clientId}`, data, { headers });
+      return dispatch({
+        type: Types.CLIENT_BY_ID,
+        data: response,
+      })
+    } catch(err) {
+      return dispatch({
+        type: Types.CLIENT_BY_ID_FAILURE, 
+        data: err.response,
+      })
+    }
+  }
+}
+
+export const updateMedicalHistory = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const response = await axios.put(`${baseUrl}/client/medical-history/${clientId}`, data, { headers });
+      return dispatch({
+        type: Types.CLIENT_BY_ID,
+        data: response,
+      })
+    } catch(err) {
+      return dispatch({
+        type: Types.CLIENT_BY_ID_FAILURE, 
+        data: err.response,
+      })
+    }
+  }
+}
