@@ -4,7 +4,6 @@ import $ from "jquery";
 import "select2";
 
 const SelectField = (props) => {
- 
   const selectRef = useRef(null);
   useEffect(() => {
     const $select = $(selectRef.current);
