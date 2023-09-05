@@ -7,7 +7,7 @@ import 'select2';
 import { useSelector } from 'react-redux';
 
 const ClosableSelect = (props) => {
-  console.log("PROPS",props)
+  console.log("PROPS", props)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const selectRef = useRef(null);
   const [selectedValue, setSelectedValue] = useState(props.initialValue || "");
@@ -56,11 +56,9 @@ const ClosableSelect = (props) => {
     <div className={`flex select-none admin-select-field ${props?.className}`}>
       {props?.label ? (
         <div
-          className={`${
-            props?.labelWidth
-          } md:basis-[140px] md:min-w-[140px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE] ${
-            isDropdownOpen ? "border-[#1ab394]" : "border-[#EEEEEE]"
-          }`}
+          className={`${props?.labelWidth
+            } md:basis-[140px] md:min-w-[140px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE] ${isDropdownOpen ? "border-[#1ab394]" : "border-[#EEEEEE]"
+            }`}
         >
           {props?.label}
         </div>
@@ -69,9 +67,8 @@ const ClosableSelect = (props) => {
       )}
       {props?.Icon ? (
         <div
-          className={`flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid ${
-            isDropdownOpen ? "!border-[#1ab394] border-r-0" : "border-[#EEEEEE]"
-          } border-[#EEEEEE]`}
+          className={`flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid ${isDropdownOpen ? "!border-[#1ab394] border-r-0" : "border-[#EEEEEE]"
+            } border-[#EEEEEE]`}
         >
           <Icon path={props.Icon} size="18px" />
         </div>
@@ -79,18 +76,16 @@ const ClosableSelect = (props) => {
         ""
       )}
       <div
-        className={`grow-[3] ${
-          isDropdownOpen && props?.focusEffect
+        className={`grow-[3] ${isDropdownOpen && props?.focusEffect
             ? "!border-[1px_solid_#1ab394]"
             : "border-[1px_solid_#EEEEEE]"
-        } border-[1px_solid_#EEEEEE] border-l-0 flex select-none`}
+          } border-[1px_solid_#EEEEEE] border-l-0 flex select-none`}
       >
         <div
-          className={`select-field flex-grow border-[#EEEEEE] ${
-            isDropdownOpen && props?.focusEffect
+          className={`select-field flex-grow border-[#EEEEEE] ${isDropdownOpen && props?.focusEffect
               ? "!border-[#1ab394]"
               : "border-[#EEEEEE]"
-          } border-[1px] border-r-0`}
+            } border-[1px] border-r-0`}
         >
           <select
             ref={selectRef}
@@ -111,11 +106,10 @@ const ClosableSelect = (props) => {
           <>
             {isDropdownOpen ? (
               <div
-                className={`clr-grn flex cursor-pointer items-center align-middle ${
-                  isDropdownOpen && props?.focusEffect
+                className={`clr-grn flex cursor-pointer items-center align-middle ${isDropdownOpen && props?.focusEffect
                     ? "!border-l-[#1ab394]"
                     : "border-l-[#EEEEEE]"
-                } bg-[#FAFAFB] p-2.5 border-[1px]`}
+                  } bg-[#FAFAFB] p-2.5 border-[1px]`}
               >
                 <Icon
                   path={mdiCloseCircleOutline}
@@ -135,12 +129,11 @@ const ClosableSelect = (props) => {
         >
           {isDropdownOpen === false && (
             <div
-              className={`clr-grn flex cursor-pointer items-center align-middle 
-          ${
-            isDropdownOpen && props?.focusEffect
-              ? "border-[#1ab394]"
-              : "border-[#EEEEEE]"
-          } bg-[#FAFAFB] p-2.5  border-[1px]
+              className={`clr-grn flex h-full cursor-pointer items-center align-middle 
+          ${isDropdownOpen && props?.focusEffect
+                  ? "border-[#1ab394]"
+                  : "border-[#EEEEEE]"
+                } bg-[#FAFAFB] p-2.5  border-[1px]
           `}
             >
               <Icon
@@ -153,7 +146,7 @@ const ClosableSelect = (props) => {
           )}
           {isDropdownOpen === true && (
             <>
-              <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+              <div className="clr-grn flex h-full  cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
                 <Icon
                   path={mdiCloseCircleOutline}
                   size="18px"
@@ -161,7 +154,7 @@ const ClosableSelect = (props) => {
                   onClick={handlefalseClick}
                 />
               </div>
-              <div className="clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+              <div className="clr-grn flex  h-full  cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
                 <Icon
                   path={isDropdownOpen === true && mdiChevronUp}
                   size="18px"

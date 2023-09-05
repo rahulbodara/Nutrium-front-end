@@ -25,6 +25,8 @@ import { GetAllWorkplace } from '@/redux/action/workplace';
 import CustomSelect from '../common/CustomSelect';
 import { handleApiCall } from '../../../util/apiUtils';
 import { clientData } from '@/redux/action/auth';
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 
 const AddNewClient = ({ isOpen, setIsOpen }) => {
   const [formData, setFormData] = useState({});
@@ -41,15 +43,16 @@ const dispatch = useDispatch();
         ...values,
         dateOfBirth: formattedDateOfBirth,
       };
-      const success = await handleApiCall(
+
+      const success =await handleApiCall(
         dispatch,
         registerClient(updatedFormData),
         'Client successfully created'
       );
-      if(success) {
-        dispatch(clientData());
-        setIsOpen(false)
+      if (success) {
+        dispatch(GetAllWorkplace());
       }
+      setIsOpen(false);
     } catch (error) {
       console.log('error-------------->', error);
     }
@@ -134,7 +137,7 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                               <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
                                 <abbr
                                   title="required"
-                                  className="no-underline font-semibold text-[#1ab394]"
+                                  className="no-underline font-semibold text-[#1ab394] cursor-help"
                                 >
                                   *
                                 </abbr>{' '}
@@ -202,7 +205,7 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                                   }} />
                                 </div>
                           
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
+                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]" data-tooltip-id='workplace'>
                                   <Icon path={mdiInformationOutline} size={0.6} />
                                 </div>
                               </div>
@@ -211,7 +214,7 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                               <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
                                 <abbr
                                   title="required"
-                                  className="no-underline font-semibold text-[#1ab394]"
+                                  className="no-underline font-semibold text-[#1ab394] cursor-help"
                                 >
                                   *
                                 </abbr>{' '}
@@ -324,7 +327,7 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                                   name="email"
                                 />
   
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]">
+                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]" data-tooltip-id='email'>
                                   <Icon path={mdiInformationOutline} size={0.6} />
                                 </div>
                               </div>
@@ -342,10 +345,10 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                               type="checkbox"
                               className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
                             />
-                            <span className="text-[13px]">
+                            <span className="text-[13px] cursor-not-allowed" data-tooltip-id='checkfield'>
                               Send nutrition assessment form via message and email
                             </span>{' '}
-                            <Icon path={mdiInformationOutline} size={0.6} />
+                            <Icon path={mdiInformationOutline} size={0.6} className="hover:text-[#1AB394] cursor-pointer" data-tooltip-id="checkfieldMoreInfo" />
                           </div>
                         </div>
                         <div className="flex items-center px-[30px] pb-[15px] justify-between">
@@ -370,6 +373,30 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
           </div>
         </Dialog>
       </Transition>
+      <ReactTooltip
+        id="checkfield"
+        place="top"
+        content="The email is invalid"
+        className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9] z-[99999]'
+      />
+      <ReactTooltip
+        id="checkfieldMoreInfo"
+        place="top"
+        content="The nutrition assessment form allows the client to automatically fill in some of their information. Click here to learn more."
+        className='!p-[3px_8px] !bg-[#2f4050] max-w-[200px] text-center opacity-[.9] z-[99999]'
+      />
+      <ReactTooltip
+        id="workplace"
+        place="top-end"
+        content="Choose if you want this client to be associated to one or all workplaces"
+        className='!p-[3px_8px] !bg-[#2f4050] max-w-[120px] opacity-[.9] text-center z-[99999]'
+      />
+      <ReactTooltip
+        id="email"
+        place="top-end"
+        content="If no email is provided, an email from the system will be generated"
+        className='!p-[3px_8px] !bg-[#2f4050] max-w-[120px] opacity-[.9] text-center z-[99999]'
+      />
     </div>
   );
 };
