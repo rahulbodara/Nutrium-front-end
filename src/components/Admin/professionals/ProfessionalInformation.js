@@ -5,10 +5,13 @@ import EditableInput from '../common/EditableInput';
 import Icon from '@mdi/react';
 import { mdiCamera } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from '@/redux/action/auth';
+import { clientData, updateProfile } from '@/redux/action/auth';
+import { handleApiCall } from '@/util/apiUtils';
 
-function ProfessionalInformation({ formData, setFormData }) {
-  console.log(formData,"formDataformData");
+function ProfessionalInformation() {
+  const [singleValue, setSingleValue] = useState()
+  const [selectedProfession, setSelectedProfession] = useState('');
+  console.log(selectedProfession, "sddffdfgff");
   const professionOptions = [
     {
       id: 1,
@@ -41,46 +44,22 @@ function ProfessionalInformation({ formData, setFormData }) {
       value: 'India',
     },
   ];
-
   const userData = useSelector((item) => item?.auth?.userData[0]);
   const dispatch = useDispatch();
   const handleProfessionChange = (value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      profession: value,
-    })); 
+    setSelectedProfession(value);
   };
-  
-  const handleProfessionCardNumberChange = (value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      professionCardNumber: value,
-    }));
+  const handleSubmit = async (newValue) => {
+    try {
+      await handleApiCall(
+        dispatch,
+        updateProfile(newValue),
+        'Professional Updated Successfully'
+      );
+    } catch (err) {
+      console.log("Error -->", err)
+    }
   };
-
-  const handleCountryChange = (value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      country: value,
-    }));
-  };
-
-  const handleEmailChange = (value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      email: value,
-    }));
-  };
-
-  const handleSubmit = () => {
-    console.log('submit button clicked!!!');
-    dispatch(updateProfile(formData));
-  };
-
-  const handleCancel = () => {
-    setFormData({ ...userData });
-  };
-
   return (
     <div className="px-[15px] py-0  p-0 w-2/3 2lg:w-full relative min-h-[1px]">
       <div className="h-full bg-white card-shadow  rounded-[5px] mb-[25px]">
@@ -122,37 +101,31 @@ function ProfessionalInformation({ formData, setFormData }) {
                   closable={false}
                   className="mt-0"
                   label="Profession"
-                  value={formData?.profession || ""}
                   initialValue={userData?.profession || ''}
-                  setFormData={setFormData}
-                  onChange={handleProfessionChange}
+                  onValueChange={handleProfessionChange}
                 />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Professional card number"
-                  value={formData?.professionCardNumber}
-                  initialValue={formData?.professionCardNumber}
-                  onInputChange={handleProfessionCardNumberChange}
-                  handleSubmit={handleSubmit}
-                  handleCancel={handleCancel}
+                  initialValue={userData?.professionCardNumber || ""}
+                  onInputChange={(value) => setSingleValue({ ["professionalCardNumber"]: value })}
+                  handleSubmit={() => handleSubmit(singleValue)}
                 />
                 <ClosableSelect
                   labelWidth="basis-[240px] min-w-[240px]"
                   option={professionOptions}
                   searchOption={true}
-                  value={formData?.country}
                   closable={false}
                   className="mt-[7px]"
                   label="Country of residence"
                   initialValue={userData?.country || ''}
-                  onChange={handleCountryChange}
                 />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Email"
-                  value={formData?.email}
                   initialValue={userData?.email || ''}
-                  onInputChange={handleEmailChange}
+                  onInputChange={(value) => setSingleValue({ ["email"]: value })}
+                  handleSubmit={() => handleSubmit(singleValue)}
                 />
               </div>
             </div>
