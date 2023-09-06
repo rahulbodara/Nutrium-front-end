@@ -18,7 +18,7 @@ import TimePicker from '@/components/Admin/common/TimePicker';
 import AddObservations from '@/components/Admin/Clients/Information/AddObservations';
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateMedicalHistory } from '@/redux/action/auth';
+import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleApiCall } from "@/util/apiUtils";
 
@@ -53,12 +53,20 @@ const Information = () => {
   function HandleValue(value) {
     console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
   }
-  const [selectedHour1, setSelectedHour1] = useState("");
-  const [selectedMinute1, setSelectedMinute1] = useState("");
-  const [selectedHour2, setSelectedHour2] = useState("");
-  const [selectedMinute2, setSelectedMinute2] = useState("");
+  const DietaryhistoryData = useSelector((state) => {
+    if(state?.auth?.clientData?.length > 0) {
+      return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
+    }
+    return null;
+  })
+
+  const [selectedHour1, setSelectedHour1] = useState(DietaryhistoryData?.wakeupTime.split(':')[0]);
+  const [selectedMinute1, setSelectedMinute1] = useState(DietaryhistoryData?.wakeupTime.split(':')[1]);
+  const [selectedHour2, setSelectedHour2] = useState(DietaryhistoryData?.bedTime.split(':')[0]);
+  const [selectedMinute2, setSelectedMinute2] = useState(DietaryhistoryData?.bedTime.split(':')[1]);
   const [singleValue, setSingleValue] = useState()
   const [medicalValue, setMedicalValue] = useState()
+  const [dietaryValue, setDietaryValue] = useState()
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
       return state?.auth?.clientData[0]?.appointmentInformation?.[0];
@@ -71,7 +79,6 @@ const Information = () => {
     }
     return null;
   });
-
   const [openObservations, setOpenObservations] = useState(false)
 
   const handleTimeChange = (type, value) => {
@@ -81,8 +88,20 @@ const Information = () => {
     } else if (type === "minute") {
       setSelectedMinute1(value);
     }
-    // You can do the same for the second TimePicker
+    const timeValue = `${selectedHour1}:${selectedMinute1}`;
+    setDietaryValue({ 'wakeupTime': timeValue });
   };
+  const handleBedTimeChange = (type, value) => {
+    console.log("typetypetype",type)
+    if (type === "hour") {
+      setSelectedHour2(value);
+    } else if (type === "minute") {
+      setSelectedMinute2(value);
+    }
+    console.log("houres", selectedHour2, "minutes", selectedMinute2)
+    const timeValue = `${selectedHour2}:${selectedMinute2}`;
+    setDietaryValue({ 'bedTime': timeValue });
+  }
 
   const handleAppointmentSubmit = async (newValue) => {
     console.log(newValue, "newValue")
@@ -114,7 +133,21 @@ const Information = () => {
       console.log("Error -->", err)
     }
   };
-
+  const handleDietarySubmit = async (newValue) => {
+    console.log(newValue, "newValue");
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        updateDietaryHistory(newValue, query.id),
+        'Dietary history data updated successfully.'
+      )
+      if(success) {
+        dispatch(getClientById(query.id))
+      }
+    } catch (err) {
+      console.log("Error -->", err)
+    }
+  }
   return (
     <div>
       <MainLayout
@@ -383,6 +416,7 @@ const Information = () => {
                         selectedHour={selectedHour1}
                         selectedMinute={selectedMinute1}
                         onChange={(type, value) => handleTimeChange(type, value)}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
 
                     </div>
@@ -394,7 +428,8 @@ const Information = () => {
                         hour={24}
                         selectedHour={selectedHour2}
                         selectedMinute={selectedMinute2}
-                        onChange={(type, value) => handleTimeChange(type, value)}
+                        onChange={(type, value) => handleBedTimeChange(type, value)}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
 
 
@@ -417,9 +452,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Favorite food"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={DietaryhistoryData?.favoriteFood || ''}
+                        onInputChange={(value) => setDietaryValue({ ["favoriteFood"]: value })}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)} 
                       />
 
 
@@ -428,10 +463,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Disliked food"
-
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={DietaryhistoryData?.dislikeFood || ''}
+                        onInputChange={(value) => setDietaryValue({ ["dislikeFood"]: value })}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)} 
                       />
 
 
@@ -505,9 +539,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Other information"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={DietaryhistoryData?.otherInfo || ''}
+                      onInputChange={(value) => setDietaryValue({ ["otherInfo"]: value })}
+                       handleSubmit={() => handleDietarySubmit(dietaryValue)} 
                       />
                     </div>
                   </div>
@@ -611,11 +645,20 @@ const Information = () => {
 
                       <div className="w-full ">
 
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect 
+                        className="select-main-without-border min-h-[42px]" 
+                        searchOption={false} 
+                        closable={false} 
+                        // option={medicalValue?.diseases.map((disease, index) => ({ value: index, option: disease }))} 
+                        />
                         <EditableInput
                           mainClass="!mt-0"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                          initialValue={medicalData?.diseases.join(',')}
+                          onInputChange={(value) => setMedicalValue({['diseases']: value})}
+                          handleSubmit={() => handleMedicalHistorySubmit(medicalValue)}
+                        />
 
                       </div>
 
@@ -635,8 +678,8 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Personal history"
-                        initialValue={medicalData?.personalHistory || ''}
-                        onInputChange={(value) => setMedicalValue({ ["personalHistory"]: value })}
+                        initialValue={medicalData?.pesonalhistory || ''}
+                        onInputChange={(value) => setMedicalValue({ ["pesonalhistory"]: value })}
                         handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
                       />
 
