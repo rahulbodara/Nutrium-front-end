@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Icon from '@mdi/react';
 import { Menu, Transition } from '@headlessui/react';
 import { mdiContentSave, mdiInformationOutline, mdiPlus, mdiPrinter } from '@mdi/js';
@@ -18,6 +18,10 @@ import TimePicker from '@/components/Admin/common/TimePicker';
 import AddObservations from '@/components/Admin/Clients/Information/AddObservations';
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
+import { getClientById, updateAppointment, updateMedicalHistory } from '@/redux/action/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleApiCall } from "@/util/apiUtils";
+
 const clientType = [
   {
     id: 1,
@@ -36,17 +40,37 @@ const clientType = [
   },
 ];
 const Information = () => {
+  const router = useRouter();
+  const { query } = router;
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (query.id) {
+      dispatch(getClientById(query.id));
+    }
+  }, [dispatch, query.id]);
 
   function HandleValue(value) {
     console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
   }
-  const router = useRouter();
   const [selectedHour1, setSelectedHour1] = useState("");
   const [selectedMinute1, setSelectedMinute1] = useState("");
-
   const [selectedHour2, setSelectedHour2] = useState("");
   const [selectedMinute2, setSelectedMinute2] = useState("");
-
+  const [singleValue, setSingleValue] = useState()
+  const [medicalValue, setMedicalValue] = useState()
+  const appointmentData = useSelector((state) => {
+    if (state?.auth?.clientData?.length > 0) {
+      return state?.auth?.clientData[0]?.appointmentInformation?.[0];
+    }
+    return null;
+  });
+  const medicalData = useSelector((state) => {
+    if(state?.auth?.clientData?.length > 0) {
+      return state?.auth?.clientData[0]?.Medicalhistory?.[0];
+    }
+    return null;
+  });
 
   const [openObservations, setOpenObservations] = useState(false)
 
@@ -59,8 +83,38 @@ const Information = () => {
     }
     // You can do the same for the second TimePicker
   };
-  const { query } = router;
-  console.log(query.id, '=====================>>>>>>>>>>>>>>>>>>>.');
+
+  const handleAppointmentSubmit = async (newValue) => {
+    console.log(newValue, "newValue")
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        updateAppointment(newValue, query.id),
+        'Appointnment info. Updated Successfully'
+      );
+      if(success) {
+        dispatch(getClientById(query.id));
+      }
+    } catch(err) {
+      console.log("Error -->", err)
+    }
+  };
+  const handleMedicalHistorySubmit = async (newValue) => {
+    console.log(newValue, "newValue")
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        updateMedicalHistory(newValue, query.id),
+        'Medical history Updated Successfully'
+      );
+      if(success) {
+        dispatch(getClientById(query.id));
+      }
+    } catch(err) {
+      console.log("Error -->", err)
+    }
+  };
+
   return (
     <div>
       <MainLayout
@@ -148,16 +202,20 @@ const Information = () => {
 
                     <EditableTextarea
                       labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
-                      label="Appointment information"
-                    // initialValue={clientData?.address || ''}
-                    // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                    // handleSubmit={() => handleSubmit(singleValue)} 
+                      label="Reason of appointment"
+                      initialValue={appointmentData?.appointmentReason || ''}
+                      onInputChange={(value) => setSingleValue({ ["appointmentReason"]: value })}
+                      handleSubmit={() => handleAppointmentSubmit(singleValue)} 
                     />
                     <div className=" mt-[7px]">
 
                       <EditableInput
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
-                        label=" Expectations" />
+                        label=" Expectations"
+                        initialValue={appointmentData?.expectations || ''}
+                        onInputChange={(value) => setSingleValue({["expectations"]:value})}
+                        handleSubmit={() => handleAppointmentSubmit(singleValue)}
+                        />
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
@@ -169,7 +227,11 @@ const Information = () => {
                         <EditableInput
                           mainClass="!mt-0"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                          // initialValue={clientData?.zipcode || ''}
+                          // onInputChange={(value) => setSingleValue({["zipcode"]:value})}
+                          // handleSubmit={() => handleAppointmentSubmit(singleValue)}
+                          />
 
                       </div>
                     </div>
@@ -177,9 +239,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Other information"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={appointmentData?.otherInfo || ''}
+                        onInputChange={(value) => setSingleValue({ ["otherInfo"]: value })}
+                        handleSubmit={() => handleAppointmentSubmit(singleValue)} 
                       />
 
 
@@ -296,7 +358,7 @@ const Information = () => {
                         label="Other information"
                       // initialValue={clientData?.address || ''}
                       // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                      // handleSubmit={() => handleAppointmentSubmit(singleValue)} 
                       />
 
                     </div>
@@ -400,7 +462,7 @@ const Information = () => {
                       </div>
                       <div className="w-full ">
 
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={true} closable={false} />
                         <EditableTextarea
 
                           className="!mt-[-1px]"
@@ -563,9 +625,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="  Medication"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={medicalData?.medication || ''}
+                        onInputChange={(value) => setMedicalValue({ ["medication"]: value })}
+                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
                       />
 
                     </div>
@@ -573,9 +635,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Personal history"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={medicalData?.personalHistory || ''}
+                        onInputChange={(value) => setMedicalValue({ ["personalHistory"]: value })}
+                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
                       />
 
                     </div>
@@ -583,9 +645,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Family history"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={medicalData?.familyHistory || ''}
+                        onInputChange={(value) => setMedicalValue({ ["familyHistory"]: value })}
+                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
                       />
 
                     </div>
@@ -593,9 +655,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Other information"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={medicalData?.otherInfo || ''}
+                        onInputChange={(value) => setMedicalValue({ ["otherInfo"]: value })}
+                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
                       />
                     </div>
                   </div>

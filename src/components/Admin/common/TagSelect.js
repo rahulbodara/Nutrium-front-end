@@ -6,8 +6,6 @@ import $ from 'jquery';
 import 'select2';
 
 const TagSelect = (props) => {
-
-
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const selectRef = useRef(null);
     const [selectedValue, setSelectedValue] = useState(props.initialValue || '');
@@ -20,36 +18,36 @@ const TagSelect = (props) => {
         'red !important'
       );
   
-      $select.on('select2:open', () => {
-        setIsDropdownOpen(true);
+      $select.select2({
+        minimumResultsForSearch: props.searchOption === false ? Infinity : 0,
       });
   
-      $select.on('select2:close', () => {
-        setIsDropdownOpen(false);
-      });
-  
-      $select.select2(
-        props?.searchOption === false && {
-          minimumResultsForSearch: Infinity,
+      $select.on("change", (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions).map(
+          (option) => option.value
+        );
+          
+        if (props?.onChange) {
+          const formattedOptions = selectedOptions.map(option => `${option}`).join(', ');
+          props?.onChange(formattedOptions);
+          const updatedValue = { [props.name]: formattedOptions }
+          props.handleSubmit(updatedValue)
         }
-      );
+      });
       $(".js-example-tokenizer").select2({
         tags: true,
         tokenSeparators: [',', ' ']
       });
       return () => {
-        $select.off('select2:open');
-        $select.off('select2:close');
-        $select.select2('destroy');
+        $select.off("change");
+        $select.select2("destroy");
       };
-    }, []);
+    }, [props?.searchOption]);
   
     const handleSelectChange = (event) => {
       const value = event.target.value;
       setSelectedValue(value);
     };
-
-
 
     return (
         <div className={`flex select-none admin-select-field ${props?.className}`}>
@@ -95,10 +93,10 @@ const TagSelect = (props) => {
           >
             <select
               ref={selectRef}
-              multiple="multiple"
+              multiple={true}
               tags={true}
               className="w-full mt-2 p-[10px] js-example-tokenizer text-[#6e7c91] rounded-md"
-              onChange={handleSelectChange}
+              // onChange={handleSelectChange}
               defaultValue={selectedValue}
             >
               {props?.option?.map((item, index) => (
