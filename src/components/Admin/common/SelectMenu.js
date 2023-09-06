@@ -21,8 +21,8 @@ const SelectMenu = (props) => {
         };
     });
   return (
-      <div className='max-w-[130px]'>
-          <div className='relative flex-1 select-none border-[#EEEEEE]'>
+      <div className={`max-w-[130px] ${props?.className}`}>
+          <div className={`relative flex-1 select-none border-[#EEEEEE] ${props?.SelectClass}`}>
               <select
                   ref={selectRef}
                   className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"

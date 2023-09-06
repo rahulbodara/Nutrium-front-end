@@ -80,6 +80,8 @@ const Information = () => {
     return null;
   });
   const [openObservations, setOpenObservations] = useState(false)
+  const [foodDiaries, setFoodDiaries] = useState(false)
+
 
   const handleTimeChange = (type, value) => {
     // Use the "type" parameter to distinguish between hour and minute changes
@@ -576,7 +578,7 @@ const Information = () => {
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  {/* <AddObservations isOpen={openObservations} setIsOpen={setOpenObservations} /> */}
+                  <AddLogClient closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
                   <div className="p-[0_20px_20px]">
                     <div onClick={() => setOpenObservations(true)} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
                       <div className='h-[95px] break-all'></div>
@@ -602,32 +604,40 @@ const Information = () => {
                         Log your client's food diaries
                       </span>
                     </div>
-                    <button onClick={() => setOpenObservations(true)}>
+                    <button onClick={() => setFoodDiaries(true)}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddFoodDiary isOpen={openObservations} setIsOpen={setOpenObservations} />
+                  <AddFoodDiary closeIcon={true} isOpen={foodDiaries} setIsOpen={setFoodDiaries} />
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       You haven't logged any food diary
                     </p>
                   </div>
                 </div>
-                <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="p-[20px] pb-[15px]">
-                    <h3 className="text-[20px] leading-[24px] ">
-                      Eating behaviour
-                    </h3>
-                    <span className="text-[12px] text-[#888888]/[70%]">
-                      Log your client's eating behaviour
-                    </span>
+                <div className="bg-white shadow-box1 mt-[25px] rounded-[5px]">
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
+                    <div>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Eating behaviour
+                      </h3>
+                      <span className="text-[12px] text-[#888888]/[70%]">
+                        Log your client's eating behaviour
+                      </span>
+                    </div>
+                    <button onClick={() => setEating(true)}>
+                      <Icon path={mdiPlus} size={1} />
+                    </button>
                   </div>
+                  <AddLogClient closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
+
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       You haven't logged any eating behaviour
                     </p>
                   </div>
                 </div>
+
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
                   <div className="p-[20px] pb-[15px]">
                     <h3 className="text-[20px] leading-[24px] ">
@@ -706,12 +716,20 @@ const Information = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="p-[20px] pb-[15px]">
-                    <h3 className="text-[20px] leading-[24px] ">Goals</h3>
-                    <span className="text-[12px] text-[#888888]/[70%]">
-                      Goals the client wants to achieve
-                    </span>
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
+                    <div>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Goals
+                      </h3>
+                      <span className="text-[12px] text-[#888888]/[70%]">
+                        Goals the client wants to achieve
+                      </span>
+                    </div>
+                    <button onClick={() => setGoals(true)}>
+                      <Icon path={mdiPlus} size={1} />
+                    </button>
                   </div>
+                  <AddGoals closeIcon={true} className="max-w-[600px]" title="Set a new goal" subtitle="It's a good way to keep your client motivated" isOpen={goals} setIsOpen={setGoals} />
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       No goals defined yet.
@@ -719,15 +737,25 @@ const Information = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="flex justify-between items-center p-[20px] pb-[15px]">
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
                     <div>
-                      <h3 className="text-[20px] leading-[24px] ">Files</h3>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Files
+                      </h3>
                       <span className="text-[12px] text-[#888888]/[70%]">
                         Files attached to this client
                       </span>
                     </div>
-                    <BsFilter className="text-[24px]" />
+                    <div className='flex items-center gap-2'>
+                      <BsFilter className="text-[24px]" />
+                      <button onClick={() => setAddFile(true)}>
+                        <Icon path={mdiPlus} size={1} />
+                      </button>
+                    </div>
                   </div>
+                  <AddFile closeIcon={true} className="max-w-[600px]" title="Add file" subtitle="Attach a file to this client's profile" isOpen={addFile} setIsOpen={setAddFile} />
+
+                  
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       There aren't any files associated to this filter

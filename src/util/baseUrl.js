@@ -1,1 +1,1 @@
-export default 'https://192.168.112.1:8080/api/v1';
+export default 'https://192.168.0.154:8080/api/v1';
