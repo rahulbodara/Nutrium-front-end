@@ -560,3 +560,10 @@ h2 {
 /* input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   background: none;
 } */
+
+.calendar-main .rbc-row-segment .rbc-event{
+  background-color: white;
+  width: 100%;
+  margin: 5px auto 0;  
+  padding: 6px 8px;
+}

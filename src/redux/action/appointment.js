@@ -22,4 +22,26 @@ export const ScheduleAppointment = (data) => {
       }
     };
   };
+
+
+  export const getAllAppointment = () => {
+    return async (dispatch) => {
+      try {
+        const headers = createHeaders();
+        const response = await axios.get(`${baseUrl}/scheduleApointment`, {
+          headers,
+        });
+        return dispatch({
+          type: Types.APPOINTMENT_DATA,
+          data: response,
+        });
+      } catch (err) {
+        return dispatch({
+          type: Types.APPOINTMENT_DATA_FAILURE,
+          data: err.response,
+        });
+      }
+    };
+  };
+
   
