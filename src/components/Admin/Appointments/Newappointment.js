@@ -35,7 +35,7 @@ import SelectField from "../common/SelectField";
 import { handleApiCall } from "@/util/apiUtils";
 import { ScheduleAppointment } from "@/redux/action/appointment";
 
-const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
+const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
   const [filterClient, setFilterClient] = useState("All clients");
   const [confirmationStatus, setConfirmationStatus] = useState("1");
   const [searchQuery, setSearchQuery] = useState("");
@@ -670,7 +670,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                     <div className="flex items-center px-[30px] pb-[15px]">
                       <button
                         className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-                        onClick={() => setIsNewAppModal(false)}
+                        onClick={() => {setIsNewAppModal(false);setDateModal(true);}}
                       >
                         Back
                       </button>
@@ -687,7 +687,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
                         <button className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]" onClick={handleSubmit}>
                           Save
                         </button>
-                        <button className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]">
+                        <button className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]" onClick={handleSubmit}>
                           Save and close
                         </button>
                       </div>
@@ -699,7 +699,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal }) => {
           </div>
         </Dialog>
       </Transition>
-      <AddNewClient isOpen={regClientModal} setIsOpen={setRegClientModal} />
+      <AddNewClient isOpen={regClientModal} setIsOpen={setRegClientModal}/>
     </div>
   );
 };
