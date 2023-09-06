@@ -1,11 +1,10 @@
 import { toast } from "react-toastify";
 
-// A generic function to handle API calls, success, and error cases
 export async function handleApiCall(dispatch, apiFunction, successMessage) {
     try {
         const response = await dispatch(apiFunction);
-        console.log(response,"rersrsrrsrsr");
-        if (response?.data?.status === 200) {
+        console.log(response,);
+        if (response?.data?.status === 200 || response?.data?.status === 201 || response.status === 200) {
             toast.success(successMessage);
             return true;
         } else {

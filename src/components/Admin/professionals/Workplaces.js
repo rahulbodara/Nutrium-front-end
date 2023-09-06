@@ -8,17 +8,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetAllWorkplace } from "@/redux/action/workplace";
 
 const Workplaces = () => {
-  const state = useSelector((state) => state.Workplace?.workplaceData);
+  const [editData, setEditData] = useState({})
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [workplaceData, setworkplaceData] = useState();
-  const [dataId, setdataId] = useState();
-
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const workplaceData = useSelector((state) => state.Workplace?.workplaceData);
+  console.log(workplaceData, "woerlkowowowoow");
+  const handleSearchValue = (value) => {
+    const searchSecretaries = workplaceData.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(searchSecretaries);
+    setSearchValue(value);
+  }
+  const dataToMapOver = searchValue === "" ? workplaceData : filteredData
   useEffect(() => {
     const fetch = async () => {
-      const response = await dispatch(GetAllWorkplace());
-      setworkplaceData(state);
+      await dispatch(GetAllWorkplace());
     };
     fetch();
   }, [dispatch]);
@@ -52,57 +59,57 @@ const Workplaces = () => {
               name="fullName"
               className="block border-[1px] border-[#e5e6e7] placeholder:opacity-[0.6] focus:ring-0 py-[6px] w-full px-[12px] input-transition focus:border-[#1ab394] text-[13px] text-[#676a6c] focus:outline-none"
               placeholder="Search workspaces"
+              onChange={(e) => handleSearchValue(e.target.value)}
             />
           </div>
           <div>
             <div className="-mx-[15px] flex flex-wrap">
-              {workplaceData &&
-                workplaceData?.map((data) => {
-                  return (
-                    <div className="w-1/3 relative px-[15px] lg:w-full">
-                      <div
-                        className="h-[140px] group flex p-[20px] items-start my-[5px] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer"
-                        onClick={() => {
-                          setIsEditModalOpen(true);
-                          setdataId(data._id);
-                        }}
-                      >
-                        <div className="w-[70px] h-[100px] m-[0_30px_0_10px]">
-                          <div className="flex relative w-[72px] h-[72px] rounded-full items-center justify-center border border-[#eeeeee]">
-                            <img
-                              src="/image/leaf.png"
-                              alt="leaf"
-                              className="rounded-full max-w-[70px] max-h-[70px] h-auto"
-                            />
-                            <div className="w-[22px] h-[22px] absolute bg-white rounded-[50%] border-2 border-solid border-white right-0 -bottom-0.5">
-                              <MdVerified className="text-[18px] clr-grn" />
-                            </div>
-                          </div>
-                          <div className="flex w-[72px] mt-[9px] overflow-hidden text-ellipsis whitespace-nowrap">
-                            <div className="bg-[#1ab394] self-center w-3 h-3 ml-0.5 mr-[5px] rounded-[10px]"></div>
-                            <div>{data.color}</div>
+              {Array.isArray(dataToMapOver) && dataToMapOver?.map((data) => {
+                return (
+                  <div className="w-1/3 relative px-[15px] lg:w-full">
+                    <div
+                      className="h-[140px] group flex p-[20px] items-start my-[5px] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer"
+                      onClick={() => {
+                        setIsOpen(true);
+                        setEditData(data)
+                      }}
+                    >
+                      <div className="w-[70px] h-[100px] m-[0_30px_0_10px]">
+                        <div className="flex relative w-[72px] h-[72px] rounded-full items-center justify-center border border-[#eeeeee]">
+                          <img
+                            src="/image/leaf.png"
+                            alt="leaf"
+                            className="rounded-full max-w-[70px] max-h-[70px] h-auto"
+                          />
+                          <div className="w-[22px] h-[22px] absolute bg-white rounded-[50%] border-2 border-solid border-white right-0 -bottom-0.5">
+                            <MdVerified className="text-[18px] clr-grn" />
                           </div>
                         </div>
+                        <div className="flex w-[72px] mt-[9px] overflow-hidden text-ellipsis whitespace-nowrap">
+                          <div className="bg-[#1ab394] self-center w-3 h-3 ml-0.5 mr-[5px] rounded-[10px]"></div>
+                          <div>{data.color}</div>
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-[1rem] group-hover:text-[#1ab394]">
+                          {data.name}
+                        </h3>
                         <div>
-                          <h3 className="text-[1rem] group-hover:text-[#1ab394]">
-                            {data.name}
-                          </h3>
-                          <div>
-                            <div className="mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap">
-                              <Icon
-                                path={mdiEye}
-                                size="20px"
-                                color="#1ab394"
-                                className="bg-[#e0faf1] inline p-[3px] m-[0_5px_2px_0] leading-[1] rounded-full"
-                              />{" "}
-                              Public
-                            </div>
+                          <div className="mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap">
+                            <Icon
+                              path={mdiEye}
+                              size="20px"
+                              color="#1ab394"
+                              className="bg-[#e0faf1] inline p-[3px] m-[0_5px_2px_0] leading-[1] rounded-full"
+                            />{" "}
+                            Public
                           </div>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                );
+              })}
               <div className="w-1/3 relative px-[15px] lg:w-full">
                 <div
                   className="h-[140px] group flex p-[20px] items-center my-[5px] text-[#888888] border border-[#EEEEEE] hover:border-[#1ab394] cursor-pointer"
@@ -126,11 +133,9 @@ const Workplaces = () => {
           </div>
         </div>
       </div>
-      <AddNewWorkplace isOpen={isOpen} setIsOpen={setIsOpen} />
+      {/* <AddNewWorkplace isOpen={isOpen} setIsOpen={setIsOpen} /> */}
       <Editworkplace
-        isEditModalOpen={isEditModalOpen}
-        setIsEditModalOpen={setIsEditModalOpen}
-        id={dataId}
+        isOpen={isOpen} setIsOpen={setIsOpen} setEditData={setEditData} editData={editData}
       />
     </>
   );

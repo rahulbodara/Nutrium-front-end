@@ -510,3 +510,50 @@ h2 {
 .select-clinet.border-select .select2-selection--single:focus {
   border: 1px solid #1ab394 !important;
 }
+
+.select-main-without-border .select2-container--default .select2-selection--single{
+  background-color: #fff;
+  border: 0px solid #aaa !important;
+  border-radius: 0px !important;
+}
+.select-main-with-focus-border{
+  border: 1px solid #1ab394 !important;
+}
+ span.select2-dropdown.select2-dropdown--below{
+  border: 1px solid #676A6C;
+  /* width: 210px !important; */
+}
+.select2-search input{
+  border-bottom: 1px solid #EEEEEE !important;
+  background-position-y: -21px !important;
+}
+.select2-container--default .select2-selection--single{
+  border: 1px solid #eaebeb !important;
+}
+.react-datepicker__header{
+  background-color: #fff !important;
+}
+.time-datepicker input{
+  width: 100% !important;
+  height: 34px;
+  border: 1px solid #eaeaea !important;
+}
+.time-datepicker input:focus{
+  border-color: #eaeaea !important;
+  box-shadow: none !important;
+}
+.react-datepicker__navigation-icon::before{
+  border-color: #1AB394 !important;
+}
+.react-datepicker__day--selected{
+  background-color: #1AB394 !important;
+}
+.react-datepicker__time-list-item--selected{
+  background-color: #1AB394 !important;
+}
+.appointment-select,.Video-consultation .field-title{
+  display: none;
+}
+.react-datepicker-popper{
+  z-index: 99999 !important;
+}

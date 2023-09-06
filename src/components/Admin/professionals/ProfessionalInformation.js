@@ -5,9 +5,13 @@ import EditableInput from '../common/EditableInput';
 import Icon from '@mdi/react';
 import { mdiCamera } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from '@/redux/action/auth';
+import { clientData, updateProfile } from '@/redux/action/auth';
+import { handleApiCall } from '@/util/apiUtils';
 
 function ProfessionalInformation() {
+  const [singleValue, setSingleValue] = useState()
+  const [selectedProfession, setSelectedProfession] = useState('');
+  console.log(selectedProfession, "sddffdfgff");
   const professionOptions = [
     {
       id: 1,
@@ -40,33 +44,22 @@ function ProfessionalInformation() {
       value: 'India',
     },
   ];
-
   const userData = useSelector((item) => item?.auth?.userData[0]);
-  const [formData, setFormData] = useState({ ...userData });
   const dispatch = useDispatch();
-  console.log('formData----------->', formData);
-  useEffect(() => {
-    userData;
-  }, []);
-
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
-
-  const handleSubmit = () => {
-    console.log('submit button clicked!!!');
-    dispatch(updateProfile(formData)); // Dispatch the updateProfile action with updated data
+  const handleProfessionChange = (value) => {
+    setSelectedProfession(value);
   };
-
-  const handleCancel = () => {
-    setFormData({ ...userData }); // Reset the form data to original user data
-    // Handle other cancel logic if needed
+  const handleSubmit = async (newValue) => {
+    try {
+      await handleApiCall(
+        dispatch,
+        updateProfile(newValue),
+        'Professional Updated Successfully'
+      );
+    } catch (err) {
+      console.log("Error -->", err)
+    }
   };
-
   return (
     <div className="px-[15px] py-0  p-0 w-2/3 2lg:w-full relative min-h-[1px]">
       <div className="h-full bg-white card-shadow  rounded-[5px] mb-[25px]">
@@ -109,19 +102,14 @@ function ProfessionalInformation() {
                   className="mt-0"
                   label="Profession"
                   initialValue={userData?.profession || ''}
+                  onValueChange={handleProfessionChange}
                 />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Professional card number"
-                  initialValue={formData?.professionCardNumber}
-                  onInputChange={(value) =>
-                    setFormData((prevData) => ({
-                      ...prevData,
-                      professionCardNumber: value,
-                    }))
-                  }
-                  handleSubmit={handleSubmit}
-                  handleCancel={handleCancel}
+                  initialValue={userData?.professionCardNumber || ""}
+                  onInputChange={(value) => setSingleValue({ ["professionalCardNumber"]: value })}
+                  handleSubmit={() => handleSubmit(singleValue)}
                 />
                 <ClosableSelect
                   labelWidth="basis-[240px] min-w-[240px]"
@@ -136,6 +124,8 @@ function ProfessionalInformation() {
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Email"
                   initialValue={userData?.email || ''}
+                  onInputChange={(value) => setSingleValue({ ["email"]: value })}
+                  handleSubmit={() => handleSubmit(singleValue)}
                 />
               </div>
             </div>

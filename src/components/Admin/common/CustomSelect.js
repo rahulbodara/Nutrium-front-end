@@ -3,7 +3,6 @@ import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';
 import 'select2';
 const CustomSelect = (props) => {
-    console.log("🚀 ~ file: CustomSelect.js:6 ~ CustomSelect ~ props:", props.option)
     const selectRef = useRef(null);
     useEffect(() => {
         const $select = $(selectRef.current);
@@ -14,9 +13,15 @@ const CustomSelect = (props) => {
                 minimumResultsForSearch: Infinity,
             }
         );
+        $select.on('select2:select', (e) => {
+            const selectedValue = e.params.data.text;
+            props.onSelectChange(selectedValue); // Call the callback with the selected value
+        });
+
         return () => {
-            $select.off('select2:open');
-            $select.off('select2:close');
+            // $select.off('select2:open');
+            // $select.off('select2:close');
+            $select.off('select2:select');
             $select.select2('destroy');
         };
     });

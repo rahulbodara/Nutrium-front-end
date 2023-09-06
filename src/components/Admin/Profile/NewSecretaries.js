@@ -4,46 +4,83 @@ import { IoCloseSharp } from "react-icons/io5";
 import InputField from "../common/InputField";
 import SelectInput from "../common/SelectInput";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateSecretaries, GetAllSecreatries, SecreatriesDataEdit } from "@/redux/action/secretaries";
+import { CreateSecretaries, GetAllSecreatries, RemoveSecretaries, SecreatriesDataEdit } from "@/redux/action/secretaries";
 import { handleApiCall } from '../../../util/apiUtils'; // Adjust the path to match your file structure
 import SelectField from "../common/SelectField";
+
 
 
 const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
     const dispatch = useDispatch()
     const [formData, setFormData] = useState()
+    const [validation, setValidation] = useState({
+        name: '',
+        email: ''
+    });
+    console.log(validation, "vavavavavav");
     const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
-    console.log(workSpaceData, "formDataformDataformData");
     const handleSecreataries = async () => {
+        const error = { ...validation };
+        if (formData?.name === "") {
+            error.name = "This Field Is Required";
+        }
+        if (formData?.email === "") {
+            error.email = "This Field Is Required";
+        }
         try {
-            const updatedFormData = {
-                ...formData,
-            };
-            if (editData) {
-                const success = await handleApiCall(
-                    dispatch,
-                    SecreatriesDataEdit(updatedFormData, editData._id),
-                    'Secretaries Updated Successfully'
-                );
-                if (success) {
-                    dispatch(GetAllSecreatries());
-                    setIsOpen(false);
-                }
-            } else {
-                const success = await handleApiCall(
-                    dispatch,
-                    CreateSecretaries(updatedFormData),
-                    'Secretaries successfully created'
-                );
-                if (success) {
-                    dispatch(GetAllSecreatries());
-                    setIsOpen(false);
+            if (formData.name && formData.email && formData.workplace) {
+                const updatedFormData = {
+                    ...formData,
+                };
+                if (editData) {
+                    const success = await handleApiCall(
+                        dispatch,
+                        SecreatriesDataEdit(updatedFormData, editData._id),
+                        'Secretaries Updated Successfully'
+                    );
+                    if (success) {
+                        dispatch(GetAllSecreatries());
+                        setIsOpen(false);
+                    }
+                } else {
+                    const success = await handleApiCall(
+                        dispatch,
+                        CreateSecretaries(updatedFormData),
+                        'Secretaries successfully created'
+                    );
+                    if (success) {
+                        dispatch(GetAllSecreatries());
+                        setIsOpen(false);
+                    }
                 }
             }
         } catch (error) {
             console.log(error);
         }
     }
+    const handleDeleteItem = async (id) => {
+        try {
+            const success = await handleApiCall(
+                dispatch,
+                RemoveSecretaries(id),
+                'Secretaries Deleted Successfully'
+            );
+            if (success) {
+                dispatch(GetAllSecreatries());
+                setIsOpen(false);
+            }
+        } catch (error) {
+            console.error("Error deleting secretary:", error);
+        }
+    }
+    useEffect(() => {
+        if (formData?.name !== "") {
+            setValidation({ ...validation, name: "" });
+        }
+        if (formData?.email !== "") {
+            setValidation({ ...validation, email: "" });
+        }
+    }, [formData]);
     useEffect(() => {
         if (editData) {
             setFormData({
@@ -62,9 +99,12 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
         }
     }, [editData, isOpen])
 
-    function HandleValue(params) {
-        setFormData({ ...formData, workplace: params })
-    }
+    const HandleValue = (workplaceValue) => {
+        setFormData((formData) => ({
+            ...formData,
+            workplace: workplaceValue,
+        }));
+    };
     return (
         <div className="modal">
             <Transition appear show={isOpen} as={Fragment}>
@@ -102,7 +142,8 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                                                 <IoCloseSharp className="text-[18px] opacity-[0.4]" />
                                             </button>
                                             <h2 className="text-[28px] leading-[40px] text-center">
-                                                Register new secretary
+                                                {editData ? "Edit secretary's personal information" :
+                                                    "Register new secretary"}
                                             </h2>
                                             <span className="text-[13px] text-center block">
                                                 Set the name and email address of your secretary
@@ -128,7 +169,9 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                                                             value={formData?.name || ""}
                                                             setFormData={setFormData}
                                                         />
-                                                        <div>
+                                                        <div className="text-red-500 text-sm">
+                                                            {<span style={{ color: "red" }}>{validation.name}</span>}
+
                                                             {/* <span>{validation && validation.name}</span> */}
                                                             {/* {Boolean(!formData?.name) && <span className={{ style: "bg-red-600" }}>"This Filed Is Required"</span>}
                                                             {/* {formData?.name === "" ? <span className={{ style: "bg-red-600" }}>"This Filed Is Required"</span> : ""} */}
@@ -146,7 +189,8 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                                                             value={formData?.email || ""}
                                                             setFormData={setFormData}
                                                         />
-                                                        <div>
+                                                        <div className="text-red-500 text-sm">
+                                                            {<span style={{ color: "red" }}>{validation.email}</span>}
                                                             {/* <span style={{color:"red"}}>{validation && validation.email}</span> */}
                                                         </div>
                                                         {/* <SelectField
@@ -166,6 +210,7 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                                                             label="Workplace"
                                                             className="mt-[7px]"
                                                             default={true}
+                                                            defaultValue="All Workplace"
                                                         />
                                                     </div>
                                                 </div>
@@ -179,11 +224,23 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                                                 >
                                                     Cancel
                                                 </button>
+                                                {editData && (
+                                                    <button
+                                                        className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
+                                                        onClick={() => handleDeleteItem(editData._id)}
+                                                    >
+                                                        Remove
+                                                    </button>)}
                                             </div>
                                             <div>
                                                 <button className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] ml-[5px] text-[#FFFFFF] text-[14px] py-[6px]" onClick={handleSecreataries}>
                                                     Save and send instructions
                                                 </button>
+                                                {editData && (
+                                                    <button className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] ml-[5px] text-[#FFFFFF] text-[14px] py-[6px]">
+                                                        Save
+                                                    </button>
+                                                )}
                                             </div>
                                         </div>
                                     </>

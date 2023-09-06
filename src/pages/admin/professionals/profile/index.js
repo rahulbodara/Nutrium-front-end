@@ -4,15 +4,18 @@ import ProfessionalInformation from '@/components/Admin/professionals/Profession
 import Secretaries from '@/components/Admin/professionals/Secretaries'
 import Services from '@/components/Admin/professionals/Services'
 import Workplaces from '@/components/Admin/professionals/Workplaces'
-import React from 'react'
+import React, { useState } from 'react'
 
 function ProfessionalProfile() {
+
     return (
         <MainLayout>
             <div className='pt-[25px] pb-[125px] px-0'>
                 <div className='mx-[-15px] w-auto my-0 flex flex-wrap m-0 p-0'>
-                    <ProfessionalInformation />
-                    <PersonalInformation />
+                    <ProfessionalInformation
+                    />
+                    <PersonalInformation
+                    />
                 </div>
                 <div>
                     <Workplaces />
@@ -23,7 +26,7 @@ function ProfessionalProfile() {
                 <div>
                     <Secretaries />
                 </div>
-                
+
             </div>
         </MainLayout>
     )

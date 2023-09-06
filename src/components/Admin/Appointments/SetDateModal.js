@@ -3,6 +3,7 @@ import { mdiCalendarCheck, mdiCalendarText } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { Fragment, useState } from 'react'
 import { IoCloseSharp } from "react-icons/io5";
+import Modal from '../common/Modal';
 import Newappointment from './Newappointment';
 
 

@@ -55,23 +55,27 @@ export const options = {
     },
 };
 
-const labels = ['Jun', 'Jul', 'Jul', 'Jul', 'Jul', 'Jul', 'Aug',];
-
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: [0, 2, 0, 0, 0, 0, 0],
-            borderColor: '#1ab394',
-            borderWidth: 1,
-            backgroundColor: '#1ab394',
-        },
-
-    ],
-};
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug',"Sept","Oct","Nov","Dec"];
 
 const NewClientsChart = (props) => {
+    const monthlyCounts = Array(12).fill(0);
+    props.data?.forEach(item => {
+        const createdAt = new Date(item.createdAt);
+        const month = createdAt.getMonth();
+        monthlyCounts[month]++;
+      });
+      const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Monthly Client Count',
+                data: monthlyCounts,
+                borderColor: '#1ab394',
+                borderWidth: 1,
+                backgroundColor: '#1ab394',
+            },
+        ],
+    };
     return (
         <div>
             <Line height={props.height} options={options} data={data} />

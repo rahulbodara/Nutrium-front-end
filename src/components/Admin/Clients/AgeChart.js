@@ -59,7 +59,7 @@ export const options = {
 },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['0-5', '5-15', '15-25', '25-35', '35-45', '45-60', '>60'];
 export const data = {
     labels,
     datasets: [
@@ -78,10 +78,42 @@ export const data = {
      
     ],
   };
-const AgeChart = () => {
+const AgeChart = ({data}) => {
+  const maleCounts = Array(7).fill(0);
+  const femaleCounts = Array(7).fill(0);
+
+  data.forEach(item => {
+    const DOB = new Date(item.dateOfBirth);
+    const age = new Date().getFullYear() - DOB.getFullYear();
+    const ageRange = Math.floor(age / 10);
+
+    if (item.gender === 'Male') {
+      maleCounts[ageRange]++;
+    } else if (item.gender === 'Female') {
+      femaleCounts[ageRange]++;
+    }
+  });
+
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Male',
+        data: maleCounts,
+        backgroundColor: 'rgb(255, 99, 132)',
+        stack: 'Stack 0',
+      },
+      {
+        label: 'Female',
+        data: femaleCounts,
+        backgroundColor: 'rgb(75, 192, 192)',
+        stack: 'Stack 0',
+      },
+    ],
+  };
   return (
     <div>
-      <Bar height={100} options={options} data={data} />
+      <Bar height={100} options={options} data={chartData} />
     </div>
   )
 }

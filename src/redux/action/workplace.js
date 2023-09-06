@@ -10,7 +10,7 @@ export const GetAllWorkplace = () => {
       const response = await axios.get(`${baseUrl}/workplaces`, { headers });
       return dispatch({
         type: Types.WORKPLACE_DATA,
-        payload: response?.data,
+        data: response?.data,
       });
     } catch (err) {
       return dispatch({
@@ -27,12 +27,12 @@ export const WorkplaceDataCreation = (data) => {
       const headers = createHeaders(); // Use the createHeaders function here
       const response = await axios.post(`${baseUrl}/workplaces`,data,{headers});
       return dispatch({
-        type: Types.WORKPLACE_DATA,
-        data: response?.data,
+        type: Types.CREATE_WORKPLACE,
+        data: response,
       });
     } catch (err) {
       return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
+        type: Types.CREATE_WORKPLACE_FAILURE,
         data: err.response,
       });
     }
@@ -50,7 +50,7 @@ export const GetIndividualWorkplace = (id) => {
       });
     } catch (err) {
       return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
+        type: Types.GET_INDIVIDUAL_WORKPLACE_FAILURE,
         data: err.response,
       });
     }
@@ -62,33 +62,31 @@ export const WorkplaceDataEdit = (data,id) => {
     try {
       const headers = createHeaders(); // Use the createHeaders function here
       const response = await axios.put(`${baseUrl}/workplaces/${id}`,data,{headers});
-      GetAllWorkplace()
       return dispatch({
-        type: Types.WORKPLACE_DATA,
-        data: response?.data,
+        type: Types.UPDATE_WORKPLACE,
+        data: response,
       });
     } catch (err) {
       return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
-        data: err.response,
+        type: Types.UPDATE_WORKPLACE_FAILURE,
+        payload: err.response,
       });
     }
   };
 };
 
-export const SecretarieseDataEdit = (data,id) => {
+export const RemoveWorkplace = (id) => {
   return async (dispatch) => {
     try {
-      const headers = createHeaders(); // Use the createHeaders function here
-
-      const response = await axios.put(`${baseUrl}/services/${id}`,data,{headers});
+      const headers = createHeaders();
+      const response = await axios.delete(`${baseUrl}/workplaces/${id}`,{headers});
       return dispatch({
-        type: Types.UPDATE_SECRETARIES,
-        data: response?.data,
+        type: Types.REMOVE_WORKPLACE,
+        data: response,
       });
     } catch (err) {
       return dispatch({
-        type: Types.UPDATE_SECRETARIES_FAILURE,
+        type: Types.REMOVE_WORKPLACE_FAILURE,
         data: err.response,
       });
     }
