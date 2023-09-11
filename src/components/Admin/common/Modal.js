@@ -34,7 +34,7 @@ const Modal = (props) => {
                                     <div className="p-[25px] relative">
                                         <button
                                             onClick={() => props.setIsOpen(false)}
-                                            className="absolute right-[10px] top-[10px] outline-none"
+                                            className={`absolute right-[10px] top-[10px] outline-none ${props?.closeIcon ? "block" : 'hidden'}`}
                                         >
                                             <IoCloseSharp className="text-[18px]" />
                                         </button>

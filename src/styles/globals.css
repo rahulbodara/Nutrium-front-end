@@ -567,3 +567,7 @@ h2 {
   margin: 5px auto 0;  
   padding: 6px 8px;
 }
+.custom-drop .select2-container--default .select2-selection--single{
+  border:0px !important;
+  background-color: transparent;
+}
