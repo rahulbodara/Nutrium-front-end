@@ -15,10 +15,13 @@ import TagSelect from '@/components/Admin/common/TagSelect';
 import SelectField from '@/components/Admin/common/SelectField';
 import ClosableSelect from '@/components/Admin/common/ClosableSelect';
 import TimePicker from '@/components/Admin/common/TimePicker';
-import AddObservations from '@/components/Admin/Clients/Information/AddObservations';
+import AddLogClient from '@/components/Admin/Clients/Information/AddObservations';
+import AddGoals from '@/components/Admin/Clients/Information/AddGoals';
+import AddFile from '@/components/Admin/Clients/Information/AddFile';
+import moment from 'moment'
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory } from '@/redux/action/auth';
+import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleApiCall } from "@/util/apiUtils";
 
@@ -47,11 +50,11 @@ const Information = () => {
   useEffect(() => {
     if (query.id) {
       dispatch(getClientById(query.id));
+      dispatch(getObservationData(query.id));
     }
   }, [dispatch, query.id]);
 
   function HandleValue(value) {
-    console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
   }
   const DietaryhistoryData = useSelector((state) => {
     if(state?.auth?.clientData?.length > 0) {
@@ -67,6 +70,11 @@ const Information = () => {
   const [singleValue, setSingleValue] = useState()
   const [medicalValue, setMedicalValue] = useState()
   const [dietaryValue, setDietaryValue] = useState()
+  const [eating, setEating] = useState(false)
+  const [goals, setGoals] = useState(false)
+  const [addFile, setAddFile] = useState(false)
+  const [observationId,setObservationId] = useState()
+
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
       return state?.auth?.clientData[0]?.appointmentInformation?.[0];
@@ -79,6 +87,7 @@ const Information = () => {
     }
     return null;
   });
+  const observationData = useSelector((state) => state?.auth?.observationBehaviour?.data?.observation)
   const [openObservations, setOpenObservations] = useState(false)
   const [foodDiaries, setFoodDiaries] = useState(false)
 
@@ -574,22 +583,29 @@ const Information = () => {
                       </span>
 
                     </div>
-                    <button onClick={() => setOpenObservations(true)}>
+                    <button onClick={() => {setOpenObservations(true); setObservationId()}}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
+                  <AddLogClient observationData={observationId} closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
                   <div className="p-[0_20px_20px]">
-                    <div onClick={() => setOpenObservations(true)} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
-                      <div className='h-[95px] break-all'></div>
-                      <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>2023-09-04</div>
-                    </div>
+                    {
+                      Array.isArray(observationData) && observationData.map((data) => {
+                        return (
+                          <div onClick={() => {setOpenObservations(true); setObservationId(data)}} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                            {data?.observation}
+                            <div className='h-[95px] break-all'></div>
+                            <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>{data?.registrationDate}</div>
+                          </div>
+                        )
+                      })
+                    }
                     <div className='flex items-center justify-end'>
                       <Pagination />
                     </div>
-                    <p className="text-[#888888] italic text-center">
+                    { observationData?.length === 0 && <p className="text-[#888888] italic text-center">
                       You haven't logged any observations
-                    </p>
+                    </p> }
                   </div>
                 </div>
               </div>
@@ -629,7 +645,7 @@ const Information = () => {
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
+                  <AddLogClient active={true} closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
 
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
