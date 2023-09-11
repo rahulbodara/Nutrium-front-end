@@ -31,7 +31,8 @@ export const Services = (state = initialState, action) => {
       });
       return { ...state, servicesData: updatedServicesDetails };
     case Types.REMOVE_SERVICES:
-      return { ...state, secreatariesData: action.data }
+      console.log(action.data,"actionactuionactiobn");
+      return { ...state, servicesData: action.data }
     default:
       return state;
   }

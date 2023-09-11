@@ -20,7 +20,6 @@ import { useRouter } from 'next/router';
 import { handleApiCall } from "@/util/apiUtils";
 
 const ClientDetail = ({ clientId }) => {
-  console.log(clientId,"clclclclcllclc");
   const [collapse, setCollapse] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -372,7 +371,6 @@ const ClientDetail = ({ clientId }) => {
             </button>
           </div>
         </div>
-
         <div
           onClick={() => setCollapse(!collapse)}
           className="bg-[#FAFAFB] hover:bg-[#f2f2f4] text-[13px] cursor-pointer text-[#717171] flex items-center justify-center gap-1 h-[40px] border border-[#EEEEEE] py-[11px] px-[24px]"

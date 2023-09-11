@@ -7,6 +7,7 @@ import { mdiCamera } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
 import { clientData, updateProfile } from '@/redux/action/auth';
 import { handleApiCall } from '@/util/apiUtils';
+import countries from 'countries.json';
 
 function ProfessionalInformation() {
   const [singleValue, setSingleValue] = useState()
@@ -102,8 +103,9 @@ function ProfessionalInformation() {
                   className="mt-0"
                   label="Profession"
                   initialValue={userData?.profession || ''}
-                  onValueChange={handleProfessionChange}
-                />
+                  onChange={(value) => setSingleValue({ ["profession"]: value })}
+                  handleSubmit={handleSubmit}
+                  name={"profession"} />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"
                   label="Professional card number"
@@ -113,12 +115,15 @@ function ProfessionalInformation() {
                 />
                 <ClosableSelect
                   labelWidth="basis-[240px] min-w-[240px]"
-                  option={professionOptions}
+                  option={countries}
                   searchOption={true}
                   closable={false}
                   className="mt-[7px]"
                   label="Country of residence"
                   initialValue={userData?.country || ''}
+                  onChange={(value) => setSingleValue({ ["country"]: value })}
+                  handleSubmit={handleSubmit}
+                  name={"country"}
                 />
                 <EditableInput
                   labelWidth="basis-[240px] min-w-[240px]"

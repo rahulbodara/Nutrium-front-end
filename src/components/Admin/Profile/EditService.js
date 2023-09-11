@@ -31,6 +31,8 @@ import {
 } from "@/redux/action/profile.services";
 import { toast } from "react-toastify";
 import { handleApiCall } from "@/util/apiUtils";
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import { services } from "@/schema/services";
 
 const serviceType = [
   {
@@ -80,13 +82,21 @@ const clientType = [
 
 const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
   const dispatch = useDispatch()
-  const [formData, setFormData] = useState()
-  console.log(formData, "fofofofofofoo");
-  const individualservice = useSelector(
-    (state) => state?.Services?.individualService
-  );
+  // const [formData, setFormData] = useState()
+  // console.log(formData, "fofofofofofoo");
+  // const individualservice = useSelector(
+  //   (state) => state?.Services?.individualService
+  // );
   const workplaceData = useSelector((state) => state?.Workplace?.workplaceData);
-  console.log(formData, "fofofoofoofofofor");
+  const initialValues = {
+    typeOfService: editData?.typeOfService || '',
+    typeOfClients: editData?.typeOfClients || '',
+    nameOfService: editData?.nameOfService || '',
+    duration: editData?.duration || '',
+    pricing: editData?.pricing || '',
+    workplace: editData?.workplace || ''
+  };
+  // console.log(formData, "fofofoofoofofofor");
   // useEffect(() => {
   //   if (isEditModalOpen && id) {
   //     dispatch(GetIndividualService(id));
@@ -105,97 +115,103 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
   //     }));
   //   }
   // }, [individualservice]);
-  const handleServices = async () => {
+  const handleSubmit = async (values) => {
     try {
-      const updatedFormData = {
-        ...formData,
-      };
-      if (editData) {
-        const success = await handleApiCall(
-          dispatch,
-          ServiceDataEdit(updatedFormData, editData._id),
-          'Services Updated Successfully'
-        );
-        if (success) {
-          dispatch(GetAllServices());
-          setIsOpen(false);
+      // if (!values) {
+        const updatedFormData = {
+          ...values,
+        };
+        if (editData) {
+          const success = await handleApiCall(
+            dispatch,
+            ServiceDataEdit(updatedFormData, editData._id),
+            'Services Updated Successfully'
+          );
+          if (success) {
+            dispatch(GetAllServices());
+            setIsOpen(false);
+          }
+        } else {
+          const success = await handleApiCall(
+            dispatch,
+            CreateProfileService(updatedFormData),
+            'Services successfully created'
+          );
+          if (success) {
+            dispatch(GetAllServices());
+            setIsOpen(false);
+          }
         }
-      } else {
-        const success = await handleApiCall(
-          dispatch,
-          CreateProfileService(updatedFormData),
-          'Services successfully created'
-        );
-        if (success) {
-          dispatch(GetAllServices());
-          setIsOpen(false);
-        } 
-      }
+      // }
     } catch (error) {
       console.log(error);
     }
   }
   const handleDeleteItem = async (id) => {
-    try {
-      const success = await handleApiCall(
-        dispatch,
-        RemoveServices(id),
-        'Secretaries Deleted Successfully'
-      );
-      if (success) {
-        dispatch(GetAllServices());
-        setIsOpen(false);
+    // debugger;
+    console.log("iddddddd",id);
+    if(id){
+      try {
+        const success = await handleApiCall(
+          dispatch,
+          RemoveServices(id),
+          'Secretaries Deleted Successfully'
+        );
+        if (success) {
+          dispatch(GetAllServices());
+          setIsOpen(false);
+        }
+      } catch (error) {
+        console.error("Error deleting secretary:", error);
       }
-    } catch (error) {
-      console.error("Error deleting secretary:", error);
     }
   }
-  const handleWorkplaceChange = (workplaceValue) => {
-    setFormData((formData) => ({
-      ...formData,
-      workplace: workplaceValue,
-    }));
+  // const handleWorkplaceChange = (workplaceValue) => {
+  //   setFormData((formData) => ({
+  //     ...formData,
+  //     workplace: workplaceValue,
+  //   }));
 
-  };
-  const handleTypeOfServiceChange = (value) => {
-    setFormData((formData) => ({
-      ...formData,
-      typeOfService: value,
-    }));
-  };
+  // };
+  // const handleTypeOfServiceChange = (value) => {
+  //   setFormData((formData) => ({
+  //     ...formData,
+  //     typeOfService: value,
+  //   }));
+  // };
 
-  const handleTypeOfClientsChange = (value) => {
-    setFormData((formData) => ({
-      ...formData,
-      typeOfClients: value,
-    }));
-  };
+  // const handleTypeOfClientsChange = (value) => {
+  //   setFormData((formData) => ({
+  //     ...formData,
+  //     typeOfClients: value,
+  //   }));
+  // };
   useEffect(() => {
     if (editData) {
-      setFormData({
-        typeOfService: editData?.typeOfService,
-        typeOfClients: editData?.typeOfClients,
-        nameOfService: editData?.nameOfService,
-        duration: editData?.duration,
-        pricing: editData?.pricing,
-        workplace: editData?.workplace
-      });
+      initialValues.typeOfService = editData?.typeOfService,
+        initialValues.typeOfClients = editData?.typeOfClients,
+        initialValues.nameOfService = editData?.nameOfService,
+        initialValues.duration = editData?.duration,
+        initialValues.pricing = editData?.pricing,
+        initialValues.workplace = editData?.workplace
     }
   }, [editData]);
 
   useMemo(() => {
-    setFormData({
-      ...formData,
-      typeOfService: editData?.typeOfService,
-      typeOfClients: editData?.typeOfClients,
-      nameOfService: editData?.nameOfService,
-      duration: editData?.duration,
-      pricing: editData?.pricing,
-      workplace: editData?.workplace
-    })
+    initialValues.typeOfService = editData?.typeOfService,
+      initialValues.typeOfClients = editData?.typeOfClients,
+      initialValues.nameOfService = editData?.nameOfService,
+      initialValues.duration = editData?.duration,
+      initialValues.pricing = editData?.pricing,
+      initialValues.workplace = editData?.workplace
     if (isOpen === false) {
-      setFormData()
-      setEditData()
+      initialValues.typeOfService = "",
+        initialValues.typeOfClients = "",
+        initialValues.nameOfService = "",
+        initialValues.duration = "",
+        initialValues.pricing = "",
+        initialValues.workplace = "",
+        setEditData()
     }
   }, [editData, isOpen])
 
@@ -231,33 +247,48 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-[600px] md:max-w-full transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
-                  <div className="p-[25px] pb-[48px] relative">
-                    <button
-                      onClick={() => setIsOpen(false)}
-                      className="absolute right-[10px] top-[10px]"
-                    >
-                      <IoCloseSharp className="text-[18px] opacity-[0.4]" />
-                    </button>
-                    <h2 className="text-[28px] leading-[40px] text-center">
-                      {editData ? "Edit service" : "New service"}
-                    </h2>
-                    <span className="text-[13px] text-center block">
-                      Add the relevant information about the services you want
-                      to offer
-                    </span>
-                  </div>
-                  <div className="px-[30px] pb-[20px]">
-                    <form>
-                      <div className="service-modal">
-                        <SelectField
-                          searchOption={false}
-                          option={serviceType}
-                          onChange={handleTypeOfServiceChange}
-                          value={formData?.typeOfService || ""}
-                          label="Type of service"
-                          setFormData={setFormData}
-                        />
-                        {/* <SelectField
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={services}
+                    onSubmit={handleSubmit}
+                  >
+                    <Form>
+                      <div className="p-[25px] pb-[48px] relative">
+                        <button
+                          onClick={() => setIsOpen(false)}
+                          className="absolute right-[10px] top-[10px]"
+                        >
+                          <IoCloseSharp className="text-[18px] opacity-[0.4]" />
+                        </button>
+                        <h2 className="text-[28px] leading-[40px] text-center">
+                          {editData ? "Edit service" : "New service"}
+                        </h2>
+                        <span className="text-[13px] text-center block">
+                          Add the relevant information about the services you want
+                          to offer
+                        </span>
+                      </div>
+                      <div className="px-[30px] pb-[20px]">
+                        <div className="service-modal">
+                          <SelectField
+                            // labelStyle="min-w-[150px] flex-basis-[160px]"
+                            // searchOption={false}
+                            option={serviceType}
+                            className="mt-[7px]"
+                            value={editData?.typeOfService}
+                            // onChange={handleTypeOfServiceChange}
+                            // value={formData?.typeOfService || ""}
+                            label="Type of service"
+                            name="typeOfService"
+                            formik={false}
+                          // setFormData={setFormData}
+                          />
+                          <ErrorMessage
+                            name="typeOfService"
+                            component="div"
+                            className="text-red-500 text-sm"
+                          />
+                          {/* <SelectField
                           searchOption={false}
                           option={serviceType}
                           label="Type of service"
@@ -266,80 +297,101 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
                           value={formData.typeOfService || ""}
                           setFormData={setFormData}
                         /> */}
-                        <SelectField
-                          searchOption={false}
-                          option={clientType}
-                          label="Type of clients"
-                          className="mt-[7px]"
-                          name="typeOfClients"
-                          value={formData?.typeOfClients || ""}
-                          setFormData={setFormData}
-                          onChange={handleTypeOfClientsChange}
-                        />
+                          <SelectField
+                            // searchOption={false}
+                            option={clientType}
+                            value={editData?.typeOfClients}
+                            label="Type of clients"
+                            className="mt-[7px]"
+                            name="typeOfClients"
+                            formik={false}
 
-                        <InputField
-                          labelStyle="min-w-[160px] flex-basis-[160px]"
-                          className="mt-[7px]"
-                          label="Name of the Service"
-                          name="nameOfService"
-                          value={formData?.nameOfService || ""}
-                          setFormData={setFormData}
-                        />
-                        <InputField
-                          labelStyle="min-w-[160px] flex-basis-[160px]"
-                          className="mt-[7px]"
-                          label="Duration"
-                          name="duration"
-                          value={formData?.duration || ""}
-                          setFormData={setFormData}
-                        />
-                        <PriceField
-                          className="mt-[7px]"
-                          label="Pricing"
-                          placeholder="Add the price"
-                          name="pricing"
-                          value={formData?.pricing || ""}
-                          setFormData={setFormData}
-                        />
-                        <SelectField
-                          searchOption={false}
-                          option={workplaceData}
-                          value={formData?.workplace}
-                          onChange={handleWorkplaceChange}
-                          label="Workplace"
-                          className="mt-[7px]"
-                          default={true}
-                          defaultValue="All Workplace"
-                        />
+                          // value={formData?.typeOfClients || ""}
+                          // setFormData={setFormData}
+                          // onChange={handleTypeOfClientsChange}
+                          />
+
+                          <InputField
+                            labelStyle="min-w-[160px] flex-basis-[160px]"
+                            className="mt-[7px]"
+                            label="Name of the Service"
+                            name="nameOfService"
+                            formik={false}
+                          // value={formData?.nameOfService || ""}
+                          // setFormData={setFormData}
+                          />
+                          <ErrorMessage
+                            name="nameOfService"
+                            component="div"
+                            className="text-red-500 text-sm"
+                          />
+                          <InputField
+                            labelStyle="min-w-[160px] flex-basis-[160px]"
+                            className="mt-[7px]"
+                            label="Duration"
+                            name="duration"
+                            formik={false}
+                          // value={formData?.duration || ""}
+                          // setFormData={setFormData}
+                          />
+                          <PriceField
+                            className="mt-[7px]"
+                            label="Pricing"
+                            placeholder="Add the price"
+                            name="pricing"
+                            formik={false}
+                          // value={formData?.pricing || ""}
+                          // setFormData={setFormData}
+                          />
+                          <ErrorMessage
+                            name="pricing"
+                            component="div"
+                            className="text-red-500 text-sm"
+                          />
+                          <SelectField
+                            // searchOption={false}
+                            option={workplaceData}
+                            // value={formData?.workplace}
+                            // onChange={handleWorkplaceChange}
+                            label="Workplace"
+                            name="workplace"
+                            className="mt-[7px]"
+                            formik={false}
+                            default={true}
+                            defaultValue="All Workplace"
+                          />
+                        </div>
                       </div>
-                    </form>
-                  </div>
-                  {editData && (
-                    <div className="flex items-center px-[30px] pb-[15px] justify-end">
-                      <button
-                        onClick={() => handleDeleteItem(editData._id)}
-                        className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  )}
-                  <div className="flex items-center px-[30px] pb-[15px] justify-end">
-                    <button
-                      className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="px-3 
+                      {editData && (
+                        <div className="flex items-center px-[30px] pb-[15px] justify-end">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault()
+                              handleDeleteItem(editData._id)}}
+                            className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
+                      <div className="flex items-center px-[30px] pb-[15px] justify-end">
+                        <button
+                          className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="px-3 
                     rounded-[3px] border hover:bg-[#18a689] 
                     border-[#1AB394] bg-[#1AB394] ml-[5px] text-[#FFFFFF] text-[14px] py-[6px]"
-                      onClick={handleServices}
-                    >
-                      Add
-                    </button>
-                  </div>
+                        // onClick={handleServices}
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </Form>
+                  </Formik>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
