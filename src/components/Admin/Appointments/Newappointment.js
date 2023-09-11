@@ -33,9 +33,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { clientData } from "@/redux/action/auth";
 import SelectField from "../common/SelectField";
 import { handleApiCall } from "@/util/apiUtils";
-import { ScheduleAppointment } from "@/redux/action/appointment";
+import { ScheduleAppointment, getAllAppointment } from "@/redux/action/appointment";
 
-const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
+const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
   const [filterClient, setFilterClient] = useState("All clients");
   const [confirmationStatus, setConfirmationStatus] = useState("1");
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,7 +45,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
   const [itemsdata, setitems] = useState();
   const [formData, setFormData] = useState();
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
     dispatch(clientData());
   }, [dispatch]);
@@ -130,7 +130,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
       name: "not_confirmed",
     },
   ];
- 
+
   function handleConfirmation(value) {
     setFormData((formData) => ({
       ...formData,
@@ -155,13 +155,13 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
       });
     }
   }, [itemsdata]);
-  const handleChangeFormData = (e)=>{
-    const {name,value} = e.target;
-    setFormData((formData)=>({
+  const handleChangeFormData = (e) => {
+    const { name, value } = e.target;
+    setFormData((formData) => ({
       ...formData,
-      [name]:value
-    })) 
-  }
+      [name]: value,
+    }));
+  };
   const handleSubmit = async () => {
     try {
       const updatedFormData = {
@@ -174,6 +174,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
         ScheduleAppointment(updatedFormData),
         "Appointment Scheduled Successfully."
       );
+      await dispatch(getAllAppointment());
       if (success) {
         setIsNewAppModal(false);
       }
@@ -300,7 +301,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                     className="flex border group cursor-pointer rounded-[1px] border-solid border-[#eeeeee] hover:border-[#1AB394] p-[10px]"
                                     onClick={() => {
                                       setConfirmationStatus("2");
-                                      setitems(items)
+                                      setitems(items);
                                     }}
                                   >
                                     <div className="relative">
@@ -309,6 +310,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                         className="rounded-full max-h-[80px] max-w-[80px]"
                                       />
                                     </div>
+
                                     <div className="flex flex-col flex-1 pl-3">
                                       <h1 className="text-[16px] text-[#676a6c] group-hover:text-[#1AB394]">
                                         {items?.fullName}
@@ -316,6 +318,14 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                       <span className="text-[13px] opacity-[0.8] text-[#676a6c]">
                                         {items?.occupation}
                                       </span>
+                                      <div className="flex gap-1 mb-1">
+                                        <div className="bg-[#E0FAF1] flex items-center justify-center w-4 h-4 rounded-full">
+                                          <MdLocationOn className="text-[#12896D]" />
+                                        </div>
+                                        <span className="text-[11px] text-[#676a6c]">
+                                          {items?.workplace}
+                                        </span>
+                                      </div>
                                       <div className="flex gap-1">
                                         <div className="bg-[#E0FAF1] flex items-center justify-center w-4 h-4 rounded-full">
                                           <IoMdCalendar className="text-[#12896D] scale-x-[-1]" />
@@ -375,7 +385,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                   <div className="align-middle relative flex flex-col flex-grow min-w-0">
                                     <div className="flex gap-[8px]">
                                       <h3 className="pr-[25px] break-words text-[16px]">
-                                      {itemsdata?.fullName}
+                                        {itemsdata?.fullName}
                                       </h3>
                                     </div>
                                     <Icon
@@ -385,7 +395,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                       className="absolute top-0 right-0"
                                     />
                                     <div className="h-[18px] overflow-hidden whitespace-nowrap text-ellipsis font-[300]">
-                                    {itemsdata?.occupation}
+                                      {itemsdata?.occupation}
                                     </div>
                                     <div className="hidden mt-[4px] font-[300]">
                                       <div className="overflow-hidden whitespace-nowrap text-ellipsis text-[85%]">
@@ -500,7 +510,6 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                       name="endTime"
                                       value={formData?.endTime}
                                       onChange={handleChangeFormData}
-
                                     />
                                   </div>
                                 </div>
@@ -528,16 +537,15 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                                         />
                                       </div>
                                       <SelectField
-                                          searchOption={false}
-                                          option={options1}
-                                          value={formData?.status}
-                                          onChange={handleConfirmation}
-                                          // label="Status"
-                                          className=" w-[100%]"
-                                          default={true}
-                                          defaultValue="All Status"
-                                        />
-                                    
+                                        searchOption={false}
+                                        option={options1}
+                                        value={formData?.status}
+                                        onChange={handleConfirmation}
+                                        // label="Status"
+                                        className=" w-[100%]"
+                                        default={true}
+                                        defaultValue="All Status"
+                                      />
                                     </div>
                                   </div>
                                 </div>
@@ -670,7 +678,10 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                     <div className="flex items-center px-[30px] pb-[15px]">
                       <button
                         className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-                        onClick={() => {setIsNewAppModal(false);setDateModal(true);}}
+                        onClick={() => {
+                          setIsNewAppModal(false);
+                          setDateModal(true);
+                        }}
                       >
                         Back
                       </button>
@@ -684,10 +695,16 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
                         Cancel
                       </button>
                       <div>
-                        <button className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]" onClick={handleSubmit}>
+                        <button
+                          className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]"
+                          onClick={handleSubmit}
+                        >
                           Save
                         </button>
-                        <button className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]" onClick={handleSubmit}>
+                        <button
+                          className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
+                          onClick={handleSubmit}
+                        >
                           Save and close
                         </button>
                       </div>
@@ -699,7 +716,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal,setDateModal }) => {
           </div>
         </Dialog>
       </Transition>
-      <AddNewClient isOpen={regClientModal} setIsOpen={setRegClientModal}/>
+      <AddNewClient isOpen={regClientModal} setIsOpen={setRegClientModal} />
     </div>
   );
 };
