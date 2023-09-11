@@ -58,14 +58,40 @@ export default function FollowUp(props) {
 
       <MainLayout head={"Follow-up"} text={"Follow up on your clients and check their latest progress"}>
         {/* <Dropdown /> */}
-        <div className='lg:flex-wrap flex pt-5 gap-7 follow_up'>
-          <div className='w-[50%] lg:w-full bg-[#fff] rounded lg:order-2 sm:-mx-[15px]'>
+        <div className=' pt-5  '>
+          <div>
+            <div className='flex '>
+            <div className='w-[15%]'>
+                <div className='flex flex-grow'>
+                  <div className='relative flex-grow select-none border-[#EEEEEE]'>
+                    <select
+                      ref={selectRef}
+                      className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
+                    >
+                      <option>All activities</option>
+                      <option>Appointments</option>
+                      <option>Food diary</option>
+                      <option>Physical activity</option>
+                      <option>Weight log</option>
+                      <option>Mobile app</option>
+                      {/* {props?.option?.map((item, index) => (
+                        <>
+                          <option key={index} value={item.value} >{item.option}</option>
+                        </>
+                      ))} */}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div className='lg:flex-wrap flex follow_up gap-7'>
+          <div className='w-[50%] lg:w-full bg-[#fff] rounded lg:order-2 sm:-mx-[15px]'>  
             <div className='flex items-center px-5 pt-5 pb-4'>
               <div className='flex-grow'>
                 <h4 className='text-[20px]'>Activities</h4>
                 <div className='text-[12px] text-[#888888] opacity-[0.6]'>Check your clients' updates</div>
               </div>
-              <div className='w-[20%]'>
+              <div className='w-[15%]'>
                 <div className='flex flex-grow'>
                   <div className='relative flex-grow select-none border-[#EEEEEE]'>
                     <select
@@ -107,11 +133,11 @@ export default function FollowUp(props) {
                     <div className='inline'>Physical activity: running.</div>
                   </div>
                   <div className='flex items-center'>
-                    <div className='flex text-[#717171] border rounded px-3 py-1 ml-2 -mr-1'>
-                      <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
+                    <div className='flex text-[#717171] border rounded px-3 py-1 ml-2 -mr-1 hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
+                      <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px] hover:text-[#1AB394]' /></a>
                       <div className=''>Like</div>
                     </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                       <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                     </div>
                   </div>
@@ -170,7 +196,7 @@ export default function FollowUp(props) {
                       <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
                       <div className=''>Like</div>
                     </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                       <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                     </div>
                   </div>
@@ -200,7 +226,7 @@ export default function FollowUp(props) {
                       <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
                       <div className=''>Like</div>
                     </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                       <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                     </div>
                   </div>
@@ -256,7 +282,7 @@ export default function FollowUp(props) {
                       <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
                       <div className=''>Like</div>
                     </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                       <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                     </div>
                   </div>
@@ -286,7 +312,67 @@ export default function FollowUp(props) {
                       <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
                       <div className=''>Like</div>
                     </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
+                      <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='border-b-1 bg-[#FAFAFB] p-5'>
+              <div className='flex items-center'>
+                <div className='relative'>
+                  <img src='/image/female_thumb.png' className='w-[45px] h-[45px] rounded-[50%] max-w-full' />
+                </div>
+                <a className='ml-[10px] text-[15px] flex-1 '>Example client</a>
+                <div className='text-[14px]'>July 14</div>
+              </div>
+              <div className='mt-[10px]'>
+                <div className='flex ml-[55px] items-start'>
+                  <div className='text-[#fff] inline-block'>
+                    <a>
+                      <Icon path={mdiCheck} className='bg-[#1AB394] p-[5px] leading-[1] rounded-[50%] inline-block w-[25px]' />
+                    </a>
+                  </div>
+                  <div className='ml-[15px] flex-1'>
+                    <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
+                  </div>
+                  <div className='flex items-center'>
+                    <div className='flex text-[#717171] border rounded px-3 py-1 ml-2 -mr-1'>
+                      <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
+                      <div className=''>Like</div>
+                    </div>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
+                      <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='border-b-1 bg-[#fff] p-5'>
+              <div className='flex items-center'>
+                <div className='relative'>
+                  <img src='/image/female_thumb.png' className='w-[45px] h-[45px] rounded-[50%] max-w-full' />
+                </div>
+                <a className='ml-[10px] text-[15px] flex-1 '>Example client</a>
+                <div className='text-[14px]'>July 14</div>
+              </div>
+              <div className='mt-[10px]'>
+                <div className='flex ml-[55px] items-start'>
+                  <div className='text-[#fff] inline-block'>
+                    <a>
+                      <Icon path={mdiCheck} className='bg-[#1AB394] p-[5px] leading-[1] rounded-[50%] inline-block w-[25px]' />
+                    </a>
+                  </div>
+                  <div className='ml-[15px] flex-1'>
+                    <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
+                  </div>
+                  <div className='flex items-center'>
+                    <div className='flex text-[#717171] border rounded px-3 py-1 ml-2 -mr-1'>
+                      <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
+                      <div className=''>Like</div>
+                    </div>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                       <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                     </div>
                   </div>
@@ -346,67 +432,7 @@ export default function FollowUp(props) {
                       <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
                       <div className=''>Like</div>
                     </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
-                      <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='border-b-1 bg-[#FAFAFB] p-5'>
-              <div className='flex items-center'>
-                <div className='relative'>
-                  <img src='/image/female_thumb.png' className='w-[45px] h-[45px] rounded-[50%] max-w-full' />
-                </div>
-                <a className='ml-[10px] text-[15px] flex-1 '>Example client</a>
-                <div className='text-[14px]'>July 14</div>
-              </div>
-              <div className='mt-[10px]'>
-                <div className='flex ml-[55px] items-start'>
-                  <div className='text-[#fff] inline-block'>
-                    <a>
-                      <Icon path={mdiCheck} className='bg-[#1AB394] p-[5px] leading-[1] rounded-[50%] inline-block w-[25px]' />
-                    </a>
-                  </div>
-                  <div className='ml-[15px] flex-1'>
-                    <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
-                  </div>
-                  <div className='flex items-center'>
-                    <div className='flex text-[#717171] border rounded px-3 py-1 ml-2 -mr-1'>
-                      <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
-                      <div className=''>Like</div>
-                    </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
-                      <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='border-b-1 bg-[#fff] p-5'>
-              <div className='flex items-center'>
-                <div className='relative'>
-                  <img src='/image/female_thumb.png' className='w-[45px] h-[45px] rounded-[50%] max-w-full' />
-                </div>
-                <a className='ml-[10px] text-[15px] flex-1 '>Example client</a>
-                <div className='text-[14px]'>July 14</div>
-              </div>
-              <div className='mt-[10px]'>
-                <div className='flex ml-[55px] items-start'>
-                  <div className='text-[#fff] inline-block'>
-                    <a>
-                      <Icon path={mdiCheck} className='bg-[#1AB394] p-[5px] leading-[1] rounded-[50%] inline-block w-[25px]' />
-                    </a>
-                  </div>
-                  <div className='ml-[15px] flex-1'>
-                    <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
-                  </div>
-                  <div className='flex items-center'>
-                    <div className='flex text-[#717171] border rounded px-3 py-1 ml-2 -mr-1'>
-                      <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] mr-2 inline-block leading-[1] w-[20px]' /></a>
-                      <div className=''>Like</div>
-                    </div>
-                    <div className='border rounded ml-2 text-[#1AB394]'>
+                    <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                       <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                     </div>
                   </div>
@@ -497,7 +523,7 @@ export default function FollowUp(props) {
                             <a className='font-[600] text-[15px] '>Example client</a>
                             <div className='text-[12px] font-[300] opacity-[0.6]'>No information</div>
                           </div>
-                          <div className='border rounded ml-2 text-[#1AB394]'>
+                          <div className='border rounded ml-2 text-[#1AB394] hover:bg-[#f7f7f7] hover:border-[#e8e8e8]'>
                             <a><Icon path={mdiEmailOutline} className='w-[37px] py-[4px] px-2 inline-block ' /></a>
                           </div>
                         </div>
@@ -565,6 +591,8 @@ export default function FollowUp(props) {
                 </div>
               </div>
             </div>
+          </div>
+          </div>
           </div>
         </div>
       </MainLayout>
