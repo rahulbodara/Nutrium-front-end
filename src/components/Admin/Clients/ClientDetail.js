@@ -18,6 +18,7 @@ import { deleteClient, getClientById, updateClient } from '@/redux/action/auth';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { handleApiCall } from "@/util/apiUtils";
+import moment from 'moment'
 
 const ClientDetail = ({ clientId }) => {
   const [collapse, setCollapse] = useState(false);
@@ -319,7 +320,7 @@ const ClientDetail = ({ clientId }) => {
                 <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                   <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                     <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                      07/14/2023 09:48 AM
+                    {moment(clientData?.createdAt).format("MM/DD/YYYY hh:mm A")}
                     </span>
                   </div>
                 </div>
