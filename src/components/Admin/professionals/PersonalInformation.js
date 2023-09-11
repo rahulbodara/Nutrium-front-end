@@ -73,6 +73,9 @@ function PersonalInformation() {
                 labelWidth="basis-[160px] min-w-[160px]"
                 closable={false}
                 userData={userData}
+                onChange={(value) => setSingleValue({["dateOfBirth"]:value})}
+                handleSubmit={handleSubmit}
+                name={"dateOfBirth"}
               />
             </div>
             <div>
@@ -84,6 +87,9 @@ function PersonalInformation() {
                 className="mt-[7px]"
                 label="Gender"
                 initialValue={userData?.gender || ''}
+                onChange={(value) => setSingleValue({["gender"]:value})}
+                handleSubmit={handleSubmit}
+                name={"gender"}
               />
             </div>
             <div>

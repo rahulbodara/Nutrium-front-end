@@ -86,7 +86,6 @@ export const RemoveServices = (id) => {
     try {
       const headers = createHeaders();
       const response = await axios.delete(`${baseUrl}/services/${id}`,{headers});
-      console.log(response,"sssssssssss");
       return dispatch({
         type: Types.REMOVE_SERVICES,
         data: response,

@@ -7,8 +7,6 @@ import { mdiAccountPlus, mdiAlarmPlus, mdiStarCircle } from '@mdi/js';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 
-
-
 const Sidebar = (props) => {
   const {isCollapsed} = props;
   const router = useRouter();

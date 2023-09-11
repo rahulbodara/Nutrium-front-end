@@ -18,7 +18,8 @@ const Services = () => {
     };
     fetch();
   }, [dispatch]);
-  const state = useSelector((state) => state?.Services?.servicesData)
+  const serviceData = useSelector((state) => state?.Services?.servicesData) || [];
+  console.log(serviceData,"dfghjkplojhgfdsdfg");
   return (
     <>
       <div className="bg-white my-[25px] card-shadow rounded-[5px]">
@@ -42,7 +43,7 @@ const Services = () => {
           </div>
         </div>
         <div className="p-[20px] pt-0 lg:gap-[8px] gap-[30px] grid lg:grid-cols-1 grid-cols-2">
-          {state?.map((item) => {
+          {Array.isArray(serviceData) && serviceData?.map((item) => {
             return (
               <div className="border border-[#EEEEEE] p-[-1px] hover:border-[#1ab394]" onClick={() => {
                 setIsOpen(true);
