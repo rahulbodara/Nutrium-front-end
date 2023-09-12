@@ -15,7 +15,10 @@ import TagSelect from '@/components/Admin/common/TagSelect';
 import SelectField from '@/components/Admin/common/SelectField';
 import ClosableSelect from '@/components/Admin/common/ClosableSelect';
 import TimePicker from '@/components/Admin/common/TimePicker';
-import AddObservations from '@/components/Admin/Clients/Information/AddObservations';
+import AddLogClient from '@/components/Admin/Clients/Information/AddObservations';
+import AddGoals from '@/components/Admin/Clients/Information/AddGoals';
+import AddFile from '@/components/Admin/Clients/Information/AddFile';
+
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
 import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory } from '@/redux/action/auth';
@@ -67,6 +70,10 @@ const Information = () => {
   const [singleValue, setSingleValue] = useState()
   const [medicalValue, setMedicalValue] = useState()
   const [dietaryValue, setDietaryValue] = useState()
+  const [eating, setEating] = useState(false)
+  const [goals, setGoals] = useState(false)
+  const [addFile, setAddFile] = useState(false)
+
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
       return state?.auth?.clientData[0]?.appointmentInformation?.[0];
