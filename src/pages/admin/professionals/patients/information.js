@@ -21,7 +21,7 @@ import AddFile from '@/components/Admin/Clients/Information/AddFile';
 import moment from 'moment'
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData } from '@/redux/action/auth';
+import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData, getEatingBehaviourData } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleApiCall } from "@/util/apiUtils";
 
@@ -51,6 +51,7 @@ const Information = () => {
     if (query.id) {
       dispatch(getClientById(query.id));
       dispatch(getObservationData(query.id));
+      dispatch(getEatingBehaviourData(query.id))
     }
   }, [dispatch, query.id]);
 
@@ -74,6 +75,7 @@ const Information = () => {
   const [goals, setGoals] = useState(false)
   const [addFile, setAddFile] = useState(false)
   const [observationId,setObservationId] = useState()
+  const [eatingId,setEatingId] = useState()
 
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
@@ -88,6 +90,7 @@ const Information = () => {
     return null;
   });
   const observationData = useSelector((state) => state?.auth?.observationBehaviour?.data?.observation)
+  const eatingBehaviourData = useSelector((state) => state?.auth?.eatingBehaviour?.data?.behaviours)
   const [openObservations, setOpenObservations] = useState(false)
   const [foodDiaries, setFoodDiaries] = useState(false)
 
@@ -641,16 +644,29 @@ const Information = () => {
                         Log your client's eating behaviour
                       </span>
                     </div>
-                    <button onClick={() => setEating(true)}>
+                    <button onClick={() => {setEating(true); setEatingId()}}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient active={true} closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
-
+                  <AddLogClient active={true} eatingBehaviourData={eatingId} closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
                   <div className="p-[0_20px_20px]">
-                    <p className="text-[#888888] italic text-center">
-                      You haven't logged any eating behaviour
-                    </p>
+                    {
+                      Array.isArray(eatingBehaviourData) && eatingBehaviourData.map((data) => {
+                        return (
+                          <div onClick={() => {setEating(true); setEatingId(data)}} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                            {data?.behaviour}
+                            <div className='h-[95px] break-all'></div>
+                            <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>{data?.date}</div>
+                          </div>
+                        )
+                      })
+                    }
+                    <div className='flex items-center justify-end'>
+                      <Pagination />
+                    </div>
+                    { eatingBehaviourData?.length === 0 && <p className="text-[#888888] italic text-center">
+                      You haven't logged any observations
+                    </p> }
                   </div>
                 </div>
 
