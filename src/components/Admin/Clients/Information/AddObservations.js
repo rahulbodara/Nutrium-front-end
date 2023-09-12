@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Modal from '../../common/Modal'
 import DatePicker from "react-datepicker";
 import moment from 'moment'
-import { eatingBehaviour,observationBehaviour, getObservationData, deleteObservation, updateObservation } from '@/redux/action/auth';
+import { eatingBehaviour,observationBehaviour, getObservationData, deleteObservation, updateObservation, deleteEatingBehaviourData, getEatingBehaviourData, updateEatingBehaviour } from '@/redux/action/auth';
 import { handleApiCall } from "@/util/apiUtils";
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -37,6 +37,27 @@ const AddLogClient = (props) => {
           });
         }
       }, [props.isOpen, props.observationData])  
+      useEffect(() => {
+        if (props.eatingBehaviourData) {
+          const registrationDate = new Date(props?.eatingBehaviourData?.date);
+          if (!isNaN(registrationDate)) {
+            setEatingData({
+              date: registrationDate,
+              observations: props?.eatingBehaviourData?.behaviour || '',
+            });
+          } else {
+            setEatingData({
+              date: new Date(),
+              observations: '',
+            });
+          }
+        } else {
+          setEatingData({
+            date: new Date(),
+            observations: '',
+          });
+        }
+      }, [props.isOpen, props.eatingBehaviourData])  
 
   const handleDateChange = (date) => {
     setEatingData({ ...eatingData, date: date }); 
@@ -49,15 +70,29 @@ const AddLogClient = (props) => {
   const handleEatingBehaviour = async () => {
    try {
     if(props.active) {
-        const success = await handleApiCall(
-            dispatch,
-            eatingBehaviour({date: moment(eatingData.date).format('DD/MM/YYYY'), behaviour: eatingData.observations}, query.id),
-            'Eating behaviour created successfully.'
+        if(props?.eatingBehaviourData) {
+          const success = await handleApiCall(
+              dispatch,
+              updateEatingBehaviour({date: moment(eatingData.date).format('DD/MM/YYYY'), behaviour: eatingData.observations}, query.id,  props.eatingBehaviourData._id),
+              'Eating updated successfully.'
           )
-           if(success) {
-            props.setIsOpen(false)
-           }
-    } else {
+          if(success) {
+              dispatch(getEatingBehaviourData(query.id));
+              props.setIsOpen(false)
+          }
+      } else {
+          const success = await handleApiCall(
+              dispatch,
+              eatingBehaviour({clientId: query.id, date: moment(eatingData.date).format('DD/MM/YYYY'), behaviour: eatingData.observations}, query.id),
+              'Eating behaviour created successfully.'
+          )
+          if(success) {
+              dispatch(getEatingBehaviourData(query.id));
+              props.setIsOpen(false)
+          }
+      }
+    } 
+    else {
         if(props?.observationData) {
             const success = await handleApiCall(
                 dispatch,
@@ -88,14 +123,26 @@ const AddLogClient = (props) => {
 
   const handleRemove = async () => {
     try {
-        const success = await handleApiCall(
-            dispatch,
-            deleteObservation(props.observationData._id),
-            'Observation deleted successfully.'
-        )
-        if(success) {
-            dispatch(getObservationData(query.id));
-            props.setIsOpen(false)
+        if(props.active) {
+            const success = await handleApiCall(
+                dispatch,
+                deleteEatingBehaviourData(query.id , props.eatingBehaviourData._id),
+                'Eating behaviour deleted successfully.'
+            )
+            if(success) {
+                dispatch(getEatingBehaviourData(query.id));
+                props.setIsOpen(false)
+            }
+        } else {
+            const success = await handleApiCall(
+                dispatch,
+                deleteObservation(props.observationData._id),
+                'Observation deleted successfully.'
+            )
+            if(success) {
+                dispatch(getObservationData(query.id));
+                props.setIsOpen(false)
+            }
         }
     } catch (err) {
         console.log('Error -->', err)
@@ -132,15 +179,15 @@ const AddLogClient = (props) => {
                         </div>
             <textarea
               rows="1"
-              value={eatingData.observations || props?.observationData?.observation || ''}
+              value={props.active ? (eatingData.observations || props?.eatingBehaviourData?.behaviour || '') : (eatingData.observations || props?.observationData?.observation || '')}
               onChange={handleObservationsChange}
               className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE]  py-[5px] px-[10px] border-[#EEEEEE]"
             ></textarea>
           </div>
           <div className="text-end mt-[20px] flex items-center justify-between">
-            <button onClick={handleRemove} className="bg-[#DB4965]  border border-[#DB4965] text-white rounded-[3px] text-[14px] px-[12px] py-[6px]">
+            { (props.observationData || props.eatingBehaviourData) && <button onClick={handleRemove} className="bg-[#DB4965]  border border-[#DB4965] text-white rounded-[3px] text-[14px] px-[12px] py-[6px]">
                 Remove
-            </button>
+            </button> }
             <div>
               <button onClick={() => props.setIsOpen(false)} className="bg-white  border rounded-[3px] text-[14px] px-[12px] py-[6px]">
                 Cancel

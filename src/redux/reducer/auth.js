@@ -58,6 +58,12 @@ export default (state = initialState, action) => {
         observationBehaviour: action.data,
         error: null,
       }
+    case Types.UPDATE_EATING:
+      return {
+        ...state,
+        eatingBehaviour:action.data,
+        error: null,
+      }
     case Types.USER_DATA:
     case Types.CLIENT_DATA_FAILURE:
     case Types.EATING_BEHAVIOUR_FAILURE:
@@ -65,6 +71,7 @@ export default (state = initialState, action) => {
     case Types.OBSERVATION_DATA_FAILURE:
     case Types.OBSERVATION_BY_ID_FAILURE:
     case Types.UPDATE_OBSERVATION_FAILURE:
+    case Types.UPDATE_EATING_FAILURE:
     case Types.CLIENT_BY_ID_FAILURE:
       return {
         ...state,
