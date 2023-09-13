@@ -10,7 +10,7 @@ export const GetAllSecreatries = () => {
       const response = await axios.get(`${baseUrl}/secretaries`, { headers });
       return dispatch({
         type: Types.SECRETARIES_DATA,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({
@@ -46,7 +46,7 @@ export const GetIndividualSecreataries = (id) => {
       const response = await axios.get(`${baseUrl}/secretaries/${id}`,{headers});
       return dispatch({
         type: Types.GET_INDIVIDUAL_SCREATE_SECRETARIES,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({

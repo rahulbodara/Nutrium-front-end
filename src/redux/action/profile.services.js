@@ -11,7 +11,7 @@ export const GetAllServices = () => {
       console.log(response,"getallworkplace");
       return dispatch({
         type: Types.SERVICES_DATA,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({

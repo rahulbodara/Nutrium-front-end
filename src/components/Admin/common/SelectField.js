@@ -44,7 +44,7 @@ const SelectField = (props) => {
       }
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">
-          {!!props.formik ? <Field
+          {props.formik ===false? <Field
             as="select"
             ref={selectRef}
             name={props.name}

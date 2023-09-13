@@ -10,29 +10,42 @@ import $ from "jquery";
 import "select2";
 import SelectMenu from "../../common/SelectMenu";
 
-const option = [
+const foodDiariesOption = [
     {
-        option: 'das',
-        value: 'das'
+        option: 'Breakfast',
+        value: 'Breakfast'
     },
     {
-        option: 'das1',
-        value: 'das1'
+        option: 'Brunch',
+        value: 'Brunch'
     },
     {
-        option: 'das2',
-        value: 'das2'
+        option: 'Morning snack',
+        value: 'Morning snack'
     },
     {
-        option: 'das3',
-        value: 'das3'
+        option: 'AfterNoon snack',
+        value: 'AfterNoon snack'
+    },
+    {
+        option: 'Pre-workout snack',
+        value: 'Pre-workout snack'
+    },
+    {
+        option: 'Post-workout snack',
+        value: 'Post-workout snack'
     },
 ]
 
 const AddFoodDiary = (props) => {
     const [startDate, setStartDate] = useState(new Date());
-
-
+    const [selectedValue, setSelectedValue] = useState('');
+    const handleSelectChange = (event) => {
+        console.log("qwertyuiop", event.terget.value);
+        setSelectedValue(event.target.value);
+    };
+    
+    console.log(selectedValue,"sdfgjuiklop;loikjuyhgtdesfghjkl");
     const selectRef = useRef(null);
     useEffect(() => {
         const $select = $(selectRef.current);
@@ -53,6 +66,7 @@ const AddFoodDiary = (props) => {
             $select.select2("destroy");
         };
     }, [props?.searchOption]);
+ 
     return (
         <div>
             <Modal
@@ -131,7 +145,12 @@ const AddFoodDiary = (props) => {
                     </div>
                     <div className="flex mt-[7px]">
 
-                       <SelectMenu option={option} SelectClass=""  className="text-left custom-drop basis-[215px] justify-between h-full text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px]  bg-[#FAFAFB] focus:outline-none focus:ring-0  focus:ring-offset-0 " />
+                        <SelectMenu
+                            option={foodDiariesOption}
+                            SelectClass=""
+                            onChange={handleSelectChange}
+                            selectedValue={selectedValue}
+                            className="text-left custom-drop basis-[215px] justify-between h-full text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px]  bg-[#FAFAFB] focus:outline-none focus:ring-0  focus:ring-offset-0 " />
 
                         <div className="flex-1 border ml-[-1px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></div>
                     </div>

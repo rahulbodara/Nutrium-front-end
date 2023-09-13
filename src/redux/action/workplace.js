@@ -10,7 +10,7 @@ export const GetAllWorkplace = () => {
       const response = await axios.get(`${baseUrl}/workplaces`, { headers });
       return dispatch({
         type: Types.WORKPLACE_DATA,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({
@@ -46,7 +46,7 @@ export const GetIndividualWorkplace = (id) => {
       const response = await axios.get(`${baseUrl}/workplaces/${id}`,{headers});
       return dispatch({
         type: Types.GET_INDIVIDUAL_WORKPLACE_SUCCES,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({
