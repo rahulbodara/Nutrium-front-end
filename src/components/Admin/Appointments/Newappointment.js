@@ -295,7 +295,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
                           </div>
                           {Array.isArray(filteredClients) &&
                             filteredClients.map((items, key) => (
-                              <div className="flex flex-col">
+                              <div className="flex flex-col" key={key}>
                                 <div className="my-[5px]">
                                   <div
                                     className="flex border group cursor-pointer rounded-[1px] border-solid border-[#eeeeee] hover:border-[#1AB394] p-[10px]"

@@ -13,7 +13,7 @@ const CountrySelect = (props) => {
       </div>
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">
-          {!props.formik ? <Field
+          {!!props.formik ? <Field
             as="select"
             className="w-full border-none focus:ring-0 text-[14px]"
             name={props.name}

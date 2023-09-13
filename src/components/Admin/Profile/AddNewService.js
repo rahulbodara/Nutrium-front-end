@@ -1,29 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  mdiAccount,
-  mdiAt,
-  mdiCalendar,
-  mdiClipboardAccount,
-  mdiFlagVariant,
-  mdiHumanMaleFemale,
-  mdiInformationOutline,
-  mdiMapMarker,
-  mdiMapMarkerRadius,
-  mdiPhone,
-} from "@mdi/js";
-import Icon from "@mdi/react";
-import React, { Fragment, useState } from "react";
-import { BiSolidUser } from "react-icons/bi";
+import React, { Fragment } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-import DatePicker from "react-datepicker";
-import ClosableSelect from "../common/ClosableSelect";
 import SelectField from "../common/SelectField";
 import InputField from "../common/InputField";
 import PriceField from "../common/PriceField";
 import { CreateProfileService } from "@/redux/action/profile.services";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Form, Formik } from "formik";
-import { addNewServices } from "@/schema/services";
+import { services } from "@/schema/services";
 
 const serviceType = [
   {
@@ -134,7 +118,7 @@ const AddNewService = ({ isOpen, setIsOpen }) => {
                     initialValues={{
                       typeofservice: "",
                     }}
-                    validationSchema={addNewServices}
+                    validationSchema={services}
                     //   onSubmit={(values) => handleSubmit(values)}
                   >
                     <Form>

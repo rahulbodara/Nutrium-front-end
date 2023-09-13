@@ -2,6 +2,7 @@ import React from "react";
 import { Field } from "formik";
 
 const InputField = (props) => {
+  console.log(props,"propsoprp");
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes(".")) {
@@ -37,7 +38,7 @@ const InputField = (props) => {
             ) : (
               ""
             )}
-            {!props.formik ?
+            {props.formik === false ?
               <Field
                 type="text"
                 className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] placeholder:opacity-[0.6]"
