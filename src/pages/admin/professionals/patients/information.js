@@ -73,6 +73,9 @@ const Information = () => {
   const [dietaryValue, setDietaryValue] = useState()
   const [eating, setEating] = useState(false)
   const [goals, setGoals] = useState(false)
+
+  console.log("🚀 ~ file: information.js:76 ~ Information ~ goals:", goals)
+  
   const [addFile, setAddFile] = useState(false)
   const [observationId,setObservationId] = useState()
   const [eatingId,setEatingId] = useState()
