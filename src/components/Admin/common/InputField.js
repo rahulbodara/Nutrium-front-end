@@ -1,6 +1,8 @@
 import React from "react";
+import { Field } from "formik";
 
 const InputField = (props) => {
+  console.log(props,"propsoprp");
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes(".")) {
@@ -36,14 +38,21 @@ const InputField = (props) => {
             ) : (
               ""
             )}
-            <input
-              type="text"
-              className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] placeholder:opacity-[0.6]"
-              placeholder={props?.placeholder}
-              name={props.name}
-              value={props.value}
-              onChange={handleChange}
-            />
+            {props.formik === false ?
+              <Field
+                type="text"
+                className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] placeholder:opacity-[0.6]"
+                name={props.name}
+              /> :
+              <input
+                type="text"
+                className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] placeholder:opacity-[0.6]"
+                placeholder={props?.placeholder}
+                name={props.name}
+                value={props.value}
+                onChange={handleChange}
+              />
+            }
           </div>
         </div>
       </div>

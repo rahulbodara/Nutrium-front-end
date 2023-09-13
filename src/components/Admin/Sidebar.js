@@ -7,8 +7,6 @@ import { mdiAccountPlus, mdiAlarmPlus, mdiStarCircle } from '@mdi/js';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 
-
-
 const Sidebar = (props) => {
   const {isCollapsed} = props;
   const router = useRouter();
@@ -42,7 +40,6 @@ const Sidebar = (props) => {
                       // const isActive = router.pathname.split('/').slice(-1)[0] === item.route;
 
                       return (
-                        <>
                           <li className='#293846' key={index}>
                             <Link href={item.route} className={`${item.route === router.pathname && 'bg-[#293846]'
                               } flex p-[10px_20px] font-[500] items-center hover:bg-[#293846] text-[#a7b1c2]`} data-tooltip-id={`${isCollapsed === true ? item.tooltipId : 'q'}`}>
@@ -64,8 +61,6 @@ const Sidebar = (props) => {
                             </Link>
 
                           </li>
-                          
-                        </>
                       )
                     })
                   }

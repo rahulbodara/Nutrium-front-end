@@ -5,24 +5,24 @@ export const FollowUpMenuData = [
         id:'1',
         title: 'Mark as completed' ,
         icon : mdiAccount,
-        route:'profile',
+        route:'',
     },
     {
         id:'2',
         title: 'Check profile' ,
         icon : mdiHistory,
-        route:'#',
+        route:'/admin/professionals/patients',
     },
     {
         id:'3',
         title: 'Edit appointment date' ,
         icon : mdiCreditCard,
-        route:'#',
+        route:'',
     },
     {
         id:'4',
         title: 'Cancel appointment' ,
         icon : mdiSecurity,
-        route:'#',
+        route:'',
     }
 ]

@@ -69,8 +69,8 @@ export const SecreatriesDataEdit = (data,id) => {
       });
     } catch (err) {
       return dispatch({
-        type: Types.UPDATE_SECRETARIES_FAILURE,
-        data: err.response,
+        type: Types.SECRETARIES_DATA_FAILURE,
+        data: err,
       });
     }
   };

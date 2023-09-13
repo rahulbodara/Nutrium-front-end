@@ -4,11 +4,13 @@ import Icon from '@mdi/react';
 import React, { Fragment, useState } from 'react'
 import { IoCloseSharp } from "react-icons/io5";
 import Modal from '../common/Modal';
+import CreateEvent from './CreateEvent';
 import Newappointment from './Newappointment';
 
 
 const SetDateModal = ({ isDateModalOpen, setIsDateModalOpen }) => {
-  const [isNewAppModal, setIsNewAppModal] = useState(false)
+  const [isNewAppModal, setIsNewAppModal] = useState(false);
+  const [createEventModal, setCreateEventModal] = useState(false);
   const openNewAppModal = () => { 
     setIsDateModalOpen(false),
     setIsNewAppModal(true);
@@ -56,7 +58,10 @@ const SetDateModal = ({ isDateModalOpen, setIsDateModalOpen }) => {
                           <div className='text-[14px] mt-[10px] group-hover:text-white'>Schedule an appointment</div>
                           <div className='text-[14px] opacity-[0.6] group-hover:text-white'>Schedule an appointment with one of your clients</div>
                         </div>
-                        <div className='ml-[5px] md:ml-0 border w-1/2 md:w-auto text-center font-light rounded cursor-pointer px-5 py-[30px] border-solid border-[#DDDDDD] hover:bg-[#2BA0CC] hover:border-[#2BA0CC] group'>
+                        <div className='ml-[5px] md:ml-0 border w-1/2 md:w-auto text-center font-light rounded cursor-pointer px-5 py-[30px] border-solid border-[#DDDDDD] hover:bg-[#2BA0CC] hover:border-[#2BA0CC] group' onClick={() => {
+                          setCreateEventModal(true)
+                          setIsDateModalOpen(false)
+                          }}>
                           <div className='mb-[5px]'><Icon path={mdiCalendarText} size="48px" className='text-[#2BA0CC] group-hover:text-white mx-auto' /></div>
                           <div className='text-[14px] mt-[10px] group-hover:text-white'>Add an event</div>
                           <div className='text-[14px] opacity-[0.6] group-hover:text-white'>Add an event to block off time in your calendar</div>
@@ -71,7 +76,8 @@ const SetDateModal = ({ isDateModalOpen, setIsDateModalOpen }) => {
           </Dialog>
         </Transition>
       </div>
-      <Newappointment isNewAppModal={isNewAppModal} setIsNewAppModal={setIsNewAppModal} />
+      <Newappointment isNewAppModal={isNewAppModal} setIsNewAppModal={setIsNewAppModal} setDateModal={setIsDateModalOpen} />
+      <CreateEvent isOpen={createEventModal} setIsOpen={setCreateEventModal} setDateModal={setIsDateModalOpen} />
     </>
   )
 }

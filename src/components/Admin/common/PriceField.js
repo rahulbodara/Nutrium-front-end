@@ -1,4 +1,5 @@
 import React from "react";
+import { Field } from "formik";
 
 const PriceField = (props) => {
   const handleChange = (e) => {
@@ -26,15 +27,23 @@ const PriceField = (props) => {
       </div>
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">
-          <input
+          {!!props.formik ? <Field
             type="text"
             className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] 
                     placeholder:opacity-[0.6]"
             placeholder={props?.placeholder}
             name={props.name}
-            value={props.value}
-            onChange={handleChange}
-          />
+          /> :
+            <input
+              type="text"
+              className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] 
+                    placeholder:opacity-[0.6]"
+              placeholder={props?.placeholder}
+              name={props.name}
+              value={props.value}
+              onChange={handleChange}
+            />
+          }
         </div>
       </div>
     </div>
