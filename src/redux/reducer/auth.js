@@ -5,6 +5,7 @@ const initialState = {
   clientData: [],
   eatingBehaviour: [],
   observationBehaviour: [],
+  fileData: [],
   error: null,
 };
 
@@ -64,6 +65,18 @@ export default (state = initialState, action) => {
         eatingBehaviour:action.data,
         error: null,
       }
+    case Types.CREATE_FILE:
+      return {
+        ...state,
+        fileData: action.data,
+        error: null,
+      }
+    case Types.FILE_DATA:
+      return {
+        ...state,
+        fileData: action.data,
+        error: null,
+      }
     case Types.USER_DATA:
     case Types.CLIENT_DATA_FAILURE:
     case Types.EATING_BEHAVIOUR_FAILURE:
@@ -72,6 +85,8 @@ export default (state = initialState, action) => {
     case Types.OBSERVATION_BY_ID_FAILURE:
     case Types.UPDATE_OBSERVATION_FAILURE:
     case Types.UPDATE_EATING_FAILURE:
+    case Types.CREATE_FILE_FAILURE:
+    case Types.FILE_DATA_FAILURE:
     case Types.CLIENT_BY_ID_FAILURE:
       return {
         ...state,

@@ -383,3 +383,45 @@ export const updateEatingBehaviour = (data, id,behavId) => {
     }
   };
 };
+
+export const createFileDiery = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const customHeaders = {
+        ...createHeaders(), 
+        'Content-Type': 'multipart/form-data',
+      };
+      const response = await axios.post(`${baseUrl}/client/file/${clientId}`, data, {
+        headers: customHeaders,
+      })
+      return dispatch({
+        type: Types.CREATE_FILE,
+        data: response,
+      })
+    } catch (err) {
+      return dispatch({
+        type: Types.CREATE_FILE_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}
+
+export const getFilesData = (clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders()
+      const response = await axios.get(`${baseUrl}/client/file/${clientId}`, {headers})
+      return dispatch({
+        type: Types.FILE_DATA,
+        data: response,
+      })
+    } catch (err) {
+      return dispatch({
+        type: Types.FILE_DATA_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}
