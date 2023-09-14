@@ -14,7 +14,6 @@ const Workplaces = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const workplaceData = useSelector((state) => state.Workplace?.workplaceData);
-  console.log(workplaceData, "woerlkowowowoow");
   const handleSearchValue = (value) => {
     const searchSecretaries = workplaceData.filter((item) =>
       item.name.toLowerCase().includes(value.toLowerCase())

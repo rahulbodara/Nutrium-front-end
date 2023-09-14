@@ -34,7 +34,6 @@ export const CustomSelect = ({
     }
   };
 
-  console.log("getValue", getValue);
 
   return (
     <Select

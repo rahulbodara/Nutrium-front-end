@@ -19,7 +19,6 @@ const SignUp = () => {
 
     const handleMultiSelectChange = (values) => {
         setSelectedOptions(values);
-        console.log(values);
     };
 
     const handleClick = () => {

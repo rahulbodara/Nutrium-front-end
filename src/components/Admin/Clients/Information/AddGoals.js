@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 const AddGoals = (props) => {
   const [goalType, setGoalType] = useState("0");
 
-  console.log("🚀 ~ file: AddGoals.js:7 ~ AddGoals ~ goalType:", goalType);
 
   const [startDate, setStartDate] = useState(new Date());
 

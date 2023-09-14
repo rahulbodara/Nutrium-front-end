@@ -4,7 +4,6 @@ import { Field } from "formik";
 const ColorPickerField = (props) => {
   const handlechange = (e) => {
     const { name, value } = e.target;
-    console.log("🚀 ~ file: InputField.js:7 ~ handlechange ~ value:", value)
     props.setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   return (

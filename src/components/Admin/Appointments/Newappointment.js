@@ -168,7 +168,6 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
         ...formData,
       };
 
-      console.log("updatedFormData:---->", updatedFormData);
       const success = await handleApiCall(
         dispatch,
         ScheduleAppointment(updatedFormData),
@@ -182,7 +181,6 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
       console.log(error);
     }
   };
-  console.log("FormData", formData);
   return (
     <div>
       <Transition appear show={isNewAppModal} as={Fragment}>

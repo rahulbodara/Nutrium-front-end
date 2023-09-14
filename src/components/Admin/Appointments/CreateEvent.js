@@ -38,7 +38,6 @@ const CreateEvent = (props) => {
     }
     reset()
    }catch(error){
-    console.log(error);
    }
   }
   return (

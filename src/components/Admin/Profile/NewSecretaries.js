@@ -42,7 +42,6 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
                     SecreatriesDataEdit(updatedFormData, editData._id),
                     'Secretaries Updated Successfully'
                 );
-                console.log(success, "sucesssucesss");
                 if (success) {
                     dispatch(GetAllSecreatries());
                     setIsOpen(false);
@@ -63,7 +62,6 @@ const NewSecretaries = ({ isOpen, setIsOpen, editData, setEditData }) => {
         }
     }
     const handleDeleteItem = async (id) => {
-        console.log(id,"idid");
         try {
             const success = await handleApiCall(
                 dispatch,

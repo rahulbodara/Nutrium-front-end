@@ -39,13 +39,14 @@ const foodDiariesOption = [
 
 const AddFoodDiary = (props) => {
     const [startDate, setStartDate] = useState(new Date());
+    const [foodSelect, setFoodSelect] = useState([])
     const [selectedValue, setSelectedValue] = useState('');
     const handleSelectChange = (event) => {
-        console.log("qwertyuiop", event.terget.value);
         setSelectedValue(event.target.value);
+        setFoodSelect([...foodSelect, event.target.value])
     };
-    
-    console.log(selectedValue,"sdfgjuiklop;loikjuyhgtdesfghjkl");
+    console.log(foodSelect, "foodSelectfoodSelectfoodSelect");
+
     const selectRef = useRef(null);
     useEffect(() => {
         const $select = $(selectRef.current);
@@ -66,7 +67,7 @@ const AddFoodDiary = (props) => {
             $select.select2("destroy");
         };
     }, [props?.searchOption]);
- 
+
     return (
         <div>
             <Modal
@@ -91,58 +92,64 @@ const AddFoodDiary = (props) => {
                             scrollableYearDropdown
                         />
                     </div>
-                    <div className="flex mt-[7px]">
-                        <div className="basis-[215px] justify-between text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                            <span>
-                                Afternoon snack
-                            </span>
-                            <Menu as="div" className="relative inline-block text-left">
-                                <div>
-                                    <Menu.Button className="flex items-center rounded-full focus:outline-none focus:ring-0  focus:ring-offset-0 ">
-                                        <Icon path={mdiDotsVertical} size={0.7} />
-                                    </Menu.Button>
-                                </div>
-                                <Transition
-                                    as={Fragment}
-                                    enter="transition ease-out duration-100"
-                                    enterFrom="transform opacity-0 scale-95"
-                                    enterTo="transform opacity-100 scale-100"
-                                    leave="transition ease-in duration-75"
-                                    leaveFrom="transform opacity-100 scale-100"
-                                    leaveTo="transform opacity-0 scale-95"
-                                >
-                                    <Menu.Items className="absolute left-0 z-10 mt-2 w-[160px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                        <div className="py-1">
-                                            <Menu.Item >
-
-                                                <a
-                                                    href="#"
-                                                    className='hover:bg-[#f5f5f5]  rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
-                                                >
-                                                    Rename
-                                                </a>
-
-                                            </Menu.Item>
-                                            <Menu.Item>
-
-                                                <a
-                                                    href="#"
-                                                    className='hover:bg-[#f5f5f5] rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
-
-                                                >
-                                                    Remove
-                                                </a>
-
-                                            </Menu.Item>
-
+                    {foodSelect && foodSelect?.map((item) => {
+                        console.log(item,"item");
+                        (
+                            <div className="flex mt-[7px]">
+                                <div className="basis-[215px] justify-between text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                                    <span>
+                                        {/* Afternoon snack */}{item}
+                                    </span>
+                                    <Menu as="div" className="relative inline-block text-left">
+                                        <div>
+                                            <Menu.Button className="flex items-center rounded-full focus:outline-none focus:ring-0  focus:ring-offset-0 ">
+                                                <Icon path={mdiDotsVertical} size={0.7} />
+                                            </Menu.Button>
                                         </div>
-                                    </Menu.Items>
-                                </Transition>
-                            </Menu>
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+                                            <Menu.Items className="absolute left-0 z-10 mt-2 w-[160px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                <div className="py-1">
+                                                    <Menu.Item >
 
-                        </div>
-                        <textarea rows="1" className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></textarea>
-                    </div>
+                                                        <a
+                                                            href="#"
+                                                            className='hover:bg-[#f5f5f5]  rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
+                                                        >
+                                                            Rename
+                                                        </a>
+
+                                                    </Menu.Item>
+                                                    <Menu.Item>
+
+                                                        <a
+                                                            href="#"
+                                                            className='hover:bg-[#f5f5f5] rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
+
+                                                        >
+                                                            Remove
+                                                        </a>
+
+                                                    </Menu.Item>
+
+                                                </div>
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
+
+                                </div>
+                                <textarea rows="1" className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></textarea>
+                            </div>
+                        )
+                    })}
+
                     <div className="flex mt-[7px]">
 
                         <SelectMenu

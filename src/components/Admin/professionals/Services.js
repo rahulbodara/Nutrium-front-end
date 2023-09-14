@@ -18,7 +18,6 @@ const Services = () => {
     fetch();
   }, [dispatch]);
   const serviceData = useSelector((state) => state?.Services?.servicesData) || [];
-  console.log(serviceData,"dfghjkplojhgfdsdfg");
   return (
     <>
       <div className="bg-white my-[25px] card-shadow rounded-[5px]">

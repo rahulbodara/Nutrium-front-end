@@ -10,7 +10,7 @@ export const GetAllSecreatries = () => {
       const response = await axios.get(`${baseUrl}/secretaries`, { headers });
       return dispatch({
         type: Types.SECRETARIES_DATA,
-        data: response,
+        data: response.data,
       });
     } catch (err) {
       return dispatch({
@@ -27,12 +27,12 @@ export const CreateSecretaries = (data) => {
       const headers = createHeaders(); 
       const response = await axios.post(`${baseUrl}/secretaries`,data,{headers});
       return dispatch({
-        type: Types.CREATE_SECRETARIES,
+        type: Types.SECRETARIES_DATA,
         data: response,
       });
     } catch (err) {
       return dispatch({
-        type: Types.CREATE_SECRETARIES_FAILURE,
+        type: Types.SECRETARIES_DATA_FAILURE,
         data: err.response,
       });
     }
@@ -62,7 +62,6 @@ export const SecreatriesDataEdit = (data,id) => {
     try {
       const headers = createHeaders(); // Use the createHeaders function here
       const response = await axios.put(`${baseUrl}/secretaries/${id}`,data,{headers});
-      console.log(response,"responseresponse");
       return dispatch({
         type: Types.UPDATE_SECRETARIES,
         data: response,
@@ -81,7 +80,6 @@ export const RemoveSecretaries = (id) => {
       try {
         const headers = createHeaders();
         const response = await axios.delete(`${baseUrl}/secretaries/${id}`,{headers});
-        console.log(response,"sssssssssss");
         return dispatch({
           type: Types.REMOVE_SECRETARIES,
           data: response,

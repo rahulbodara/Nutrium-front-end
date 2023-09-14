@@ -18,7 +18,6 @@ export default function Recipes() {
   const [isMyRecipesChecked, setIsMyRecipesChecked] = useState(true);
 
 
-  console.log("🚀 ~ file: index.js:16 ~ Recipes ~ isNutriumChecked:", isNutriumChecked)
   const handleNutrimChange = (event,id) => {
     if(id === "1"){
       setIsNutriumChecked(event.target.checked) 

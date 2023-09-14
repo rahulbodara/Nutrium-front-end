@@ -4,7 +4,6 @@ import Sidebar from './Sidebar'
 
 const MainLayout = ({children, head, text}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  console.log("🚀 ~ file: MainLayout.js:7 ~ MainLayout ~ isCollapsed:", isCollapsed)
   const handleClose = () => { 
     setIsCollapsed(false)
    }

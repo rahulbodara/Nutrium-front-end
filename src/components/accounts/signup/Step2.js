@@ -50,7 +50,6 @@ const Step2 = ({ handleSubmit }) => {
           }}
           validationSchema={signUpSchemaStep2}
           onSubmit={(values) => {
-            console.log("🚀 ~ file: Step2.jsx:41 ~ Step2 ~ values:", values)
             handleSubmit(values);
           }}
         >

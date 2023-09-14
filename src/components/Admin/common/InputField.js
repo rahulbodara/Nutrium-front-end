@@ -2,7 +2,6 @@ import React from "react";
 import { Field } from "formik";
 
 const InputField = (props) => {
-  console.log(props,"propsoprp");
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes(".")) {

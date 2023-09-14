@@ -8,12 +8,13 @@ const initialState = {
 
 export const Workplace = (state = initialState, action) => {
   switch (action.type) {
-    case Types.WORKPLACE_DATA:
+    case Types.CREATE_WORKPLACE:
+      console.log(action.data,"actionaction");
       return {
         ...state,
         workplaceData: action.data,
       };
-    case Types.WORKPLACE_DATA_FAILURE:
+    case Types.CREATE_WORKPLACE_FAILURE:
       return { ...state, error: action?.data?.response };
     case Types.GET_INDIVIDUAL_WORKPLACE_SUCCES:
       return {
@@ -22,7 +23,6 @@ export const Workplace = (state = initialState, action) => {
       };
     case Types.UPDATE_WORKPLACE:
       const updatedWorkplaceDetail = action.data.data;
-      console.log('action.data', action.data);
       const updatedWorkplaceDetails = state.workplaceData.map((workplace) => {
         if (workplace._id === updatedWorkplaceDetail._id) {
           return updatedWorkplaceDetail;
