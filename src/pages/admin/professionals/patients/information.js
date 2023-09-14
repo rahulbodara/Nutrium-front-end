@@ -3,6 +3,8 @@ import Icon from '@mdi/react';
 import { Menu, Transition } from '@headlessui/react';
 import { mdiContentSave, mdiInformationOutline, mdiPlus, mdiPrinter } from '@mdi/js';
 import { BsFilter } from 'react-icons/bs';
+import { MdDelete ,MdDownload,MdModeEdit } from 'react-icons/md'
+import { GrDocumentText } from 'react-icons/gr'
 import Steps from '@/components/Admin/Clients/Information/Steps';
 import MainLayout from '@/components/Admin/MainLayout';
 import ClientDetail from '@/components/Admin/Clients/ClientDetail';
@@ -21,7 +23,7 @@ import AddFile from '@/components/Admin/Clients/Information/AddFile';
 import moment from 'moment'
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData, getEatingBehaviourData } from '@/redux/action/auth';
+import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData, getEatingBehaviourData, getFilesData } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleApiCall } from "@/util/apiUtils";
 
@@ -51,7 +53,8 @@ const Information = () => {
     if (query.id) {
       dispatch(getClientById(query.id));
       dispatch(getObservationData(query.id));
-      dispatch(getEatingBehaviourData(query.id))
+      dispatch(getEatingBehaviourData(query.id));
+      dispatch(getFilesData(query.id))
     }
   }, [dispatch, query.id]);
 
@@ -79,6 +82,7 @@ const Information = () => {
   const [addFile, setAddFile] = useState(false)
   const [observationId,setObservationId] = useState()
   const [eatingId,setEatingId] = useState()
+  const [isHovering, setIsHovering] = useState(false);
 
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
@@ -94,6 +98,7 @@ const Information = () => {
   });
   const observationData = useSelector((state) => state?.auth?.observationBehaviour?.data?.observation)
   const eatingBehaviourData = useSelector((state) => state?.auth?.eatingBehaviour?.data?.behaviours)
+  const fileData = useSelector((state) => state?.auth?.fileData?.data?.files)
   const [openObservations, setOpenObservations] = useState(false)
   const [foodDiaries, setFoodDiaries] = useState(false)
 
@@ -789,13 +794,62 @@ const Information = () => {
                     </div>
                   </div>
                   <AddFile closeIcon={true} className="max-w-[600px]" title="Add file" subtitle="Attach a file to this client's profile" isOpen={addFile} setIsOpen={setAddFile} />
+                      {/* <div className="p-2">
+                        <GrDocumentText />
+                      </div> */}
+                      <div className="px-4 py-2">
 
+                      <div className={`h-[150px] bg-white cursor-pointer border border-[#EEEEEE] ${isHovering ? 'bg-[#888888]/[10%]' : ""} rounded-[5px] flex flex-col justify-between`} onMouseOver={()=>setIsHovering(true)} onMouseOut={()=>setIsHovering(false)}>
+                        {
+                          isHovering ? 
+                          (fileData.map((data) => {
+                              return (
+                                <>
+                                <div className="float-left pt-2 pb-6 pl-2">
+                              <div className="text-[13px] font-medium text-[#1AB394] ">
+                                <span>{data?.name}</span>
+                              </div>
+                              <div className="flex flex-col mt-[5px]">
+                                <span className="pt-1 font-medium">{data?.description}</span>
+                                <span className="pt-1">{data?.date}</span>
+                              </div>
+                            </div>
+                            <div className="float-left px-2 flex justify-between">
+                              <div>DOCX</div>
+                              <div className="flex">
+                                <MdDelete className='w-[17px] h-[17px] mr-2'/>
+                                <MdDownload className='w-[17px] h-[17px] mr-2'/>
+                                <MdModeEdit className='w-[17px] h-[17px]'/>
+                              </div>
+                            </div>
+                                </>
+                              )
+                            })
+                          )
+                          : 
+                          <>
+                            <div className='ml-[40%] p-2'>
+                              <GrDocumentText className='w-[80px] h-[80px]'/>
+                            </div>
+                            <hr />
+                            <div className='text-[13px] font-medium text-[#1AB394] float-left py-2 pl-2'>
+                              {
+                                fileData?.map((data) => {
+                                  return <span>{data?.name}</span>
+                                })
+                              }
+                            </div>
+                          </>
+                        }
+                      </div>
+                    </div>
+  
                   
-                  <div className="p-[0_20px_20px]">
+                  {/* <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       There aren't any files associated to this filter
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
