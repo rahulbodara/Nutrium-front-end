@@ -79,8 +79,6 @@ const Information = () => {
   const [eating, setEating] = useState(false)
   const [goals, setGoals] = useState(false)
   const [addFile, setAddFile] = useState(false)
-  const [observationId,setObservationId] = useState()
-  const [eatingId,setEatingId] = useState()
   const [isHovering, setIsHovering] = useState(false);
 
   const appointmentData = useSelector((state) => {
