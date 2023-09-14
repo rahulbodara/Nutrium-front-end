@@ -19,7 +19,6 @@ const Sign_in = () => {
   const handleLogin = async (values) => {
     try {
       const response = await dispatch(login(values));
-      console.log('🚀 ~ file: index.js:25 ~ handleLogin ~ response:', response);
       const token = response?.data?.token;
       if (token) {
         localStorage.setItem('token', token);

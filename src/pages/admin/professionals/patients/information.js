@@ -68,14 +68,14 @@ const Information = () => {
   const [selectedMinute1, setSelectedMinute1] = useState(DietaryhistoryData?.wakeupTime.split(':')[1]);
   const [selectedHour2, setSelectedHour2] = useState(DietaryhistoryData?.bedTime.split(':')[0]);
   const [selectedMinute2, setSelectedMinute2] = useState(DietaryhistoryData?.bedTime.split(':')[1]);
+  const [observationId,setObservationId]=useState()
+  const [eatingId,setEatingId]=useState()
   const [singleValue, setSingleValue] = useState()
   const [medicalValue, setMedicalValue] = useState()
   const [dietaryValue, setDietaryValue] = useState()
   const [eating, setEating] = useState(false)
   const [goals, setGoals] = useState(false)
   const [addFile, setAddFile] = useState(false)
-  const [observationId,setObservationId] = useState()
-  const [eatingId,setEatingId] = useState()
 
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
@@ -106,19 +106,16 @@ const Information = () => {
     setDietaryValue({ 'wakeupTime': timeValue });
   };
   const handleBedTimeChange = (type, value) => {
-    console.log("typetypetype",type)
     if (type === "hour") {
       setSelectedHour2(value);
     } else if (type === "minute") {
       setSelectedMinute2(value);
     }
-    console.log("houres", selectedHour2, "minutes", selectedMinute2)
     const timeValue = `${selectedHour2}:${selectedMinute2}`;
     setDietaryValue({ 'bedTime': timeValue });
   }
 
   const handleAppointmentSubmit = async (newValue) => {
-    console.log(newValue, "newValue")
     try {
       const success = await handleApiCall(
         dispatch,
@@ -133,7 +130,6 @@ const Information = () => {
     }
   };
   const handleMedicalHistorySubmit = async (newValue) => {
-    console.log(newValue, "newValue")
     try {
       const success = await handleApiCall(
         dispatch,
@@ -144,11 +140,9 @@ const Information = () => {
         dispatch(getClientById(query.id));
       }
     } catch(err) {
-      console.log("Error -->", err)
     }
   };
   const handleDietarySubmit = async (newValue) => {
-    console.log(newValue, "newValue");
     try {
       const success = await handleApiCall(
         dispatch,
@@ -616,7 +610,7 @@ const Information = () => {
                 <div className="bg-white shadow-box1 rounded-[5px]">
                   <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
                     <div>
-                      <h3 className="text-[20px] leading-[24px] ">
+                      <h3 className="text-[20px] leadin g-[24px] ">
                         Food Diaries
                       </h3>
                       <span className="text-[12px] text-[#888888]/[70%]">

@@ -12,7 +12,6 @@ import countries from 'countries.json';
 function ProfessionalInformation() {
   const [singleValue, setSingleValue] = useState()
   const [selectedProfession, setSelectedProfession] = useState('');
-  console.log(selectedProfession, "sddffdfgff");
   const professionOptions = [
     {
       id: 1,

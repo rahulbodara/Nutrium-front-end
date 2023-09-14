@@ -34,7 +34,6 @@ const AddNewWorkplace = ({ isOpen, setIsOpen }) => {
       const updatedFormData = {
         ...formData,
       };
-      console.log("updatedFormData:---->", updatedFormData);
       const response = await dispatch(
         WorkplaceDataCreation(updatedFormData)
       ).then((res) => {
@@ -58,7 +57,6 @@ const AddNewWorkplace = ({ isOpen, setIsOpen }) => {
           },
         })
       }
-      console.log("response---->", response);
     } catch (error) {
       console.log("error-------------->", error);
     }

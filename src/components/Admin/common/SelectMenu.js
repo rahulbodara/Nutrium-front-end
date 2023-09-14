@@ -9,6 +9,8 @@ const SelectMenu = (props) => {
         const $select = $(selectRef.current);
         $('.select2-dropdown').addClass('custom-dropdown');
 
+        $select.on("change", (e) => {
+        });
         $select.select2(
             props?.searchOption === false && {
                 minimumResultsForSearch: Infinity,
@@ -24,13 +26,16 @@ const SelectMenu = (props) => {
       <div className={`max-w-[130px] ${props?.className}`}>
           <div className={`relative flex-1 select-none border-[#EEEEEE] ${props?.SelectClass}`}>
               <select
-                  ref={selectRef}
+                //   ref={selectRef}
                   className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
+                  name={props.name}
+                  value={props.selectedValue}
+                  onChange={props.onChange}
               >
                 {
-                    props?.option?.map((option) => (
+                    props?.option?.map((option, index) => (
                         <>
-                            <option className={`${option.option}`}>{option.option}</option>
+                            <option id={index} value={option.option} className={`${option.option}`}>{option.option}</option>
                         </>
                     ))
 

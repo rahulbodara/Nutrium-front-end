@@ -83,7 +83,6 @@ const clientType = [
 const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
   const dispatch = useDispatch()
   // const [formData, setFormData] = useState()
-  // console.log(formData, "fofofofofofoo");
   // const individualservice = useSelector(
   //   (state) => state?.Services?.individualService
   // );
@@ -149,7 +148,6 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
   }
   const handleDeleteItem = async (id) => {
     // debugger;
-    console.log("iddddddd",id);
     if(id){
       try {
         const success = await handleApiCall(

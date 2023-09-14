@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 
 const Switcher = (props) => {
     // const [isSwitchOn, setIsSwitchOn] = useState(props?.isChecked);
-    // console.log("🚀 ~ file: Switcher.js:5 ~ Switcher ~ isSwitchOn:", isSwitchOn)
 
     // const handleSwitch = (event) => {
-    // console.log("🚀 ~ file: Switcher.js:7 ~ handleSwitch ~ event:", event)
     // setIsSwitchOn(event.target.checked)
 
     // }

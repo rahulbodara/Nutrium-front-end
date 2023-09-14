@@ -24,7 +24,6 @@ export default function Home() {
 
   const dispatch = useDispatch()
 
-  console.log("testetst");
 
   useEffect(() => {
     const fetch = async () => {

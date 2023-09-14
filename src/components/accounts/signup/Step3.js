@@ -51,7 +51,6 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange,userData }) => {
     // setData({...data,...values})
     const body = {...userData,...values}
     const response = await dispatch(signUp(body))
-    console.log("🚀 ~ file: Step3.jsx:51 ~ HandleForm ~ response:", response)
     if(response?.data?.success === true){
       localStorage.setItem("token",response?.data?.token)
       toast.success(response?.data?.message)
@@ -207,7 +206,6 @@ const Step3 = ({ handleSubmit, handleMultiSelectChange,userData }) => {
                    <div className="grid grid-cols-[1fr_1fr_1fr_1fr] max-md:grid-cols-[1fr_1fr] max-md:gap-y-[1em] auto-rows-[1fr] gap-x-[1em]">
                     {['No clients', 'upto 10', 'upto 25', 'More than 25'].map((label, index) => (
                       <span key={index}>
-                        {console.log(label,"label")}
                         <label
                           htmlFor={`radio${index + 1}`}
                           className={`flex justify-center items-center h-full w-full ${

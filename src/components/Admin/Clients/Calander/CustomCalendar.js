@@ -17,16 +17,12 @@ const CustomToolbar = ({ label, date, view, onNavigate, onView }) => {
     onNavigate(new Date());
   };
   const handleNavigateBack = () => {
-    console.log("Navigate Back");
     const newDate = moment(date).subtract(1, "month").toDate();
-    console.log("New Date:", newDate);
     onNavigate(newDate);
   };
 
   const handleNavigateNext = () => {
-    console.log("Navigate Next");
     const newDate = moment(date).add(1, "month").toDate();
-    console.log("New Date:", newDate);
     onNavigate(newDate);
   };
   const handleMonthClick = () => {
@@ -135,10 +131,8 @@ const CustomCalendar = (props) => {
   };
 
   const handleViewChange = (newView) => {
-    console.log("newView --->>", newView);
     setCurrentView(newView);
   };
-  console.log("currentView -->>", currentView);
   return (
     <div>
       <Calendar
@@ -158,7 +152,6 @@ const CustomCalendar = (props) => {
         style={{ height: props?.height }}
         components={{
           toolbar: (props) => {
-            console.log("Props---->", props);
             return (
               <CustomToolbar
                 label={props.label}

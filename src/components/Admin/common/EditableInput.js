@@ -4,11 +4,9 @@ import React, { useState } from 'react';
 
 const EditableInput = (props) => {
   // const { initialValue, onInputChange, handleCancel, handleSubmit } = props;
-  // console.log('props-------------->', props);
   const [isFocused, setIsFocused] = useState(false);
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const [inputValue, setInputValue] = useState(props?.initialValue || '');
-  console.log("🚀 ~ file: EditableInput.js:11 ~ EditableInput ~ inputValue:", inputValue)
 
   // const handleInput = (event) => {
   //   if (event.target) {

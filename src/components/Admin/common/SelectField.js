@@ -15,7 +15,6 @@ const SelectField = (props) => {
 
     $select.on("change", (e) => {
       const selectedValue = e.target.value;
-      console.log("🚀 ~ file: SelectField.js:18 ~ $select.on ~ selectedValue:", selectedValue)
       if (props?.onChange) {
         props?.onChange(selectedValue);
       }
@@ -44,19 +43,19 @@ const SelectField = (props) => {
       }
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">
-          {!!props.formik ? <Field
+          {props.formik ===false? <Field
             as="select"
             ref={selectRef}
             name={props.name}
             className="w-full outline-none focus:ring-0 border-0 p-[6px_12px] text-[13px] text-[#6e7c91] rounded-md"
             // value={props.value}
           >
-            {props.default &&
+            {props?.default &&
               <option selected disabled>
                 {props?.defaultValue}
               </option>
             }
-            {props.option?.map((item, index) => (
+            {props?.option?.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.name}
               </option>
@@ -68,12 +67,12 @@ const SelectField = (props) => {
               className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
               value={props.value}
             >
-              {props.default &&
+              {props?.default &&
                 <option selected disabled>
                   {props?.defaultValue}
                 </option>
               }
-              {props.option?.map((item, index) => (
+              {props?.option?.map((item, index) => (
                 <option key={index} value={item.value}>
                   {item.name}
                 </option>
