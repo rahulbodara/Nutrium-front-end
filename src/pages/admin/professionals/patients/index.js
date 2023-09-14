@@ -90,7 +90,6 @@ if (filterWorkplace !== "All Workplace") {
     client.workplace === filterWorkplace
   );
 } else {
-  console.log("test")
   filteredClients = dataToMap.filter((client) =>
     client.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     client.occupation.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -22,7 +22,6 @@ export const Secreataries = (state = initialState, action) => {
             };
         case Types.UPDATE_SECRETARIES:
             const updatedSecretariesDetails = action.data.data;
-            console.log(action.data.data,"actionaction");
             const updatedSecretaries = state.secreatariesData.map((secretaries) => {
                 if (secretaries._id === updatedSecretariesDetails._id) {
                     return updatedSecretariesDetails;

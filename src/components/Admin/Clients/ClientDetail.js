@@ -18,13 +18,13 @@ import { deleteClient, getClientById, updateClient } from '@/redux/action/auth';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { handleApiCall } from "@/util/apiUtils";
+import moment from 'moment'
 
 const ClientDetail = ({ clientId }) => {
   const [collapse, setCollapse] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state?.auth?.clientData[0]);
-  console.log(clientData,"clientclient")
   const workplaceData = useSelector((state) => state?.Workplace?.workplaceData)
   const error = useSelector((state) => state?.auth?.error);
   const [singleValue, setSingleValue] = useState()
@@ -55,7 +55,6 @@ const ClientDetail = ({ clientId }) => {
   };
 
   const handleSubmit = async (newValue) => {
-    console.log(newValue, "newValue")
     try {
       const success = await handleApiCall(
         dispatch,
@@ -319,7 +318,7 @@ const ClientDetail = ({ clientId }) => {
                 <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                   <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                     <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                      07/14/2023 09:48 AM
+                    {moment(clientData?.createdAt).format("MM/DD/YYYY hh:mm A")}
                     </span>
                   </div>
                 </div>

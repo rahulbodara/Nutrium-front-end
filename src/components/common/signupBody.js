@@ -4,7 +4,6 @@ import React from 'react'
 import logo from "../../../public/image/light-logo.svg";
 const SignupBody = ({children}) => {
   const router = useRouter();
-  console.log(router.pathname)
   return (
     <>
         <div className="bg-sign-up-pattern bg-no-repeat bg-cover min-h-screen">

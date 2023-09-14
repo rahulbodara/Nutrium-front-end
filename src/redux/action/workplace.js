@@ -8,13 +8,14 @@ export const GetAllWorkplace = () => {
     try {
       const headers = createHeaders();
       const response = await axios.get(`${baseUrl}/workplaces`, { headers });
+      console.log(response,);
       return dispatch({
-        type: Types.WORKPLACE_DATA,
-        data: response?.data,
+        type: Types.CREATE_WORKPLACE,
+        data: response.data,
       });
     } catch (err) {
       return dispatch({
-        type: Types.WORKPLACE_DATA_FAILURE,
+        type: Types.CREATE_WORKPLACE_FAILURE,
         data: err.response,
       });
     }
@@ -46,7 +47,7 @@ export const GetIndividualWorkplace = (id) => {
       const response = await axios.get(`${baseUrl}/workplaces/${id}`,{headers});
       return dispatch({
         type: Types.GET_INDIVIDUAL_WORKPLACE_SUCCES,
-        data: response?.data,
+        data: response,
       });
     } catch (err) {
       return dispatch({

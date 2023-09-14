@@ -1,7 +1,6 @@
 import { mdiPlus, mdiPlusBox } from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useEffect, useState } from "react";
-import AddNewService from "../Profile/AddNewService";
 import { GetAllServices } from "@/redux/action/profile.services";
 import { useDispatch, useSelector } from "react-redux";
 import EditService from "../Profile/EditService";
@@ -19,7 +18,6 @@ const Services = () => {
     fetch();
   }, [dispatch]);
   const serviceData = useSelector((state) => state?.Services?.servicesData) || [];
-  console.log(serviceData,"dfghjkplojhgfdsdfg");
   return (
     <>
       <div className="bg-white my-[25px] card-shadow rounded-[5px]">

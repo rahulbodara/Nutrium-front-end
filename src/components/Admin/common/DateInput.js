@@ -33,7 +33,6 @@ const DateInput = (props) => {
     (_, index) => currentYear - index
   );
 
-  console.log(yearsArray, "fffffffffffffffff");
   const handleInput = (event) => {
     if (event.target) {
       setIsInputEmpty(false);

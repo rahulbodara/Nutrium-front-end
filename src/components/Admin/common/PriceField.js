@@ -27,7 +27,7 @@ const PriceField = (props) => {
       </div>
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">
-          {!props.formik ? <Field
+          {props.formik===false ? <Field
             type="text"
             className="focus:ring-0 p-[6px_12px] border-none w-full text-[13px] 
                     placeholder:opacity-[0.6]"

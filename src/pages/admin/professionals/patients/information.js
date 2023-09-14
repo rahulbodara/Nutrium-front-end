@@ -18,10 +18,10 @@ import TimePicker from '@/components/Admin/common/TimePicker';
 import AddLogClient from '@/components/Admin/Clients/Information/AddObservations';
 import AddGoals from '@/components/Admin/Clients/Information/AddGoals';
 import AddFile from '@/components/Admin/Clients/Information/AddFile';
-
+import moment from 'moment'
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory } from '@/redux/action/auth';
+import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData, getEatingBehaviourData } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleApiCall } from "@/util/apiUtils";
 
@@ -50,11 +50,12 @@ const Information = () => {
   useEffect(() => {
     if (query.id) {
       dispatch(getClientById(query.id));
+      dispatch(getObservationData(query.id));
+      dispatch(getEatingBehaviourData(query.id))
     }
   }, [dispatch, query.id]);
 
   function HandleValue(value) {
-    console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
   }
   const DietaryhistoryData = useSelector((state) => {
     if(state?.auth?.clientData?.length > 0) {
@@ -67,6 +68,8 @@ const Information = () => {
   const [selectedMinute1, setSelectedMinute1] = useState(DietaryhistoryData?.wakeupTime.split(':')[1]);
   const [selectedHour2, setSelectedHour2] = useState(DietaryhistoryData?.bedTime.split(':')[0]);
   const [selectedMinute2, setSelectedMinute2] = useState(DietaryhistoryData?.bedTime.split(':')[1]);
+  const [observationId,setObservationId]=useState()
+  const [eatingId,setEatingId]=useState()
   const [singleValue, setSingleValue] = useState()
   const [medicalValue, setMedicalValue] = useState()
   const [dietaryValue, setDietaryValue] = useState()
@@ -86,6 +89,8 @@ const Information = () => {
     }
     return null;
   });
+  const observationData = useSelector((state) => state?.auth?.observationBehaviour?.data?.observation)
+  const eatingBehaviourData = useSelector((state) => state?.auth?.eatingBehaviour?.data?.behaviours)
   const [openObservations, setOpenObservations] = useState(false)
   const [foodDiaries, setFoodDiaries] = useState(false)
 
@@ -101,19 +106,16 @@ const Information = () => {
     setDietaryValue({ 'wakeupTime': timeValue });
   };
   const handleBedTimeChange = (type, value) => {
-    console.log("typetypetype",type)
     if (type === "hour") {
       setSelectedHour2(value);
     } else if (type === "minute") {
       setSelectedMinute2(value);
     }
-    console.log("houres", selectedHour2, "minutes", selectedMinute2)
     const timeValue = `${selectedHour2}:${selectedMinute2}`;
     setDietaryValue({ 'bedTime': timeValue });
   }
 
   const handleAppointmentSubmit = async (newValue) => {
-    console.log(newValue, "newValue")
     try {
       const success = await handleApiCall(
         dispatch,
@@ -128,7 +130,6 @@ const Information = () => {
     }
   };
   const handleMedicalHistorySubmit = async (newValue) => {
-    console.log(newValue, "newValue")
     try {
       const success = await handleApiCall(
         dispatch,
@@ -139,11 +140,9 @@ const Information = () => {
         dispatch(getClientById(query.id));
       }
     } catch(err) {
-      console.log("Error -->", err)
     }
   };
   const handleDietarySubmit = async (newValue) => {
-    console.log(newValue, "newValue");
     try {
       const success = await handleApiCall(
         dispatch,
@@ -581,22 +580,29 @@ const Information = () => {
                       </span>
 
                     </div>
-                    <button onClick={() => setOpenObservations(true)}>
+                    <button onClick={() => {setOpenObservations(true); setObservationId()}}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
+                  <AddLogClient observationData={observationId} closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
                   <div className="p-[0_20px_20px]">
-                    <div onClick={() => setOpenObservations(true)} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
-                      <div className='h-[95px] break-all'></div>
-                      <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>2023-09-04</div>
-                    </div>
+                    {
+                      Array.isArray(observationData) && observationData.map((data) => {
+                        return (
+                          <div onClick={() => {setOpenObservations(true); setObservationId(data)}} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                            {data?.observation}
+                            <div className='h-[95px] break-all'></div>
+                            <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>{data?.registrationDate}</div>
+                          </div>
+                        )
+                      })
+                    }
                     <div className='flex items-center justify-end'>
                       <Pagination />
                     </div>
-                    <p className="text-[#888888] italic text-center">
+                    { observationData?.length === 0 && <p className="text-[#888888] italic text-center">
                       You haven't logged any observations
-                    </p>
+                    </p> }
                   </div>
                 </div>
               </div>
@@ -604,7 +610,7 @@ const Information = () => {
                 <div className="bg-white shadow-box1 rounded-[5px]">
                   <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
                     <div>
-                      <h3 className="text-[20px] leading-[24px] ">
+                      <h3 className="text-[20px] leadin g-[24px] ">
                         Food Diaries
                       </h3>
                       <span className="text-[12px] text-[#888888]/[70%]">
@@ -632,16 +638,29 @@ const Information = () => {
                         Log your client's eating behaviour
                       </span>
                     </div>
-                    <button onClick={() => setEating(true)}>
+                    <button onClick={() => {setEating(true); setEatingId()}}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
-
+                  <AddLogClient active={true} eatingBehaviourData={eatingId} closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
                   <div className="p-[0_20px_20px]">
-                    <p className="text-[#888888] italic text-center">
-                      You haven't logged any eating behaviour
-                    </p>
+                    {
+                      Array.isArray(eatingBehaviourData) && eatingBehaviourData.map((data) => {
+                        return (
+                          <div onClick={() => {setEating(true); setEatingId(data)}} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                            {data?.behaviour}
+                            <div className='h-[95px] break-all'></div>
+                            <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>{data?.date}</div>
+                          </div>
+                        )
+                      })
+                    }
+                    <div className='flex items-center justify-end'>
+                      <Pagination />
+                    </div>
+                    { eatingBehaviourData?.length === 0 && <p className="text-[#888888] italic text-center">
+                      You haven't logged any observations
+                    </p> }
                   </div>
                 </div>
 

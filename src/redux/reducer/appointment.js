@@ -14,7 +14,6 @@ export const Appointment = (state = initialState, action) => {
         error: null,
       };
     case Types.APPOINTMENT_DATA:
-      console.log("data",action.data)
       return {
         ...state,
         appointmentData: action.data.data.getallappointments,
