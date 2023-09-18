@@ -55,7 +55,7 @@ export default function Equivalents() {
                           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                          <Dialog.Panel className="relative sm:rounded-none transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-[900px] lg:w-[600px]">
+                          <Dialog.Panel className="relative sm:rounded-none transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-[900px] sm:w-[300px] lg:w-[600px]">
                             <div className="absolute right-0 top-0 pr-2 pt-2 sm:block">
                               <button
                                 type="button"
@@ -78,11 +78,11 @@ export default function Equivalents() {
                                 </div>
                               </div>
                             </div>
-                            <div className="p-[20px_30px] pt-0 lg:flex-wrap">
+                            <div className="p-[20px_30px] pt-0 lg:flex-wrap sm:pr-0">
                               <div>
-                                <div className='text-[14px] mt-[10px] flex'>
-                                  <div className='w-[50%] px-[15px]'>
-                                    <div className='px-[30px]'>
+                                <div className='text-[14px] mt-[10px] flex sm:flex-wrap'>
+                                  <div className='w-[50%] px-[15px] sm:w-full sm:pl-0'>
+                                    <div className='px-[30px] sm:px-0'>
                                       <p className='m-0'>
                                         <strong className='text-[16px] font-[600]'>Food groups</strong>
                                       </p>
@@ -101,8 +101,8 @@ export default function Equivalents() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className='w-[50%] px-[15px]'>
-                                    <div className='px-[30px]'>
+                                  <div className='w-[50%] px-[15px] sm:w-full sm:pl-0 sm:mt-2'>
+                                    <div className='px-[30px] sm:px-0'>
                                       <p className='m-0'>
                                         <strong className='text-[16px] font-[600]'>List of equivalents</strong>
                                       </p>
@@ -229,7 +229,7 @@ export default function Equivalents() {
               <div className='text-[12px] text-[#888888] opacity-[0.6]'>Search, check and add new food groups</div>
             </div>
             <div className='flex items-center group cursor-pointer'>
-              <div className='text-[#676A6C] ml-[5px] inline-block' data-tooltip-id="my-tooltip-3">
+              <div className='text-[#676A6C] ml-[5px] inline-block' data-tooltip-id="my-tooltip-3" onClick={() => setOpen(true)}>
                 <Icon path={mdiInformationOutline} size="24px" />
               </div>
               <a className='' data-tooltip-id="my-tooltip-4">
