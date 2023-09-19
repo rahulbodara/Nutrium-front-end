@@ -24,12 +24,12 @@ const CalenderSchedule = () => {
                         </span>
                     </div>
                     <div>
-                        <Icon path={mdiTimetable} size="22px" className='outline-none mr-[10px] cursor-pointer inline-block text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="sheduleTimeTable" onClick={()=> setIsSheduleOpen(true)} />
-                        <Icon path={mdiPlus} size="22px" className='outline-none inline-block cursor-pointer text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="AddShedule" onClick={()=> setIsDateModalOpen(true)}/>
+                        <Icon path={mdiTimetable} size="22px" className='outline-none mr-[10px] cursor-pointer inline-block text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="sheduleTimeTable" onClick={() => setIsSheduleOpen(true)} />
+                        <Icon path={mdiPlus} size="22px" className='outline-none inline-block cursor-pointer text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="AddShedule" onClick={() => setIsDateModalOpen(true)} />
                     </div>
                 </div>
                 <div className='calender-main p-[0_20px_20px]'>
-                    <CustomCalendar height={600} />
+                    <CustomCalendar height="600px" />
                     <div className='p-[10px_0px_5px] flex-wrap flex gap-[10px] text-[11px] justify-center'>
                         <div className='flex items-center ml-[25px]'><span className='mr-[5px] bg-[#1AB394] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888]'>Confirmed</p></div>
                         <div className='flex items-center ml-[25px]'><span className='mr-[5px] bg-[#EA9F77] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888]'>Not confirmed</p></div>
