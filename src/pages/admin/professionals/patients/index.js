@@ -20,6 +20,7 @@ import Select from '@/components/common/select';
 import SelectMenu from '@/components/Admin/common/SelectMenu';
 import CustomSelect from '@/components/Admin/common/CustomSelect';
 import SelectField from '@/components/Admin/common/SelectField';
+import { clientSelectedId } from '@/redux/action/measurnment';
 const Patients = () => {
   const router = useRouter();
   let [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,7 @@ const Patients = () => {
   }, [dispatch]);
   const clientsData = useSelector((state) => state?.auth?.clientData);
   const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
-  console.log(workSpaceData,"workSpaceData")
+
   const clients = Array.isArray(clientsData) ? clientsData : [];
 
   const handleClientClick = (clientId) => {
@@ -46,6 +47,7 @@ const Patients = () => {
       query: { id: clientId },
     });
     dispatch(clientData(clientId));
+    dispatch(clientSelectedId(clientId))
   };
   const options = [
     {
@@ -72,16 +74,16 @@ const Patients = () => {
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
-  
+
   const currentMonthData = clients.filter(item => {
     const createdAtDate = new Date(item.createdAt);
     const createdAtMonth = createdAtDate.getMonth();
-    
+
     return createdAtMonth === currentMonth;
   });
 
   const dataToMap =
-  filterClient === "Active clients this month" ? currentMonthData : clients;
+    filterClient === "Active clients this month" ? currentMonthData : clients;
 
   let filteredClients = dataToMap;
 
@@ -137,7 +139,7 @@ if (filterWorkplace !== "All Workplace") {
                     placeholder="Search clients by name, occupation, identification number or contact..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+                  />
                 </div>
                 <div className="pt-5 grid grid-cols-2 gap-7">
                   {Array.isArray(filteredClients) &&
@@ -204,18 +206,18 @@ if (filterWorkplace !== "All Workplace") {
                   Filter which clients you want to see
                 </span>
                 <div className='w-full select-clinet'>
-                  <CustomSelect 
-                    option={options} 
-                    className="w-full" 
-                    searchOption={false} 
+                  <CustomSelect
+                    option={options}
+                    className="w-full"
+                    searchOption={false}
                     onSelectChange={(value) => setFilterClient(value)} />
-                    <CustomSelect 
-                      defaultOptions={"All Workplace"}
-                      option={workSpaceData} 
-                      className="w-full mt-3" 
-                      searchOption={false}
-                      onSelectChange={(value) => setFilterWorkplace(value)}
-                    />
+                  <CustomSelect
+                    defaultOptions={"All Workplace"}
+                    option={workSpaceData}
+                    className="w-full mt-3"
+                    searchOption={false}
+                    onSelectChange={(value) => setFilterWorkplace(value)}
+                  />
                 </div>
               </div>
             </div>
@@ -243,7 +245,7 @@ if (filterWorkplace !== "All Workplace") {
                   ></div>
                 </div>
                 <h2 className="font-[400] text-[#676a6c] mt-[15px] text-[24px]">
-                 {currentMonthData?.length}
+                  {currentMonthData?.length}
                 </h2>
                 <div className="flex mb-2 mt-1">
                   <span className="text-[12px] text-[#888888]  flex-1">
