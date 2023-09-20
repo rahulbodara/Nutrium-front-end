@@ -100,3 +100,9 @@ export const CREATE_FILE = "CREATE_FILE";
 export const CREATE_FILE_FAILURE = "CREATE_FILE_FAILURE";
 export const FILE_DATA = "FILE_DATA";
 export const FILE_DATA_FAILURE = "FILE_DATA_FAILURE";
+
+//foodDiaries
+export const CREATE_FOOD = "CREATE_FOOD"
+export const CREATE_FOOD_FAILURE = "CREATE_FOOD_FAILURE"
+export const GET_ALL_FOODS="GET_ALL_FOODS"
+export const UPDATE_FOOD="UPDATE_FOOD"
