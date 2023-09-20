@@ -10,81 +10,106 @@ import { MdLocationOn } from "react-icons/md";
 
 const localizer = momentLocalizer(moment);
 
-const CustomToolbar = ({ label, date, view, onNavigate, onView }) => {
-  const [selectedMonth, setSelectedMonth] = useState(1);
+const CustomToolbar = ({ label, date, view, onNavigate, onView, selectedMonth, setSelectedMonth }) => {
+  console.log(label, "labelbalenalernhm")
+  // const [selectedMonth, setSelectedMonth] = useState('');
+  console.log(selectedMonth, 'selectedMonth')
+
+  const [currentView, setCurrentView] = useState("month");
+  const [setDate] = useState(new Date());
+
   const handleTodayClick = () => {
-    onView("day");
+    onView("month");
     onNavigate(new Date());
   };
+
   const handleNavigateBack = () => {
     const newDate = moment(date).subtract(1, "month").toDate();
+    console.log("Current date:", date);
+    console.log("New date:", newDate);
     onNavigate(newDate);
   };
 
   const handleNavigateNext = () => {
     const newDate = moment(date).add(1, "month").toDate();
+    console.log("Current date:", date);
+    console.log("New date:", newDate);
     onNavigate(newDate);
   };
-  const handleMonthClick = () => {
-    onView("month");
-    setSelectedMonth(1);
+
+  const handleCalender = (val) => {
+    console.log('___________function______', val)
+    onView(val);
+    setSelectedMonth(val);
   };
 
-  const handleWeekClick = () => {
-    onView("week");
-    setSelectedMonth(2);
-  };
+  // const handleWeekClick = () => {
+  //   onView("week");
+  //   setSelectedMonth(2);
+  // };
+  // const handleDayClick = () => {
+  //   onView("day");
+  //   setSelectedMonth(3);
+  // }
+  // const handleListClick = () => {
+  //   onView("list");
+  //   setSelectedMonth(4);
+  // }
 
   return (
-    <div className="rbc-toolbar-label flex items-center justify-between mb-[19px] custom-toolbar">
-      <div className="flex sm:flex-col flex-row  gap-[12px]">
+    <div className="rbc-toolbar-label flex items-center justify-between mb-[19px] custom-toolbar sm:flex-wrap sm:justify-center">
+      <div className="flex sm:flex-col flex-row  gap-[12px] sm:w-full">
         <div className="flex ">
           <button
-            className="border px-[7.5px] rounded-l-[0.25em]"
+            className="border px-[7.5px] rounded-l-[0.25em] sm:w-1/2"
             onClick={handleNavigateBack}
           >
-            <Icon path={mdiChevronLeft} size={1} />
+            <Icon path={mdiChevronLeft} size={1} className="m-auto" />
           </button>
           <button
-            className="border px-[7.5px] ml-[-1px] rounded-r-[0.25em]"
+            className="border px-[7.5px] ml-[-1px] rounded-r-[0.25em] sm:w-1/2"
             onClick={handleNavigateNext}
           >
-            <Icon path={mdiChevronRight} size={1} />
+            <Icon path={mdiChevronRight} size={1} className="m-auto" />
           </button>
         </div>
-        <button
+        {/* <button
           className=" border px-[7.5px] text-[1em] border-[#e7eaec] rounded-r-[0.25em]"
           onClick={handleTodayClick}
         >
           Today
-        </button>
+        </button> */}
       </div>
       <div>
-        <span className="text-[22.75px] font-[300]">{label}</span>
+        <span className="text-[22.75px] font-[300] sm:text-[15.75px]">{label}</span>
       </div>
       <div className="flex">
         <button
-          className={`${
-            selectedMonth === 1
-              ? "bg-[#1AB394] border-[#1AB394] text-white"
-              : ""
-          } border px-[7.5px] rounded-l-[0.25em]`}
-          onClick={handleMonthClick}
+          className={`${selectedMonth === 'month'
+            ? "bg-[#1AB394] border-[#1AB394] text-white"
+            : ""
+            } border px-[7.5px] rounded-l-[0.25em] sm:text-[15px]`}
+          onClick={() => handleCalender('month')}
         >
           Month
         </button>
         <button
-          className={`${
-            selectedMonth === 2
-              ? "bg-[#1AB394] border-[#1AB394] text-white"
-              : ""
-          } border px-[7.5px] ml-[-1px] rounded-r-[0.25em]`}
-          onClick={handleWeekClick}
+          className={`${selectedMonth === 'week'
+            ? "bg-[#1AB394] border-[#1AB394] text-white"
+            : ""
+            } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
+          onClick={() => handleCalender('week')}
         >
           Week
         </button>
-        {/* <button onClick={() => onView('day')}>Day</button>
-    <button onClick={() => onView('agenda')}>Agenda</button> */}
+        <button className={`${selectedMonth === 'day'
+          ? "bg-[#1AB394] border-[#1AB394] text-white"
+          : ""
+          } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`} onClick={() => handleCalender('day')}>Day</button>
+        <button className={`${selectedMonth === 'list'
+          ? "bg-[#1AB394] border-[#1AB394] text-white"
+          : ""
+          } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`} onClick={() => handleCalender('list')}>List</button>
       </div>
     </div>
   );
@@ -92,16 +117,14 @@ const CustomToolbar = ({ label, date, view, onNavigate, onView }) => {
 const CustomEvent = ({ event }) => {
   return (
     <div
-      className={`${
-        event.status === "not_confirmed" &&
+      className={`${event.status === "not_confirmed" &&
         `
       border-2 border-t border-solid border-t-[#1AB394] border-r-[#DDDDDD] border-b-[#DDDDDD] border-l-[#DDDDDD]`
-      } 
-      ${
-        event.status === "confirmed" &&
+        } 
+      ${event.status === "confirmed" &&
         `border-2 border-t border-solid border-t-[#EA9F77] border-r-[#DDDDDD] border-b-[#DDDDDD] border-l-[#DDDDDD]
     `
-      } text-gray-500 h-[100%] text-[11px] rounded-s`}
+        } text-gray-500 h-[100%] text-[11px] rounded-s`}
     >
       <div className="flex gap-1">
         <div className="font-bold text-[#676a6c]">
@@ -116,8 +139,10 @@ const CustomEvent = ({ event }) => {
   );
 };
 const CustomCalendar = (props) => {
-  const [currentView, setCurrentView] = useState("month"); // Initial view
-  const [date, setDate] = useState(new Date()); // Initialize with the current date
+  console.log(props, "propsorpsdo")
+  const [currentView, setCurrentView] = useState("month");
+  const [date, setDate] = useState(new Date());
+  const [selectedMonth, setSelectedMonth] = useState('month');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllAppointment());
@@ -157,6 +182,9 @@ const CustomCalendar = (props) => {
                 label={props.label}
                 onNavigate={props.onNavigate}
                 onView={props.onView}
+                selectedMonth={selectedMonth}
+                setSelectedMonth={setSelectedMonth}
+                date={date}
               />
             );
           },
