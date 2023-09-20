@@ -28,11 +28,11 @@ import { clientData } from '@/redux/action/auth';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 
-const AddNewClient = ({ isOpen, setIsOpen,setIsNewAppModal }) => {
+const AddNewClient = ({ isOpen, setIsOpen, setIsNewAppModal }) => {
   const [formData, setFormData] = useState({});
   const userData = useSelector((item) => item?.auth?.userData[0])
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (values) => {
     try {
@@ -44,7 +44,7 @@ const dispatch = useDispatch();
         dateOfBirth: formattedDateOfBirth,
       };
 
-      const success =await handleApiCall(
+      const success = await handleApiCall(
         dispatch,
         registerClient(updatedFormData),
         'Client successfully created'
@@ -64,7 +64,7 @@ const dispatch = useDispatch();
   useEffect(() => {
     isOpen && dispatch(GetAllWorkplace())
   }, [isOpen]);
-const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
+  const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
   const gender = [
     {
       id: 1,
@@ -127,245 +127,245 @@ const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
                     validationSchema={addNewClient}
                     onSubmit={(values) => handleSubmit(values)}
                   >
-                  {
-                    (fromikProps) => (
-                      <Form onSubmit={fromikProps.handleSubmit}>
-                      <div>
-                        <div className="px-[30px] pb-[20px]">
-                          <div className="grid gap-x-[30px] gap-y-[15px] grid-cols-2">
-                            <div className="col-span-2">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                <abbr
-                                  title="required"
-                                  className="no-underline font-semibold text-[#1ab394] cursor-help"
-                                >
-                                  *
-                                </abbr>{' '}
-                                Full name
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiAccount} size={0.7} />
+                    {
+                      (fromikProps) => (
+                        <Form onSubmit={fromikProps.handleSubmit}>
+                          <div>
+                            <div className="px-[30px] pb-[20px]">
+                              <div className="grid gap-x-[30px] gap-y-[15px] grid-cols-2">
+                                <div className="col-span-2">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    <abbr
+                                      title="required"
+                                      className="no-underline font-semibold text-[#1ab394] cursor-help"
+                                    >
+                                      *
+                                    </abbr>{' '}
+                                    Full name
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiAccount} size={0.7} />
+                                    </div>
+                                    <Field
+                                      className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                      name="fullName"
+                                    />
+                                  </div>
+                                  <ErrorMessage
+                                    name="fullName"
+                                    component="div"
+                                    className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                                  />
                                 </div>
-                                <Field
-                                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                                  name="fullName"
-                                />
-                              </div>
-                              <ErrorMessage
-                                name="fullName"
-                                component="div"
-                                className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                              />
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                <abbr
-                                  title="required"
-                                  className="no-underline  font-semibold text-[#1ab394]"
-                                >
-                                  *
-                                </abbr>{' '}
-                                Gender
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiHumanMaleFemale} size={0.7} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    <abbr
+                                      title="required"
+                                      className="no-underline  font-semibold text-[#1ab394]"
+                                    >
+                                      *
+                                    </abbr>{' '}
+                                    Gender
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiHumanMaleFemale} size={0.7} />
+                                    </div>
+                                    <div className='w-full -ml-px select-clinet border-select '>
+                                      <CustomSelect
+                                        option={gender}
+                                        className="h-[34px]"
+                                        SelectClassName="focus:border-[#1ab394] border"
+                                        searchOption={false}
+                                        onSelectChange={(value) => {
+                                          fromikProps.setFieldValue('gender', value);
+                                        }} />
+                                    </div>
+                                  </div>
+                                  <ErrorMessage name="gender" component="div" className="block mt-[5px] font-bold text-[13px] text-[#cc5965]" />
                                 </div>
-                                <div className='w-full -ml-px select-clinet border-select '>
-                                 <CustomSelect 
-                                   option={gender} 
-                                   className="h-[34px]" 
-                                   SelectClassName="focus:border-[#1ab394] border" 
-                                   searchOption={false}
-                                   onSelectChange={(value) => {
-                                     fromikProps.setFieldValue('gender', value);
-                                   }} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    Workplace
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiMapMarkerRadius} size={0.7} />
+                                    </div>
+                                    <div className='w-full  -ml-px select-clinet border-select '>
+                                      <CustomSelect
+                                        defaultOptions={userData && userData?.workplace ? userData?.workplace : "All Workplace"}
+                                        option={workSpaceData}
+                                        className="h-[34px]"
+                                        SelectClassName="focus:border-[#1ab394] border"
+                                        searchOption={false}
+                                        onSelectChange={(value) => {
+                                          fromikProps.setFieldValue('workplace', value);
+                                        }} />
+                                    </div>
+
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]" data-tooltip-id='workplace'>
+                                      <Icon path={mdiInformationOutline} size={0.6} />
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                              <ErrorMessage name="gender" component="div" className="block mt-[5px] font-bold text-[13px] text-[#cc5965]" />
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                Workplace
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiMapMarkerRadius} size={0.7} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    <abbr
+                                      title="required"
+                                      className="no-underline font-semibold text-[#1ab394] cursor-help"
+                                    >
+                                      *
+                                    </abbr>{' '}
+                                    Birthdate
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiCalendar} size={0.7} />
+                                    </div>
+                                    <Field type="date" name="dateOfBirth" className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]" />
+                                  </div>
+                                  <ErrorMessage
+                                    name="dateOfBirth"
+                                    component="div"
+                                    className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                                  />
                                 </div>
-                                <div className='w-full  -ml-px select-clinet border-select '>
-                                  <CustomSelect 
-                                  defaultOptions={userData && userData?.workplace ? userData?.workplace : "All Workplace"} 
-                                  option={workSpaceData} 
-                                  className="h-[34px]" 
-                                  SelectClassName="focus:border-[#1ab394] border" 
-                                  searchOption={false}
-                                  onSelectChange={(value) => {
-                                    fromikProps.setFieldValue('workplace', value);
-                                  }} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    Occupation
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiClipboardAccount} size={0.7} />
+                                    </div>
+                                    <Field
+                                      className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                      name="occupation"
+                                    />
+                                  </div>
+                                  <ErrorMessage
+                                    name="occupation"
+                                    component="div"
+                                    className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                                  />
                                 </div>
-                          
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]" data-tooltip-id='workplace'>
-                                  <Icon path={mdiInformationOutline} size={0.6} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    Country of residence
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiFlagVariant} size={0.7} />
+                                    </div>
+                                    <div className='w-full  -ml-px select-clinet border-select '>
+                                      <CustomSelect
+                                        defaultOptions={userData && userData?.country ? userData?.country : "All Workplace"}
+                                        option={countries}
+                                        className="h-[34px]"
+                                        SelectClassName="focus:border-[#1ab394] border"
+                                        searchOption={false}
+                                        onSelectChange={(value) => {
+                                          fromikProps.setFieldValue('country', value);
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                <abbr
-                                  title="required"
-                                  className="no-underline font-semibold text-[#1ab394] cursor-help"
-                                >
-                                  *
-                                </abbr>{' '}
-                                Birthdate
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiCalendar} size={0.7} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    Zip code
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiMapMarker} size={0.7} />
+                                    </div>
+                                    <Field
+                                      className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                      name="zipcode"
+                                    />
+                                  </div>
+                                  <ErrorMessage
+                                    name="zipcode"
+                                    component="div"
+                                    className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                                  />
                                 </div>
-                                <Field type="date" name="dateOfBirth" className="px-3 h-[34px] text-[13px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7]" />
-                              </div>
-                              <ErrorMessage
-                                name="dateOfBirth"
-                                component="div"
-                                className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                              />
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                Occupation
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiClipboardAccount} size={0.7} />
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    Mobile phone number
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiPhone} size={0.7} />
+                                    </div>
+                                    <div className="border h-[34px] w-[43px] ml-[-1px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <span>+91</span>
+                                    </div>
+                                    <Field
+                                      className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                      name="phoneNumber"
+                                    />
+                                  </div>
+                                  <ErrorMessage
+                                    name="phoneNumber"
+                                    component="div"
+                                    className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
+                                  />
                                 </div>
-                                <Field
-                                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                                  name="occupation"
-                                />
-                              </div>
-                              <ErrorMessage
-                                name="occupation"
-                                component="div"
-                                className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                              />
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                Country of residence
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiFlagVariant} size={0.7} />
-                                </div>
-                                <div className='w-full  -ml-px select-clinet border-select '>
-                                  <CustomSelect 
-                                  defaultOptions={userData && userData?.country ? userData?.country : "All Workplace"}
-                                  option={countries} 
-                                  className="h-[34px]" 
-                                  SelectClassName="focus:border-[#1ab394] border" 
-                                  searchOption={false}
-                                  onSelectChange={(value) => {
-                                    fromikProps.setFieldValue('country', value);
-                                  }}
+                                <div className="">
+                                  <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                                    Email
+                                  </label>
+                                  <div className="flex">
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                                      <Icon path={mdiAt} size={0.7} />
+                                    </div>
+                                    <Field
+                                      className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                                      name="email"
+                                    />
+
+                                    <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]" data-tooltip-id='email'>
+                                      <Icon path={mdiInformationOutline} size={0.6} />
+                                    </div>
+                                  </div>
+                                  <ErrorMessage
+                                    name="email"
+                                    component="div"
+                                    className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
                                   />
                                 </div>
                               </div>
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                Zip code
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiMapMarker} size={0.7} />
-                                </div>
-                                <Field
-                                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                                  name="zipcode"
+                              <div className="flex gap-2  items-center mt-7 mb-2.5">
+                                <input
+                                  id="comments"
+                                  name="comments"
+                                  type="checkbox"
+                                  className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
                                 />
+                                <span className="text-[13px] cursor-not-allowed" data-tooltip-id='checkfield'>
+                                  Send nutrition assessment form via message and email
+                                </span>{' '}
+                                <Icon path={mdiInformationOutline} size={0.6} className="hover:text-[#1AB394] cursor-pointer" data-tooltip-id="checkfieldMoreInfo" />
                               </div>
-                              <ErrorMessage
-                                name="zipcode"
-                                component="div"
-                                className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                              />
                             </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                Mobile phone number
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiPhone} size={0.7} />
-                                </div>
-                                <div className="border h-[34px] w-[43px] ml-[-1px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <span>+91</span>
-                                </div>
-                                <Field
-                                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                                  name="phoneNumber"
-                                />
-                              </div>
-                              <ErrorMessage
-                                name="phoneNumber"
-                                component="div"
-                                className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                              />
-                            </div>
-                            <div className="">
-                              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
-                                Email
-                              </label>
-                              <div className="flex">
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
-                                  <Icon path={mdiAt} size={0.7} />
-                                </div>
-                                <Field
-                                  className="px-3 ml-[-1px] h-[34px] mr-[-1px] bg-transparent rounded-0 focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
-                                  name="email"
-                                />
-  
-                                <div className="border h-[34px] w-[43px] flex items-center justify-center border-l-0 border-[#e5e6e7] px-3 py-[6px]" data-tooltip-id='email'>
-                                  <Icon path={mdiInformationOutline} size={0.6} />
-                                </div>
-                              </div>
-                              <ErrorMessage
-                                name="email"
-                                component="div"
-                                className="block mt-[5px] font-bold text-[13px] text-[#cc5965]"
-                              />
+                            <div className="flex items-center px-[30px] pb-[15px] justify-between">
+                              <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={() => { setIsOpen(false); }}>
+                                Cancel
+                              </button>
+                              <button
+                                type="submit"
+                                className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
+                              >
+                                Register client
+                              </button>
                             </div>
                           </div>
-                          <div className="flex gap-2  items-center mt-7 mb-2.5">
-                            <input
-                              id="comments"
-                              name="comments"
-                              type="checkbox"
-                              className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
-                            />
-                            <span className="text-[13px] cursor-not-allowed" data-tooltip-id='checkfield'>
-                              Send nutrition assessment form via message and email
-                            </span>{' '}
-                            <Icon path={mdiInformationOutline} size={0.6} className="hover:text-[#1AB394] cursor-pointer" data-tooltip-id="checkfieldMoreInfo" />
-                          </div>
-                        </div>
-                        <div className="flex items-center px-[30px] pb-[15px] justify-between">
-                          <button className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]" onClick={() => { setIsOpen(false);}}>
-                            Cancel
-                          </button>
-                          <button
-                            type="submit"
-                            className="px-3 rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
-                          >
-                            Register client
-                          </button>
-                        </div>
-                      </div>
-                      </Form>
-                    )
-                  }  
+                        </Form>
+                      )
+                    }
                   </Formik>
                 </Dialog.Panel>
               </Transition.Child>

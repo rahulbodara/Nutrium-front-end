@@ -62,7 +62,7 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
     setDays(dayList);
   }, []);
 
-  
+
   const toggleCheckbox = (days) => {
     setDays((prevDays) =>
       prevDays.map((day) =>
@@ -159,11 +159,10 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
                         days?.map((day, index) => {
                           return (
                             <div
-                              className={`px-[30px] py-[20px] bg-[#fafafb] border-t-[1px] border-[#DDDDDD] ${
-                                index === dayList.length - 1
-                                  ? "border-b-[1px]"
-                                  : ""
-                              }`}
+                              className={`px-[30px] py-[20px] bg-[#fafafb] border-t-[1px] border-[#DDDDDD] ${index === dayList.length - 1
+                                ? "border-b-[1px]"
+                                : ""
+                                }`}
                               key={index}
                             >
                               <div className="flex items-center">
@@ -175,11 +174,10 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
                                   </div>
 
                                   <div
-                                    className={`ml-[10px] p-[6px_12px] ${
-                                      isAtLeastOneDayChecked
-                                        ? "block"
-                                        : "hidden"
-                                    }`}
+                                    className={`ml-[10px] p-[6px_12px] ${isAtLeastOneDayChecked
+                                      ? "block"
+                                      : "hidden"
+                                      }`}
                                   >
                                     <button
                                       className="p-[6px_8px] bg-white border-[1px] border-[#eeeeee] rounded-[3px] inline-block text-center whitespace-nowrap align-middle cursor-pointer select-none"
@@ -205,9 +203,8 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
                                 </div>
                               </div>
                               <div
-                                className={`mt-[20px] ${
-                                  day.isChecked ? "block" : "hidden"
-                                }`}
+                                className={`mt-[20px] ${day.isChecked ? "block" : "hidden"
+                                  }`}
                               >
                                 <div className="flex">
                                   <div className="flex flex-grow">

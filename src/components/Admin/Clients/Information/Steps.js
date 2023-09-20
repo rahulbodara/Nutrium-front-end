@@ -73,7 +73,7 @@ const Steps = () => {
             {
                 setpdDetail.map((item, index) => {
                     return (
-                        <Link href={item.href} key={item.id} className={`${router.pathname === item.href ? " bg-[#1AB394] text-white" : "bg-white"}  px-[15px] shadow-box2 rounded-[5px]  flex py-[10px]`}>
+                        <Link href={item.href} key={item.id} className={`${router.pathname === item.href ? " bg-[#1AB394] text-white" : "bg-white"}  px-[15px] shadow-box2 rounded-[5px] flex py-[10px] hover:bg-[#FAFAFA]`}>
                             <div className='flex-1'>
                                 <h2 className='text-[1.3em] leading-[24px] '>
                                     {item.id}. {item.name}
