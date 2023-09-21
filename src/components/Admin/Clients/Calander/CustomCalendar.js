@@ -20,12 +20,13 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllAppointment } from "@/redux/action/appointment";
+import { EditAppointment, getAllAppointment } from "@/redux/action/appointment";
 import { MdLocationOn } from "react-icons/md";
 import clientPro from "../../../../../public/image/clientprof.png";
 import SelectField from "../../common/SelectField";
 import { Dialog, Transition } from "@headlessui/react";
 import { IoCloseSharp } from "react-icons/io5";
+import { handleApiCall } from "@/util/apiUtils";
 const localizer = momentLocalizer(moment);
 const CustomToolbar = ({
   label,
@@ -163,6 +164,8 @@ const CustomEvent = ({ event, onEventDrop }) => {
   const [addSheduleNotes, setAddSheduleNotes] = useState(false);
   const [appWithGoogleCalender, setAppWithGoogleCalender] = useState(false);
   const [open, setIsopen] = useState(false);
+  const [formData, setFormData] = useState();
+  const dispatch = useDispatch()
   const VConsultation = [
     {
       id: 1,
@@ -197,8 +200,58 @@ const CustomEvent = ({ event, onEventDrop }) => {
       name: "not_confirmed",
     },
   ];
+  useEffect(() => {
+    if (item) {
+      setFormData({
+        ...formData,
+        newStartTime: moment(item.start).format("YYYY-MM-DDTHH:mm"),
+        newEndTime: moment(item.end).format("YYYY-MM-DDTHH:mm"),
+        schedulingNotes: item.schedulingNote || "",
+        status: item.status,
+        videoConsultation: item.videoConsultation,
+        workplace: item.workplace,
+      });
+    }
+  }, [item]);
+  function handleConfirmation(value) {
+    setFormData((formData) => ({
+      ...formData,
+      status: value,
+    }));
+  }
+  function HandleVideoCallConsultationValue(value) {
+    setFormData((formData) => ({
+      ...formData,
+      videoConsultation: value,
+    }));
+  }
+  const handleChangeFormData = (e) => {
+    const { name, value } = e.target;
+    setFormData((formData) => ({
+      ...formData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async () => {
+    try {
+      const updatedFormData = {
+        ...formData,
+      };
+
+      const success = await handleApiCall(
+        dispatch,
+        EditAppointment(updatedFormData,item._id),
+        "Appointment Scheduled Edited Successfully."
+      );
+      await dispatch(getAllAppointment());
+      if (success) {
+        setIsopen(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const renderEventDetails = () => {
-    // Customize the event details rendering logic here
     return (
       <div>
         <div className="flex gap-1">
@@ -248,7 +301,7 @@ const CustomEvent = ({ event, onEventDrop }) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-start justify-center sm:p-5 p-10 md:p-[10px] text-center">
+            <div className="flex min-h-full items-start justify-center sm:p-5 p-10 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -258,7 +311,7 @@ const CustomEvent = ({ event, onEventDrop }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[600px] md:max-w-full transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-[780px] transform overflow-hidden rounded bg-white  text-left align-middle shadow-xl transition-all">
                   <div className="p-[25px] relative">
                     <button
                       onClick={() => setIsopen(false)}
@@ -267,620 +320,324 @@ const CustomEvent = ({ event, onEventDrop }) => {
                       <IoCloseSharp className="text-[18px]" />
                     </button>
                     <h2 className="text-[28px] leading-[40px] text-center">
-                      Edit Schedule
+                      Edit scheduled appointment
                     </h2>
-                   
+                    <span className="text-[13px] text-center block">
+                      Update scheduling details
+                    </span>
                   </div>
-                  <div className="pb-[20px] px-[30px]">
-                    <div className="flex justify-center md:flex-wrap">
-                      <div className="mr-[20px] md:mr-0 md:mb-[25px] border w-1/2 md:w-auto text-center font-light rounded cursor-pointer px-5 py-[30px] border-solid border-[#DDDDDD] hover:bg-[#1AB394] hover:border-[#1AB394] group">
-                        <div className="mb-[5px]">
-                        
+                  <div>
+                    <div className="px-[30px] pb-[20px]">
+                      <div className="row -mx-[15px]">
+                        <div className="px-[15px] float-left w-1/2">
+                          <label className="inline-block max-w-full mb-[5px] font-[700]">
+                            Client
+                          </label>
+                          <div className="h-[74px] p-[13px] mb-[15px] border-[1px] border-[#eeeeee] flex">
+                            <div className="h-[45px] mr-[15px] relative">
+                              <img
+                                src={"/image/clientprof.png"}
+                                className="rounded-full max-h-[45px] max-w-[45px] border-[1px] border-[#eeeeee] align-middle"
+                              />
+                            </div>
+                            <div className="align-middle relative flex flex-col flex-grow min-w-0">
+                              <div className="flex gap-[8px]">
+                                <h3 className="pr-[25px] break-words text-[16px]">
+                                  {item?.clientName}
+                                </h3>
+                              </div>
+                              <Icon
+                                path={mdiAccount}
+                                color="#aaaaaa"
+                                size="18px"
+                                className="absolute top-0 right-0"
+                              />{" "}
+                              <div className="h-[18px] overflow-hidden whitespace-nowrap text-ellipsis font-[300]">
+                                {item?.workplace}
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-[14px] mt-[10px] group-hover:text-white">
+                        <div className="px-[15px] float-left w-1/2">
                           <div>
-                            <form>
-                              <div className="row -mx-[15px]">
-                                <div className="px-[15px] float-left w-1/2">
-                                  <label className="inline-block max-w-full mb-[5px] font-[700]">
-                                    Client
-                                  </label>
-                                  <div className="h-[74px] p-[13px] mb-[15px] border-[1px] border-[#eeeeee] flex">
-                                    <div className="h-[45px] mr-[15px] relative">
-                                      <img
-                                        src={clientPro}
-                                        className="rounded-full max-h-[45px] max-w-[45px] border-[1px] border-[#eeeeee] align-middle"
-                                      />
-                                    </div>
-                                    <div className="align-middle relative flex flex-col flex-grow min-w-0">
-                                      <div className="flex gap-[8px]">
-                                        <h3 className="pr-[25px] break-words text-[16px]">
-                                          {item?.fullName}
-                                        </h3>
-                                      </div>
-                                      <Icon
-                                        path={mdiAccount}
-                                        color="#aaaaaa"
-                                        size="18px"
-                                        className="absolute top-0 right-0"
-                                      />
-                                      <div className="h-[18px] overflow-hidden whitespace-nowrap text-ellipsis font-[300]">
-                                        {item?.occupation}
-                                      </div>
-                                      <div className="hidden mt-[4px] font-[300]">
-                                        <div className="overflow-hidden whitespace-nowrap text-ellipsis text-[85%]">
-                                          <div className="flex gap-[4px]">
-                                            <Icon
-                                              path={mdiCalendarToday}
-                                              size="16px"
-                                              className="bg-[#E0FAF1] text-[#12896D] align-middle mr-[3px] rounded-[50%]"
-                                            />
-                                            No appointments yet
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                            <label className="inline-block max-w-full mb-[5px] font-[700]">
+                              Video consultation
+                            </label>
+                          </div>
+                          <div className="mb-[15px]">
+                            <div className="mb-[6px]">
+                              <div className="relative table border-separate w-full mb-[6px]">
+                                <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                  <Icon
+                                    path={mdiVideo}
+                                    size="18px"
+                                    color="#676a6c"
+                                  />
                                 </div>
-                                <div className="px-[15px] float-left w-1/2">
-                                  <div>
-                                    <label className="inline-block max-w-full mb-[5px] font-[700]">
-                                      Video consultation
-                                    </label>
-                                  </div>
-                                  <div className="mb-[15px]">
-                                    <div className="mb-[6px]">
-                                      <div className="relative table border-separate w-full mb-[6px]">
-                                        <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                          <Icon
-                                            path={mdiVideo}
-                                            size="18px"
-                                            color="#676a6c"
-                                          />
-                                        </div>
-                                        <SelectField
-                                          searchOption={false}
-                                          option={VConsultation}
-                                          // value={formData?.videoConsultation}
-                                          // onChange={HandleVideoCallConsultationValue}
-                                          className=" w-[100%]"
-                                          default={true}
-                                          defaultValue="All"
-                                        />
-                                      </div>
-                                      <div className="relative table border-separate w-full">
-                                        <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                          <Icon
-                                            path={mdiLinkOff}
-                                            size="18px"
-                                            color="#676a6c"
-                                          />
-                                        </div>
-                                        <input
-                                          className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed"
-                                          placeholder="Not available in this option"
-                                          readOnly
-                                        />
-
-                                        <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                          <Icon
-                                            path={mdiInformationOutline}
-                                            size="18px"
-                                            color="#676a6c"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                                <SelectField
+                                  searchOption={false}
+                                  option={VConsultation}
+                                  value={formData?.videoConsultation}
+                                  onChange={HandleVideoCallConsultationValue}
+                                  className=" w-[100%]"
+                                  default={true}
+                                  defaultValue="All"
+                                />
+                              </div>
+                              <div className="relative table border-separate w-full">
+                                <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                  <Icon
+                                    path={mdiLinkOff}
+                                    size="18px"
+                                    color="#676a6c"
+                                  />
+                                </div>
+                                <input
+                                  className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed"
+                                  placeholder="Not available in this option"
+                                  readOnly
+                                />
+                                <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                  <Icon
+                                    path={mdiInformationOutline}
+                                    size="18px"
+                                    color="#676a6c"
+                                  />
                                 </div>
                               </div>
-                              <div className="row -mx-[15px]">
-                                <div className="px-[15px] float-left w-1/2">
-                                  <div className="mb-[15px]">
-                                    <label className="inline-block max-w-full mb-[5px] font-[700]">
-                                      {" "}
-                                      Start of appointment
-                                    </label>
-                                    <div className="relative table border-separate w-full mb-[6px]">
-                                      <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                        <Icon
-                                          path={mdiCalendarClock}
-                                          size="18px"
-                                          color="#676a6c"
-                                        />
-                                      </div>
-                                      <input
-                                        type="datetime-local"
-                                        className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
-                                        name="startTime"
-                                        // value={formData?.startTime}
-                                        // onChange={handleChangeFormData}
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="px-[15px] float-left w-1/2">
-                                  <div className="mb-[15px]">
-                                    <label className="inline-block max-w-full mb-[5px] font-[700]">
-                                      End of appointment
-                                    </label>
-                                    <div className="relative table border-separate w-full mb-[6px]">
-                                      <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                        <Icon
-                                          path={mdiCalendarClock}
-                                          size="18px"
-                                          color="#676a6c"
-                                        />
-                                      </div>
-                                      <input
-                                        type="datetime-local"
-                                        className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
-                                        name="endTime"
-                                        // value={formData?.endTime}
-                                        // onChange={handleChangeFormData}
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="row -mx-[15px]">
-                                <div className="px-[15px] float-left w-1/2">
-                                  <div>
-                                    <label className="inline-block max-w-full mb-[5px] font-[700]">
-                                      Appointment status
-                                    </label>
-                                  </div>
-                                  <div className="mb-[15px]">
-                                    <div className="mb-[6px]">
-                                      <div className="relative table border-separate w-full mb-[6px]">
-                                        <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                          {/* <Icon
-                        path={
-                          confirmationStatus === "0"
-                            ? mdiCalendarCheck
-                            : mdiCalendarBlank
-                        }
-                        size="18px"
-                        color="#676a6c"
-                      /> */}
-                                        </div>
-                                        <SelectField
-                                          searchOption={false}
-                                          option={options1}
-                                          // value={formData?.status}
-                                          // onChange={handleConfirmation}
-                                          // label="Status"
-                                          className=" w-[100%]"
-                                          default={true}
-                                          defaultValue="All Status"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="px-[15px] float-left w-1/2">
-                                  <div className="mb-[15px]">
-                                    <label className="inline-block max-w-full mb-[5px] font-[700]">
-                                      Workplace
-                                    </label>
-                                    <div className="relative table border-separate w-full mb-[6px]">
-                                      <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                                        <Icon
-                                          path={mdiMapMarkerRadius}
-                                          size="18px"
-                                          color="#676a6c"
-                                        />
-                                      </div>
-                                      <input
-                                        type="text"
-                                        readOnly
-                                        placeholder="sdf"
-                                        value={item?.workplace}
-                                        className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="row -mx-[15px] mb-[10px]">
-                                <div
-                                  className={`px-[15px] float-left w-full  justify-between ${
-                                    !addSheduleNotes ? "flex" : "hidden"
-                                  }`}
-                                >
-                                  <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
-                                    Add scheduling notes
-                                  </div>
-                                  <div className="flex">
-                                    <Icon
-                                      path={mdiPlus}
-                                      size="18px"
-                                      className="text-[#676a6c] hover:text-[#1AB394] cursor-pointer"
-                                      onClick={() => {
-                                        setAddSheduleNotes(true);
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                                <div
-                                  className={`px-[15px] float-left w-full flex justify-between ${
-                                    addSheduleNotes ? "flex" : "hidden"
-                                  }`}
-                                >
-                                  <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
-                                    Scheduling notes
-                                  </div>
-                                  <div
-                                    className="flex mb-[5px] cursor-pointer text-[#CC5965] group"
-                                    onClick={() => {
-                                      setAddSheduleNotes(false);
-                                    }}
-                                  >
-                                    <div className="text-[#CC5965] hidden group-hover:block">
-                                      Remove
-                                    </div>
-                                    <Icon
-                                      path={mdiClose}
-                                      size="18px"
-                                      className="text-[#676a6c] group-hover:text-[#CC5965]"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                              <div
-                                className={`row -mx-[15px] mb-[10px] ${
-                                  addSheduleNotes ? "block" : "hidden"
-                                }`}
-                              >
-                                <div className="mb-[5px] px-[15px] float-left w-full">
-                                  <textarea
-                                    className="text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
-                                    rows="2"
-                                    cols="2"
-                                    name="schedulingNotes"
-                                    // value={formData?.schedulingNotes}
-                                    // onChange={handleChangeFormData}
-                                  ></textarea>
-                                </div>
-                              </div>
-                              <div className="row -mx-[15px]">
-                                <div className=" px-[15px] float-left w-full">
-                                  <div className="inline-block relative cursor-pointer pl-[20px] mt-[10px]">
-                                    <input
-                                      type="checkbox"
-                                      checked={appWithGoogleCalender}
-                                      // onChange={handleGoogleCalender}
-                                      id="appWithGoogleCalender"
-                                      className="hidden"
-                                    />
-                                    {appWithGoogleCalender ? (
-                                      <Icon
-                                        path={mdiCheckCircle}
-                                        color="#1ab394"
-                                        size={"20px"}
-                                        className="inline-block align-middle absolute left-0"
-                                      />
-                                    ) : (
-                                      <Icon
-                                        path={mdiCircleOutline}
-                                        color="#cccccc"
-                                        size={"20px"}
-                                        className="inline-block align-middle absolute left-0"
-                                      />
-                                    )}
-                                    <label
-                                      className="pl-[5px] cursor-pointer"
-                                      htmlFor="appWithGoogleCalender"
-                                    >
-                                      Synchronize appointment with Google
-                                      Calendar
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      {/* <div className='ml-[5px] md:ml-0 border w-1/2 md:w-auto text-center font-light rounded cursor-pointer px-5 py-[30px] border-solid border-[#DDDDDD] hover:bg-[#2BA0CC] hover:border-[#2BA0CC] group'>
-                          <div className='mb-[5px]'><Icon path={mdiCalendarText} size="48px" className='text-[#2BA0CC] group-hover:text-white mx-auto' /></div>
-                          <div className='text-[14px] mt-[10px] group-hover:text-white'>Add an event</div>
-                          <div className='text-[14px] opacity-[0.6] group-hover:text-white'>Add an event to block off time in your calendar</div>
-                        </div> */}
+                      <div className="row -mx-[15px]">
+                        <div className="px-[15px] float-left w-1/2">
+                          <div className="mb-[15px]">
+                            <label className="inline-block max-w-full mb-[5px] font-[700]">
+                              {" "}
+                              Start of appointment
+                            </label>
+                            <div className="relative table border-separate w-full mb-[6px]">
+                              <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                <Icon
+                                  path={mdiCalendarClock}
+                                  size="18px"
+                                  color="#676a6c"
+                                />
+                              </div>
+                              <input
+                                type="datetime-local"
+                                className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
+                                name="newStartTime"
+                                value={formData?.newStartTime || ""}
+                                onChange={handleChangeFormData}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="px-[15px] float-left w-1/2">
+                          <div className="mb-[15px]">
+                            <label className="inline-block max-w-full mb-[5px] font-[700]">
+                              End of appointment
+                            </label>
+                            <div className="relative table border-separate w-full mb-[6px]">
+                              <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                <Icon
+                                  path={mdiCalendarClock}
+                                  size="18px"
+                                  color="#676a6c"
+                                />
+                              </div>
+                              <input
+                                type="datetime-local"
+                                className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
+                                name="newEndTime"
+                                value={formData?.newEndTime}
+                                onChange={handleChangeFormData}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row -mx-[15px]">
+                        <div className="px-[15px] float-left w-1/2">
+                          <div>
+                            <label className="inline-block max-w-full mb-[5px] font-[700]">
+                              Appointment status
+                            </label>
+                          </div>
+                          <div className="mb-[15px]">
+                            <div className="mb-[6px]">
+                              <div className="relative table border-separate w-full mb-[6px]">
+                                <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                  <Icon
+                                    path={mdiCalendarCheck}
+                                    size="18px"
+                                    color="#676a6c"
+                                  />
+                                </div>
+                                <SelectField
+                                  searchOption={false}
+                                  option={options1}
+                                  value={formData?.status}
+                                  onChange={handleConfirmation}
+                                  // label="Status"
+                                  className=" w-[100%]"
+                                  default={true}
+                                  defaultValue="All Status"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="px-[15px] float-left w-1/2">
+                          <div className="mb-[15px]">
+                            <label className="inline-block max-w-full mb-[5px] font-[700]">
+                              Workplace
+                            </label>
+                            <div className="relative table border-separate w-full mb-[6px]">
+                              <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
+                                <Icon
+                                  path={mdiMapMarkerRadius}
+                                  size="18px"
+                                  color="#676a6c"
+                                />
+                              </div>
+                              <input
+                                type="text"
+                                readOnly
+                                placeholder="sdf"
+                                value={item?.workplace}
+                                className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row -mx-[15px] mb-[10px]">
+                        <div
+                          className={`px-[15px] float-left w-full  justify-between ${
+                            !addSheduleNotes ? "flex" : "hidden"
+                          }`}
+                        >
+                          <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
+                            Add scheduling notes
+                          </div>
+                          <div className="flex">
+                            <Icon
+                              path={mdiPlus}
+                              size="18px"
+                              className="text-[#676a6c] hover:text-[#1AB394] cursor-pointer"
+                              onClick={() => {
+                                setAddSheduleNotes(true);
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`px-[15px] float-left w-full flex justify-between ${
+                            addSheduleNotes ? "flex" : "hidden"
+                          }`}
+                        >
+                          <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
+                            Scheduling notes
+                          </div>
+                          <div
+                            className="flex mb-[5px] cursor-pointer text-[#CC5965] group"
+                            onClick={() => {
+                              setAddSheduleNotes(false);
+                            }}
+                          >
+                            <div className="text-[#CC5965] hidden group-hover:block">
+                              Remove
+                            </div>
+                            <Icon
+                              path={mdiClose}
+                              size="18px"
+                              className="text-[#676a6c] group-hover:text-[#CC5965]"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`row -mx-[15px] mb-[10px] ${
+                            addSheduleNotes ? "block" : "hidden"
+                          }`}
+                        >
+                          <div className="mb-[5px] px-[15px] float-left w-full">
+                            <textarea
+                              className="text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
+                              rows="2"
+                              cols="2"
+                              name="schedulingNotes"
+                              value={formData?.schedulingNotes}
+                              onChange={handleChangeFormData}
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div className="row -mx-[15px]">
+                          <div className=" px-[15px] float-left w-full">
+                            <div className="inline-block relative cursor-pointer pl-[20px] mt-[10px]">
+                              <input
+                                type="checkbox"
+                                checked={appWithGoogleCalender}
+                                // onChange={handleGoogleCalender}
+                                id="appWithGoogleCalender"
+                                className="hidden"
+                              />
+                              {appWithGoogleCalender ? (
+                                <Icon
+                                  path={mdiCheckCircle}
+                                  color="#1ab394"
+                                  size={"20px"}
+                                  className="inline-block align-middle absolute left-0"
+                                />
+                              ) : (
+                                <Icon
+                                  path={mdiCircleOutline}
+                                  color="#cccccc"
+                                  size={"20px"}
+                                  className="inline-block align-middle absolute left-0"
+                                />
+                              )}
+                              <label
+                                className="pl-[5px] cursor-pointer"
+                                htmlFor="appWithGoogleCalender"
+                              >
+                                Synchronize appointment with Google Calendar
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between px-[30px] pb-[15px]">
+                          <button
+                            className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                            onClick={() => setIsopen(false)}
+                          >
+                            Cancel
+                          </button>
+                          <div>
+                            <button
+                              className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]"
+                              onClick={handleSubmit}
+                            >
+                              Save
+                            </button>
+                            <button
+                              className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
+                              onClick={handleSubmit}
+                            >
+                              Save and close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-[0_30px_15px]"></div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
         </Dialog>
       </Transition>
-      <div className={"block"}>
-        <form>
-          <div className="row -mx-[15px]">
-            <div className="px-[15px] float-left w-1/2">
-              <label className="inline-block max-w-full mb-[5px] font-[700]">
-                Client
-              </label>
-              <div className="h-[74px] p-[13px] mb-[15px] border-[1px] border-[#eeeeee] flex">
-                <div className="h-[45px] mr-[15px] relative">
-                  <img
-                    src={clientPro}
-                    className="rounded-full max-h-[45px] max-w-[45px] border-[1px] border-[#eeeeee] align-middle"
-                  />
-                </div>
-                <div className="align-middle relative flex flex-col flex-grow min-w-0">
-                  <div className="flex gap-[8px]">
-                    <h3 className="pr-[25px] break-words text-[16px]">
-                      {item?.fullName}
-                    </h3>
-                  </div>
-                  <Icon
-                    path={mdiAccount}
-                    color="#aaaaaa"
-                    size="18px"
-                    className="absolute top-0 right-0"
-                  />
-                  <div className="h-[18px] overflow-hidden whitespace-nowrap text-ellipsis font-[300]">
-                    {item?.occupation}
-                  </div>
-                  <div className="hidden mt-[4px] font-[300]">
-                    <div className="overflow-hidden whitespace-nowrap text-ellipsis text-[85%]">
-                      <div className="flex gap-[4px]">
-                        <Icon
-                          path={mdiCalendarToday}
-                          size="16px"
-                          className="bg-[#E0FAF1] text-[#12896D] align-middle mr-[3px] rounded-[50%]"
-                        />
-                        No appointments yet
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="px-[15px] float-left w-1/2">
-              <div>
-                <label className="inline-block max-w-full mb-[5px] font-[700]">
-                  Video consultation
-                </label>
-              </div>
-              <div className="mb-[15px]">
-                <div className="mb-[6px]">
-                  <div className="relative table border-separate w-full mb-[6px]">
-                    <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                      <Icon path={mdiVideo} size="18px" color="#676a6c" />
-                    </div>
-                    <SelectField
-                      searchOption={false}
-                      option={VConsultation}
-                      // value={formData?.videoConsultation}
-                      // onChange={HandleVideoCallConsultationValue}
-                      className=" w-[100%]"
-                      default={true}
-                      defaultValue="All"
-                    />
-                  </div>
-                  <div className="relative table border-separate w-full">
-                    <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                      <Icon path={mdiLinkOff} size="18px" color="#676a6c" />
-                    </div>
-                    <input
-                      className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed"
-                      placeholder="Not available in this option"
-                      readOnly
-                    />
-
-                    <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                      <Icon
-                        path={mdiInformationOutline}
-                        size="18px"
-                        color="#676a6c"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row -mx-[15px]">
-            <div className="px-[15px] float-left w-1/2">
-              <div className="mb-[15px]">
-                <label className="inline-block max-w-full mb-[5px] font-[700]">
-                  {" "}
-                  Start of appointment
-                </label>
-                <div className="relative table border-separate w-full mb-[6px]">
-                  <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                    <Icon path={mdiCalendarClock} size="18px" color="#676a6c" />
-                  </div>
-                  <input
-                    type="datetime-local"
-                    className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
-                    name="startTime"
-                    // value={formData?.startTime}
-                    // onChange={handleChangeFormData}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="px-[15px] float-left w-1/2">
-              <div className="mb-[15px]">
-                <label className="inline-block max-w-full mb-[5px] font-[700]">
-                  End of appointment
-                </label>
-                <div className="relative table border-separate w-full mb-[6px]">
-                  <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                    <Icon path={mdiCalendarClock} size="18px" color="#676a6c" />
-                  </div>
-                  <input
-                    type="datetime-local"
-                    className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
-                    name="endTime"
-                    // value={formData?.endTime}
-                    // onChange={handleChangeFormData}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row -mx-[15px]">
-            <div className="px-[15px] float-left w-1/2">
-              <div>
-                <label className="inline-block max-w-full mb-[5px] font-[700]">
-                  Appointment status
-                </label>
-              </div>
-              <div className="mb-[15px]">
-                <div className="mb-[6px]">
-                  <div className="relative table border-separate w-full mb-[6px]">
-                    <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                      {/* <Icon
-                        path={
-                          confirmationStatus === "0"
-                            ? mdiCalendarCheck
-                            : mdiCalendarBlank
-                        }
-                        size="18px"
-                        color="#676a6c"
-                      /> */}
-                    </div>
-                    <SelectField
-                      searchOption={false}
-                      option={options1}
-                      // value={formData?.status}
-                      // onChange={handleConfirmation}
-                      // label="Status"
-                      className=" w-[100%]"
-                      default={true}
-                      defaultValue="All Status"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="px-[15px] float-left w-1/2">
-              <div className="mb-[15px]">
-                <label className="inline-block max-w-full mb-[5px] font-[700]">
-                  Workplace
-                </label>
-                <div className="relative table border-separate w-full mb-[6px]">
-                  <div className="bg-[white] w-[43px] table-cell border text-inherit text-sm font-normal leading-none text-center px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] whitespace-nowrap align-middle">
-                    <Icon
-                      path={mdiMapMarkerRadius}
-                      size="18px"
-                      color="#676a6c"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    readOnly
-                    placeholder="sdf"
-                    value={item?.workplace}
-                    className="h-[34px] text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-inherit table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] cursor-not-allowed"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row -mx-[15px] mb-[10px]">
-            <div
-              className={`px-[15px] float-left w-full  justify-between ${
-                !addSheduleNotes ? "flex" : "hidden"
-              }`}
-            >
-              <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
-                Add scheduling notes
-              </div>
-              <div className="flex">
-                <Icon
-                  path={mdiPlus}
-                  size="18px"
-                  className="text-[#676a6c] hover:text-[#1AB394] cursor-pointer"
-                  onClick={() => {
-                    setAddSheduleNotes(true);
-                  }}
-                />
-              </div>
-            </div>
-            <div
-              className={`px-[15px] float-left w-full flex justify-between ${
-                addSheduleNotes ? "flex" : "hidden"
-              }`}
-            >
-              <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
-                Scheduling notes
-              </div>
-              <div
-                className="flex mb-[5px] cursor-pointer text-[#CC5965] group"
-                onClick={() => {
-                  setAddSheduleNotes(false);
-                }}
-              >
-                <div className="text-[#CC5965] hidden group-hover:block">
-                  Remove
-                </div>
-                <Icon
-                  path={mdiClose}
-                  size="18px"
-                  className="text-[#676a6c] group-hover:text-[#CC5965]"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            className={`row -mx-[15px] mb-[10px] ${
-              addSheduleNotes ? "block" : "hidden"
-            }`}
-          >
-            <div className="mb-[5px] px-[15px] float-left w-full">
-              <textarea
-                className="text-[13px] focus:ring-0 leading-[1.43] input-transition focus:border-[#1ab394] table-cell relative z-[2] float-left w-full border text-inherit px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7]"
-                rows="2"
-                cols="2"
-                name="schedulingNotes"
-                // value={formData?.schedulingNotes}
-                // onChange={handleChangeFormData}
-              ></textarea>
-            </div>
-          </div>
-          <div className="row -mx-[15px]">
-            <div className=" px-[15px] float-left w-full">
-              <div className="inline-block relative cursor-pointer pl-[20px] mt-[10px]">
-                <input
-                  type="checkbox"
-                  checked={appWithGoogleCalender}
-                  // onChange={handleGoogleCalender}
-                  id="appWithGoogleCalender"
-                  className="hidden"
-                />
-                {appWithGoogleCalender ? (
-                  <Icon
-                    path={mdiCheckCircle}
-                    color="#1ab394"
-                    size={"20px"}
-                    className="inline-block align-middle absolute left-0"
-                  />
-                ) : (
-                  <Icon
-                    path={mdiCircleOutline}
-                    color="#cccccc"
-                    size={"20px"}
-                    className="inline-block align-middle absolute left-0"
-                  />
-                )}
-                <label
-                  className="pl-[5px] cursor-pointer"
-                  htmlFor="appWithGoogleCalender"
-                >
-                  Synchronize appointment with Google Calendar
-                </label>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
     </>
   );
 };

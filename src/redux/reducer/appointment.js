@@ -20,7 +20,7 @@ export const Appointment = (state = initialState, action) => {
         error: null,
       };
       case Types.UPDATE_APPOINTMENT_DATA:
-        const updatedappointmentDetail = action.data.data.getallappointments;
+        const updatedappointmentDetail = action.data.data;
         const updatedappointmentDetails = state.appointmentData.map((appointment) => {
           if (appointment._id === updatedappointmentDetail._id) {
             return updatedappointmentDetail;
