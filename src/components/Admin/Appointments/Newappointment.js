@@ -35,7 +35,7 @@ import SelectField from "../common/SelectField";
 import { handleApiCall } from "@/util/apiUtils";
 import { ScheduleAppointment, getAllAppointment } from "@/redux/action/appointment";
 
-const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
+const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData,setEditData }) => {
   const [filterClient, setFilterClient] = useState("All clients");
   const [confirmationStatus, setConfirmationStatus] = useState("1");
   const [searchQuery, setSearchQuery] = useState("");

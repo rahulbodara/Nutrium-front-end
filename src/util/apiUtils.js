@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 export async function handleApiCall(dispatch, apiFunction, successMessage) {
     try {
         const response = await dispatch(apiFunction);
+        console.log("SUCCESSMESSAGE---->",successMessage,response)
         if (response?.data?.status === 200 || response?.data?.status === 201) {
             toast.success(successMessage);
             return true;

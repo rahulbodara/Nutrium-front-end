@@ -11,9 +11,6 @@ import CustomCalendar from '@/components/Admin/Clients/Calander/CustomCalendar';
 import Icon from '@mdi/react';
 import { mdiClockOutline, mdiClose, mdiCloseThick, mdiLaunch, mdiMessageReplyText, mdiPackageDown } from '@mdi/js';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
-
-
-
 import { mdiCheck, mdiClock, mdiEmailOutline, mdiHeartBoxOutline, mdiHeartOutline, mdiHelp, mdiRun, mdiSwapHorizontal } from '@mdi/js'
 import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';
