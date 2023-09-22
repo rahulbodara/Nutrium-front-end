@@ -12,8 +12,9 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-
 const DynamicC3LineChart = dynamic(() => import('@/components/Admin/common/C3LineChart'), { ssr: false });
+
+const DonutChart = dynamic(() => import('@/components/Admin/Clients/C3Test'), { ssr: false });
 
 
 
@@ -61,7 +62,7 @@ const MealPlan = () => {
                                             </Transition.Child>
 
                                             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                                                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                                <div className="flex items-end justify-center p-4 text-center sm:items-center sm:p-0">
                                                     <Transition.Child
                                                         as={Fragment}
                                                         enter="ease-out duration-300"
@@ -127,8 +128,8 @@ const MealPlan = () => {
                                                                         </div>
                                                                     </div>
                                                                     <div className='mb-[10px] mt-[20px] font-[100] text-center text-[1.5em]'>Micronutrients</div>
-                                                                    <div className='mt-[-7px] mb-[15px]'>
-                                                                        <div className='w-1/2 float-left px-[15px] leading-[1] relative'>
+                                                                    <div className='mt-[-7px] mb-[15px] mx-[-15px]'>
+                                                                        <div className='w-1/2 float-left px-[15px] leading-[1] relative mb-5'>
                                                                             <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
                                                                                 <thead>
                                                                                     <tr>
@@ -180,7 +181,7 @@ const MealPlan = () => {
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <div className='w-1/2 float-right px-[15px] leading-[1] relative'>
+                                                                        <div className='w-1/2 float-right px-[15px] leading-[1] relative mb-5'>
                                                                             <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
                                                                                 <thead>
                                                                                     <tr>
@@ -233,7 +234,118 @@ const MealPlan = () => {
                                                                             </table>
                                                                         </div>
                                                                     </div>
+                                                                    <div className='mb-[10px] font-[100] text-center text-[1.5em]'>Aminogram</div>
+                                                                    <div className='mt-[-7px] mb-[15px] mx-[-15px]'>
+                                                                        <div className='w-1/2 float-left px-[15px] leading-[1] relative mb-5'>
+                                                                            <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th className='leading-[1.42857] p-2 align-top border-b border-b-[#DDDDDD]'>Nutrient</th>
+                                                                                        <th className='leading-[1.42857] p-2 align-top border-b border-b-[#DDDDDD]'>Value</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr className='bg-[#f9f9f9]'>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className=''>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className='bg-[#f9f9f9]'>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className=''>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className='bg-[#f9f9f9]'>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div className='w-1/2 float-right px-[15px] leading-[1] relative mb-5'>
+                                                                            <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th className='leading-[1.42857] p-2 align-top border-b border-b-[#DDDDDD]'>Nutrient</th>
+                                                                                        <th className='leading-[1.42857] p-2 align-top border-b border-b-[#DDDDDD]'>Value</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr className='bg-[#f9f9f9]'>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className=''>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className='bg-[#f9f9f9]'>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className=''>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr className='bg-[#f9f9f9]'>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>Cholesterol</td>
+                                                                                        <td className='border-t border-t-[#e7eaec] leading-[1.42857] p-2 align-top'>
+                                                                                            <span>0.0
+                                                                                                <span> mg</span>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='text-[0.8em]'>Source: Foods of the system</div>
                                                                 </div>
+                                                            </div>
+                                                            <div className='pt-[5px] pr-[30px] border-0 p-[0_30px_15px] mt-0 text-right'>
+                                                                <button onClick={() => setOpen(false)} className='bg-[#FFFFFF] border border-[#EEEEEE] rounded-[3px] inline-block mb-0 font-[400] text-center whitespace-nowrap align-middle p-[6px_12px] text-[14px] leading-[1.42857143]'>Close</button>
                                                             </div>
                                                         </Dialog.Panel>
                                                     </Transition.Child>
@@ -436,21 +548,114 @@ const MealPlan = () => {
                                 <h3 className='text-[20px] leading-[24px] '>Global analysis</h3>
 
                             </div>
-                            <div className='divide-y divide-[#EEEEEE]'>
-                                <div className="">
-                                    <div className="flex items-center mb-[5px] justify-between">
-                                        <span className="text-[13px] flex-1  text-[#676a6c] font-[]">Energy</span>
-                                        <div className="flex items-center">
-                                            <span className="text-[13px] font-semibold">2127</span>
-                                            <div className="flex items-end">
-                                                <span className="tw-text-sm">/2281 </span>
-                                                <span className="text-[11px] text-[#888888]">kcal</span>
+                            <div className='divide-y divide-[#EEEEEE] p-5 pt-0 gap-[16px] flex-col min-h-[227px] flex'>
+                                <div className="gap-[16px] flex-col flex">
+                                    <div>
+                                        <div className="flex items-center mb-[5px] justify-between">
+                                            <div className='gap-[0.25rem] flex'>
+                                                <div className="grow ">Energy</div>
+                                                <div className='hidden gap-[0.25rem] items-center'>-154</div>
+                                            </div>
+                                            <div>
+                                                <div className="inline-block font-[600] text-[13px] leading-4 mr-0">2127</div>
+                                                <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
+                                                    <span className="inline-block text-[13px] leading-4">/2281 </span>
+                                                    <span className="inline-block text-[11px] font-[300] text-[]">kcal</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="">
+                                            <div className="bg-[#12896e4d] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                <div className="bg-[#1AB394] h-full" style={{ width: '68%' }} ></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="">
-                                        <div className="bg-[#12896e4d] w-full h-[10px] overflow-hidden rounded-[10px]">
-                                            <div className="bg-[#12896d] h-full" style={{ width: '68%' }} ></div>
+                                    <div className='flex justify-items-center gap-2'>
+                                        <div className='w-[150px] h-[150px]'>
+                                            <DonutChart className='absolute' />
+                                        </div>
+                                        <div className='w-[80%]'>
+                                            <div>
+                                                <div className="flex items-center mb-[5px] justify-between">
+                                                    <div className='gap-[0.25rem] flex'>
+                                                        <div className="grow ">Fat</div>
+                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">65.7</div>
+                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
+                                                            <span className="inline-block text-[13px] leading-4">/76  </span>
+                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="">
+                                                    <div className="bg-[#F4C8D1] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                        <div className="bg-[#DB4965] h-full" style={{ width: '68%' }} ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div className="flex items-center mb-[5px] justify-between">
+                                                    <div className='gap-[0.25rem] flex'>
+                                                        <div className="grow ">Carbohydrate</div>
+                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">286.6</div>
+                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
+                                                            <span className="inline-block text-[13px] leading-4">/285  </span>
+                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="">
+                                                    <div className="bg-[#EA9F77] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                        <div className="bg-[#EA9F77] h-full" style={{ width: '68%' }} ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="flex items-center mb-[5px] justify-between">
+                                                    <div className='gap-[0.25rem] flex'>
+                                                        <div className="grow ">Protein</div>
+                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">112.2</div>
+                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
+                                                            <span className="inline-block text-[13px] leading-4">/114 </span>
+                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="">
+                                                    <div className="bg-[#1AB3954D] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                        <div className="bg-[#1AB394] h-full" style={{ width: '68%' }} ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="flex items-center mb-[5px] justify-between">
+                                                    <div className='gap-[0.25rem] flex'>
+                                                        <div className="grow ">Dietary fiber</div>
+                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">41.7</div>
+                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
+                                                            <span className="inline-block text-[13px] leading-4">/32  </span>
+                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="">
+                                                    <div className="bg-[#6A7D93] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                        <div className="bg-[#6A7D93] h-full" style={{ width: '68%' }} ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
