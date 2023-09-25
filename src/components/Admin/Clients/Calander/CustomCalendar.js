@@ -36,13 +36,10 @@ const CustomToolbar = ({
   onView,
   selectedMonth,
   setSelectedMonth,
+  updateCalendarDate
 }) => {
   console.log(label, "labelbalenalernhm");
-  // const [selectedMonth, setSelectedMonth] = useState('');
   console.log(selectedMonth, "selectedMonth");
-
-  const [currentView, setCurrentView] = useState("month");
-  const [setDate] = useState(new Date());
 
   const handleTodayClick = () => {
     onView("month");
@@ -55,6 +52,8 @@ const CustomToolbar = ({
     console.log("Current date:", date);
     console.log("New date:", newDate);
     onNavigate(newDate);
+    updateCalendarDate(newDate)
+    
   };
 
   const handleNavigateNext = () => {
@@ -63,6 +62,7 @@ const CustomToolbar = ({
     console.log("Current date:", date);
     console.log("New date:", newDate);
     onNavigate(newDate);
+    updateCalendarDate(newDate)
   };
 
   const handleCalender = (val) => {
@@ -108,6 +108,7 @@ const CustomToolbar = ({
           Today
         </button> */}
       </div>
+
       <div>
         <span className="text-[22.75px] font-[300] sm:text-[15.75px]">
           {label}
@@ -698,7 +699,9 @@ const CustomCalendar = (props) => {
                 selectedMonth={selectedMonth}
                 setSelectedMonth={setSelectedMonth}
                 date={date}
+                updateCalendarDate={setDate}
               />
+
             );
           },
           event: (eventProps) => <CustomEvent {...eventProps} />,
