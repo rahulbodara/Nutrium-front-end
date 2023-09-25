@@ -7,6 +7,7 @@ import { Schedule } from "./schedule";
 import { Appointment } from "./appointment";
 import { FoodDiaries } from "./foodDiaries";
 import { Measurement } from "./measernment";
+import { Event } from "./event";
 
 const rootReducer = combineReducers({
   auth,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   Schedule:Schedule,
   Appointment:Appointment,
   FoodDiaries:FoodDiaries,
-  Measurement:Measurement
+  Measurement:Measurement,
+  Event:Event
 });
 
 export default rootReducer;
