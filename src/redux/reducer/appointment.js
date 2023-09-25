@@ -29,6 +29,12 @@ export const Appointment = (state = initialState, action) => {
           }
         });
         return { ...state, appointmentData: updatedappointmentDetails };
+      case Types.DELETE_APPOINTMENT:
+          return {
+            users: state.appointmentData.filter((appointment) => {
+              return appointment._id !== action.payload;
+            })
+          }; 
     default:
       return state;
   }

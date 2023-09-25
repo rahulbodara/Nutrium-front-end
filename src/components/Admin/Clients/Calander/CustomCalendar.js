@@ -20,7 +20,7 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
-import { EditAppointment, getAllAppointment } from "@/redux/action/appointment";
+import { EditAppointment, RemoveAppointment, getAllAppointment } from "@/redux/action/appointment";
 import { MdLocationOn } from "react-icons/md";
 import clientPro from "../../../../../public/image/clientprof.png";
 import SelectField from "../../common/SelectField";
@@ -40,7 +40,6 @@ const CustomToolbar = ({
 }) => {
   console.log(label, "labelbalenalernhm");
   console.log(selectedMonth, "selectedMonth");
-
   const handleTodayClick = () => {
     onView("month");
     onNavigate(new Date());
@@ -252,6 +251,25 @@ const CustomEvent = ({ event, onEventDrop }) => {
       console.log(error);
     }
   };
+  const handleDeleteItem = async (id) => {
+    // debugger;
+    if(id){
+      try {
+        const success = await handleApiCall(
+          dispatch,
+          RemoveAppointment(id),
+          'Appointment Deleted Successfully'
+        );
+        console.log("Success",success)
+        if (success) {
+          dispatch(getAllAppointment());
+          setIsopen(false);
+        }
+      } catch (error) {
+        console.error("Error deleting secretary:", error);
+      }
+    }
+  }
   const renderEventDetails = () => {
     return (
       <div>
@@ -608,13 +626,24 @@ const CustomEvent = ({ event, onEventDrop }) => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center justify-between px-[30px] pb-[15px]">
-                          <button
-                            className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-                            onClick={() => setIsopen(false)}
-                          >
-                            Cancel
-                          </button>
+                        <div className="flex items-center justify-between pt-[20px] px-[1px] pb-[15px]">
+                          <div className="flex gap-2">
+                            <button
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  handleDeleteItem(event._id)
+                                }}
+                                className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
+                              >
+                                Remove
+                              </button>
+                            <button
+                              className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                              onClick={() => setIsopen(false)}
+                            >
+                              Cancel
+                            </button>
+                          </div>
                           <div>
                             <button
                               className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]"
