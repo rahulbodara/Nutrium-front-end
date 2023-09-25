@@ -12,21 +12,25 @@ import {
   mdiChevronRight,
   mdiCircleOutline,
   mdiClose,
+  mdiHelpCircleOutline,
   mdiInformationOutline,
   mdiLinkOff,
   mdiMapMarkerRadius,
+  mdiPencil,
   mdiPlus,
   mdiVideo,
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useDispatch, useSelector } from "react-redux";
-import { EditAppointment, getAllAppointment } from "@/redux/action/appointment";
+import { EditAppointment, RemoveAppointment, getAllAppointment } from "@/redux/action/appointment";
 import { MdLocationOn } from "react-icons/md";
 import clientPro from "../../../../../public/image/clientprof.png";
 import SelectField from "../../common/SelectField";
 import { Dialog, Transition } from "@headlessui/react";
 import { IoCloseSharp } from "react-icons/io5";
 import { handleApiCall } from "@/util/apiUtils";
+import { GetAllEventData } from "@/redux/action/event";
+import Modal from "../../common/Modal";
 const localizer = momentLocalizer(moment);
 const CustomToolbar = ({
   label,
@@ -36,14 +40,10 @@ const CustomToolbar = ({
   onView,
   selectedMonth,
   setSelectedMonth,
+  updateCalendarDate
 }) => {
   console.log(label, "labelbalenalernhm");
-  // const [selectedMonth, setSelectedMonth] = useState('');
   console.log(selectedMonth, "selectedMonth");
-
-  const [currentView, setCurrentView] = useState("month");
-  const [setDate] = useState(new Date());
-
   const handleTodayClick = () => {
     onView("month");
     onNavigate(new Date());
@@ -55,6 +55,8 @@ const CustomToolbar = ({
     console.log("Current date:", date);
     console.log("New date:", newDate);
     onNavigate(newDate);
+    updateCalendarDate(newDate)
+    
   };
 
   const handleNavigateNext = () => {
@@ -63,6 +65,7 @@ const CustomToolbar = ({
     console.log("Current date:", date);
     console.log("New date:", newDate);
     onNavigate(newDate);
+    updateCalendarDate(newDate)
   };
 
   const handleCalender = (val) => {
@@ -108,6 +111,7 @@ const CustomToolbar = ({
           Today
         </button> */}
       </div>
+
       <div>
         <span className="text-[22.75px] font-[300] sm:text-[15.75px]">
           {label}
@@ -159,11 +163,13 @@ const CustomToolbar = ({
   );
 };
 
-const CustomEvent = ({ event, onEventDrop }) => {
+const CustomEvent = ({ event }) => {
+  console.log("EVENTSOURCE",event)
   const [item, setItem] = useState();
   const [addSheduleNotes, setAddSheduleNotes] = useState(false);
   const [appWithGoogleCalender, setAppWithGoogleCalender] = useState(false);
   const [open, setIsopen] = useState(false);
+  const [eventopen, seteventIsopen] = useState(false);
   const [formData, setFormData] = useState();
   const dispatch = useDispatch()
   const VConsultation = [
@@ -251,6 +257,25 @@ const CustomEvent = ({ event, onEventDrop }) => {
       console.log(error);
     }
   };
+  const handleDeleteItem = async (id) => {
+    // debugger;
+    if(id){
+      try {
+        const success = await handleApiCall(
+          dispatch,
+          RemoveAppointment(id),
+          'Appointment Deleted Successfully'
+        );
+        console.log("Success",success)
+        if (success) {
+          dispatch(getAllAppointment());
+          setIsopen(false);
+        }
+      } catch (error) {
+        console.error("Error deleting secretary:", error);
+      }
+    }
+  }
   const renderEventDetails = () => {
     return (
       <div>
@@ -266,7 +291,17 @@ const CustomEvent = ({ event, onEventDrop }) => {
       </div>
     );
   };
-
+  const renderEventDataDetails = () => {
+    return (
+      <div>
+        <div className="flex gap-1">
+          <div className="font-bold text-[#676a6c]">
+            {event.title}
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <>
       <div
@@ -285,6 +320,15 @@ const CustomEvent = ({ event, onEventDrop }) => {
         }}
       >
         {renderEventDetails()}
+      </div>
+      <div
+        className={"border-2 border-t mt-1 border-solid border-t-[#2BA0CC] border-r-[#DDDDDD] border-b-[#DDDDDD] border-l-[#DDDDDD] text-gray-500 h-[100%] text-[11px] rounded-s"}
+        onClick={() => {
+          // setItem(event);
+          seteventIsopen(true);
+        }}
+      >
+        {renderEventDataDetails()}
       </div>
       <Transition appear show={open} as={Fragment}>
         <Dialog as="div" className="relative z-[9999]" onClose={setIsopen}>
@@ -607,13 +651,24 @@ const CustomEvent = ({ event, onEventDrop }) => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center justify-between px-[30px] pb-[15px]">
-                          <button
-                            className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-                            onClick={() => setIsopen(false)}
-                          >
-                            Cancel
-                          </button>
+                        <div className="flex items-center justify-between pt-[20px] px-[1px] pb-[15px]">
+                          <div className="flex gap-2">
+                            <button
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  handleDeleteItem(event._id)
+                                }}
+                                className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px] active:shadow-[0_2px_5px_rgba(0,0,0,0.15)_inset]"
+                              >
+                                Remove
+                              </button>
+                            <button
+                              className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                              onClick={() => setIsopen(false)}
+                            >
+                              Cancel
+                            </button>
+                          </div>
                           <div>
                             <button
                               className="px-3 ml-[5px] transition-all duration-[0.5s] rounded-[3px] border border-[#1AB394] bg-white hover:bg-[#1AB394] text-[#1AB394] hover:text-white text-[14px] py-[6px]"
@@ -638,6 +693,142 @@ const CustomEvent = ({ event, onEventDrop }) => {
           </div>
         </Dialog>
       </Transition>
+      <Modal
+        title={"Edit an event"}
+        subtitle={"Edit an event on your calendar"}
+        isOpen={eventopen}
+        className="max-w-[600px]"
+        setIsOpen={seteventIsopen}
+      >
+        <div className="px-[30px] pb-[20px]">
+          <form 
+          // onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="mb-[15px]">
+              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                Title
+              </label>
+              <div className="flex">
+                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                  <Icon path={mdiPencil} size={0.7} />
+                </div>
+                <input
+                  type="text"
+                  // {...register("title")}
+                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                />
+              </div>
+              <p className="block mt-[5px] font-bold text-[13px] text-[#cc5965]">
+                {/* {errors.title?.message} */}
+              </p>
+            </div>
+            <div className="mb-[15px]">
+              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                Start of the event
+              </label>
+              <div className="flex">
+                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                  <Icon path={mdiCalendarClock} size={0.7} />
+                </div>
+                <input
+                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                  type={"datetime-local"}
+                  // {...register("start")}
+                />
+              </div>
+            </div>
+            <div className="mb-[15px]">
+              <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                End of the event
+              </label>
+              <div className="flex">
+                <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                  <Icon path={mdiCalendarClock} size={0.7} />
+                </div>
+                <input
+                  className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                  type={"datetime-local"}
+                  // {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                />
+              </div>
+            </div>
+            <div className="flex gap-2  items-center mb-2.5">
+              <input
+                id="allday"
+                name="eventCheck"
+                type="checkbox"
+                className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
+              />
+              <label
+                htmlFor="allday"
+                className="text-[13px] select-none cursor-pointer"
+              >
+                All day
+              </label>{" "}
+            </div>
+            <div className="flex gap-2  items-center mb-2.5">
+              <input
+                id="blockCalendar"
+                name="eventCheck"
+                type="checkbox"
+                className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
+              />
+              <label
+                htmlFor="blockCalendar"
+                className="text-[13px] cursor-pointer select-none"
+              >
+                Block calendar
+              </label>{" "}
+              <Icon
+                path={mdiHelpCircleOutline}
+                size={"18px"}
+                data-tooltip-id="blockCalender"
+              />
+            </div>
+            <div className="flex gap-2  items-center mb-2.5">
+              <input
+                id="Synchronize"
+                name="eventCheck"
+                type="checkbox"
+                className="h-4 w-4 rounded-full border-gray-300 text-[#1AB394] focus:ring-0"
+              />
+              <label
+                htmlFor="Synchronize"
+                className="text-[13px] select-none cursor-pointer"
+              >
+                Synchronize event with Google Calendar
+              </label>{" "}
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                onClick={() => {
+                  props.setIsOpen(false);
+                  props.setDateModal(true);
+                }}
+              >
+                Back
+              </button>
+              <div>
+                <button
+                  className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
+                  onClick={() => {
+                    props.setIsOpen(false);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-3 ml-[5px] rounded-[3px] border hover:bg-[#18a689] border-[#1AB394] bg-[#1AB394] text-[#FFFFFF] text-[14px] py-[6px]"
+                  type="submit"
+                >
+                  Create
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </Modal>
     </>
   );
 };
@@ -653,7 +844,12 @@ const CustomCalendar = (props) => {
   const appointmentData = useSelector(
     (state) => state?.Appointment?.appointmentData
   );
-
+  useEffect(() => {
+    dispatch(GetAllEventData());
+  }, [dispatch]);
+  const eventData = useSelector(
+    (state) => state?.Event?.eventData
+  );
   const handleNavigate = (newDate) => {
     const momentDate = moment(newDate);
     setDate(momentDate);
@@ -664,15 +860,24 @@ const CustomCalendar = (props) => {
     setCurrentView(newView);
   };
 
-  const events = appointmentData?.map((appointment) => {
-    return {
+  const events = [
+    ...appointmentData?.map((appointment) => ({
       ...appointment,
       id: appointment._id,
       title: appointment.workplace,
       start: new Date(appointment.start),
       end: new Date(appointment.end),
-    };
-  });
+      source: "appointment",
+    })),
+  ...eventData.map((events)=>({
+      ...events,
+      title:events.title,
+      start: new Date(events.start),
+      end: new Date(events.end),
+      source: "events", 
+      
+  }))
+];
 
   return (
     <div>
@@ -698,7 +903,9 @@ const CustomCalendar = (props) => {
                 selectedMonth={selectedMonth}
                 setSelectedMonth={setSelectedMonth}
                 date={date}
+                updateCalendarDate={setDate}
               />
+
             );
           },
           event: (eventProps) => <CustomEvent {...eventProps} />,
