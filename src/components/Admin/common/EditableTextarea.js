@@ -30,7 +30,7 @@ const EditableTextarea = (props) => {
     return (
         <div className={`${props?.className} flex select-none admin-select-field mt-[7px]`}>
             <div className={`${props?.labelWidth} md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}>{props?.label}</div>
-            <div className='grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none'>
+            <div className='grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none'>
                 <div className='select-field flex-grow border-[#EEEEEE] relative border-[1px]'>
                     <textarea
                         type="text"

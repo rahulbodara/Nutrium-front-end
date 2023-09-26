@@ -218,3 +218,21 @@ export const updateMedicalHistory = (data, clientId) => {
     }
   }
 }
+
+export const updateDietaryHistory = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders()
+      const response = await axios.put(`${baseUrl}/client/diet-history/${clientId}`, data, {headers})
+      return dispatch({
+        type: Types.CLIENT_BY_ID,
+        data: response,
+      })
+    } catch (err) {
+      return dispatch({
+        type: Types.CLIENT_BY_ID_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}

@@ -18,7 +18,7 @@ import TimePicker from '@/components/Admin/common/TimePicker';
 import AddObservations from '@/components/Admin/Clients/Information/AddObservations';
 import Pagination from '@/components/Admin/common/Pagination';
 import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateMedicalHistory } from '@/redux/action/auth';
+import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory } from '@/redux/action/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleApiCall } from "@/util/apiUtils";
 
@@ -53,12 +53,20 @@ const Information = () => {
   function HandleValue(value) {
     console.log("🚀 ~ file: AddNewService.js:70 ~ HandleValue ~ value:", value);
   }
-  const [selectedHour1, setSelectedHour1] = useState("");
-  const [selectedMinute1, setSelectedMinute1] = useState("");
-  const [selectedHour2, setSelectedHour2] = useState("");
-  const [selectedMinute2, setSelectedMinute2] = useState("");
+  const DietaryhistoryData = useSelector((state) => {
+    if(state?.auth?.clientData?.length > 0) {
+      return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
+    }
+    return null;
+  })
+
+  const [selectedHour1, setSelectedHour1] = useState(DietaryhistoryData?.wakeupTime.split(':')[0]);
+  const [selectedMinute1, setSelectedMinute1] = useState(DietaryhistoryData?.wakeupTime.split(':')[1]);
+  const [selectedHour2, setSelectedHour2] = useState(DietaryhistoryData?.bedTime.split(':')[0]);
+  const [selectedMinute2, setSelectedMinute2] = useState(DietaryhistoryData?.bedTime.split(':')[1]);
   const [singleValue, setSingleValue] = useState()
   const [medicalValue, setMedicalValue] = useState()
+  const [dietaryValue, setDietaryValue] = useState()
   const appointmentData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
       return state?.auth?.clientData[0]?.appointmentInformation?.[0];
@@ -71,8 +79,9 @@ const Information = () => {
     }
     return null;
   });
-
   const [openObservations, setOpenObservations] = useState(false)
+  const [foodDiaries, setFoodDiaries] = useState(false)
+
 
   const handleTimeChange = (type, value) => {
     // Use the "type" parameter to distinguish between hour and minute changes
@@ -81,8 +90,20 @@ const Information = () => {
     } else if (type === "minute") {
       setSelectedMinute1(value);
     }
-    // You can do the same for the second TimePicker
+    const timeValue = `${selectedHour1}:${selectedMinute1}`;
+    setDietaryValue({ 'wakeupTime': timeValue });
   };
+  const handleBedTimeChange = (type, value) => {
+    console.log("typetypetype",type)
+    if (type === "hour") {
+      setSelectedHour2(value);
+    } else if (type === "minute") {
+      setSelectedMinute2(value);
+    }
+    console.log("houres", selectedHour2, "minutes", selectedMinute2)
+    const timeValue = `${selectedHour2}:${selectedMinute2}`;
+    setDietaryValue({ 'bedTime': timeValue });
+  }
 
   const handleAppointmentSubmit = async (newValue) => {
     console.log(newValue, "newValue")
@@ -114,7 +135,21 @@ const Information = () => {
       console.log("Error -->", err)
     }
   };
-
+  const handleDietarySubmit = async (newValue) => {
+    console.log(newValue, "newValue");
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        updateDietaryHistory(newValue, query.id),
+        'Dietary history data updated successfully.'
+      )
+      if(success) {
+        dispatch(getClientById(query.id))
+      }
+    } catch (err) {
+      console.log("Error -->", err)
+    }
+  }
   return (
     <div>
       <MainLayout
@@ -383,6 +418,7 @@ const Information = () => {
                         selectedHour={selectedHour1}
                         selectedMinute={selectedMinute1}
                         onChange={(type, value) => handleTimeChange(type, value)}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
 
                     </div>
@@ -394,7 +430,8 @@ const Information = () => {
                         hour={24}
                         selectedHour={selectedHour2}
                         selectedMinute={selectedMinute2}
-                        onChange={(type, value) => handleTimeChange(type, value)}
+                        onChange={(type, value) => handleBedTimeChange(type, value)}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
 
 
@@ -417,9 +454,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Favorite food"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={DietaryhistoryData?.favoriteFood || ''}
+                        onInputChange={(value) => setDietaryValue({ ["favoriteFood"]: value })}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)} 
                       />
 
 
@@ -428,10 +465,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Disliked food"
-
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={DietaryhistoryData?.dislikeFood || ''}
+                        onInputChange={(value) => setDietaryValue({ ["dislikeFood"]: value })}
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)} 
                       />
 
 
@@ -505,9 +541,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Other information"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleSubmit(singleValue)} 
+                        initialValue={DietaryhistoryData?.otherInfo || ''}
+                      onInputChange={(value) => setDietaryValue({ ["otherInfo"]: value })}
+                       handleSubmit={() => handleDietarySubmit(dietaryValue)} 
                       />
                     </div>
                   </div>
@@ -542,7 +578,7 @@ const Information = () => {
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  {/* <AddObservations isOpen={openObservations} setIsOpen={setOpenObservations} /> */}
+                  <AddLogClient closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
                   <div className="p-[0_20px_20px]">
                     <div onClick={() => setOpenObservations(true)} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
                       <div className='h-[95px] break-all'></div>
@@ -568,32 +604,40 @@ const Information = () => {
                         Log your client's food diaries
                       </span>
                     </div>
-                    <button onClick={() => setOpenObservations(true)}>
+                    <button onClick={() => setFoodDiaries(true)}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddFoodDiary isOpen={openObservations} setIsOpen={setOpenObservations} />
+                  <AddFoodDiary closeIcon={true} isOpen={foodDiaries} setIsOpen={setFoodDiaries} />
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       You haven't logged any food diary
                     </p>
                   </div>
                 </div>
-                <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="p-[20px] pb-[15px]">
-                    <h3 className="text-[20px] leading-[24px] ">
-                      Eating behaviour
-                    </h3>
-                    <span className="text-[12px] text-[#888888]/[70%]">
-                      Log your client's eating behaviour
-                    </span>
+                <div className="bg-white shadow-box1 mt-[25px] rounded-[5px]">
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
+                    <div>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Eating behaviour
+                      </h3>
+                      <span className="text-[12px] text-[#888888]/[70%]">
+                        Log your client's eating behaviour
+                      </span>
+                    </div>
+                    <button onClick={() => setEating(true)}>
+                      <Icon path={mdiPlus} size={1} />
+                    </button>
                   </div>
+                  <AddLogClient closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
+
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       You haven't logged any eating behaviour
                     </p>
                   </div>
                 </div>
+
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
                   <div className="p-[20px] pb-[15px]">
                     <h3 className="text-[20px] leading-[24px] ">
@@ -611,11 +655,20 @@ const Information = () => {
 
                       <div className="w-full ">
 
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect 
+                        className="select-main-without-border min-h-[42px]" 
+                        searchOption={false} 
+                        closable={false} 
+                        // option={medicalValue?.diseases.map((disease, index) => ({ value: index, option: disease }))} 
+                        />
                         <EditableInput
                           mainClass="!mt-0"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                          initialValue={medicalData?.diseases.join(',')}
+                          onInputChange={(value) => setMedicalValue({['diseases']: value})}
+                          handleSubmit={() => handleMedicalHistorySubmit(medicalValue)}
+                        />
 
                       </div>
 
@@ -635,8 +688,8 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Personal history"
-                        initialValue={medicalData?.personalHistory || ''}
-                        onInputChange={(value) => setMedicalValue({ ["personalHistory"]: value })}
+                        initialValue={medicalData?.pesonalhistory || ''}
+                        onInputChange={(value) => setMedicalValue({ ["pesonalhistory"]: value })}
                         handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
                       />
 
@@ -663,12 +716,20 @@ const Information = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="p-[20px] pb-[15px]">
-                    <h3 className="text-[20px] leading-[24px] ">Goals</h3>
-                    <span className="text-[12px] text-[#888888]/[70%]">
-                      Goals the client wants to achieve
-                    </span>
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
+                    <div>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Goals
+                      </h3>
+                      <span className="text-[12px] text-[#888888]/[70%]">
+                        Goals the client wants to achieve
+                      </span>
+                    </div>
+                    <button onClick={() => setGoals(true)}>
+                      <Icon path={mdiPlus} size={1} />
+                    </button>
                   </div>
+                  <AddGoals closeIcon={true} className="max-w-[600px]" title="Set a new goal" subtitle="It's a good way to keep your client motivated" isOpen={goals} setIsOpen={setGoals} />
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       No goals defined yet.
@@ -676,15 +737,25 @@ const Information = () => {
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
-                  <div className="flex justify-between items-center p-[20px] pb-[15px]">
+                  <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
                     <div>
-                      <h3 className="text-[20px] leading-[24px] ">Files</h3>
+                      <h3 className="text-[20px] leading-[24px] ">
+                        Files
+                      </h3>
                       <span className="text-[12px] text-[#888888]/[70%]">
                         Files attached to this client
                       </span>
                     </div>
-                    <BsFilter className="text-[24px]" />
+                    <div className='flex items-center gap-2'>
+                      <BsFilter className="text-[24px]" />
+                      <button onClick={() => setAddFile(true)}>
+                        <Icon path={mdiPlus} size={1} />
+                      </button>
+                    </div>
                   </div>
+                  <AddFile closeIcon={true} className="max-w-[600px]" title="Add file" subtitle="Attach a file to this client's profile" isOpen={addFile} setIsOpen={setAddFile} />
+
+                  
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       There aren't any files associated to this filter

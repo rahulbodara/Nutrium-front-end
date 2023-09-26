@@ -52,7 +52,7 @@ const Services = () => {
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Type of service
                   </div>
-                  <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                  <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                         {item?.typeOfService}
@@ -64,7 +64,7 @@ const Services = () => {
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Type of Clients
                   </div>
-                  <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                  <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                         {item?.typeOfClients}
@@ -76,7 +76,7 @@ const Services = () => {
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Name of the Service
                   </div>
-                  <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                  <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                         {item?.nameOfService}
@@ -88,7 +88,7 @@ const Services = () => {
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Duration
                   </div>
-                  <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                  <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                         {item?.duration}
@@ -100,7 +100,7 @@ const Services = () => {
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Pricing
                   </div>
-                  <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                  <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                         {item?.pricing}
@@ -112,7 +112,7 @@ const Services = () => {
                   <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                     Workplaces
                   </div>
-                  <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                  <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                     <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                       <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                         {item?.workplace}

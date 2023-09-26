@@ -28,7 +28,7 @@ const MobileInput = (props) => {
       >
         {props?.label}
       </div>
-      <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+      <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
         <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
           <input
             type="text"

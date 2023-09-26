@@ -20,13 +20,12 @@ import { useRouter } from 'next/router';
 import { handleApiCall } from "@/util/apiUtils";
 
 const ClientDetail = ({ clientId }) => {
-  console.log(clientId,"clclclclcllclc");
+  console.log(clientId, "clclclclcllclc");
   const [collapse, setCollapse] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const clientData = useSelector((state) => state?.auth?.clientData[0]);
   console.log(clientData,"clientclient")
-  const workplaceData = useSelector((state) => state?.Workplace?.workplaceData)
   const error = useSelector((state) => state?.auth?.error);
   const [singleValue, setSingleValue] = useState()
 
@@ -63,10 +62,10 @@ const ClientDetail = ({ clientId }) => {
         updateClient(newValue, clientId),
         'Client Updated Successfully'
       );
-      if(success) {
+      if (success) {
         dispatch(getClientById(clientId));
       }
-    } catch(err) {
+    } catch (err) {
       console.log("Error -->", err)
     }
   };
@@ -183,9 +182,8 @@ const ClientDetail = ({ clientId }) => {
           </div>
         </div>
         <div
-          className={`${
-            collapse ? 'h-full lg:block grid' : 'h-0 hidden'
-          } transition-all duration-300 grid pb-[24px] px-[24px] grid-cols-2 gap-[30px]`}
+          className={`${collapse ? 'h-full lg:block grid' : 'h-0 hidden'
+            } transition-all duration-300 grid pb-[24px] px-[24px] grid-cols-2 gap-[30px]`}
         >
           <div>
             <div>
@@ -193,7 +191,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Full name"
                 initialValue={clientData?.fullName || ''}
-                onInputChange={(value) => setSingleValue({["fullName"]:value})}
+                onInputChange={(value) => setSingleValue({ ["fullName"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -202,7 +200,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Occupation"
                 initialValue={clientData?.occupation || ''}
-                onInputChange={(value) => setSingleValue({["occupation"]:value})}
+                onInputChange={(value) => setSingleValue({ ["occupation"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -229,9 +227,7 @@ const ClientDetail = ({ clientId }) => {
                 className="mt-[7px]"
                 label="Residence"
                 initialValue={clientData?.country || ''}        
-                onChange={(value) => setSingleValue({["country"]:value})}
-                handleSubmit={handleSubmit}
-                name={"country"}
+
               />
             </div>
             <div>
@@ -239,7 +235,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Address"
                 initialValue={clientData?.address || ''}
-                onInputChange={(value) => setSingleValue({["address"]:value})}
+                onInputChange={(value) => setSingleValue({ ["address"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -249,7 +245,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Zip code"
                 initialValue={clientData?.zipcode || ''}
-                onInputChange={(value) => setSingleValue({["zipcode"]:value})}
+                onInputChange={(value) => setSingleValue({ ["zipcode"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -258,7 +254,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Mobile phone"
                 initialValue={clientData?.phoneNumber || ''}
-                onInputChange={(value) => setSingleValue({["phoneNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["phoneNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -267,7 +263,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Email"
                 initialValue={clientData?.email || ''}
-                onInputChange={(value) => setSingleValue({["email"]:value})}
+                onInputChange={(value) => setSingleValue({ ["email"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -317,7 +313,7 @@ const ClientDetail = ({ clientId }) => {
                 <div className="basis-[180px] mr-[-1px] min-w-[180px] md:basis-[140px] md:min-w-[140px]   flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]">
                   Created at
                 </div>
-                <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
                   <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                     <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
                       07/14/2023 09:48 AM
@@ -331,7 +327,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Process number"
                 initialValue={clientData?.processNumber || ''}
-                onInputChange={(value) => setSingleValue({["processNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["processNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -340,7 +336,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="National number"
                 initialValue={clientData?.nationalNumber || ''}
-                onInputChange={(value) => setSingleValue({["nationalNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["nationalNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -349,7 +345,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Health number"
                 initialValue={clientData?.healthNumber || ''}
-                onInputChange={(value) => setSingleValue({["healthNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["healthNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -357,9 +353,9 @@ const ClientDetail = ({ clientId }) => {
               <EditableInput
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="VAT number"
-                initialValue={clientData?.vatNumber || ''}   
-                onInputChange={(value) => setSingleValue({["vatNumber"]:value})}
-                handleSubmit={() => handleSubmit(singleValue)}     
+                initialValue={clientData?.vatNumber || ''}
+                onInputChange={(value) => setSingleValue({ ["vatNumber"]: value })}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
           </div>

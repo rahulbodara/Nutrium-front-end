@@ -7,7 +7,7 @@ const SignupBody = ({children}) => {
   console.log(router.pathname)
   return (
     <>
-        <div className="bg-sign-up-pattern bg-no-repeat bg-cover h-screen">
+        <div className="bg-sign-up-pattern bg-no-repeat bg-cover min-h-screen">
         <div className="w-[900px] lg:w-[80%] md:w-full md:p-[20px] mx-auto pt-[20px] flex justify-between items-center">
           <a>
             <Image

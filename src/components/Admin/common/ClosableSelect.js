@@ -72,14 +72,14 @@ const ClosableSelect = (props) => {
       )}
       <div
         className={`grow-[3] ${isDropdownOpen && props?.focusEffect
-            ? "!border-[1px_solid_#1ab394]"
-            : "border-[1px_solid_#EEEEEE]"
-          } border-[1px_solid_#EEEEEE] border-l-0 flex select-none`}
+          ? "!border-[1px_solid_#1ab394]"
+          : "border-[#EEEEEE] border-[1px] "
+          } border-[#EEEEEE] border-[1px] border-l-0 flex select-none`}
       >
         <div
           className={`select-field flex-grow border-[#EEEEEE] ${isDropdownOpen && props?.focusEffect
-              ? "!border-[#1ab394]"
-              : "border-[#EEEEEE]"
+            ? "!border-[#1ab394]"
+            : "border-[#EEEEEE]"
             } border-[1px] border-r-0`}
         >
           <select
@@ -102,8 +102,8 @@ const ClosableSelect = (props) => {
             {isDropdownOpen ? (
               <div
                 className={`clr-grn flex cursor-pointer items-center align-middle ${isDropdownOpen && props?.focusEffect
-                    ? "!border-l-[#1ab394]"
-                    : "border-l-[#EEEEEE]"
+                  ? "!border-l-[#1ab394]"
+                  : "border-l-[#EEEEEE]"
                   } bg-[#FAFAFB] p-2.5 border-[1px]`}
               >
                 <Icon

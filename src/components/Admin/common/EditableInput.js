@@ -48,21 +48,22 @@ const EditableInput = (props) => {
       >
         {props?.label}
       </div>
-      <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+      <div className="grow-[3] border-[#EEEEEE] border-[1px]  border-l-0 flex select-none">
         <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
           <input
             type="text"
-            className="w-full h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0"
+            className="w-full h-full text-[13px] border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0"
             // onKeyDown={handleInput}
             onFocus={handleFocus}
             // onBlur={handleBlur}
             value={inputValue}
-            onChange={(e) =>{ 
+            onChange={(e) => {
               handleInput(e)
-              setInputValue(e.target.value)}}
+              setInputValue(e.target.value)
+            }}
           />
           {isFocused ? (
-            <span onClick={handleBlur} className="absolute right-[4px] top-[26%] opacity-[0.7]">
+            <span onClick={handleBlur} className="absolute right-[4px] top-[36%] opacity-[0.7]">
               <Icon path={mdiCloseCircle} size="15px" color="#aaaaaa" />
             </span>
           ) : (
@@ -70,27 +71,27 @@ const EditableInput = (props) => {
           )}
         </div>
         {/* {isFocused ? ( */}
-          <>
-            <button type="button" onClick={() => {props.handleSubmit(); setIsFocused(false)}} className={`${isFocused ? 'block' : 'hidden'} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
-              <Icon
-                path={mdiCheck}
-                size="18px"
-                color="#1ab394"
-              />
-            </button>
-            <div className={`${isFocused ? 'block' : 'hidden'} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
-              <Icon
-                path={mdiClose}
-                size="18px"
-                color={'#DB4965'}
-                onClick={handleCancel}
-              />
-            </div>
-          </>
-        {/* ) : ( */}
-          <button type='button' onClick={handleFocus} className={`${isFocused ? 'hidden' : "block"} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
-            <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} />
+        <>
+          <button type="button" onClick={() => { props.handleSubmit(); setIsFocused(false) }} className={`${isFocused ? 'block' : 'hidden'} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
+            <Icon
+              path={mdiCheck}
+              size="18px"
+              color="#1ab394"
+            />
           </button>
+          <div className={`${isFocused ? 'block' : 'hidden'} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
+            <Icon
+              path={mdiClose}
+              size="18px"
+              color={'#DB4965'}
+              onClick={handleCancel}
+            />
+          </div>
+        </>
+        {/* ) : ( */}
+        <button type='button' onClick={handleFocus} className={`${isFocused ? 'hidden' : "block"} clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}>
+          <Icon path={mdiBorderColor} size="18px" color={'#1ab394'} />
+        </button>
         {/* )} */}
       </div>
     </div>
