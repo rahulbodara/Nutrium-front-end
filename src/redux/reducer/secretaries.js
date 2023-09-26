@@ -21,15 +21,15 @@ export const Secreataries = (state = initialState, action) => {
                 individualService: action.data,
             };
         case Types.UPDATE_SECRETARIES:
-            const updatedSecretariesDetails = action.data;
-            const updatedWorkplaceDetails = state.workplaceData.map((secretaries) => {
-                if (workplace._id === updatedSecretariesDetails._id) {
+            const updatedSecretariesDetails = action.data.data;
+            const updatedSecretaries = state.secreatariesData.map((secretaries) => {
+                if (secretaries._id === updatedSecretariesDetails._id) {
                     return updatedSecretariesDetails;
                 } else {
                     return secretaries;
                 }
             });
-            return { ...state, workplaceData: updatedWorkplaceDetails };
+            return { ...state, secreatariesData: updatedSecretaries };
         case Types.REMOVE_SECRETARIES:
             return { ...state, secreatariesData: action.data }
         default:

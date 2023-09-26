@@ -44,4 +44,41 @@ export const ScheduleAppointment = (data) => {
     };
   };
 
+  export const EditAppointment = (data,id) => {
+    return async (dispatch) => {
+      try {
+        const headers = createHeaders();
+        const response = await axios.put(`${baseUrl}/scheduleApointment/${id}`,data, {
+          headers,
+        });
+        return dispatch({
+          type: Types.UPDATE_APPOINTMENT_DATA,
+          data: response,
+        });
+      } catch (err) {
+        return dispatch({
+          type: Types.UPDATE_APPOINTMENT_DATA_FAILURE,
+          data: err.response,
+        });
+      }
+    };
+  };
+
+  export const RemoveAppointment = (id) => {
+    return async (dispatch) => {
+      try {
+        const headers = createHeaders();
+        const response = await axios.delete(`${baseUrl}/scheduleApointment/${id}`,{headers});
+        return dispatch({
+          type: Types.DELETE_APPOINTMENT,
+          data: response,
+        });
+      } catch (err) {
+        return dispatch({
+          type: Types.DELETE_APPOINTMENT_FAILURE,
+          data: err.response,
+        });
+      }
+    };
+  };
   

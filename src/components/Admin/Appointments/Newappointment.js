@@ -35,7 +35,7 @@ import SelectField from "../common/SelectField";
 import { handleApiCall } from "@/util/apiUtils";
 import { ScheduleAppointment, getAllAppointment } from "@/redux/action/appointment";
 
-const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
+const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData,setEditData }) => {
   const [filterClient, setFilterClient] = useState("All clients");
   const [confirmationStatus, setConfirmationStatus] = useState("1");
   const [searchQuery, setSearchQuery] = useState("");
@@ -168,7 +168,6 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
         ...formData,
       };
 
-      console.log("updatedFormData:---->", updatedFormData);
       const success = await handleApiCall(
         dispatch,
         ScheduleAppointment(updatedFormData),
@@ -182,7 +181,6 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
       console.log(error);
     }
   };
-  console.log("FormData", formData);
   return (
     <div>
       <Transition appear show={isNewAppModal} as={Fragment}>
@@ -282,7 +280,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
                                 className="h-[34px] text-ellipsis input-transition bg-[white] bg-none border text-inherit block w-full px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] focus:border-[#1AB394] focus:ring-0 placeholder:text-[13px] placeholder:opacity-[0.6]"
                                 placeholder="Search clients by name, occupation, identification number or contact..."
                                 value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onChange={(e) => setSearchQuery(e.target.value)} 
                               />
                             </div>
                             <SelectField
@@ -295,7 +293,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal }) => {
                           </div>
                           {Array.isArray(filteredClients) &&
                             filteredClients.map((items, key) => (
-                              <div className="flex flex-col">
+                              <div className="flex flex-col" key={key}>
                                 <div className="my-[5px]">
                                   <div
                                     className="flex border group cursor-pointer rounded-[1px] border-solid border-[#eeeeee] hover:border-[#1AB394] p-[10px]"

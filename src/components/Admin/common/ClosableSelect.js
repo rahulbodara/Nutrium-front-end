@@ -6,7 +6,6 @@ import $ from 'jquery';
 import 'select2';
 
 const ClosableSelect = (props) => {
-  console.log("PROPS", props)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectValue, setSelectValue] = useState(props.initialValue || '')
   const selectRef = useRef(null);

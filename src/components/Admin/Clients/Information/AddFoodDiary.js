@@ -9,31 +9,115 @@ import "select2/dist/css/select2.min.css";
 import $ from "jquery";
 import "select2";
 import SelectMenu from "../../common/SelectMenu";
+import { Field, Form, Formik } from "formik";
+import { handleApiCall } from "@/util/apiUtils";
+import { GetAllFoods, createFood, updateFood } from "@/redux/action/foodDiaries";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
-const option = [
+const foodDiariesOption = [
     {
-        option: 'das',
-        value: 'das'
+        option: 'Breakfast',
+        value: 'Breakfast'
     },
     {
-        option: 'das1',
-        value: 'das1'
+        option: 'Brunch',
+        value: 'Brunch'
     },
     {
-        option: 'das2',
-        value: 'das2'
+        option: 'Morning snack',
+        value: 'Morning snack'
     },
     {
-        option: 'das3',
-        value: 'das3'
+        option: 'AfterNoon snack',
+        value: 'AfterNoon snack'
+    },
+    {
+        option: 'Pre-workout snack',
+        value: 'Pre-workout snack'
+    },
+    {
+        option: 'Post-workout snack',
+        value: 'Post-workout snack'
     },
 ]
 
 const AddFoodDiary = (props) => {
-    const [startDate, setStartDate] = useState(new Date());
+    const { editfood } = props;
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const { id } = router.query;
 
+    const [selectedValue, setSelectedValue] = useState('');
+    const [addMeal, setAddMeal] = useState([]);
+    let editAddMealData = []
+    if (editfood) {
+        editAddMealData = editfood?.addMeal
+    }
+    const foodArray = editAddMealData ? editAddMealData : addMeal
+    const formatDateToMMDDYYYY = (isoDate) => {
+        const date = new Date(isoDate);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    const initialValues = {
+        registrationDate: editfood ? new Date() : '',
+        observation: editfood ? editfood.observation : '',
+    };
+
+    const handleSubmit = async (values) => {
+        const data = {
+            ...values,
+            registrationDate: formatDateToMMDDYYYY(values.registrationDate),
+            addMeal: addMeal,
+        }
+        if (editfood) {
+            data.clientId = id;
+        }
+        console.log(data, "datas");
+        try {
+            if (editfood) {
+                await handleApiCall(
+                    dispatch,
+                    updateFood(data, editfood.id),
+                    'Food Data Updated Successfully'
+                );
+            } else {
+                await handleApiCall(
+                    dispatch,
+                    createFood(data, id),
+                    'Food Data Created Successfully'
+                );
+            }
+
+            dispatch(GetAllFoods(id));
+            props.setIsOpen(false);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    const handleSelectChange = (event) => {
+        const selectedOption = event.target.value;
+        setSelectedValue(selectedOption);
+        const newMeal = { mealType: selectedOption, value: '' };
+        setAddMeal([...addMeal, newMeal]);
+    };
 
     const selectRef = useRef(null);
+
+    const handleMealValueChange = (event, index) => {
+        const updatedValue = event.target.value;
+        const updatedAddMeal = [...addMeal];
+        if (updatedAddMeal[index]) {
+            updatedAddMeal[index].value = updatedValue;
+            setAddMeal(updatedAddMeal);
+        }
+    };
+
     useEffect(() => {
         const $select = $(selectRef.current);
 
@@ -53,6 +137,7 @@ const AddFoodDiary = (props) => {
             $select.select2("destroy");
         };
     }, [props?.searchOption]);
+
     return (
         <div>
             <Modal
@@ -61,94 +146,118 @@ const AddFoodDiary = (props) => {
                 isOpen={props.isOpen}
                 className="max-w-[900px]"
                 closeIcon={props?.closeIcon}
-                setIsOpen={props.setIsOpen}>
-                <div className="px-[30px] pt-[0] py-[20px]">
-                    <div className="flex">
-                        <div className="basis-[215px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                            Reason for appointment
-                        </div>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            showYearDropdown
-                            className="flex-1 border w-full text-[13px] ml-[-1px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"
-                            dateFormatCalendar="MMMM"
-                            yearDropdownItemNumber={15}
-                            scrollableYearDropdown
-                        />
-                    </div>
-                    <div className="flex mt-[7px]">
-                        <div className="basis-[215px] justify-between text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                            <span>
-                                Afternoon snack
-                            </span>
-                            <Menu as="div" className="relative inline-block text-left">
-                                <div>
-                                    <Menu.Button className="flex items-center rounded-full focus:outline-none focus:ring-0  focus:ring-offset-0 ">
-                                        <Icon path={mdiDotsVertical} size={0.7} />
-                                    </Menu.Button>
+                setIsOpen={props.setIsOpen}
+            >
+                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                    {({ values }) => (
+                        <Form>
+                            <div className="px-[30px] pt-[0] py-[20px]">
+                                <div className="flex">
+                                    <div className="basis-[215px] text-[1.1em] flex items-center min-h-[38px]  h-full border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                                        Reason for appointment
+                                    </div>
+                                    <Field name="registrationDate">
+                                        {({ field, form }) => (
+                                            <DatePicker
+                                                selected={field.value}
+                                                onChange={(date) => form.setFieldValue(field.name, date)}
+                                                dateFormat="dd/MM/yyyy"
+                                                className="border-0 w-full focus:outline-none focus:ring-transparent"
+                                            />
+                                        )}
+                                    </Field>
                                 </div>
-                                <Transition
-                                    as={Fragment}
-                                    enter="transition ease-out duration-100"
-                                    enterFrom="transform opacity-0 scale-95"
-                                    enterTo="transform opacity-100 scale-100"
-                                    leave="transition ease-in duration-75"
-                                    leaveFrom="transform opacity-100 scale-100"
-                                    leaveTo="transform opacity-0 scale-95"
-                                >
-                                    <Menu.Items className="absolute left-0 z-10 mt-2 w-[160px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                        <div className="py-1">
-                                            <Menu.Item >
+                                <div>
+                                    {foodArray.length > 0 && foodArray.map((meal, index) => (
+                                        <div className="flex mt-[7px]" key={index}>
+                                            <div className="basis-[215px] justify-between text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                                                <span>
+                                                    {meal.mealType}
+                                                </span>
+                                                <Menu as="div" className="relative inline-block text-left">
+                                                    <div>
+                                                        <Menu.Button className="flex items-center rounded-full focus:outline-none focus:ring-0  focus:ring-offset-0 ">
+                                                            <Icon path={mdiDotsVertical} size={0.7} />
+                                                        </Menu.Button>
+                                                    </div>
+                                                    <Transition
+                                                        as={Transition.Fragment}
+                                                        enter="transition ease-out duration-100"
+                                                        enterFrom="transform opacity-0 scale-95"
+                                                        enterTo="transform opacity-100 scale-100"
+                                                        leave="transition ease-in duration-75"
+                                                        leaveFrom="transform opacity-100 scale-100"
+                                                        leaveTo="transform opacity-0 scale-95"
+                                                    >
+                                                        <Menu.Items className="absolute left-0 z-10 mt-2 w-[160px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                            <div className="py-1">
+                                                                <Menu.Item >
 
-                                                <a
-                                                    href="#"
-                                                    className='hover:bg-[#f5f5f5]  rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
-                                                >
-                                                    Rename
-                                                </a>
+                                                                    <a
+                                                                        href="#"
+                                                                        className='hover:bg-[#f5f5f5]  rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
+                                                                    >
+                                                                        Rename
+                                                                    </a>
 
-                                            </Menu.Item>
-                                            <Menu.Item>
+                                                                </Menu.Item>
+                                                                <Menu.Item>
 
-                                                <a
-                                                    href="#"
-                                                    className='hover:bg-[#f5f5f5] rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
+                                                                    <a
+                                                                        href="#"
+                                                                        className='hover:bg-[#f5f5f5] rounded-[3px] m-[4px] leading-[25px] hover:text-[#262626] block px-[20px] py-[3px] text-[12px]'
 
-                                                >
-                                                    Remove
-                                                </a>
+                                                                    >
+                                                                        Remove
+                                                                    </a>
 
-                                            </Menu.Item>
+                                                                </Menu.Item>
 
+                                                            </div>
+                                                        </Menu.Items>
+                                                    </Transition>
+                                                </Menu>
+                                            </div>
+                                            <Field
+                                                type="text"
+                                                name={`addMeal[${index}].value`}
+                                                value={meal.value}
+                                                onChange={(e) => handleMealValueChange(e, index)}
+                                                rows="1"
+                                                className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"
+                                            />
                                         </div>
-                                    </Menu.Items>
-                                </Transition>
-                            </Menu>
-
-                        </div>
-                        <textarea rows="1" className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></textarea>
-                    </div>
-                    <div className="flex mt-[7px]">
-
-                       <SelectMenu option={option} SelectClass=""  className="text-left custom-drop basis-[215px] justify-between h-full text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px]  bg-[#FAFAFB] focus:outline-none focus:ring-0  focus:ring-offset-0 " />
-
-                        <div className="flex-1 border ml-[-1px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></div>
-                    </div>
-                    <div className="flex mt-[7px]">
-                        <div className="basis-[215px] text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                            Observations
-                        </div>
-                        <textarea rows="1" className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></textarea>
-                    </div>
-                    <div className="text-end mt-[20px] ">
-                        <button onClick={() => props.setIsOpen(false)} className="bg-white  border rounded-[3px] text-[14px] px-[12px] py-[6px]">Cancel</button>
-                        <button className="bg-[#1AB394] ml-[5px] text-[#FFFFFF] rounded-[3px] text-[14px] px-[12px] py-[6px]">Save</button>
-                    </div>
-                </div>
+                                    ))}
+                                    {!editfood && (
+                                        <div className="flex mt-[7px]">
+                                            <SelectMenu
+                                                option={foodDiariesOption}
+                                                SelectClass=""
+                                                onChange={handleSelectChange}
+                                                selectedValue={selectedValue}
+                                                className="text-left custom-drop basis-[215px] justify-between h-full text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px]  bg-[#FAFAFB] focus:outline-none focus:ring-0  focus:ring-offset-0"
+                                            />
+                                            <div className="flex-1 border ml-[-1px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="flex mt-[7px]">
+                                    <div className="basis-[215px] text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                                        Observations
+                                    </div>
+                                    <Field rows="1" name="observation" className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></Field>
+                                </div>
+                                <div className="text-end mt-[20px] ">
+                                    <button onClick={() => props.setIsOpen(false)} className="bg-white  border rounded-[3px] text-[14px] px-[12px] py-[6px]">Cancel</button>
+                                    <button type="submit" className="bg-[#1AB394] ml-[5px] text-[#FFFFFF] rounded-[3px] text-[14px] px-[12px] py-[6px]">Save</button>
+                                </div>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
             </Modal>
         </div>
-    )
+    );
 }
 
-export default AddFoodDiary
+export default AddFoodDiary;

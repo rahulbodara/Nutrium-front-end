@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "select2/dist/css/select2.min.css";
 import $ from "jquery";
 import "select2";
+import { Field } from "formik";
 
 const SelectField = (props) => {
   const selectRef = useRef(null);
@@ -14,7 +15,6 @@ const SelectField = (props) => {
 
     $select.on("change", (e) => {
       const selectedValue = e.target.value;
-      console.log("🚀 ~ file: SelectField.js:18 ~ $select.on ~ selectedValue:", selectedValue)
       if (props?.onChange) {
         props?.onChange(selectedValue);
       }
@@ -28,38 +28,57 @@ const SelectField = (props) => {
 
   return (
     <div className={`flex select-none ${props.className}`}>
-    {
-      props.label === undefined ? (
-        <div>
-        <label className="inline-block max-w-full">{props.label}</label>
-      </div>  
-      ):(
-      <div
-        className={`${props?.LabelclassName} field-title min-w-[160px] flex-basis-[160px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
-      >
-        <label className="inline-block max-w-full">{props?.label}</label>
-      </div>
-      )
-    }
+      {
+        props.label === undefined ? (
+          <div>
+            <label className="inline-block max-w-full">{props.label}</label>
+          </div>
+        ) : (
+          <div
+            className={`${props?.LabelclassName} field-title min-w-[160px] flex-basis-[160px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
+          >
+            <label className="inline-block max-w-full">{props?.label}</label>
+          </div>
+        )
+      }
       <div className="flex flex-grow">
         <div className="relative flex-grow select-none border border-[#EEEEEE]">
-          <select
+          {props.formik ===false? <Field
+            as="select"
             ref={selectRef}
             name={props.name}
-            className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
-            value={props.value}
+            className="w-full outline-none focus:ring-0 border-0 p-[6px_12px] text-[13px] text-[#6e7c91] rounded-md"
+            // value={props.value}
           >
-            {props.default &&
+            {props?.default &&
               <option selected disabled>
                 {props?.defaultValue}
               </option>
             }
-            {props.option?.map((item, index) => (
+            {props?.option?.map((item, index) => (
               <option key={index} value={item.value}>
                 {item.name}
               </option>
             ))}
-          </select>
+          </Field> :
+            <select
+              ref={selectRef}
+              name={props.name}
+              className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
+              value={props.value}
+            >
+              {props?.default &&
+                <option selected disabled>
+                  {props?.defaultValue}
+                </option>
+              }
+              {props?.option?.map((item, index) => (
+                <option key={index} value={item.value}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          }
         </div>
       </div>
     </div>

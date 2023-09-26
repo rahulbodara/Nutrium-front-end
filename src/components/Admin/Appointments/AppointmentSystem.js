@@ -12,7 +12,7 @@ const AppointmentSystem = () => {
                 <div className='flex bg-[#FAFAFB] rounded-l-[5px] items-center'><span className='px-[15px]'><Icon path={mdiLightbulbOutline} size="24px" color='#1AB394' /></span></div>
                 <div className='px-[20px] pt-[20px] pb-[15px] flex-grow flex items-center'>
                     <div className='flex-grow'>
-                        <div className='leading-[1.1] text-[20px]'>Set up the appointment system</div>
+                        <div className='leading-[1.1] '>Set up the appointment system</div>
                         <div className='text-[#888888] text-[12px] opacity-[0.8]'>So that you can share a link with which your clients will be able to book appointments with you automatically, please complete the missing information</div>
                     </div>
                     <div>

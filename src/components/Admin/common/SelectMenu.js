@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';
 import 'select2';
+import { Field } from 'formik';
 
 const SelectMenu = (props) => {
     const selectRef = useRef(null);
@@ -9,6 +10,8 @@ const SelectMenu = (props) => {
         const $select = $(selectRef.current);
         $('.select2-dropdown').addClass('custom-dropdown');
 
+        $select.on("change", (e) => {
+        });
         $select.select2(
             props?.searchOption === false && {
                 minimumResultsForSearch: Infinity,
@@ -20,25 +23,48 @@ const SelectMenu = (props) => {
             $select.select2('destroy');
         };
     });
-  return (
-      <div className={`max-w-[130px] ${props?.className}`}>
-          <div className={`relative flex-1 select-none border-[#EEEEEE] ${props?.SelectClass}`}>
-              <select
-                  ref={selectRef}
-                  className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
-              >
-                {
-                    props?.option?.map((option) => (
-                        <>
-                            <option className={`${option.option}`}>{option.option}</option>
-                        </>
-                    ))
+    return (
+        <div className={`max-w-[130px] ${props?.className}`}>
+            <div className={`relative flex-1 select-none border-[#EEEEEE] ${props?.SelectClass}`}>
+                {props.formik === false ?
+                    <Field
+                        as="select"
+                        ref={selectRef}
+                        className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
+                        name={props.name}
+                    // value={props.selectedValue}
+                    // onChange={props.onChange}
+                    >
+                        {
+                            props?.option?.map((option, index) => (
+                                <>
+                                    <option id={index} value={option.option} className={`${option.option}`}>{option.option}</option>
+                                </>
+                            ))
 
+                        }
+                    </Field>
+                    :
+                    <select
+                        //   ref={selectRef}
+                        className="w-full mt-2 p-[10px] text-[#6e7c91] rounded-md"
+                        name={props.name}
+                        value={props.selectedValue}
+                        onChange={props.onChange}
+                    >
+                        {
+                            props?.option?.map((option, index) => (
+                                <>
+                                    <option id={index} value={option.option} className={`${option.option}`}>{option.option}</option>
+                                </>
+                            ))
+
+                        }
+                    </select>
                 }
-              </select>
-          </div>
-      </div>
-  )
+            </div>
+        </div>
+    )
 }
 
 export default SelectMenu

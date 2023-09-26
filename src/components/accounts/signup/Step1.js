@@ -10,7 +10,6 @@ import Button from '@/components/common/Button';
 
 
 const Step1 = ({ nextstep, setIsTermApply, handleClick, signupStep, isTermApply, isFreeNewsAwail, handleSubmit, isShow, setIsShow, handleFreeService }) => {
-  console.log("🚀 ~ file: Step1.jsx:13 ~ Step1 ~ isTermApply:", isTermApply)
   return (
     <div>
 

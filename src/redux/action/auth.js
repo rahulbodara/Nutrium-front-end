@@ -236,3 +236,192 @@ export const updateDietaryHistory = (data, clientId) => {
     }
   }
 }
+
+export const observationBehaviour = (data) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders()
+      const response = await axios.post(`${baseUrl}/client/observation`, data, {headers});
+      return dispatch({
+        type: Types.OBSERVATION_BEHAVIOUR,
+        data: response,
+      })
+    } catch(err) {
+      return dispatch({
+        type: Types.OBSERVATION_BAHAVIOUR_FAILURE,
+        data: err,
+      })
+    }
+  }
+}
+
+export const getObservationData = (clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+
+      const response = await axios.get(`${baseUrl}/client/observation/${clientId}`, { headers });
+      return dispatch({
+        type: Types.OBSERVATION_DATA,
+        data: response,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.OBSERVATION_DATA_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const deleteObservation = (observationId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders(); // Use the createHeaders function here
+      const response = await axios.delete(`${baseUrl}/client/observation/${observationId}`, { headers });
+      return dispatch({
+        type: Types.OBSERVATION_BY_ID,
+        data: response,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.OBSERVATION_BY_ID_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const updateObservation = (data, id) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const response = await axios.put(`${baseUrl}/client/observation/${id}`,data,{ headers });
+      return dispatch({
+        type: Types.UPDATE_OBSERVATION,
+        data: response,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.UPDATE_OBSERVATION_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const eatingBehaviour = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders()
+      const response = await axios.post(`${baseUrl}/client/eating-behaviour/${clientId}`, data, {headers});
+      return dispatch({
+        type: Types.EATING_BEHAVIOUR,
+        data: response,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.EATING_BEHAVIOUR_FAILURE,
+        data: err,
+      });
+    }
+  };
+};
+
+export const getEatingBehaviourData = (clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const response = await axios.get(`${baseUrl}/client/eating-behaviour/${clientId}`, { headers })
+      return dispatch({
+        type: Types.EATING_BEHAVIOUR,
+        data: response,
+      })
+
+    } catch (err) {
+      return dispatch({
+        type: Types.EATING_BEHAVIOUR_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}
+
+export const deleteEatingBehaviourData = (clientId, behaviourId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const response = await axios.delete(`${baseUrl}/client/eating-behaviour/${clientId}/${behaviourId}`, { headers })
+      return dispatch({
+        type: Types.EATING_BEHAVIOUR,
+        data: response,
+      })
+
+    } catch (err) {
+      return dispatch({
+        type: Types.EATING_BEHAVIOUR_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}
+
+export const updateEatingBehaviour = (data, id,behavId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const response = await axios.put(`${baseUrl}/client/eating-behaviour/${id}/${behavId}`,data,{ headers });
+      return dispatch({
+        type: Types.UPDATE_EATING,
+        data: response,
+      });
+    } catch (err) {
+      return dispatch({
+        type: Types.UPDATE_EATING_FAILURE,
+        data: err.response,
+      });
+    }
+  };
+};
+
+export const createFileDiery = (data, clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders();
+      const customHeaders = {
+        ...createHeaders(), 
+        'Content-Type': 'multipart/form-data',
+      };
+      const response = await axios.post(`${baseUrl}/client/file/${clientId}`, data, {
+        headers: customHeaders,
+      })
+      return dispatch({
+        type: Types.CREATE_FILE,
+        data: response,
+      })
+    } catch (err) {
+      return dispatch({
+        type: Types.CREATE_FILE_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}
+
+export const getFilesData = (clientId) => {
+  return async (dispatch) => {
+    try {
+      const headers = createHeaders()
+      const response = await axios.get(`${baseUrl}/client/file/${clientId}`, {headers})
+      return dispatch({
+        type: Types.FILE_DATA,
+        data: response,
+      })
+    } catch (err) {
+      return dispatch({
+        type: Types.FILE_DATA_FAILURE,
+        data: err.response,
+      })
+    }
+  }
+}

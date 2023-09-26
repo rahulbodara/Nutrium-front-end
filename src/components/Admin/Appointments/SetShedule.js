@@ -62,9 +62,7 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
     setDays(dayList);
   }, []);
 
-  const handleWorkplaceChange = (workplaceValue) => {
-    console.log("workplaceValue:--->", workplaceValue);
-  };
+  
   const toggleCheckbox = (days) => {
     setDays((prevDays) =>
       prevDays.map((day) =>
@@ -94,7 +92,6 @@ const SetShedule = ({ isSheduleOpen, setIsSheduleOpen }) => {
         ...formData,
       };
 
-      console.log("sddd:---->", updatedFormData);
       const success = await handleApiCall(
         dispatch,
         CreateSchedule(updatedFormData),

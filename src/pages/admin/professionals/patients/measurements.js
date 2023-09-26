@@ -2,11 +2,21 @@ import ClientDetail from '@/components/Admin/Clients/ClientDetail'
 import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe'
 import Steps from '@/components/Admin/Clients/Information/Steps'
 import MainLayout from '@/components/Admin/MainLayout'
-import { mdiCog, mdiMinus, mdiTrendingDown } from '@mdi/js'
+import { mdiCog, mdiMinus, mdiTrendingDown, mdiCalendarRange } from '@mdi/js'
 import Icon from '@mdi/react'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import dynamic from 'next/dynamic';
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import DatePicker from "react-datepicker";
+import { useDispatch, useSelector } from 'react-redux'
+import { addMeasurement } from '@/redux/action/measurnment'
+import { RESPONSE_LIMIT_DEFAULT } from 'next/dist/server/api-utils'
+import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { useRouter } from 'next/router';
+import moment from 'moment';
 
 
 const DynamicC3LineChart = dynamic(() => import('@/components/Admin/common/C3LineChart'), { ssr: false });
@@ -58,7 +68,11 @@ const anthropometric = [
         value: ''
     },
 ]
-const myData = [ 0 , 1 , 0 ];
+const myData = [0, 1, 0];
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 const analytical = [
     {
@@ -107,8 +121,38 @@ const bodycomposition = [
     },
 ]
 const Measurements = () => {
-    const [selected , setSelected] = useState(1)
-  return (
+    const router = useRouter()
+    const { query } = router;
+    const [selected, setSelected] = useState(null)
+    console.log("file: measurements.js:127 ~ Measurements ~ selected:", selected)
+    const [startDate, setStartDate] = useState(new Date())
+    const clientId = useSelector((state) => state.Measurement.clientId)
+    console.log(clientId, "clientIdclientIdclientId")
+    const dispatch = useDispatch()
+    const initial = anthropometric[selected - 1]
+    const datattatta = initial?.name || ''
+    
+    const initialValues = {
+        measurementsDate: new Date(),
+        [datattatta]: [
+            {
+                value: "",
+                unit: "",
+            },
+        ],
+    }
+    console.log(initialValues, "sdfghjl")
+    const handleRegister = async (values) => {
+        console.log("valuesss--->>", values)
+        try {
+            const response = await dispatch(addMeasurement(clientId, values));
+            console.log("RESPONSE+++++++++", response)
+        } catch (error) {
+            console.log('error-------------->', error);
+        }
+    };
+
+    return (
         <div>
             <MainLayout head={"Client profile"} text={"Check and update information about the client"}>
                 <div className='mt-[-20px]'>
@@ -131,9 +175,7 @@ const Measurements = () => {
                                 {
                                     anthropometric.map((item, index) => {
                                         return (
-                                        <div>
-
-                                            <div onClick={()=> setSelected(index + 1)} key={index} className={`${selected === index + 1 ? 'border-l-[5px] border-[#1AB394]' : 'hover:border-l-[5px]  hover:border-[#EEEEEE]'}   cursor-pointer text-[15px] flex items-cemter  py-[15px] px-[20px]`}>
+                                            <div key={index} onClick={() => setSelected(index + 1)} className={`${selected === index + 1 ? 'border-l-[5px] border-[#1AB394]' : 'hover:border-l-[5px]  hover:border-[#EEEEEE]'}   cursor-pointer text-[15px] flex items-center  py-[15px] px-[20px]`}>
                                                 <span className='flex-1'>
                                                     {item.name}
                                                 </span>
@@ -143,13 +185,11 @@ const Measurements = () => {
                                                             {item.value}
                                                         </>
                                                         :
-
                                                         <Icon path={mdiMinus} size={1} />
                                                     }
                                                 </span>
                                             </div>
-                                        </div>
-                                        )
+                                        );
                                     })
                                 }
                             </div>
@@ -223,6 +263,63 @@ const Measurements = () => {
                     </div>
                     <div className='col-span-8'>
                         <div className="bg-white mb-[25px] shadow-box1 rounded-[5px]">
+                            <Formik
+                                initialValues={initialValues}
+                                onSubmit={(values) => handleRegister(values)}
+                            >
+                                <Form>
+                                    <div className="p-[20px] pb-[15px] 2lg:mt-[25px] mt-0">
+                                        <h3 className="text-[20px] leading-[24px]">New measurements</h3>
+                                        <span className="text-[12px] text-[#888888]/[70%]">
+                                            Register the weight of your client
+                                        </span>
+                                        <div className="flex p-0 mt-3">
+                                            <div className="grow text-ellipsis flex p-0">
+                                                <div className="border-r max-w-[250px] items-center flex-grow-[4] flex border border-[#EEEEE] relative">
+                                                    <Field name="measurementsDate">
+                                                        {({ field, form }) => (
+                                                            <DatePicker
+                                                                selected={field.value}
+                                                                onChange={(date) => form.setFieldValue(field.name, date)}
+                                                                className="border-0 w-full focus:outline-none focus:ring-transparent"
+                                                            />
+                                                        )}
+                                                    </Field>
+                                                    <Icon path={mdiCalendarRange} size={0.9} className="absolute right-[8px]" />
+                                                </div>
+                                                <div className="grow-[4] border border-[#EEEEEE] flex relative">
+                                                    <Field
+                                                        type="text"
+                                                        name={`${datattatta}.value`}
+                                                        placeholder="value"
+                                                        className="border-0 self-center p-[10px] min-h-[38px] w-full"
+                                                    />
+                                                </div>
+                                                <div className="items-center">
+                                                    <Field
+                                                        as="select"
+                                                        name={`${datattatta}.unit`}
+                                                        className="inline-flex w-full justify-center gap-x-20 bg-white px-3 py-[13px] text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-[#EEEEEE] hover:bg-gray-50"
+                                                    >
+                                                        <option value="Kilogram">Kilogram</option>
+                                                        <option value="Pound">Pound</option>
+                                                        <option value="Stone">Stone</option>
+                                                    </Field>
+                                                </div>
+                                            </div>
+                                            <button
+                                                type="submit"
+                                                className="px-3.5 py-2.5 text-sm text-[#1AB394] border border-[#EEEEEE] bg-[#FAFAFB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                            >
+                                                Register
+                                            </button>
+                                        </div>
+                                    </div>
+                                </Form>
+                            </Formik>
+
+                        </div>
+                        <div className="bg-white mb-[25px] shadow-box1 rounded-[5px]">
                             <div className="p-[20px] pb-[15px] 2lg:mt-[25px] mt-0">
                                 <h3 className="text-[20px] leading-[24px] ">
                                     Measurements
@@ -281,10 +378,10 @@ const Measurements = () => {
                         <div className="bg-white mb-[25px] shadow-box1 rounded-[5px]">
                             <div className="p-[20px] pb-[15px] 2lg:mt-[25px] mt-0">
                                 <h3 className="text-[20px] leading-[24px] ">
-                                Progress
+                                    Progress
                                 </h3>
                                 <span className="text-[12px] font-[100] text-[#888888]/[70%]">
-                                Consult your client progress over time
+                                    Consult your client progress over time
                                 </span>
                             </div>
                             <div className="p-[0_20px_20px]">

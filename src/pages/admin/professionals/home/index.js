@@ -9,8 +9,7 @@ import { BiCaretDown } from 'react-icons/bi'
 import { Fragment, useState } from 'react'
 import { FollowUpMenuData } from '@/components/Admin/FollowUpMenuData'
 import Link from 'next/link'
-
-
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function Home() {
 
@@ -22,7 +21,6 @@ export default function Home() {
 
   const dispatch = useDispatch()
 
-  console.log("testetst");
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,7 +43,7 @@ export default function Home() {
         <div className='pt-6 pr-0 pb-32 pl-0 xl:flex-wrap flex gap-7 md:gap-0 md:mx-[-15px]'>
           <div className='w-4/6 xl:w-full xl:order-1'>
             <div>
-              <div className='bg-[#fff] relative mb-6 mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] sm:rounded-none'>
+              <div className='bg-[#fff] relative mb-6 mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] md:rounded-none'>
                 <div className='px-5 pb-[15px] pt-[20px] flex items-center'>
                   <div className='grow'>
                     <h4 className='m-0 text-[20px] font-[400] leading-[1.1]'>Next appointment
@@ -70,7 +68,7 @@ export default function Home() {
                       <div className='flex-1 grow justify-start flex flex-col'>
                         <div className='gap-[8px] flex justify-start'>
                           <h3 className='m-0 font-[400] text-[16px]'>
-                            <a className='text-[#676A6C]'>Example client</a>
+                            <a href='/admin/professionals/patients' className='text-[#676A6C] hover:text-[#1AB394]'>Example client</a>
                           </h3>
                         </div>
                         <div className='h-[18px] font-[300]'>Occupation example</div>
@@ -91,7 +89,7 @@ export default function Home() {
                     <a className='bg-[#E0FAF1] text-[#1AB394] border-none py-2 px-[10px] uppercase font-[600] rounded-[3px] block w-full text-[12px] leading-[1.5] text-center align-middle'>Start</a>
                   </div>
                   <div className='w-1/3 pr-0 md:hidden'>
-                    <a className='mt-[5px] bg-[#1AB394] border-[#1AB394] text-[#fff] rounded-[3px] block w-full py-[5px] px-[10px] text-[12px] leading-[1.5] mb-0 text-center font-[400] border'>Start</a>
+                    <a href='/admin/professionals/appointments' className='mt-[5px] bg-[#1AB394] border-[#1AB394] text-[#fff] rounded-[3px] block w-full py-[5px] px-[10px] text-[12px] leading-[1.5] mb-0 text-center font-[400] border'>Start</a>
                     <div className='topbar-menu mt-[12px]'>
                       {/* <ul className='pl-0 mb-0 list-none '>
                         <li className='mr-[20px]'>
@@ -143,10 +141,12 @@ export default function Home() {
                     <div className='font-[100] text-[12px] text-[#888888] opacity-[0.8]'>Check your future appointments and clients</div>
                   </div>
                   <div>
-                    <a className='text-[#676A6C]'>
-                      <Icon path={mdiPlus} className='inline-block leading-[1] w-[25px]' />
-                      <div className='absolute'></div>
-                    </a>
+                    <div className="relative inline-block align-middle" data-tooltip-id="my-tooltip-1">
+                      <a href='/admin/professionals/appointments' className='text-[#676A6C]'>
+                        <Icon path={mdiPlus} className='inline-block leading-[1] w-[25px]' />
+                        {/* <div className='absolute'></div> */}
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div className='p-5 pt-0'>
@@ -156,7 +156,7 @@ export default function Home() {
                       <div className='flex-[4_0_0] text-center '>
                         <div className='text-[20px]'>This list is empty</div>
                         <div>You haven't scheduled additional appointments.</div>
-                        <a className='font-[600] leading-[30px] text-[#1AB394]'>Schedule appointment</a>
+                        <a href='/admin/professionals/appointments' className='font-[600] leading-[30px] text-[#1AB394]'>Schedule appointment</a>
                       </div>
                       <div className='curly_arrow'></div>
                     </div>
@@ -234,11 +234,11 @@ export default function Home() {
                 </div>
               </div>
               <div className='w-full xl:w-[48%] lg:w-full'>
-                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] sm:rounded-none'>
+                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] md:rounded-none'>
                   <div className='px-5 pt-5 pb-[15px]'>
                     <div className='m-0 text-[20px] font-[400] leading-[1.1] flex '>Open conversations
-                      <div className='ml-auto '>
-                        <a className='flex items-center '>
+                      <div className='ml-auto relative inline-block align-middle' data-tooltip-id="my-tooltip-2">
+                        <a href='/admin/professionals/conversations' className='flex items-center '>
                           <Icon path={mdiLaunch} className='text-[1.1em] w-[20px] ' />
                         </a>
                       </div>
@@ -270,11 +270,11 @@ export default function Home() {
                 </div>
               </div>
               <div className='w-full xl:w-[48%] lg:w-full'>
-                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] sm:rounded-none'>
+                <div className='border-t-2 border-[#EA9F77] bg-[#fff] mb-[25px] mt-0 p-0 shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_3px_1px_-2px_transparent,0_1px_5px_0_rgba(145,145,145,0.12)] rounded-[5px] md:rounded-none'>
                   <div className='px-5 pt-5 pb-[15px]'>
                     <div className='m-0 text-[20px] font-[400] leading-[1.1] flex text-[#676A6C]'>Follow-up
-                      <div className='ml-auto'>
-                        <a className='flex items-center '><Icon path={mdiLaunch} className='text-[1.1em] w-[20px] ' /></a>
+                      <div className='ml-auto relative inline-block align-middle' data-tooltip-id="my-tooltip-3">
+                        <a href='/admin/professionals/follow_up' className='flex items-center '><Icon path={mdiLaunch} className='text-[1.1em] w-[20px] ' /></a>
                       </div>
                     </div>
                     <div className='font-[100] text-[12px] text-[#888888] opacity-[0.8]'>Latest activities and logs of your clients</div>
@@ -339,6 +339,24 @@ export default function Home() {
           </div>
         </div>
       </MainLayout>
+      <ReactTooltip
+        id="my-tooltip-1"
+        place="left"
+        content="Schedule appointment"
+        className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9]'
+      />
+      <ReactTooltip
+        id="my-tooltip-2"
+        place="top"
+        content="See all conversations"
+        className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9] !w-28 text-center !text-xs'
+      />
+      <ReactTooltip
+        id="my-tooltip-3"
+        place="top"
+        content="See all activities"
+        className='!p-[3px_20px] !bg-[#2f4050] opacity-[.9] !w-20 text-center !text-xs'
+      />
     </>
   )
 }
