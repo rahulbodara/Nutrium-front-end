@@ -13,6 +13,18 @@ export const Event = (state = initialState, action) => {
         eventData: action.data.data,
         error: null,
       };
+    case Types.UPDATE_EVENT:
+      const updatedevent = action.data.data;
+      const updatedeventDetails = state.eventData.map(
+        (event) => {
+          if (event._id === updatedevent._id) {
+            return updatedevent;
+          } else {
+            return event;
+          }
+        }
+      );
+      return { ...state, appointmentData: updatedeventDetails };
     default:
       return state;
   }
