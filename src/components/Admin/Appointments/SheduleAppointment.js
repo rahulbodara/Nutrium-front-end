@@ -59,7 +59,7 @@ const SheduleAppointment = () => {
   }, []);
   useEffect(() => {
     if (router.pathname === "/admin/professionals/patients/information") {
-        setAppointmentStatus("Finish Appointment");
+        // setAppointmentStatus("Finish Appointment");
         latestclient = null;
       } else {
         dispatch(getAllAppointment());
@@ -182,7 +182,6 @@ const SheduleAppointment = () => {
           </div>
           <div className="w-1/4 md:mt-[20px] float-left md:w-full pl-[15px] md:p-0  relative md:static">
             <Link
-              href="#"
               className={`mt-[5px] bg-[#1AB394] hover:bg-[#18a689] md:bg-[#d3f8eb] hover:border-[#18a689] text-white md:text-[#1AB394] md:mt-[5px] border-[#1AB394] rounded-[3px] block w-full text-xs leading-normal px-2.5 py-[5px] md:font-[600] md:uppercase md:p-[8px_10px] md:border-none text-center font-normal whitespace-nowrap align-middle touch-manipulation bg-none border select-none mb-0 border-solid border-transparent`}
               onClick={()=>{
                 router.push({
@@ -191,7 +190,7 @@ const SheduleAppointment = () => {
                  });
               }}
             >
-              {appointmentStatus}
+             Start
             </Link>
             <div className="relative md:hidden">
               <button
