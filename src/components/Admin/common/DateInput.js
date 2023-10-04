@@ -81,11 +81,11 @@ const DateInput = (props) => {
       <div className="flex-grow border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
         <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
           {isFocused ? (
-            <span className={`p-[10px]`}>
+            <span className={`p-[10px] block`}>
               <select
                 name="day"
                 id="day"
-                className="w-auto p-0 border-none focus:ring-0 bg-transparent"
+                className="w-auto border-none py-0 pl-0 pe-7 focus:ring-0 bg-transparent"
                 onChange={handleChangeDay}
                 value={dob.date()}
               >
@@ -100,7 +100,7 @@ const DateInput = (props) => {
               <select
                 name="month"
                 id="month"
-                className="w-auto border-none focus:ring-0 outline-none bg-transparent"
+                className="w-auto border-none focus:ring-0 py-0 pl-0 pe-7 outline-none bg-transparent"
                 onChange={handleChangeMonth}
                 value={monthsArray[dob.month()]}
               >
@@ -115,7 +115,7 @@ const DateInput = (props) => {
               <select
                 name="year"
                 id="year"
-                className="w-auto border-none focus:ring-0 outline-none bg-transparent"
+                className="w-auto border-none py-0 pl-0 pe-7 focus:ring-0 outline-none bg-transparent"
                 onChange={handleChangeYear}
                 value={dob.year()}
               >
@@ -131,7 +131,7 @@ const DateInput = (props) => {
               </select>
             </span>
           ) : (
-            <span className={`p-[10px]`}>
+            <span className={`p-[10px] block`}>
               {formattedDOB}({age} Years)
             </span>
           )}
