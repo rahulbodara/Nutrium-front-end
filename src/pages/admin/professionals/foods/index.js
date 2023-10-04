@@ -7,7 +7,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Dialog } from '@headlessui/react'
-import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 // import { useEffect } from 'react';
 // import ReactDOM from 'react-dom';
@@ -369,7 +369,7 @@ export default function Recipes() {
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 sm:m-[10px]">
                         <Transition.Child
                           as={Fragment}
                           enter="ease-out duration-300"
@@ -379,11 +379,11 @@ export default function Recipes() {
                           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                          <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-[900px]">
-                            <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+                          <Dialog.Panel className="relative sm:rounded-none transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-[900px] lg:w-[600px]">
+                            <div className="absolute right-0 top-0 pr-2 pt-2 sm:block">
                               <button
                                 type="button"
-                                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none"
                                 onClick={() => setOpen(false)}
                               >
                                 <span className="sr-only">Close</span>
@@ -391,20 +391,20 @@ export default function Recipes() {
                               </button>
                             </div>
                             <div className="sm:flex sm:items-start">
-                              <div className="p-[25px] text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <Dialog.Title as="h3" className="text-[26px] font-[300] leading-6 text-[#676A6C]">
+                              <div className="p-[25px] text-center sm:mt-0 sm:text-left">
+                                <Dialog.Title as="h3" className="text-[26px] sm:text-[31px] font-[300] leading-6 text-[#676A6C] sm:text-center">
                                   Food information
                                 </Dialog.Title>
-                                <div className="mt-2">
+                                <div className="mt-2 sm:text-center">
                                   <p className="text-sm text-gray-500">
                                     Check and update the information about the food
                                   </p>
                                 </div>
                               </div>
                             </div>
-                            <div className="pb-5 px-[30px] sm:flex">
+                            <div className="pb-5 px-[30px] lg:flex-wrap">
                               <div className='mx-[-15px]'>
-                                <div className='w-[58.33%] float-left px-[15px] relative mb-2'>
+                                <div className='w-[58.33%] float-left px-[15px] sm:float-none lg:w-full relative mb-2'>
                                   <div className='flex p-0 '>
                                     <div className='flex border border-[#EEEEEE] bg-[#FAFAFA] pt-[5px] pr-[10px] pb-[5px] pl-[10px] text-[1.1em] items-center z-[1] min-w-[145px]'>
                                       <label className='m-0 font-[400] inline-block max-w-full'>Name</label>
@@ -420,7 +420,7 @@ export default function Recipes() {
                                     </div>
                                   </div>
                                 </div>
-                                <div className='w-[41.66%] float-left px-[15px] relative'>
+                                <div className='w-[41.66%] float-left sm:float-none lg:w-full px-[15px] relative'>
                                   <div className='flex p-0 '>
                                     <div className='flex border border-[#EEEEEE] bg-[#FAFAFA] pt-[5px] pr-[10px] pb-[5px] pl-[10px] text-[1.1em] items-center z-[1] min-w-[145px]'>
                                       <label className='m-0 font-[400] inline-block max-w-full'>Source</label>
@@ -438,7 +438,7 @@ export default function Recipes() {
                                 </div>
                               </div>
                               <div className='mx-[-15px]'>
-                                <div className='w-[58.33%] float-left px-[15px] relative mb-2'>
+                                <div className='w-[58.33%] float-left sm:float-none lg:w-full px-[15px] relative mb-2'>
                                   <div className='flex p-0 '>
                                     <div className='flex border border-[#EEEEEE] bg-[#FAFAFA] pt-[5px] pr-[10px] pb-[5px] pl-[10px] text-[1.1em] items-center z-[1] min-w-[145px]'>
                                       <label className='m-0 font-[400] inline-block max-w-full'>Group</label>
@@ -454,7 +454,7 @@ export default function Recipes() {
                                     </div>
                                   </div>
                                 </div>
-                                <div className='w-[41.66%] float-left px-[15px] relative'>
+                                <div className='w-[41.66%] float-left sm:float-none lg:w-full px-[15px] relative'>
                                   <div className='flex p-0 '>
                                     <div className='flex border border-[#EEEEEE] bg-[#FAFAFA] pt-[5px] pr-[10px] pb-[5px] pl-[10px] text-[1.1em] items-center z-[1] min-w-[145px]'>
                                       <label className='m-0 font-[400] inline-block max-w-full'>Quantity</label>
@@ -535,9 +535,576 @@ export default function Recipes() {
                                   </div>
                                 </div>
                                 <ul className='flex mt-[25px] w-full border-b-0'>
-                                  <li className='grow-[5]'></li>
+                                  <li className='grow-[5] ml-[15px] mt-[25px] bg-none border-0 table-cell w-[1%] float-none mb-[-1px] relative'>
+                                    <a href='' className='text-[#1AB394] border-b-[#fff] border border-[#ddd] rounded-[4px_4px_0_0] mr-0 mb-0 text-center overflow-hidden whitespace-nowrap text-ellipsis font-[600] p-[10px_20px_10px_25px] relative block'>Nutritional value per 100 g</a>
+                                  </li>
+                                  <li className='grow-[5] mr-[15px] mt-[25px] bg-none border-0 table-cell w-[1%] float-none mb-[-1px] relative'>
+                                    <a className='text-[#676A6C] border-b border-b-[#ddd] rounded-[4px_4px_0_0] mr-0 mb-0 text-center overflow-hidden whitespace-nowrap text-ellipsis font-[600] p-[10px_20px_10px_25px] leading-[1.42857143] border border-transparent relative block hover:border-[#eee]'>Common measures</a>
+                                  </li>
                                 </ul>
+                                <div>
+                                  <div className='block'>
+                                    <div className='mb-[15px] mt-[25px] font-[100] text-center text-[1.6em]'>Macronutrients</div>
+                                    <div className='mt-[-7px] flex gap-[15px] mb-2 mx-[15px] lg:flex-wrap lg:gap-0'>
+                                      <div className='w-[50%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Energy</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0 bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-[100%] self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value="5" type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='731.0' type='number' className='border-0 h-[100%] bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>kcal</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[50%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Fat</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0 bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-[100%] self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value="5" type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='78.3' type='number' className='border-0 h-[100%] bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>g</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mt-[-7px] flex gap-[15px] mx-[15px] lg:flex-wrap lg:gap-0'>
+                                      <div className='w-[50%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Carbohydrate</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0 bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-[100%] self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value="5" type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.06' type='number' className='border-0 h-[100%] bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>g</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[50%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Protein</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0 bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-[100%] self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value="5" type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.49' type='number' className='border-0 h-[100%] bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>g</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mb-[15px] mt-[25px] font-[100] text-center text-[1.6em]'>Micronutrients</div>
+                                    <div className='mt-[-7px] flex gap-[15px] lg:gap-0 mx-[15px] mb-2 lg:flex-wrap'>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Fiber</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>g</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Sodium</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='583.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mt-[-7px] flex gap-[15px] lg:gap-0 mx-[15px] mb-2 lg:flex-wrap'>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Water</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='16.72' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>g</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Vitamin A</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='683.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>ug</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Vitamin B-6</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.008' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mt-[-7px] flex gap-[15px] lg:gap-0 mx-[15px] mb-2 lg:flex-wrap'>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Vitamin B-12</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.07' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>ug</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Vitamin C</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Vitamin D (D2 + D3)</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='0.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>ug</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mt-[-7px] flex gap-[15px] lg:gap-0 mx-[15px] mb-2 lg:flex-wrap'>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mt-[-7px] flex gap-[15px] lg:gap-0 mx-[15px] mb-2 lg:flex-wrap'>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='mt-[-7px] flex gap-[15px] lg:gap-0 mx-[15px] mb-2 lg:flex-wrap'>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[33.33%] lg:w-full'>
+                                        <div className='min-h-[52px] mt-[7px] flex p-0 min-w-0'>
+                                          <div className='flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1] min-w-[145px] max-w-[145px]'>Cholesterol</div>
+                                          <div className='flex grow'>
+                                            <div className='grow border-l-0bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                              <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                <input value='89' type='hidden' className='text-[100%] m-0 p-0' />
+                                                <div className='m-0 h-[100%]'>
+                                                  <input value='225.0' type='number' className='border-0 h-full bg-[#eee] opacity-[1] w-full' />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex items-center p-[8px_5px] bg-[#FAFAFB] border border-[#EEEEEE] border-l-0'>
+                                              <div className='min-w-[23px] text-center'>mg</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='mx-[15px] hidden lg:block'>
+                                  <div>
+                                    <div className='flex gap-[15px] lg:gap-0 lg:flex-wrap'>
+                                      <div className='w-[50%] lg:w-full'>
+                                        <input value='3200' type='hidden' className='text-[100%] m-0 p-0' />
+                                        <div className='mt-[25px] flex p-0 min-w-0'>
+                                          <div className='grow'>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Singular name</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='pat (1&quot; sq, 1/3&quot; high)' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Plural name</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='pat (1&quot; sq, 1/3&quot; high)' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Quantity</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='1.0' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Total grams</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='3.8' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Edible portion (%)</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className='w-[50%] lg:w-full'>
+                                        <input value='3200' type='hidden' className='text-[100%] m-0 p-0' />
+                                        <div className='mt-[25px] flex p-0 min-w-0'>
+                                          <div className='grow'>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Singular name</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='pat (1&quot; sq, 1/3&quot; high)' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Plural name</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='pat (1&quot; sq, 1/3&quot; high)' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Quantity</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='1.0' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Total grams</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='3.8' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className='flex p-0 min-w-0'>
+                                              <div className='min-w-[160px] flex border border-[#EEEEEE] bg-[#FAFAFB] p-[5px_10px_5px_10px] text-[1.1em] items-center z-[1]'>
+                                                <label className='m-0 font-[400] inline-block mac-w-full'>Edible portion (%)</label>
+                                              </div>
+                                              <div className='border-l-0 grow-[3] bg-[#EEEEEE] border border-[#EEEEEE] relative flex p-0 min-w-0'>
+                                                <div className='border-0 h-full self-center min-h-[38px] grow overflow-hidden text-ellipsis !p-0'>
+                                                  <div className='m-0 h-full'>
+                                                    <input value='' type='text' className='border-0 h-full bg-[#eee] opacity-[1]' />
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
+                            </div>
+                            <div className='p-[0_30px_15px] border-0 mt-0 text-center flex justify-between'>
+                              <button type='button' className='bg-[#FFFFFF] border border-[#EEEEEE] rounded-[3px] inline-block mb-0 font-[400] text-center whitespace-nowrap align-middle p-[6px_12px] text-[14px] leading-[1.42857143] '>Duplicate to edit</button>
+                              <button type='button' className='ml-[5px] bg-[#FFFFFF] border border-[#EEEEEE] rounded-[3px] inline-block mb-0 font-[400] text-center whitespace-nowrap align-middle p-[6px_12px] text-[14px] leading-[1.42857143]'>Cancel</button>
                             </div>
                           </Dialog.Panel>
                         </Transition.Child>

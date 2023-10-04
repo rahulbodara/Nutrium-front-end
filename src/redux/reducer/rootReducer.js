@@ -5,6 +5,9 @@ import { Services } from "./profile.services";
 import { Secreataries } from "./secretaries";
 import { Schedule } from "./schedule";
 import { Appointment } from "./appointment";
+import { FoodDiaries } from "./foodDiaries";
+import { Measurement } from "./measernment";
+import { Event } from "./event";
 
 const rootReducer = combineReducers({
   auth,
@@ -12,7 +15,10 @@ const rootReducer = combineReducers({
   Services: Services,
   Secreataries:Secreataries,
   Schedule:Schedule,
-  Appointment:Appointment
+  Appointment:Appointment,
+  FoodDiaries:FoodDiaries,
+  Measurement:Measurement,
+  Event:Event
 });
 
 export default rootReducer;

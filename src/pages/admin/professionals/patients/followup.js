@@ -11,9 +11,6 @@ import CustomCalendar from '@/components/Admin/Clients/Calander/CustomCalendar';
 import Icon from '@mdi/react';
 import { mdiClockOutline, mdiClose, mdiCloseThick, mdiLaunch, mdiMessageReplyText, mdiPackageDown } from '@mdi/js';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
-
-
-
 import { mdiCheck, mdiClock, mdiEmailOutline, mdiHeartBoxOutline, mdiHeartOutline, mdiHelp, mdiRun, mdiSwapHorizontal } from '@mdi/js'
 import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';
@@ -115,7 +112,7 @@ const Followup = () => {
                             </span>
                         </div>
                         <div className='calender-main p-[0_20px_20px]'>
-                            <CustomCalendar height={500} />
+                            <CustomCalendar height={600} />
                             <div className='p-[10px_0px_5px]  flex-wrap flex gap-[10px] text-[11px]'>
                                 <div className='flex items-center gap-[5px]'><span className='bg-[#1AB394] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888] uppercase'>COMPLIANT</p></div>
                                 <div className='flex items-center gap-[5px]'><span className='bg-[#EA9F77] w-[22px] h-[11px] block rounded-[3px]' /><p className='text-[#888] uppercase'>Struggling</p></div>

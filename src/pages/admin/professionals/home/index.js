@@ -11,9 +11,6 @@ import { FollowUpMenuData } from '@/components/Admin/FollowUpMenuData'
 import Link from 'next/link'
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-
-
-
 export default function Home() {
 
   const [isOpen, setIsOpen] = useState(false);

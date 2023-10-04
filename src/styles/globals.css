@@ -491,3 +491,9 @@ h2 {
     background-position: 0 0;
   }
 }
+.calendar-main .rbc-row-segment .rbc-event{
+  background-color: white;
+  width: 100%;
+  margin: 5px auto 0;  
+  padding: 6px 8px;
+}

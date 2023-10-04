@@ -1,30 +1,42 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import Icon from '@mdi/react';
-import { Menu, Transition } from '@headlessui/react';
-import { mdiContentSave, mdiInformationOutline, mdiPlus, mdiPrinter } from '@mdi/js';
-import { BsFilter } from 'react-icons/bs';
-import { MdDelete ,MdDownload,MdModeEdit } from 'react-icons/md'
-import { GrDocumentText } from 'react-icons/gr'
-import Steps from '@/components/Admin/Clients/Information/Steps';
-import MainLayout from '@/components/Admin/MainLayout';
-import ClientDetail from '@/components/Admin/Clients/ClientDetail';
-import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe';
-import { useRouter } from 'next/router';
-import EditableTextarea from '@/components/Admin/common/EditableTextarea';
-import EditableInput from '@/components/Admin/common/EditableInput';
-import CustomSelect from '@/components/Admin/common/CustomSelect';
-import TagSelect from '@/components/Admin/common/TagSelect';
-import SelectField from '@/components/Admin/common/SelectField';
-import ClosableSelect from '@/components/Admin/common/ClosableSelect';
-import TimePicker from '@/components/Admin/common/TimePicker';
-import AddLogClient from '@/components/Admin/Clients/Information/AddObservations';
-import AddGoals from '@/components/Admin/Clients/Information/AddGoals';
-import AddFile from '@/components/Admin/Clients/Information/AddFile';
-import moment from 'moment'
-import Pagination from '@/components/Admin/common/Pagination';
-import AddFoodDiary from '@/components/Admin/Clients/Information/AddFoodDiary';
-import { getClientById, updateAppointment, updateDietaryHistory, updateMedicalHistory, getObservationData, getEatingBehaviourData, getFilesData } from '@/redux/action/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useState, useEffect } from "react";
+import Icon from "@mdi/react";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  mdiContentSave,
+  mdiInformationOutline,
+  mdiPlus,
+  mdiPrinter,
+} from "@mdi/js";
+import { BsFilter } from "react-icons/bs";
+import { MdDelete, MdDownload, MdModeEdit } from "react-icons/md";
+import { GrDocumentText } from "react-icons/gr";
+import Steps from "@/components/Admin/Clients/Information/Steps";
+import MainLayout from "@/components/Admin/MainLayout";
+import ClientDetail from "@/components/Admin/Clients/ClientDetail";
+import ClientSubscribe from "@/components/Admin/Clients/ClientSubscribe";
+import { useRouter } from "next/router";
+import EditableTextarea from "@/components/Admin/common/EditableTextarea";
+import EditableInput from "@/components/Admin/common/EditableInput";
+import CustomSelect from "@/components/Admin/common/CustomSelect";
+import TagSelect from "@/components/Admin/common/TagSelect";
+import SelectField from "@/components/Admin/common/SelectField";
+import ClosableSelect from "@/components/Admin/common/ClosableSelect";
+import TimePicker from "@/components/Admin/common/TimePicker";
+import AddLogClient from "@/components/Admin/Clients/Information/AddObservations";
+import AddGoals from "@/components/Admin/Clients/Information/AddGoals";
+import AddFile from "@/components/Admin/Clients/Information/AddFile";
+import Pagination from "@/components/Admin/common/Pagination";
+import AddFoodDiary from "@/components/Admin/Clients/Information/AddFoodDiary";
+import {
+  getClientById,
+  updateAppointment,
+  updateDietaryHistory,
+  updateMedicalHistory,
+  getObservationData,
+  getEatingBehaviourData,
+  getFilesData,
+} from "@/redux/action/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { handleApiCall } from "@/util/apiUtils";
 
 const clientType = [
@@ -47,38 +59,46 @@ const clientType = [
 const Information = () => {
   const router = useRouter();
   const { query } = router;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (query.id) {
       dispatch(getClientById(query.id));
       dispatch(getObservationData(query.id));
       dispatch(getEatingBehaviourData(query.id));
-      dispatch(getFilesData(query.id))
+      dispatch(getFilesData(query.id));
     }
   }, [dispatch, query.id]);
 
-  function HandleValue(value) {
-  }
+  function HandleValue(value) { }
   const DietaryhistoryData = useSelector((state) => {
-    if(state?.auth?.clientData?.length > 0) {
+    if (state?.auth?.clientData?.length > 0) {
       return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
     }
     return null;
-  })
+  });
 
-  const [selectedHour1, setSelectedHour1] = useState(DietaryhistoryData?.wakeupTime.split(':')[0]);
-  const [selectedMinute1, setSelectedMinute1] = useState(DietaryhistoryData?.wakeupTime.split(':')[1]);
-  const [selectedHour2, setSelectedHour2] = useState(DietaryhistoryData?.bedTime.split(':')[0]);
-  const [selectedMinute2, setSelectedMinute2] = useState(DietaryhistoryData?.bedTime.split(':')[1]);
-  const [observationId,setObservationId]=useState()
-  const [eatingId,setEatingId]=useState()
-  const [singleValue, setSingleValue] = useState()
-  const [medicalValue, setMedicalValue] = useState()
-  const [dietaryValue, setDietaryValue] = useState()
-  const [eating, setEating] = useState(false)
-  const [goals, setGoals] = useState(false)
-  const [addFile, setAddFile] = useState(false)
+  const [selectedHour1, setSelectedHour1] = useState(
+    DietaryhistoryData?.wakeupTime?.split(":")[0]
+  );
+  const [selectedMinute1, setSelectedMinute1] = useState(
+    DietaryhistoryData?.wakeupTime?.split(":")[1]
+  );
+  const [selectedHour2, setSelectedHour2] = useState(
+    DietaryhistoryData?.bedTime?.split(":")[0]
+  );
+  const [selectedMinute2, setSelectedMinute2] = useState(
+    DietaryhistoryData?.bedTime?.split(":")[1]
+  );
+  const [observationId, setObservationId] = useState();
+  const [eatingId, setEatingId] = useState();
+  const [singleValue, setSingleValue] = useState();
+  const [medicalValue, setMedicalValue] = useState();
+  const [dietaryValue, setDietaryValue] = useState();
+  const [eating, setEating] = useState(false);
+  const [editFood, setEditFood] = useState();
+  const [goals, setGoals] = useState(false);
+  const [addFile, setAddFile] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
   const appointmentData = useSelector((state) => {
@@ -87,18 +107,33 @@ const Information = () => {
     }
     return null;
   });
+  const openAddFoodDiaryModal = () => {
+    setEditFood(null); 
+    setFoodDiaries(true);
+  };
+
+  const openEditFoodDiaryModal = (foodDiaryItem) => {
+    setEditFood(foodDiaryItem);
+    setFoodDiaries(true);
+  };
   const medicalData = useSelector((state) => {
-    if(state?.auth?.clientData?.length > 0) {
+    if (state?.auth?.clientData?.length > 0) {
       return state?.auth?.clientData[0]?.Medicalhistory?.[0];
     }
     return null;
   });
-  const observationData = useSelector((state) => state?.auth?.observationBehaviour?.data?.observation)
-  const eatingBehaviourData = useSelector((state) => state?.auth?.eatingBehaviour?.data?.behaviours)
-  const fileData = useSelector((state) => state?.auth?.fileData?.data?.files)
-  const [openObservations, setOpenObservations] = useState(false)
-  const [foodDiaries, setFoodDiaries] = useState(false)
-
+  const observationData = useSelector(
+    (state) => state?.auth?.observationBehaviour?.data?.observation
+  );
+  const eatingBehaviourData = useSelector(
+    (state) => state?.auth?.eatingBehaviour?.data?.behaviours
+  );
+  const fileData = useSelector((state) => state?.auth?.fileData?.data?.files);
+  const foodDiariesData = useSelector(
+    (state) => state.FoodDiaries.foodDiariesData
+  );
+  const [openObservations, setOpenObservations] = useState(false);
+  const [foodDiaries, setFoodDiaries] = useState(false);
 
   const handleTimeChange = (type, value) => {
     // Use the "type" parameter to distinguish between hour and minute changes
@@ -108,7 +143,7 @@ const Information = () => {
       setSelectedMinute1(value);
     }
     const timeValue = `${selectedHour1}:${selectedMinute1}`;
-    setDietaryValue({ 'wakeupTime': timeValue });
+    setDietaryValue({ wakeupTime: timeValue });
   };
   const handleBedTimeChange = (type, value) => {
     if (type === "hour") {
@@ -117,21 +152,21 @@ const Information = () => {
       setSelectedMinute2(value);
     }
     const timeValue = `${selectedHour2}:${selectedMinute2}`;
-    setDietaryValue({ 'bedTime': timeValue });
-  }
+    setDietaryValue({ bedTime: timeValue });
+  };
 
   const handleAppointmentSubmit = async (newValue) => {
     try {
       const success = await handleApiCall(
         dispatch,
         updateAppointment(newValue, query.id),
-        'Appointnment info. Updated Successfully'
+        "Appointnment info. Updated Successfully"
       );
-      if(success) {
+      if (success) {
         dispatch(getClientById(query.id));
       }
-    } catch(err) {
-      console.log("Error -->", err)
+    } catch (err) {
+      console.log("Error -->", err);
     }
   };
   const handleMedicalHistorySubmit = async (newValue) => {
@@ -139,33 +174,32 @@ const Information = () => {
       const success = await handleApiCall(
         dispatch,
         updateMedicalHistory(newValue, query.id),
-        'Medical history Updated Successfully'
+        "Medical history Updated Successfully"
       );
-      if(success) {
+      if (success) {
         dispatch(getClientById(query.id));
       }
-    } catch(err) {
-    }
+    } catch (err) { }
   };
   const handleDietarySubmit = async (newValue) => {
     try {
       const success = await handleApiCall(
         dispatch,
         updateDietaryHistory(newValue, query.id),
-        'Dietary history data updated successfully.'
-      )
-      if(success) {
-        dispatch(getClientById(query.id))
+        "Dietary history data updated successfully."
+      );
+      if (success) {
+        dispatch(getClientById(query.id));
       }
     } catch (err) {
-      console.log("Error -->", err)
+      console.log("Error -->", err);
     }
-  }
+  };
   return (
     <div>
       <MainLayout
-        head={'Client profile'}
-        text={'Check and update information about the client'}
+        head={"Client profile"}
+        text={"Check and update information about the client"}
       >
         <div className="mt-[-20px]">
           <ClientDetail clientId={query.id} />
@@ -217,7 +251,7 @@ const Information = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              className={`${active ? 'bg-[#f5f5f5] text-[#1AB394]' : ''
+                              className={`${active ? "bg-[#f5f5f5] text-[#1AB394]" : ""
                                 } group flex w-full items-center rounded p-[10px] text-[1.1em]`}
                             >
                               Save as client's file
@@ -245,52 +279,60 @@ const Information = () => {
                     </span>
                   </div>
                   <div className="p-[0_20px_20px]">
-
                     <EditableTextarea
                       labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                       label="Reason of appointment"
-                      initialValue={appointmentData?.appointmentReason || ''}
-                      onInputChange={(value) => setSingleValue({ ["appointmentReason"]: value })}
-                      handleSubmit={() => handleAppointmentSubmit(singleValue)} 
+                      initialValue={appointmentData?.appointmentReason || ""}
+                      onInputChange={(value) =>
+                        setSingleValue({ ["appointmentReason"]: value })
+                      }
+                      handleSubmit={() => handleAppointmentSubmit(singleValue)}
                     />
                     <div className=" mt-[7px]">
-
                       <EditableInput
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label=" Expectations"
-                        initialValue={appointmentData?.expectations || ''}
-                        onInputChange={(value) => setSingleValue({["expectations"]:value})}
-                        handleSubmit={() => handleAppointmentSubmit(singleValue)}
-                        />
+                        initialValue={appointmentData?.expectations || ""}
+                        onInputChange={(value) =>
+                          setSingleValue({ ["expectations"]: value })
+                        }
+                        handleSubmit={() =>
+                          handleAppointmentSubmit(singleValue)
+                        }
+                      />
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Clinical goals
                       </div>
                       <div className="w-full ">
-
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect
+                          className="select-main-without-border min-h-[42px]"
+                          searchOption={false}
+                          closable={false}
+                        />
                         <EditableInput
                           mainClass="!mt-0"
                           labelWidth="!hidden"
                           label=""
-                          // initialValue={clientData?.zipcode || ''}
-                          // onInputChange={(value) => setSingleValue({["zipcode"]:value})}
-                          // handleSubmit={() => handleAppointmentSubmit(singleValue)}
-                          />
-
+                        // initialValue={clientData?.zipcode || ''}
+                        // onInputChange={(value) => setSingleValue({["zipcode"]:value})}
+                        // handleSubmit={() => handleAppointmentSubmit(singleValue)}
+                        />
                       </div>
                     </div>
                     <div className="mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Other information"
-                        initialValue={appointmentData?.otherInfo || ''}
-                        onInputChange={(value) => setSingleValue({ ["otherInfo"]: value })}
-                        handleSubmit={() => handleAppointmentSubmit(singleValue)} 
+                        initialValue={appointmentData?.otherInfo || ""}
+                        onInputChange={(value) =>
+                          setSingleValue({ ["otherInfo"]: value })
+                        }
+                        handleSubmit={() =>
+                          handleAppointmentSubmit(singleValue)
+                        }
                       />
-
-
                     </div>
                   </div>
                 </div>
@@ -309,25 +351,28 @@ const Information = () => {
                       <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Bowel movements
                       </div>
-                      <div className='flex flex-1 '>
-
-                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <div className="flex flex-1 ">
+                        <ClosableSelect
+                          className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                          searchOption={false}
                           option={clientType}
                           onChange={HandleValue}
                         />
                         <EditableInput
                           mainClass="!mt-0 grow-[3] basis-[200px]"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                        />
                       </div>
-
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Sleep quality
                       </div>
-                      <div className='flex flex-1 '>
-                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <div className="flex flex-1 ">
+                        <ClosableSelect
+                          className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                          searchOption={false}
                           option={clientType}
                           onChange={HandleValue}
                         />
@@ -335,68 +380,79 @@ const Information = () => {
                         <EditableInput
                           mainClass="!mt-0 grow-[3] basis-[200px]"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                        />
                       </div>
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Smoker
                       </div>
-                      <div className='flex flex-1 '>
-                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <div className="flex flex-1 ">
+                        <ClosableSelect
+                          className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                          searchOption={false}
                           option={clientType}
                           onChange={HandleValue}
                         />
                         <EditableInput
                           mainClass="!mt-0 grow-[3] basis-[200px]"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                        />
                       </div>
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Alcohol consumption
                       </div>
-                      <div className='flex flex-1 '>
-                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <div className="flex flex-1 ">
+                        <ClosableSelect
+                          className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                          searchOption={false}
                           option={clientType}
                           onChange={HandleValue}
                         />
                         <EditableInput
                           mainClass="!mt-0 grow-[3] basis-[200px]"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                        />
                       </div>
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center  border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Marital status
                       </div>
-                      <div className='flex flex-1 '>
-                        <ClosableSelect className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <div className="flex flex-1 ">
+                        <ClosableSelect
+                          className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                          searchOption={false}
                           option={clientType}
                           onChange={HandleValue}
                         />
                         <EditableInput
                           mainClass="!mt-0 grow-[3] basis-[200px]"
                           labelWidth="!hidden"
-                          label="" />
+                          label=""
+                        />
                       </div>
                     </div>
                     <div className=" mt-[7px]">
-
                       <EditableInput
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
-                        label="Physical activity" />
-
+                        label="Physical activity"
+                      />
                     </div>
                     <div className="flex mt-[7px]">
-                      <ClosableSelect label="  Race" labelWidth="basis-[210px] " className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <ClosableSelect
+                        label="  Race"
+                        labelWidth="basis-[210px] "
+                        className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                        searchOption={false}
                         option={clientType}
                         onChange={HandleValue}
                       />
-
-
                     </div>
                     <div className="mt-[7px]">
                       <EditableTextarea
@@ -404,9 +460,8 @@ const Information = () => {
                         label="Other information"
                       // initialValue={clientData?.address || ''}
                       // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleAppointmentSubmit(singleValue)} 
+                      // handleSubmit={() => handleAppointmentSubmit(singleValue)}
                       />
-
                     </div>
                   </div>
                 </div>
@@ -428,10 +483,11 @@ const Information = () => {
                         hour={24}
                         selectedHour={selectedHour1}
                         selectedMinute={selectedMinute1}
-                        onChange={(type, value) => handleTimeChange(type, value)}
+                        onChange={(type, value) =>
+                          handleTimeChange(type, value)
+                        }
                         handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
-
                     </div>
                     <div className=" mt-[7px]">
                       <TimePicker
@@ -441,65 +497,69 @@ const Information = () => {
                         hour={24}
                         selectedHour={selectedHour2}
                         selectedMinute={selectedMinute2}
-                        onChange={(type, value) => handleBedTimeChange(type, value)}
+                        onChange={(type, value) =>
+                          handleBedTimeChange(type, value)
+                        }
                         handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
-
-
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Types of diet
                       </div>
                       <div className="w-full ">
-
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect
+                          className="select-main-without-border min-h-[42px]"
+                          searchOption={false}
+                          closable={false}
+                        />
                         <EditableInput
                           mainClass="!mt-0"
                           labelWidth="!hidden"
-                          label="" />
-
+                          label=""
+                        />
                       </div>
                     </div>
                     <div className=" mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Favorite food"
-                        initialValue={DietaryhistoryData?.favoriteFood || ''}
-                        onInputChange={(value) => setDietaryValue({ ["favoriteFood"]: value })}
-                        handleSubmit={() => handleDietarySubmit(dietaryValue)} 
+                        initialValue={DietaryhistoryData?.favoriteFood || ""}
+                        onInputChange={(value) =>
+                          setDietaryValue({ ["favoriteFood"]: value })
+                        }
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
-
-
                     </div>
                     <div className=" mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Disliked food"
-                        initialValue={DietaryhistoryData?.dislikeFood || ''}
-                        onInputChange={(value) => setDietaryValue({ ["dislikeFood"]: value })}
-                        handleSubmit={() => handleDietarySubmit(dietaryValue)} 
+                        initialValue={DietaryhistoryData?.dislikeFood || ""}
+                        onInputChange={(value) =>
+                          setDietaryValue({ ["dislikeFood"]: value })
+                        }
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
-
-
                     </div>
                     <div className="flex mt-[7px]">
                       <div className="basis-[210px] text-[1.1em] flex items-center border border-[#EEEEEE] min-w-[210px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         Allergies
                       </div>
                       <div className="w-full ">
-
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect
+                          className="select-main-without-border min-h-[42px]"
+                          searchOption={false}
+                          closable={false}
+                        />
                         <EditableTextarea
-
                           className="!mt-[-1px]"
                           labelWidth="!hidden"
                           textAreaClass="!min-h-[33px] text-[14px] h-full"
                         // initialValue={clientData?.address || ''}
                         // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                        // handleSubmit={() => handleSubmit(singleValue)} 
+                        // handleSubmit={() => handleSubmit(singleValue)}
                         />
-
                       </div>
                     </div>
 
@@ -508,18 +568,19 @@ const Information = () => {
                         Food intolerances
                       </div>
                       <div className="w-full ">
-
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={true} closable={false} />
+                        <TagSelect
+                          className="select-main-without-border min-h-[42px]"
+                          searchOption={true}
+                          closable={false}
+                        />
                         <EditableTextarea
-
                           className="!mt-[-1px]"
                           labelWidth="!hidden"
                           textAreaClass="!min-h-[33px] text-[14px] h-full"
                         // initialValue={clientData?.address || ''}
                         // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                        // handleSubmit={() => handleSubmit(singleValue)} 
+                        // handleSubmit={() => handleSubmit(singleValue)}
                         />
-
                       </div>
                     </div>
                     <div className="flex mt-[7px]">
@@ -527,34 +588,40 @@ const Information = () => {
                         Nutritional deficiencies
                       </div>
                       <div className="w-full ">
-
-                        <TagSelect className="select-main-without-border min-h-[42px]" searchOption={false} closable={false} />
+                        <TagSelect
+                          className="select-main-without-border min-h-[42px]"
+                          searchOption={false}
+                          closable={false}
+                        />
                         <EditableTextarea
-
                           className="!mt-[-1px]"
                           labelWidth="!hidden"
                           textAreaClass="!min-h-[33px] text-[14px] h-full"
                         // initialValue={clientData?.address || ''}
                         // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                        // handleSubmit={() => handleSubmit(singleValue)} 
+                        // handleSubmit={() => handleSubmit(singleValue)}
                         />
-
                       </div>
                     </div>
                     <div className=" mt-[7px]">
-                      <ClosableSelect label="Water intake" labelWidth="basis-[210px] " className="select-main-without-border  grow min-w-[100px] basis-[200px]" searchOption={false}
+                      <ClosableSelect
+                        label="Water intake"
+                        labelWidth="basis-[210px] "
+                        className="select-main-without-border  grow min-w-[100px] basis-[200px]"
+                        searchOption={false}
                         option={clientType}
                         onChange={HandleValue}
                       />
-
                     </div>
                     <div className=" mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Other information"
-                        initialValue={DietaryhistoryData?.otherInfo || ''}
-                      onInputChange={(value) => setDietaryValue({ ["otherInfo"]: value })}
-                       handleSubmit={() => handleDietarySubmit(dietaryValue)} 
+                        initialValue={DietaryhistoryData?.otherInfo || ""}
+                        onInputChange={(value) =>
+                          setDietaryValue({ ["otherInfo"]: value })
+                        }
+                        handleSubmit={() => handleDietarySubmit(dietaryValue)}
                       />
                     </div>
                   </div>
@@ -583,31 +650,52 @@ const Information = () => {
                       <span className="text-[12px] text-[#888888]/[70%]">
                         Other relevant information about the client
                       </span>
-
                     </div>
-                    <button onClick={() => {setOpenObservations(true); setObservationId()}}>
+                    <button
+                      onClick={() => {
+                        setOpenObservations(true);
+                        setObservationId();
+                      }}
+                    >
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient observationData={observationId} closeIcon={true} className="max-w-[600px]" title="Observations" subtitle="Log your client's observations" isOpen={openObservations} setIsOpen={setOpenObservations} />
+                  <AddLogClient
+                    observationData={observationId}
+                    closeIcon={true}
+                    className="max-w-[600px]"
+                    title="Observations"
+                    subtitle="Log your client's observations"
+                    isOpen={openObservations}
+                    setIsOpen={setOpenObservations}
+                  />
                   <div className="p-[0_20px_20px]">
-                    {
-                      Array.isArray(observationData) && observationData.map((data) => {
+                    {Array.isArray(observationData) &&
+                      observationData.map((data) => {
                         return (
-                          <div onClick={() => {setOpenObservations(true); setObservationId(data)}} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                          <div
+                            onClick={() => {
+                              setOpenObservations(true);
+                              setObservationId(data);
+                            }}
+                            className="h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]"
+                          >
                             {data?.observation}
-                            <div className='h-[95px] break-all'></div>
-                            <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>{data?.registrationDate}</div>
+                            <div className="h-[95px] break-all"></div>
+                            <div className="text-[10px] pt-[2px] text-[#1AB394] float-right">
+                              {data?.registrationDate}
+                            </div>
                           </div>
-                        )
-                      })
-                    }
-                    <div className='flex items-center justify-end'>
+                        );
+                      })}
+                    <div className="flex items-center justify-end">
                       <Pagination />
                     </div>
-                    { observationData?.length === 0 && <p className="text-[#888888] italic text-center">
-                      You haven't logged any observations
-                    </p> }
+                    {observationData?.length === 0 && (
+                      <p className="text-[#888888] italic text-center">
+                        You haven't logged any observations
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -622,15 +710,51 @@ const Information = () => {
                         Log your client's food diaries
                       </span>
                     </div>
-                    <button onClick={() => setFoodDiaries(true)}>
+                    <button onClick={openAddFoodDiaryModal}>
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddFoodDiary closeIcon={true} isOpen={foodDiaries} setIsOpen={setFoodDiaries} />
+                  <AddFoodDiary
+                    closeIcon={true}
+                    isOpen={foodDiaries}
+                    setIsOpen={setFoodDiaries}
+                    editfood={editFood}
+                  />
                   <div className="p-[0_20px_20px]">
-                    <p className="text-[#888888] italic text-center">
-                      You haven't logged any food diary
-                    </p>
+                    <div>
+                      {foodDiariesData.length > 0 &&
+                        foodDiariesData.map((item) => {
+                          return (
+                            <div
+                              className="flex"
+                              onClick={() => openEditFoodDiaryModal(item)}
+                              key={item.id}
+                            >
+                              <div className="flex-1 h-[130px] p-[10px] mb-0 rounded-[5px] border border-[#EEEEEE]">
+                                <div className="w-full h-[95px] text-[12px] overflow-hidden text-[#676A6C] relative">
+                                  <div className="font-[300]">
+                                    {item.addMeal.map((item) => {
+                                      return (
+                                        <>
+                                          <strong> {item.mealType}: </strong>
+                                          {item.value}
+                                          <br />
+                                        </>
+                                      );
+                                    })}
+                                    <strong> {item.observation}</strong>
+                                    <br />
+                                  </div>
+                                  <div className="absolute left-0 bottom-0 w-full h-[45px] text-[#f36e6e00]"></div>
+                                </div>
+                                <div className="float-right text-[10px] font-[400] pt-[2px] text-[#1AB394]">
+                                  {item.registrationDate}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 mt-[25px] rounded-[5px]">
@@ -643,29 +767,52 @@ const Information = () => {
                         Log your client's eating behaviour
                       </span>
                     </div>
-                    <button onClick={() => {setEating(true); setEatingId()}}>
+                    <button
+                      onClick={() => {
+                        setEating(true);
+                        setEatingId();
+                      }}
+                    >
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddLogClient active={true} eatingBehaviourData={eatingId} closeIcon={true} className="max-w-[900px]" title="Eating behaviour" subtitle="Log your client's eating behaviour" isOpen={eating} setIsOpen={setEating} />
+                  <AddLogClient
+                    active={true}
+                    eatingBehaviourData={eatingId}
+                    closeIcon={true}
+                    className="max-w-[900px]"
+                    title="Eating behaviour"
+                    subtitle="Log your client's eating behaviour"
+                    isOpen={eating}
+                    setIsOpen={setEating}
+                  />
                   <div className="p-[0_20px_20px]">
-                    {
-                      Array.isArray(eatingBehaviourData) && eatingBehaviourData.map((data) => {
+                    {Array.isArray(eatingBehaviourData) &&
+                      eatingBehaviourData.map((data) => {
                         return (
-                          <div onClick={() => {setEating(true); setEatingId(data)}} className='h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]'>
+                          <div
+                            onClick={() => {
+                              setEating(true);
+                              setEatingId(data);
+                            }}
+                            className="h-[130px] bg-white cursor-pointer hover:bg-[#FAFAFB] p-[10px] border border-[#EEEEEE] rounded-[5px]"
+                          >
                             {data?.behaviour}
-                            <div className='h-[95px] break-all'></div>
-                            <div className='text-[10px] pt-[2px] text-[#1AB394] float-right'>{data?.date}</div>
+                            <div className="h-[95px] break-all"></div>
+                            <div className="text-[10px] pt-[2px] text-[#1AB394] float-right">
+                              {data?.date}
+                            </div>
                           </div>
-                        )
-                      })
-                    }
-                    <div className='flex items-center justify-end'>
+                        );
+                      })}
+                    <div className="flex items-center justify-end">
                       <Pagination />
                     </div>
-                    { eatingBehaviourData?.length === 0 && <p className="text-[#888888] italic text-center">
-                      You haven't logged any observations
-                    </p> }
+                    {eatingBehaviourData?.length === 0 && (
+                      <p className="text-[#888888] italic text-center">
+                        You haven't logged any observations
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -685,63 +832,76 @@ const Information = () => {
                       </div>
 
                       <div className="w-full ">
-
-                        <TagSelect 
-                        className="select-main-without-border min-h-[42px]" 
-                        searchOption={false} 
-                        closable={false} 
-                        // option={medicalValue?.diseases.map((disease, index) => ({ value: index, option: disease }))} 
+                        <TagSelect
+                          className="select-main-without-border min-h-[42px]"
+                          searchOption={false}
+                          closable={false}
+                        // option={medicalValue?.diseases.map((disease, index) => ({ value: index, option: disease }))}
                         />
                         <EditableInput
                           mainClass="!mt-0"
                           labelWidth="!hidden"
                           label=""
-                          initialValue={medicalData?.diseases.join(',')}
-                          onInputChange={(value) => setMedicalValue({['diseases']: value})}
-                          handleSubmit={() => handleMedicalHistorySubmit(medicalValue)}
+                          initialValue={medicalData?.diseases.join(",")}
+                          onInputChange={(value) =>
+                            setMedicalValue({ ["diseases"]: value })
+                          }
+                          handleSubmit={() =>
+                            handleMedicalHistorySubmit(medicalValue)
+                          }
                         />
-
                       </div>
-
                     </div>
                     <div className=" mt-[7px]">
-
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="  Medication"
-                        initialValue={medicalData?.medication || ''}
-                        onInputChange={(value) => setMedicalValue({ ["medication"]: value })}
-                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
+                        initialValue={medicalData?.medication || ""}
+                        onInputChange={(value) =>
+                          setMedicalValue({ ["medication"]: value })
+                        }
+                        handleSubmit={() =>
+                          handleMedicalHistorySubmit(medicalValue)
+                        }
                       />
-
                     </div>
                     <div className=" mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Personal history"
-                        initialValue={medicalData?.pesonalhistory || ''}
-                        onInputChange={(value) => setMedicalValue({ ["pesonalhistory"]: value })}
-                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
+                        initialValue={medicalData?.pesonalhistory || ""}
+                        onInputChange={(value) =>
+                          setMedicalValue({ ["pesonalhistory"]: value })
+                        }
+                        handleSubmit={() =>
+                          handleMedicalHistorySubmit(medicalValue)
+                        }
                       />
-
                     </div>
                     <div className=" mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Family history"
-                        initialValue={medicalData?.familyHistory || ''}
-                        onInputChange={(value) => setMedicalValue({ ["familyHistory"]: value })}
-                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
+                        initialValue={medicalData?.familyHistory || ""}
+                        onInputChange={(value) =>
+                          setMedicalValue({ ["familyHistory"]: value })
+                        }
+                        handleSubmit={() =>
+                          handleMedicalHistorySubmit(medicalValue)
+                        }
                       />
-
                     </div>
                     <div className=" mt-[7px]">
                       <EditableTextarea
                         labelWidth="basis-[120px] mr-[-1px] min-w-[120px]"
                         label="Other information"
-                        initialValue={medicalData?.otherInfo || ''}
-                        onInputChange={(value) => setMedicalValue({ ["otherInfo"]: value })}
-                        handleSubmit={() => handleMedicalHistorySubmit(medicalValue)} 
+                        initialValue={medicalData?.otherInfo || ""}
+                        onInputChange={(value) =>
+                          setMedicalValue({ ["otherInfo"]: value })
+                        }
+                        handleSubmit={() =>
+                          handleMedicalHistorySubmit(medicalValue)
+                        }
                       />
                     </div>
                   </div>
@@ -749,9 +909,7 @@ const Information = () => {
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
                   <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
                     <div>
-                      <h3 className="text-[20px] leading-[24px] ">
-                        Goals
-                      </h3>
+                      <h3 className="text-[20px] leading-[24px] ">Goals</h3>
                       <span className="text-[12px] text-[#888888]/[70%]">
                         Goals the client wants to achieve
                       </span>
@@ -760,7 +918,14 @@ const Information = () => {
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
-                  <AddGoals closeIcon={true} className="max-w-[600px]" title="Set a new goal" subtitle="It's a good way to keep your client motivated" isOpen={goals} setIsOpen={setGoals} />
+                  <AddGoals
+                    closeIcon={true}
+                    className="max-w-[600px]"
+                    title="Set a new goal"
+                    subtitle="It's a good way to keep your client motivated"
+                    isOpen={goals}
+                    setIsOpen={setGoals}
+                  />
                   <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       No goals defined yet.
@@ -770,72 +935,78 @@ const Information = () => {
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
                   <div className="p-[20px] pb-[15px] flex items-center justify-between 2lg:mt-[25px] mt-0">
                     <div>
-                      <h3 className="text-[20px] leading-[24px] ">
-                        Files
-                      </h3>
+                      <h3 className="text-[20px] leading-[24px] ">Files</h3>
                       <span className="text-[12px] text-[#888888]/[70%]">
                         Files attached to this client
                       </span>
                     </div>
-                    <div className='flex items-center gap-2'>
+                    <div className="flex items-center gap-2">
                       <BsFilter className="text-[24px]" />
                       <button onClick={() => setAddFile(true)}>
                         <Icon path={mdiPlus} size={1} />
                       </button>
                     </div>
                   </div>
-                  <AddFile closeIcon={true} className="max-w-[600px]" title="Add file" subtitle="Attach a file to this client's profile" isOpen={addFile} setIsOpen={setAddFile} />
-                      {/* <div className="p-2">
+                  <AddFile
+                    closeIcon={true}
+                    className="max-w-[600px]"
+                    title="Add file"
+                    subtitle="Attach a file to this client's profile"
+                    isOpen={addFile}
+                    setIsOpen={setAddFile}
+                  />
+                  {/* <div className="p-2">
                         <GrDocumentText />
                       </div> */}
-                      <div className="px-4 py-2">
-
-                      <div className={`h-[150px] bg-white cursor-pointer border border-[#EEEEEE] ${isHovering ? 'bg-[#888888]/[10%]' : ""} rounded-[5px] flex flex-col justify-between`} onMouseOver={()=>setIsHovering(true)} onMouseOut={()=>setIsHovering(false)}>
-                        {
-                          isHovering ? 
-                          (fileData.map((data) => {
-                              return (
-                                <>
-                                <div className="float-left pt-2 pb-6 pl-2">
-                              <div className="text-[13px] font-medium text-[#1AB394] ">
-                                <span>{data?.name}</span>
+                  <div className="px-4 py-2">
+                    <div
+                      className={`h-[150px] bg-white cursor-pointer border border-[#EEEEEE] ${isHovering ? "bg-[#888888]/[10%]" : ""
+                        } rounded-[5px] flex flex-col justify-between`}
+                      onMouseOver={() => setIsHovering(true)}
+                      onMouseOut={() => setIsHovering(false)}
+                    >
+                      {isHovering ? (
+                        fileData?.map((data) => {
+                          return (
+                            <>
+                              <div className="float-left pt-2 pb-6 pl-2">
+                                <div className="text-[13px] font-medium text-[#1AB394] ">
+                                  <span>{data?.name}</span>
+                                </div>
+                                <div className="flex flex-col mt-[5px]">
+                                  <span className="pt-1 font-medium">
+                                    {data?.description}
+                                  </span>
+                                  <span className="pt-1">{data?.date}</span>
+                                </div>
                               </div>
-                              <div className="flex flex-col mt-[5px]">
-                                <span className="pt-1 font-medium">{data?.description}</span>
-                                <span className="pt-1">{data?.date}</span>
+                              <div className="float-left px-2 flex justify-between">
+                                <div>DOCX</div>
+                                <div className="flex">
+                                  <MdDelete className="w-[17px] h-[17px] mr-2" />
+                                  <MdDownload className="w-[17px] h-[17px] mr-2" />
+                                  <MdModeEdit className="w-[17px] h-[17px]" />
+                                </div>
                               </div>
-                            </div>
-                            <div className="float-left px-2 flex justify-between">
-                              <div>DOCX</div>
-                              <div className="flex">
-                                <MdDelete className='w-[17px] h-[17px] mr-2'/>
-                                <MdDownload className='w-[17px] h-[17px] mr-2'/>
-                                <MdModeEdit className='w-[17px] h-[17px]'/>
-                              </div>
-                            </div>
-                                </>
-                              )
-                            })
-                          )
-                          : 
-                          <>
-                            <div className='ml-[40%] p-2'>
-                              <GrDocumentText className='w-[80px] h-[80px]'/>
-                            </div>
-                            <hr />
-                            <div className='text-[13px] font-medium text-[#1AB394] float-left py-2 pl-2'>
-                              {
-                                fileData?.map((data) => {
-                                  return <span>{data?.name}</span>
-                                })
-                              }
-                            </div>
-                          </>
-                        }
-                      </div>
+                            </>
+                          );
+                        })
+                      ) : (
+                        <>
+                          <div className="ml-[40%] p-2">
+                            <GrDocumentText className="w-[80px] h-[80px]" />
+                          </div>
+                          <hr />
+                          <div className="text-[13px] font-medium text-[#1AB394] float-left py-2 pl-2">
+                            {fileData?.map((data) => {
+                              return <span>{data?.name}</span>;
+                            })}
+                          </div>
+                        </>
+                      )}
                     </div>
-  
-                  
+                  </div>
+
                   {/* <div className="p-[0_20px_20px]">
                     <p className="text-[#888888] italic text-center">
                       There aren't any files associated to this filter

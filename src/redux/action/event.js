@@ -22,3 +22,43 @@ export const CreateEventData = (data) => {
       }
     };
   };
+
+  export const GetAllEventData = () => {
+    return async (dispatch) => {
+      try {
+        const headers = createHeaders();
+        const response = await axios.get(`${baseUrl}/event`, {
+          headers,
+        });
+        return dispatch({
+          type: Types.EVENT_DATA,
+          data: response,
+        });
+      } catch (err) {
+        return dispatch({
+          type: Types.EVENT_DATA_FAILURE,
+          data: err.response,
+        });
+      }
+    };
+  };
+
+  export const EditEvent = (data,id) => {
+    return async (dispatch) => {
+      try {
+        const headers = createHeaders();
+        const response = await axios.put(`${baseUrl}/event/${id}`,data, {
+          headers,
+        });
+        return dispatch({
+          type: Types.UPDATE_EVENT,
+          data: response,
+        });
+      } catch (err) {
+        return dispatch({
+          type: Types.UPDATE_EVENT_FAILURE,
+          data: err.response,
+        });
+      }
+    };
+  };
