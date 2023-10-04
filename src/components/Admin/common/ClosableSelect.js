@@ -109,6 +109,7 @@ const ClosableSelect = (props) => {
                   path={mdiCloseCircleOutline}
                   size="18px"
                   color="#1ab394"
+                  onClick={handlefalseClick}
                 />
               </div>
             ) : (
@@ -140,14 +141,14 @@ const ClosableSelect = (props) => {
           )}
           {isDropdownOpen === true && (
             <>
-              <div className="clr-grn flex h-full  cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+              {/* <div className="clr-grn flex h-full  cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
                 <Icon
                   path={mdiCloseCircleOutline}
                   size="18px"
                   color="#1ab394"
                   onClick={handlefalseClick}
                 />
-              </div>
+              </div> */}
               <div className="clr-grn flex  h-full  cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
                 <Icon
                   path={isDropdownOpen === true && mdiChevronUp}

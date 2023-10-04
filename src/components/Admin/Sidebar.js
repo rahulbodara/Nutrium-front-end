@@ -13,7 +13,7 @@ const Sidebar = (props) => {
 
   return (
     <>
-      <nav className={`${isCollapsed === true ? "w-[70px] md:w-[220px] md:left-0" : "] " } z-[2040] md:bg-[#2f4050] md:-left-[220px] bg-[#2f4050] md:w-[220px]  md:block md:transition-[0.5s] border-[#2f4050] overflow-hidden h-full fixed shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_1px_5px_0_rgba(145,145,145,0.12)]`}>
+      <nav className={`${isCollapsed === true ? "w-[70px] md:w-[220px] md:left-0" : "w-[220px]" } z-[2040] md:bg-[#2f4050] md:-left-[220px] bg-[#2f4050] md:w-[220px]  md:block md:transition-[0.5s] border-[#2f4050] overflow-hidden h-full fixed shadow-[0_2px_2px_0_rgba(144,144,144,0.14),0_1px_5px_0_rgba(145,145,145,0.12)]`}>
           <div className="sidebar-collapse">
             <ul className='pl-0 mb-0 list-none '>
               <li className="nav-header relative block p-0 bg-[#293846]">

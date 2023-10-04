@@ -115,6 +115,7 @@ export const CREATE_FOOD = "CREATE_FOOD"
 export const CREATE_FOOD_FAILURE = "CREATE_FOOD_FAILURE"
 export const GET_ALL_FOODS="GET_ALL_FOODS"
 export const UPDATE_FOOD="UPDATE_FOOD"
+export const REMOVE_FOOD="REMOVE_FOOD"
 
 //measurements
 export const  CREATE_MEASUREMENTS = "CREATE_MEASUREMENTS";
