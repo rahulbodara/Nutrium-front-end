@@ -29,7 +29,7 @@ export const ProfileMenuData = [
         id:'5',
         title: 'Configurations and preferences' ,
         icon : mdiCog,
-        route:'#',
+        route:'/admin/professionals/preferences',
     },
     {
         id:'6',
