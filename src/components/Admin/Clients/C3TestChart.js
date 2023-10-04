@@ -3,15 +3,15 @@ import c3 from 'c3';
 import 'c3/c3.css'; // Import C3.css for styling (optional)
 import * as d3 from 'd3';
 
-function DonutChart() {
+function DonutChart1() {
     useEffect(() => {
         const chart = c3.generate({
-            bindto: '#donut-chart', // The HTML element to bind the chart to
+            bindto: '#donut-chart1', // The HTML element to bind the chart to
             data: {
                 columns: [
-                    ['data1', 30],
-                    ['data2', 100],
-                    ['data3', 80],
+                    ['Fat', 30],
+                    ['Carbohydrate', 120],
+                    ['Protein', 60],
                 ],
                 type: 'donut',
                 onclick: function (d, i) {
@@ -27,13 +27,10 @@ function DonutChart() {
             legend: {
                 show: false,
             },
-            // donut: {
-            //     title: 'Iris Petal Width',
-            // },
         });
     }, []);
 
-    return <div id="donut-chart" className='w-[150px] h-[150px]' />;
+    return <div id="donut-chart1" className='w-[150px] h-[150px]' />;
 }
 
-export default DonutChart;
+export default DonutChart1;

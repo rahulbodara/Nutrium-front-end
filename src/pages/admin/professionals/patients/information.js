@@ -73,9 +73,11 @@ const Information = () => {
   function HandleValue(value) { }
   const DietaryhistoryData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
-      return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
+      if (state?.auth?.clientData?.length > 0) {
+        return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
+      }
+      return null;
     }
-    return null;
   });
 
   const [selectedHour1, setSelectedHour1] = useState(
@@ -85,10 +87,10 @@ const Information = () => {
     DietaryhistoryData?.wakeupTime.split(":")[1]
   );
   const [selectedHour2, setSelectedHour2] = useState(
-    DietaryhistoryData?.bedTime.split(":")[0]
+    DietaryhistoryData?.bedTime?.split(":")[0]
   );
   const [selectedMinute2, setSelectedMinute2] = useState(
-    DietaryhistoryData?.bedTime.split(":")[1]
+    DietaryhistoryData?.bedTime?.split(":")[1]
   );
   const [observationId, setObservationId] = useState();
   const [eatingId, setEatingId] = useState();
@@ -108,7 +110,7 @@ const Information = () => {
     return null;
   });
   const openAddFoodDiaryModal = () => {
-    setEditFood(null); 
+    setEditFood(null);
     setFoodDiaries(true);
   };
 
@@ -118,9 +120,11 @@ const Information = () => {
   };
   const medicalData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
-      return state?.auth?.clientData[0]?.Medicalhistory?.[0];
+      if (state?.auth?.clientData?.length > 0) {
+        return state?.auth?.clientData[0]?.Medicalhistory?.[0];
+      }
+      return null;
     }
-    return null;
   });
   const observationData = useSelector(
     (state) => state?.auth?.observationBehaviour?.data?.observation
@@ -163,12 +167,15 @@ const Information = () => {
         "Appointnment info. Updated Successfully"
       );
       if (success) {
-        dispatch(getClientById(query.id));
+        if (success) {
+          dispatch(getClientById(query.id));
+        }
       }
     } catch (err) {
       console.log("Error -->", err);
     }
-  };
+  }
+
   const handleMedicalHistorySubmit = async (newValue) => {
     try {
       const success = await handleApiCall(
@@ -177,9 +184,13 @@ const Information = () => {
         "Medical history Updated Successfully"
       );
       if (success) {
-        dispatch(getClientById(query.id));
+        if (success) {
+          dispatch(getClientById(query.id));
+        }
       }
-    } catch (err) { }
+    } catch (err) {
+
+    }
   };
   const handleDietarySubmit = async (newValue) => {
     try {

@@ -62,12 +62,12 @@ const AddFile = (props) => {
         formData.append('category', formValues.category);
 
         const success = await handleApiCall(
-        dispatch,
-        createFileDiery(formData, query.id),
-        'File diery created successfully.'
+            dispatch,
+            createFileDiery(formData, query.id),
+            'File diery created successfully.'
         )
         console.log("success", success)
-        if(success) {
+        if (success) {
             dispatch(getFilesData(query.id))
             props.setIsOpen(false)
         }

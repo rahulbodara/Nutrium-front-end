@@ -6,21 +6,33 @@ import { mdiCog, mdiMenuRight, mdiMinus, mdiTrendingDown } from '@mdi/js'
 import Icon from '@mdi/react'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { CCarouselItem } from '@coreui/react'
+import { CCarousel } from '@coreui/react'
+import { CImage } from '@coreui/react'
 import dynamic from 'next/dynamic';
 import HealthDetail from '@/components/Admin/Clients/HealthDetail'
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import DonutChart from '@/components/Admin/Clients/C3Test'
+import { MdOutlineArrowUpward, MdOutlineBookmark, MdOutlineBookmarks, MdOutlineChevronLeft } from 'react-icons/md'
+import ReactDOM from 'react-dom';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import DonutChart1 from '@/components/Admin/Clients/C3TestChart';
+import DonutChart2 from '@/components/Admin/Clients/C3Test1'
+import DonutChart3 from '@/components/Admin/Clients/C3Test2'
+import DonutChart4 from '@/components/Admin/Clients/C3Test3'
+import DonutChart5 from '@/components/Admin/Clients/C3Test4'
+import DonutChart6 from '@/components/Admin/Clients/C3Test5'
+import DemoCarousel from '@/components/Admin/Clients/ChartSlider'
+
 
 const DynamicC3LineChart = dynamic(() => import('@/components/Admin/common/C3LineChart'), { ssr: false });
 
-const DonutChart = dynamic(() => import('@/components/Admin/Clients/C3Test'), { ssr: false });
-
-
-
 const MealPlan = () => {
 
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     return (
         <div>
@@ -62,7 +74,7 @@ const MealPlan = () => {
                                             </Transition.Child>
 
                                             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                                                <div className="flex items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                                                     <Transition.Child
                                                         as={Fragment}
                                                         enter="ease-out duration-300"
@@ -128,8 +140,8 @@ const MealPlan = () => {
                                                                         </div>
                                                                     </div>
                                                                     <div className='mb-[10px] mt-[20px] font-[100] text-center text-[1.5em]'>Micronutrients</div>
-                                                                    <div className='mt-[-7px] mb-[15px] mx-[-15px]'>
-                                                                        <div className='w-1/2 float-left px-[15px] leading-[1] relative mb-5'>
+                                                                    <div className='mt-[-7px] mb-[15px]'>
+                                                                        <div className='w-1/2 float-left px-[15px] mb-5 leading-[1] relative'>
                                                                             <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
                                                                                 <thead>
                                                                                     <tr>
@@ -181,7 +193,7 @@ const MealPlan = () => {
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <div className='w-1/2 float-right px-[15px] leading-[1] relative mb-5'>
+                                                                        <div className='w-1/2 float-right px-[15px] mb-5 leading-[1] relative'>
                                                                             <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
                                                                                 <thead>
                                                                                     <tr>
@@ -234,9 +246,9 @@ const MealPlan = () => {
                                                                             </table>
                                                                         </div>
                                                                     </div>
-                                                                    <div className='mb-[10px] font-[100] text-center text-[1.5em]'>Aminogram</div>
-                                                                    <div className='mt-[-7px] mb-[15px] mx-[-15px]'>
-                                                                        <div className='w-1/2 float-left px-[15px] leading-[1] relative mb-5'>
+                                                                    <div className='mb-[10px] mt-[20px] font-[100] text-center text-[1.5em]'>Aminogram</div>
+                                                                    <div className='mt-[-7px] mb-[15px]'>
+                                                                        <div className='w-1/2 float-left px-[15px] mb-5 leading-[1] relative'>
                                                                             <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
                                                                                 <thead>
                                                                                     <tr>
@@ -288,7 +300,7 @@ const MealPlan = () => {
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <div className='w-1/2 float-right px-[15px] leading-[1] relative mb-5'>
+                                                                        <div className='w-1/2 float-right px-[15px] mb-5 leading-[1] relative'>
                                                                             <table className='m-0 w-full max-w-full border-collapse border-inherit indent-0'>
                                                                                 <thead>
                                                                                     <tr>
@@ -344,8 +356,8 @@ const MealPlan = () => {
                                                                     <div className='text-[0.8em]'>Source: Foods of the system</div>
                                                                 </div>
                                                             </div>
-                                                            <div className='pt-[5px] pr-[30px] border-0 p-[0_30px_15px] mt-0 text-right'>
-                                                                <button onClick={() => setOpen(false)} className='bg-[#FFFFFF] border border-[#EEEEEE] rounded-[3px] inline-block mb-0 font-[400] text-center whitespace-nowrap align-middle p-[6px_12px] text-[14px] leading-[1.42857143]'>Close</button>
+                                                            <div className='pt-[5px] pr-[30px] border-none p-[0px_30px_15px] text-right'>
+                                                                <button onClick={() => setOpen(false)} className='bg-[#fff] border border-[#EEEEEE] rounded-[3px] inline-block mb-0 font-[400] text-center whitespace-nowrap align-middle p-[6px_12px] text-[14px] leading-[1.42857143]'>Close</button>
                                                             </div>
                                                         </Dialog.Panel>
                                                     </Transition.Child>
@@ -548,112 +560,253 @@ const MealPlan = () => {
                                 <h3 className='text-[20px] leading-[24px] '>Global analysis</h3>
 
                             </div>
-                            <div className='divide-y divide-[#EEEEEE] p-5 pt-0 gap-[16px] flex-col min-h-[227px] flex'>
-                                <div className="gap-[16px] flex-col flex">
-                                    <div>
-                                        <div className="flex items-center mb-[5px] justify-between">
-                                            <div className='gap-[0.25rem] flex'>
-                                                <div className="grow ">Energy</div>
-                                                <div className='hidden gap-[0.25rem] items-center'>-154</div>
-                                            </div>
-                                            <div>
-                                                <div className="inline-block font-[600] text-[13px] leading-4 mr-0">2127</div>
-                                                <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
-                                                    <span className="inline-block text-[13px] leading-4">/2281 </span>
-                                                    <span className="inline-block text-[11px] font-[300] text-[]">kcal</span>
+                            <div>
+                                <div className="p-5 pt-0 gap-[16px] flex-col min-h-[227px] flex">
+                                    <div className='gap-[16px] flex-col flex'>
+                                        <div>
+                                            <div className="flex items-center mb-[5px] justify-between">
+                                                <span className="text-[13px] flex-1  text-[#676a6c]">Energy</span>
+                                                <div className="flex items-center">
+                                                    <span className="text-[13px] font-semibold">2127</span>
+                                                    <div className="flex items-end">
+                                                        <span className="tw-text-sm">/2281 </span>
+                                                        <span className="text-[11px] text-[#888888]"> kcal</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="">
-                                            <div className="bg-[#12896e4d] w-full h-[10px] overflow-hidden rounded-[10px]">
-                                                <div className="bg-[#1AB394] h-full" style={{ width: '68%' }} ></div>
+                                            <div className="">
+                                                <div className="bg-[#12896e4d] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                    <div className="bg-[#12896d] h-full" style={{ width: '68%' }} ></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex justify-items-center gap-2'>
-                                        <div className='w-[150px] h-[150px]'>
-                                            <DonutChart className='absolute' />
+                                    <div className='flex'>
+                                        <div className='items-center flex justify-center relative'>
+                                            <DonutChart />
                                         </div>
-                                        <div className='w-[80%]'>
-                                            <div>
-                                                <div className="flex items-center mb-[5px] justify-between">
-                                                    <div className='gap-[0.25rem] flex'>
-                                                        <div className="grow ">Fat</div>
-                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
+                                        <div className='gap-2 flex flex-col grow'>
+                                            <div className='gap-[16px] flex-col flex'>
+                                                <div>
+                                                    <div className="flex items-center mb-[5px] justify-between">
+                                                        <span className="text-[13px] flex-1  text-[#676a6c]">Fat</span>
+                                                        <div className="flex items-center">
+                                                            <span className="text-[13px] font-semibold">65.7</span>
+                                                            <div className="flex items-end">
+                                                                <span className="tw-text-sm">/76  </span>
+                                                                <span className="text-[11px] text-[#888888]"> g</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">65.7</div>
-                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
-                                                            <span className="inline-block text-[13px] leading-4">/76  </span>
-                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                    <div className="">
+                                                        <div className="bg-[rgb(244_200_209)] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                            <div className="bg-[rgb(219_73_101)] h-full" style={{ width: '86%' }} ></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="">
-                                                    <div className="bg-[#F4C8D1] w-full h-[10px] overflow-hidden rounded-[10px]">
-                                                        <div className="bg-[#DB4965] h-full" style={{ width: '68%' }} ></div>
+                                            </div>
+                                            <div className='gap-[16px] flex-col flex'>
+                                                <div>
+                                                    <div className="flex items-center mb-[5px] justify-between">
+                                                        <div className='gap-[0.25rem] flex'>
+                                                            <span className="text-[13px] flex-1  text-[#676a6c]">Carbohydrate</span>
+                                                            <div className='flex items-center gap-[0.25rem] text-[rgb(234_159_119)]'>
+                                                                <MdOutlineArrowUpward className='font-[900]' />
+                                                                2
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex items-center">
+                                                            <span className="text-[13px] font-semibold text-[rgb(234_159_119)]">286.6</span>
+                                                            <div className="flex items-end">
+                                                                <span className="tw-text-sm">/285 </span>
+                                                                <span className="text-[11px] text-[#888888]"> g</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="">
+                                                        <div className="bg-[rgb(244_210_200)] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                            <div className="bg-[rgb(234_159_119)] h-full" style={{ width: '100%' }} ></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className='gap-[16px] flex-col flex'>
+                                                <div>
+                                                    <div className="flex items-center mb-[5px] justify-between">
+                                                        <span className="text-[13px] flex-1  text-[#676a6c]">Protein</span>
+                                                        <div className="flex items-center">
+                                                            <span className="text-[13px] font-semibold">112.2</span>
+                                                            <div className="flex items-end">
+                                                                <span className="tw-text-sm">/114 </span>
+                                                                <span className="text-[11px] text-[#888888]"> g</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="">
+                                                        <div className="bg-[#1ab3954d] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                            <div className="bg-[rgb(26_179_148)] h-full" style={{ width: '98%' }} ></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='gap-[16px] flex-col flex'>
+                                                <div>
+                                                    <div className="flex items-center mb-[5px] justify-between">
+                                                        <div className='gap-[0.25rem] flex'>
+                                                            <span className="text-[13px] flex-1  text-[#676a6c]">Dietary fiber</span>
+                                                            <div className='flex items-center gap-[0.25rem] text-[rgb(106_125_147)]'>
+                                                                <MdOutlineArrowUpward className='font-[900]' />
+                                                                10
+                                                            </div>
+                                                        </div>
 
-                                            <div>
-                                                <div className="flex items-center mb-[5px] justify-between">
-                                                    <div className='gap-[0.25rem] flex'>
-                                                        <div className="grow ">Carbohydrate</div>
-                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
-                                                    </div>
-                                                    <div>
-                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">286.6</div>
-                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
-                                                            <span className="inline-block text-[13px] leading-4">/285  </span>
-                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                        <div className="flex items-center">
+                                                            <span className="text-[13px] font-semibold">41.7</span>
+                                                            <div className="flex items-end">
+                                                                <span className="tw-text-sm">/32 </span>
+                                                                <span className="text-[11px] text-[#888888]"> g</span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="">
-                                                    <div className="bg-[#EA9F77] w-full h-[10px] overflow-hidden rounded-[10px]">
-                                                        <div className="bg-[#EA9F77] h-full" style={{ width: '68%' }} ></div>
+                                                    <div className="">
+                                                        <div className="bg-[rgb(213_217_226)] w-full h-[10px] overflow-hidden rounded-[10px]">
+                                                            <div className="bg-[rgb(106_125_147)] h-full" style={{ width: '130%' }} ></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className='p-[20px_20px_15px_20px] !pt-0'>
+                                        <div>
+                                            <div className='m-0 text-[20px] font-[400] leading-[1.1]'>Meals</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <Carousel>
+                                            <div className='w-[150px] h-[150px]'>
+                                                <DonutChart1 />
+                                            </div>
+                                            <div className='w-[150px] h-[150px]'>
+                                                <DonutChart2 />
+                                            </div>
+                                            <div className='w-[150px] h-[150px]'>
+                                                <DonutChart3 />
+                                            </div>
+                                            <div className='w-[150px] h-[150px]'>
+                                                <DonutChart4 />
+                                            </div>
+                                            <div className='w-[150px] h-[150px]'>
+                                                <DonutChart5 />
+                                            </div>
+                                            <div className='w-[150px] h-[150px]'>
+                                                <DonutChart6 />
+                                            </div>
+                                        </Carousel>
+                                    </div>
+                                </div>
+                                <div className='bg-[#fff] mt-0 p-0 rounded-[5px] mb-0'>
+                                    <div className='flex justify-between p-[20px_20px_15px_20px]'>
+                                        <div>
+                                            <h4 className='m-0 text-[20px] font-[400] leading-[1.1]'>Micronutrients distribution</h4>
+                                        </div>
+                                    </div>
+                                    <div className='p-5 pt-0 min-h-[500px]'>
+                                        <div>
                                             <div>
-                                                <div className="flex items-center mb-[5px] justify-between">
-                                                    <div className='gap-[0.25rem] flex'>
-                                                        <div className="grow ">Protein</div>
-                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
-                                                    </div>
-                                                    <div>
-                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">112.2</div>
-                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
-                                                            <span className="inline-block text-[13px] leading-4">/114 </span>
-                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
+                                                <div className='h-[16px] flex justify-start text-[#717171]'>
+                                                    <div className='flex min-w-[130px] m-[5px_0px_5px_5px]'></div>
+                                                    <div className='flex min-w-[140px] m-[5px_0px]'></div>
+                                                    <div className='flex w-full h-[28px]'>
+                                                        <div className='h-[28px] grow bg-[#ffffff00] rounded-none relative overflow-visible'>
+                                                            <div className='w-[20%] left-0 absolute text-right'>
+                                                                <div className='inline-block'>RDA</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="">
-                                                    <div className="bg-[#1AB3954D] w-full h-[10px] overflow-hidden rounded-[10px]">
-                                                        <div className="bg-[#1AB394] h-full" style={{ width: '68%' }} ></div>
+                                                <div className='bg-[#FAFAFB] flex justify-start h-[28px] text-[#717171]'>
+                                                    <div className='flex min-w-[130px] m-[5px_0px_5px_5px]'>Calcium</div>
+                                                    <div className='flex min-w-[140px] m-[5px_0px]'>
+                                                        <div className='font-bold'>760.8</div>
+                                                        <div className='ml-[5px]'>
+                                                            / 1000.0
+                                                            <div className='inline-block'>mg</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex w-full h-[28px]'>
+                                                        <div className='h-[28px] grow bg-[#ffffff00] rounded-none relative overflow-visible mb-5'>
+                                                            <div className='w-[15.2%] h-[16px] m-[6px_0px] bg-[#1ab394] float-left text-[12px] leading-5 text-[#fff] text-center'></div>
+                                                            <div className='w-[20.0%] absolute h-[27px] mt-[3px]'></div>
+                                                            <div className='h-0 w-full bg-[#717171] opacity-[0.3] absolute top-[50%] block'></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-start h-[28px] text-[#717171]'>
+                                                    <div className='flex min-w-[130px] m-[5px_0px_5px_5px]'>Choline, total</div>
+                                                    <div className='flex min-w-[140px] m-[5px_0px]'>
+                                                        <div className='font-bold'>343.2</div>
+                                                        <div className='ml-[5px]'>
+                                                            / 425.0
+                                                            <div className='inline-block'>mg</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex w-full h-[28px]'>
+                                                        <div className='h-[28px] grow bg-[#ffffff00] rounded-none relative overflow-visible mb-5'>
+                                                            <div className='w-[16.2%] h-[16px] m-[6px_0px] bg-[#1ab394] float-left text-[12px] leading-5 text-[#fff] text-center'></div>
+                                                            <div className='w-[20.0%] absolute h-[27px] mt-[3px]'></div>
+                                                            <div className='h-0 w-full bg-[#717171] opacity-[0.3] absolute top-[50%] block'></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='bg-[#FAFAFB] flex justify-start h-[28px] text-[#717171]'>
+                                                    <div className='flex min-w-[130px] m-[5px_0px_5px_5px]'>Copper</div>
+                                                    <div className='flex min-w-[140px] m-[5px_0px]'>
+                                                        <div className='font-bold'>3.0</div>
+                                                        <div className='ml-[5px]'>
+                                                            / 0.9
+                                                            <div className='inline-block'>mg</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex w-full h-[28px]'>
+                                                        <div className='h-[28px] grow bg-[#ffffff00] rounded-none relative overflow-visible mb-5'>
+                                                            <div className='w-[66.7%] h-[16px] m-[6px_0px] bg-[#1ab394] float-left text-[12px] leading-5 text-[#fff] text-center'></div>
+                                                            <div className='w-[20.0%] absolute h-[27px] mt-[3px]'></div>
+                                                            <div className='h-0 w-full bg-[#717171] opacity-[0.3] absolute top-[50%] block'></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-start h-[28px] text-[#717171]'>
+                                                    <div className='flex min-w-[130px] m-[5px_0px_5px_5px]'>Fluoride</div>
+                                                    <div className='flex min-w-[140px] m-[5px_0px]'>
+                                                        <div className='font-bold'>38.2</div>
+                                                        <div className='ml-[5px]'>
+                                                            / 3000.0
+                                                            <div className='inline-block'>mg</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex w-full h-[28px]'>
+                                                        <div className='h-[28px] grow bg-[#ffffff00] rounded-none relative overflow-visible mb-5'>
+                                                            <div className='w-[0.3%] h-[16px] m-[6px_0px] bg-[#1ab394] float-left text-[12px] leading-5 text-[#fff] text-center'></div>
+                                                            <div className='w-[20.0%] absolute h-[27px] mt-[3px]'></div>
+                                                            <div className='h-0 w-full bg-[#717171] opacity-[0.3] absolute top-[50%] block'></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div className="flex items-center mb-[5px] justify-between">
-                                                    <div className='gap-[0.25rem] flex'>
-                                                        <div className="grow ">Dietary fiber</div>
-                                                        <div className='hidden gap-[0.25rem] items-center'>-154</div>
-                                                    </div>
-                                                    <div>
-                                                        <div className="inline-block font-[600] text-[13px] leading-4 mr-0">41.7</div>
-                                                        <div className="inline-block font-[300] text-[#888888] text-[13px] leading-4">
-                                                            <span className="inline-block text-[13px] leading-4">/32  </span>
-                                                            <span className="inline-block text-[11px] font-[300] text-[]">g</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="">
-                                                    <div className="bg-[#6A7D93] w-full h-[10px] overflow-hidden rounded-[10px]">
-                                                        <div className="bg-[#6A7D93] h-full" style={{ width: '68%' }} ></div>
-                                                    </div>
+                                        </div>
+                                    </div>
+                                    <div className='p-5 pt-0'>
+                                        <div className='text-right'>
+                                            <div className='mr-0 text-[12px] text-[#888888] font-[300] justify-end flex items-center'>
+                                                <MdOutlineBookmark className='mr-[5px] align-middle text-[18px] ' />
+                                                <div className='m-0 relative inline-block'>
+                                                    <a href='' className='h-[26px] leading-[26px] border-0 rounded-none'>
+                                                        <span className='p-0 mr-[26px] block overflow-hidden text-[#888888] whitespace-nowrap text-ellipsis w-auto'>Food and Nutrition Board / IOM</span>
+                                                    </a>
+                                                    <MdOutlineChevronLeft className='-rotate-90 absolute top-[3px] right-[5px] text-[#888888] w-[20px] h-[20px]' />
                                                 </div>
                                             </div>
                                         </div>
@@ -661,7 +814,6 @@ const MealPlan = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </MainLayout>
