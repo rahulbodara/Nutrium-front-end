@@ -79,16 +79,16 @@ const Information = () => {
   });
 
   const [selectedHour1, setSelectedHour1] = useState(
-    DietaryhistoryData?.wakeupTime.split(":")[0]
+    DietaryhistoryData?.wakeupTime?.split(":")[0]
   );
   const [selectedMinute1, setSelectedMinute1] = useState(
-    DietaryhistoryData?.wakeupTime.split(":")[1]
+    DietaryhistoryData?.wakeupTime?.split(":")[1]
   );
   const [selectedHour2, setSelectedHour2] = useState(
-    DietaryhistoryData?.bedTime.split(":")[0]
+    DietaryhistoryData?.bedTime?.split(":")[0]
   );
   const [selectedMinute2, setSelectedMinute2] = useState(
-    DietaryhistoryData?.bedTime.split(":")[1]
+    DietaryhistoryData?.bedTime?.split(":")[1]
   );
   const [observationId, setObservationId] = useState();
   const [eatingId, setEatingId] = useState();
