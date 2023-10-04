@@ -38,6 +38,7 @@ import {
 } from "@/redux/action/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { handleApiCall } from "@/util/apiUtils";
+import { GetAllFoods } from "@/redux/action/foodDiaries";
 
 const clientType = [
   {
@@ -108,7 +109,7 @@ const Information = () => {
     return null;
   });
   const openAddFoodDiaryModal = () => {
-    setEditFood(null); 
+    setEditFood(null);
     setFoodDiaries(true);
   };
 
@@ -122,6 +123,7 @@ const Information = () => {
     }
     return null;
   });
+  const { id } = router.query;
   const observationData = useSelector(
     (state) => state?.auth?.observationBehaviour?.data?.observation
   );
@@ -132,6 +134,10 @@ const Information = () => {
   const foodDiariesData = useSelector(
     (state) => state.FoodDiaries.foodDiariesData
   );
+  useEffect(() => {
+    dispatch(GetAllFoods(id));
+  }, [])
+  console.log("foodDiariesData", foodDiariesData);
   const [openObservations, setOpenObservations] = useState(false);
   const [foodDiaries, setFoodDiaries] = useState(false);
 

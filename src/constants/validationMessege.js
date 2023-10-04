@@ -10,3 +10,4 @@ export const TYPE_OF_SERVICE = "This field is required";
 export const EVENT_TITLE = "The event title cannot be blank";
 export const ADDRESS_FILED =
   "You must fill in all address fields to validate the workplace, otherwise it will not be available in your services.";
+export const FOOD_REQUIRED = 'You have to fill at least one field besides the date.'

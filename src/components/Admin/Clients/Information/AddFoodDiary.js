@@ -9,11 +9,12 @@ import "select2/dist/css/select2.min.css";
 import $ from "jquery";
 import "select2";
 import SelectMenu from "../../common/SelectMenu";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { handleApiCall } from "@/util/apiUtils";
-import { GetAllFoods, createFood, updateFood } from "@/redux/action/foodDiaries";
+import { GetAllFoods, RemoveFood, createFood, updateFood } from "@/redux/action/foodDiaries";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
+import { food } from "@/schema/food";
 
 const foodDiariesOption = [
     {
@@ -50,11 +51,12 @@ const AddFoodDiary = (props) => {
 
     const [selectedValue, setSelectedValue] = useState('');
     const [addMeal, setAddMeal] = useState([]);
-    let editAddMealData = []
-    if (editfood) {
-        editAddMealData = editfood?.addMeal
-    }
-    const foodArray = editAddMealData ? editAddMealData : addMeal
+
+    useEffect(() => {
+        if (editfood?.addMeal) setAddMeal(editfood?.addMeal)
+        else setAddMeal([])
+    }, [editfood?.addMeal])
+
     const formatDateToMMDDYYYY = (isoDate) => {
         const date = new Date(isoDate);
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -67,7 +69,7 @@ const AddFoodDiary = (props) => {
         registrationDate: editfood ? new Date() : '',
         observation: editfood ? editfood.observation : '',
     };
-
+    console.log(editfood, "dfghjk");
     const handleSubmit = async (values) => {
         const data = {
             ...values,
@@ -82,7 +84,7 @@ const AddFoodDiary = (props) => {
             if (editfood) {
                 await handleApiCall(
                     dispatch,
-                    updateFood(data, editfood.id),
+                    updateFood(data, editfood._id),
                     'Food Data Updated Successfully'
                 );
             } else {
@@ -94,6 +96,7 @@ const AddFoodDiary = (props) => {
             }
 
             dispatch(GetAllFoods(id));
+            setAddMeal([]);
             props.setIsOpen(false);
         } catch (error) {
             console.error("Error:", error);
@@ -117,7 +120,36 @@ const AddFoodDiary = (props) => {
             setAddMeal(updatedAddMeal);
         }
     };
-
+    // const handleRemoveFood = async (deleteId) => {
+    //     const data = {
+    //         clientId: id
+    //     };
+    //     await handleApiCall(
+    //         dispatch,
+    //         RemoveFood(data, deleteId),
+    //         'Food Data Remove Successfully'
+    //     );
+    // }
+    const handleRemoveFood = async (deleteId) => {
+        const data = {
+            clientId: id
+        };
+        if (deleteId) {
+            try {
+                const success = await handleApiCall(
+                    dispatch,
+                    RemoveFood(data, deleteId),
+                    'Food Data Deleted Successfully'
+                );
+                if (success) {
+                    dispatch(GetAllFoods(id));
+                    props.setIsOpen(false);
+                }
+            } catch (error) {
+                console.error("Error deleting Food Data:", error);
+            }
+        }
+    }
     useEffect(() => {
         const $select = $(selectRef.current);
 
@@ -148,7 +180,7 @@ const AddFoodDiary = (props) => {
                 closeIcon={props?.closeIcon}
                 setIsOpen={props.setIsOpen}
             >
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={food}>
                     {({ values }) => (
                         <Form>
                             <div className="px-[30px] pt-[0] py-[20px]">
@@ -168,7 +200,7 @@ const AddFoodDiary = (props) => {
                                     </Field>
                                 </div>
                                 <div>
-                                    {foodArray.length > 0 && foodArray.map((meal, index) => (
+                                    {addMeal.length > 0 && addMeal.map((meal, index) => (
                                         <div className="flex mt-[7px]" key={index}>
                                             <div className="basis-[215px] justify-between text-[1.1em] flex items-center min-h-[38px] border border-[#EEEEEE] min-w-[215px] py-[5px] px-[10px] bg-[#FAFAFB]">
                                                 <span>
@@ -246,15 +278,28 @@ const AddFoodDiary = (props) => {
                                         Observations
                                     </div>
                                     <Field rows="1" name="observation" className="flex-1 border ml-[-1px] min-h-[56px] w-full text-[13px] focus:ring-0 focus:outline-none focus:border-[#EEEEEE] min-h-[38px] py-[5px] px-[10px] border-[#EEEEEE]"></Field>
+                                    <ErrorMessage
+                                        name="observation"
+                                        component="span"
+                                        className="text-red-500 text-xs"
+                                    />
                                 </div>
                                 <div className="text-end mt-[20px] ">
-                                    <button onClick={() => props.setIsOpen(false)} className="bg-white  border rounded-[3px] text-[14px] px-[12px] py-[6px]">Cancel</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        props.setIsOpen(false)
+                                        setAddMeal([]);
+                                    }} className="bg-white  border rounded-[3px] text-[14px] px-[12px] py-[6px]">Cancel</button>
                                     <button type="submit" className="bg-[#1AB394] ml-[5px] text-[#FFFFFF] rounded-[3px] text-[14px] px-[12px] py-[6px]">Save</button>
+
                                 </div>
                             </div>
+
                         </Form>
                     )}
                 </Formik>
+                <button className="bg-[#1AB394] ml-[5px] text-[#FFFFFF] rounded-[3px] text-[14px] px-[12px] py-[6px]" onClick={()=>{handleRemoveFood(editfood?._id)}}>Remove</button>
+
             </Modal>
         </div>
     );

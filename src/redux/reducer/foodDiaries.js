@@ -19,12 +19,14 @@ export const FoodDiaries = (state = initialState, action) => {
                 foodDiariesData: action.data.foodDiaries,
             };
         case Types.UPDATE_FOOD:
-            const updateFood = action.data.data;
-            const updatedFoodDetails = state.servicesData.map((services) => {
-                if (services._id === updateFood._id) {
+            const updateFood = action.data.data.EatingBehaviour;
+            console.log(updateFood,"updatefoodddd");
+            const updatedFoodDetails = state.foodDiariesData.map((foodDiaries) => {
+                console.log(foodDiaries,updateFood,"updateFoodupdateFoodupdateFood");
+                if (foodDiaries._id === updateFood._id) {
                     return updateFood;
                 } else {
-                    return services
+                    return foodDiaries
                 }
             });
             return { ...state, servicesData: updatedFoodDetails };
@@ -45,8 +47,8 @@ export const FoodDiaries = (state = initialState, action) => {
         //         }
         //     });
         //     return { ...state, secreatariesData: updatedSecretaries };
-        // case Types.REMOVE_SECRETARIES:
-        //     return { ...state, secreatariesData: action.data }
+        case Types.REMOVE_FOOD:
+            return { ...state, foodDiariesData: action.data }
         default:
             return state;
     }

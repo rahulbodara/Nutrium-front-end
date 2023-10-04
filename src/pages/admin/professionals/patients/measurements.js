@@ -129,27 +129,27 @@ const Measurements = () => {
     const clientId = useSelector((state) => state.Measurement.clientId)
     console.log(clientId, "clientIdclientIdclientId")
     const dispatch = useDispatch()
-    const initial = anthropometric[selected - 1]
-    const datattatta = initial?.name || ''
-    
+    const datattatta = selected !== null ? anthropometric[selected - 1].name : '';
     const initialValues = {
-        measurementsDate: new Date(),
-        [datattatta]: [
+        measurementsDate: startDate,
+    };
+
+    if (datattatta) {
+        initialValues[datattatta] = [
             {
                 value: "",
                 unit: "",
-            },
-        ],
+            }
+        ];
     }
-    console.log(initialValues, "sdfghjl")
     const handleRegister = async (values) => {
         console.log("valuesss--->>", values)
-        try {
-            const response = await dispatch(addMeasurement(clientId, values));
-            console.log("RESPONSE+++++++++", response)
-        } catch (error) {
-            console.log('error-------------->', error);
-        }
+        // try {
+        //     const response = await dispatch(addMeasurement(clientId, values));
+        //     console.log("RESPONSE+++++++++", response)
+        // } catch (error) {
+        //     console.log('error-------------->', error);
+        // }
     };
 
     return (
