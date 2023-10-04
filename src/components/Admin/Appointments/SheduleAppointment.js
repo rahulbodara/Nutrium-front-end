@@ -37,7 +37,7 @@ const SheduleAppointment = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [appointmentStatus, setAppointmentStatus] = useState("Start");
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -59,11 +59,11 @@ const SheduleAppointment = () => {
   }, []);
   useEffect(() => {
     if (router.pathname === "/admin/professionals/patients/information") {
-        // setAppointmentStatus("Finish Appointment");
-        latestclient = null;
-      } else {
-        dispatch(getAllAppointment());
-      }
+      // setAppointmentStatus("Finish Appointment");
+      latestclient = null;
+    } else {
+      dispatch(getAllAppointment());
+    }
   }, [dispatch]);
   const appointmentData = useSelector(
     (state) => state?.Appointment?.appointmentData
@@ -83,7 +83,7 @@ const SheduleAppointment = () => {
   //       query: { id: latestclient?.clientId },
   //     });
   //   } else if (appointmentStatus === "Finish Appointment") {
-    
+
   //   }
   // };
 
@@ -138,19 +138,13 @@ const SheduleAppointment = () => {
                 </Link>
               </div>
               <div className="flex flex-col flex-[1] flex-grow">
-                <div
-                  className="flex gap-[8px]"
-                  onClick={() => {
-                    router.push({
-                      pathname: "/admin/professionals/patients/information",
-                      query: { id: latestclient?.clientId },
-                    });
-                    
-                  }}
-                >
+                <div className="flex gap-[8px]">
                   <h3 className="break-words text-[16px]">
                     <Link
-                      href={""}
+                      href={{
+                          pathname: "/admin/professionals/patients/information",
+                          query: { id: latestclient?.clientId },
+                        }}
                       className="text-[#676a6c] hover:text-[#1AB394]"
                     >
                       {latestclient?.clientName
@@ -182,15 +176,16 @@ const SheduleAppointment = () => {
           </div>
           <div className="w-1/4 md:mt-[20px] float-left md:w-full pl-[15px] md:p-0  relative md:static">
             <Link
+              href={""}
               className={`mt-[5px] bg-[#1AB394] hover:bg-[#18a689] md:bg-[#d3f8eb] hover:border-[#18a689] text-white md:text-[#1AB394] md:mt-[5px] border-[#1AB394] rounded-[3px] block w-full text-xs leading-normal px-2.5 py-[5px] md:font-[600] md:uppercase md:p-[8px_10px] md:border-none text-center font-normal whitespace-nowrap align-middle touch-manipulation bg-none border select-none mb-0 border-solid border-transparent`}
-              onClick={()=>{
+              onClick={() => {
                 router.push({
-                   pathname: "/admin/professionals/patients/information",
-                   query: { id: latestclient?.clientId },
-                 });
+                  pathname: "/admin/professionals/patients/information",
+                  query: { id: latestclient?.clientId },
+                });
               }}
             >
-             Start
+              Start
             </Link>
             <div className="relative md:hidden">
               <button
