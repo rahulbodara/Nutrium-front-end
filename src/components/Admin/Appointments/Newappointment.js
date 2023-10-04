@@ -688,7 +688,9 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                     <div className="flex items-center justify-between px-[30px] pb-[15px]">
                       <button
                         className="px-3 hover:bg-[#FAFAFB] trnasition duration-200 border rounded-[3px] text-[14px] py-[6px]"
-                        onClick={() => setIsNewAppModal(false)}
+                        onClick={() => {
+                            setIsNewAppModal(false)
+                        }}
                       >
                         Cancel
                       </button>
