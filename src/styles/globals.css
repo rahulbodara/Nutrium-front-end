@@ -491,6 +491,24 @@ h2 {
     background-position: 0 0;
   }
 }
+.carousel .slide {
+  min-width: 34% !important;
+}
+
+.c3-chart-arc text {
+  font-size: 0 !important;
+}
+
+.carousel .slider-wrapper {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.carousel .slider-wrapper.axis-horizontal .slider .slide {
+  /* flex-direction: column; */
+  /* flex-flow: column; */
+}
+
 .calendar-main .rbc-row-segment .rbc-event{
   background-color: white;
   width: 100%;

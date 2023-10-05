@@ -74,9 +74,11 @@ const Information = () => {
   function HandleValue(value) { }
   const DietaryhistoryData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
-      return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
+      if (state?.auth?.clientData?.length > 0) {
+        return state?.auth?.clientData[0]?.Dietaryhistory?.[0];
+      }
+      return null;
     }
-    return null;
   });
 
   const [selectedHour1, setSelectedHour1] = useState(
@@ -119,9 +121,11 @@ const Information = () => {
   };
   const medicalData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
-      return state?.auth?.clientData[0]?.Medicalhistory?.[0];
+      if (state?.auth?.clientData?.length > 0) {
+        return state?.auth?.clientData[0]?.Medicalhistory?.[0];
+      }
+      return null;
     }
-    return null;
   });
   const { id } = router.query;
   const observationData = useSelector(
@@ -169,12 +173,15 @@ const Information = () => {
         "Appointnment info. Updated Successfully"
       );
       if (success) {
-        dispatch(getClientById(query.id));
+        if (success) {
+          dispatch(getClientById(query.id));
+        }
       }
     } catch (err) {
       console.log("Error -->", err);
     }
-  };
+  }
+
   const handleMedicalHistorySubmit = async (newValue) => {
     try {
       const success = await handleApiCall(
@@ -183,9 +190,13 @@ const Information = () => {
         "Medical history Updated Successfully"
       );
       if (success) {
-        dispatch(getClientById(query.id));
+        if (success) {
+          dispatch(getClientById(query.id));
+        }
       }
-    } catch (err) { }
+    } catch (err) {
+
+    }
   };
   const handleDietarySubmit = async (newValue) => {
     try {

@@ -210,7 +210,6 @@ const CustomEvent = ({ event }) => {
       name: "not_confirmed",
     },
   ];
-
   useEffect(() => {
     if (item) {
       setFormData({

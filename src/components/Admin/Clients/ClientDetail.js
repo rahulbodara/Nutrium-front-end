@@ -6,6 +6,7 @@ import {
   mdiCamera,
   mdiChevronDown,
   mdiPhone,
+  mdiTag,
 } from '@mdi/js';
 import EditableInput from '../common/EditableInput';
 import ClosableSelect from '../common/ClosableSelect';
@@ -61,10 +62,10 @@ const ClientDetail = ({ clientId }) => {
         updateClient(newValue, clientId),
         'Client Updated Successfully'
       );
-      if(success) {
+      if (success) {
         dispatch(getClientById(clientId));
       }
-    } catch(err) {
+    } catch (err) {
       console.log("Error -->", err)
     }
   };
@@ -159,6 +160,16 @@ const ClientDetail = ({ clientId }) => {
                         : ''}
                     </span>
                   </div>
+                  <div className="flex items-center w-auto 2lg:w-1/2 md:w-full">
+                    <Icon
+                      className="text-[#1AB394] mr-[8px]"
+                      path={mdiTag}
+                      size={0.8}
+                    />
+                    <span className="text-[#888888] text-[14px]">
+                      sdas
+                    </span>
+                  </div>
                 </div>
                 <div className="2lg:hidden flex items-center justify-end">
                   <button className="text-[#1AB394] border border-[#1AB394] hover:text-white rounded-[3px] px-[10px] py-[5px] trnasition duration-200 hover:bg-[#1AB394]">
@@ -181,9 +192,8 @@ const ClientDetail = ({ clientId }) => {
           </div>
         </div>
         <div
-          className={`${
-            collapse ? 'h-full lg:block grid' : 'h-0 hidden'
-          } transition-all duration-300 grid pb-[24px] px-[24px] grid-cols-2 gap-[30px]`}
+          className={`${collapse ? 'h-full lg:block grid' : 'h-0 hidden'
+            } transition-all duration-300 grid pb-[24px] px-[24px] grid-cols-2 gap-[30px]`}
         >
           <div>
             <div>
@@ -191,7 +201,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Full name"
                 initialValue={clientData?.fullName || ''}
-                onInputChange={(value) => setSingleValue({["fullName"]:value})}
+                onInputChange={(value) => setSingleValue({ ["fullName"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -200,7 +210,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Occupation"
                 initialValue={clientData?.occupation || ''}
-                onInputChange={(value) => setSingleValue({["occupation"]:value})}
+                onInputChange={(value) => setSingleValue({ ["occupation"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -213,7 +223,7 @@ const ClientDetail = ({ clientId }) => {
                 className="mt-[7px]"
                 label="Gender"
                 initialValue={clientData?.gender || ''}
-                onChange={(value) => setSingleValue({["gender"]:value})}
+                onChange={(value) => setSingleValue({ ["gender"]: value })}
                 handleSubmit={handleSubmit}
                 name={"gender"}
               />
@@ -226,8 +236,8 @@ const ClientDetail = ({ clientId }) => {
                 closable={false}
                 className="mt-[7px]"
                 label="Residence"
-                initialValue={clientData?.country || ''}        
-                onChange={(value) => setSingleValue({["country"]:value})}
+                initialValue={clientData?.country || ''}
+                onChange={(value) => setSingleValue({ ["country"]: value })}
                 handleSubmit={handleSubmit}
                 name={"country"}
               />
@@ -237,7 +247,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Address"
                 initialValue={clientData?.address || ''}
-                onInputChange={(value) => setSingleValue({["address"]:value})}
+                onInputChange={(value) => setSingleValue({ ["address"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -247,7 +257,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Zip code"
                 initialValue={clientData?.zipcode || ''}
-                onInputChange={(value) => setSingleValue({["zipcode"]:value})}
+                onInputChange={(value) => setSingleValue({ ["zipcode"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -256,7 +266,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Mobile phone"
                 initialValue={clientData?.phoneNumber || ''}
-                onInputChange={(value) => setSingleValue({["phoneNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["phoneNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -265,7 +275,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Email"
                 initialValue={clientData?.email || ''}
-                onInputChange={(value) => setSingleValue({["email"]:value})}
+                onInputChange={(value) => setSingleValue({ ["email"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -279,7 +289,7 @@ const ClientDetail = ({ clientId }) => {
                 className="mt-[7px]"
                 label="Tags"
                 initialValue={clientData?.tags || ''}
-                onChange={(value) => setSingleValue({['tags']:value})}
+                onChange={(value) => setSingleValue({ ['tags']: value })}
                 handleSubmit={handleSubmit}
                 name={"tags"}
               />
@@ -294,7 +304,7 @@ const ClientDetail = ({ clientId }) => {
                 label="Workplace"
                 initialValue={clientData?.workplace || ''}
                 workData={true}
-                onChange={(value) => setSingleValue({["workplace"]:value})}
+                onChange={(value) => setSingleValue({ ["workplace"]: value })}
                 handleSubmit={handleSubmit}
                 name={"workplace"}
               />
@@ -305,7 +315,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 closable={false}
                 userData={clientData}
-                onChange={(value) => setSingleValue({["dateOfBirth"]:value})}
+                onChange={(value) => setSingleValue({ ["dateOfBirth"]: value })}
                 handleSubmit={handleSubmit}
                 name={"dateOfBirth"}
               />
@@ -318,7 +328,7 @@ const ClientDetail = ({ clientId }) => {
                 <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
                   <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                     <span className="w-full block h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                    {moment(clientData?.createdAt).format("MM/DD/YYYY hh:mm A")}
+                      {moment(clientData?.createdAt).format("MM/DD/YYYY hh:mm A")}
                     </span>
                   </div>
                 </div>
@@ -329,7 +339,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Process number"
                 initialValue={clientData?.processNumber || ''}
-                onInputChange={(value) => setSingleValue({["processNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["processNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -338,7 +348,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="National number"
                 initialValue={clientData?.nationalNumber || ''}
-                onInputChange={(value) => setSingleValue({["nationalNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["nationalNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -347,7 +357,7 @@ const ClientDetail = ({ clientId }) => {
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="Health number"
                 initialValue={clientData?.healthNumber || ''}
-                onInputChange={(value) => setSingleValue({["healthNumber"]:value})}
+                onInputChange={(value) => setSingleValue({ ["healthNumber"]: value })}
                 handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
@@ -355,9 +365,9 @@ const ClientDetail = ({ clientId }) => {
               <EditableInput
                 labelWidth="basis-[180px] mr-[-1px] min-w-[180px]"
                 label="VAT number"
-                initialValue={clientData?.vatNumber || ''}   
-                onInputChange={(value) => setSingleValue({["vatNumber"]:value})}
-                handleSubmit={() => handleSubmit(singleValue)}     
+                initialValue={clientData?.vatNumber || ''}
+                onInputChange={(value) => setSingleValue({ ["vatNumber"]: value })}
+                handleSubmit={() => handleSubmit(singleValue)}
               />
             </div>
           </div>

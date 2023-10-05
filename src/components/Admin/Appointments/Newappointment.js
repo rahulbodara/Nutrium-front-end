@@ -235,11 +235,10 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                             <div className="row -mx-[15px]">
                               <div className="w-1/2 float-left px-[15px]">
                                 <div
-                                  className={`cursor-pointer text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE] ${
-                                    confirmationStatus === "1"
-                                      ? "bg-[#1AB394] text-white"
-                                      : "bg-white"
-                                  }`}
+                                  className={`cursor-pointer text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE] ${confirmationStatus === "1"
+                                    ? "bg-[#1AB394] text-white"
+                                    : "bg-white"
+                                    }`}
                                   onClick={() => {
                                     setConfirmationStatus("1");
                                   }}
@@ -251,11 +250,10 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                               </div>
                               <div className="w-1/2 float-left px-[15px]">
                                 <div
-                                  className={`cursor-pointer text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE] ${
-                                    confirmationStatus === "2"
-                                      ? "bg-[#1AB394] text-white"
-                                      : "bg-white"
-                                  }`}
+                                  className={`cursor-pointer text-center overflow-hidden text-ellipsis p-[0.7em] block border box-border whitespace-nowrap rounded-[5px] border-solid border-[#EEEEEE] ${confirmationStatus === "2"
+                                    ? "bg-[#1AB394] text-white"
+                                    : "bg-white"
+                                    }`}
                                   onClick={() => {
                                     setConfirmationStatus("2");
                                   }}
@@ -269,9 +267,8 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                           </div>
                         </div>
                         <div
-                          className={`${
-                            confirmationStatus === "1" ? "block" : "hidden"
-                          }`}
+                          className={`${confirmationStatus === "1" ? "block" : "hidden"
+                            }`}
                         >
                           <div className="flex mb-[15px]">
                             <div className="mr-[10px] flex-grow">
@@ -280,7 +277,7 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                                 className="h-[34px] text-ellipsis input-transition bg-[white] bg-none border text-inherit block w-full px-3 py-1.5 rounded-[1px] border-solid border-[#e5e6e7] focus:border-[#1AB394] focus:ring-0 placeholder:text-[13px] placeholder:opacity-[0.6]"
                                 placeholder="Search clients by name, occupation, identification number or contact..."
                                 value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)} 
+                                onChange={(e) => setSearchQuery(e.target.value)}
                               />
                             </div>
                             <SelectField
@@ -363,9 +360,8 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                         </div>
 
                         <div
-                          className={`${
-                            confirmationStatus === "2" ? "block" : "hidden"
-                          }`}
+                          className={`${confirmationStatus === "2" ? "block" : "hidden"
+                            }`}
                         >
                           <form>
                             <div className="row -mx-[15px]">
@@ -574,9 +570,8 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                             </div>
                             <div className="row -mx-[15px] mb-[10px]">
                               <div
-                                className={`px-[15px] float-left w-full  justify-between ${
-                                  !addSheduleNotes ? "flex" : "hidden"
-                                }`}
+                                className={`px-[15px] float-left w-full  justify-between ${!addSheduleNotes ? "flex" : "hidden"
+                                  }`}
                               >
                                 <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
                                   Add scheduling notes
@@ -593,9 +588,8 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                                 </div>
                               </div>
                               <div
-                                className={`px-[15px] float-left w-full flex justify-between ${
-                                  addSheduleNotes ? "flex" : "hidden"
-                                }`}
+                                className={`px-[15px] float-left w-full flex justify-between ${addSheduleNotes ? "flex" : "hidden"
+                                  }`}
                               >
                                 <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
                                   Scheduling notes
@@ -618,9 +612,8 @@ const Newappointment = ({ isNewAppModal, setIsNewAppModal, setDateModal,editData
                               </div>
                             </div>
                             <div
-                              className={`row -mx-[15px] mb-[10px] ${
-                                addSheduleNotes ? "block" : "hidden"
-                              }`}
+                              className={`row -mx-[15px] mb-[10px] ${addSheduleNotes ? "block" : "hidden"
+                                }`}
                             >
                               <div className="mb-[5px] px-[15px] float-left w-full">
                                 <textarea

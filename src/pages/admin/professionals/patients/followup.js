@@ -9,7 +9,7 @@ import ClientDetail from '@/components/Admin/Clients/ClientDetail';
 import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe';
 import CustomCalendar from '@/components/Admin/Clients/Calander/CustomCalendar';
 import Icon from '@mdi/react';
-import { mdiClockOutline, mdiClose, mdiCloseThick, mdiLaunch, mdiMessageReplyText, mdiPackageDown } from '@mdi/js';
+import { mdiClockOutline, mdiClose, mdiCloseThick, mdiHeart, mdiLaunch, mdiMessageReplyText, mdiPackageDown } from '@mdi/js';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { mdiCheck, mdiClock, mdiEmailOutline, mdiHeartBoxOutline, mdiHeartOutline, mdiHelp, mdiRun, mdiSwapHorizontal } from '@mdi/js'
 import 'select2/dist/css/select2.min.css';
@@ -90,6 +90,11 @@ const Followup = () => {
         }
     ]
 
+    const [liked, setLiked] = useState(false);
+
+    const handleLikeClick = () => {
+        setLiked(!liked);
+    };
 
     return (
         <div>
@@ -301,7 +306,7 @@ const Followup = () => {
                                                 <option>Physical activity</option>
                                                 <option>Weight log</option>
                                                 <option>Mobile app</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -322,9 +327,9 @@ const Followup = () => {
                                                 <div className='inline'>Physical activity: running.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -375,9 +380,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -399,9 +404,9 @@ const Followup = () => {
                                                 <div className='inline'>Made changes at dinner on 14 of July at 07:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -449,9 +454,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -473,9 +478,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -497,9 +502,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -521,9 +526,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -545,9 +550,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
@@ -569,9 +574,9 @@ const Followup = () => {
                                                 <div className='inline'>Ate supper on 14 of July at 10:00 PM.</div>
                                             </div>
                                             <div className='flex gap-[18px] items-center'>
-                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 '>
-                                                    <a><Icon path={mdiHeartOutline} className='text-[#C2C2C2] group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]' /></a>
-                                                    <div className=''>Like</div>
+                                                <button className='flex text-[#717171] hover:border-[#e8e8e8] group hover:bg-[#f7f7f7] border rounded px-3 py-[2px] ml-2 ' onClick={handleLikeClick}>
+                                                    <a><Icon path={liked ? mdiHeart : mdiHeartOutline} className={`text-${liked ? "[#1AB394]" : "[#C2C2C2]"} group-hover:text-[#1AB394]  mr-2 inline-block leading-[1] w-[20px]`} /></a>
+                                                    <div className=''>{liked ? "Liked" : "Like"}</div>
                                                 </button>
                                                 <div >
                                                     <span>14 July</span>
