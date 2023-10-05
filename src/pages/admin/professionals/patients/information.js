@@ -82,7 +82,7 @@ const Information = () => {
     }
   }, [dispatch, query.id]);
 
-  function HandleValue(value) { }
+  function HandleValue(value) {}
   const DietaryhistoryData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
       if (state?.auth?.clientData?.length > 0) {
@@ -140,7 +140,6 @@ const Information = () => {
       return null;
     }
   });
-  const { id } = router.query;
   const observationData = useSelector(
     (state) => state?.auth?.observationBehaviour?.data?.observation
   );
@@ -151,10 +150,6 @@ const Information = () => {
   const foodDiariesData = useSelector(
     (state) => state.FoodDiaries.foodDiariesData
   );
-  useEffect(() => {
-    dispatch(GetAllFoods(id));
-  }, [])
-  console.log("foodDiariesData", foodDiariesData);
   const [openObservations, setOpenObservations] = useState(false);
   const [foodDiaries, setFoodDiaries] = useState(false);
 
@@ -300,7 +295,8 @@ const Information = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              className={`${active ? "bg-[#f5f5f5] text-[#1AB394]" : ""
+                              className={`${
+                                active ? "bg-[#f5f5f5] text-[#1AB394]" : ""
                               } group flex w-full items-center rounded p-[10px] text-[1.1em]`}
                             >
                               Save as client's file
@@ -1004,8 +1000,6 @@ const Information = () => {
                             <div
                               className={` md:basis-[140px] md:min-w-[140px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
                             >
-                              {/* {item.deadline} */}
-
                               {formattedDate}
                             </div>
                             <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
@@ -1033,8 +1027,14 @@ const Information = () => {
                               ) : (
                                 <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
                                   <div className="w-full group h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
-                                    {item.measurementType}{item.value} {item.unit}
-
+                                    {
+                                      item.unit +
+                                      " " +
+                                      item.value +
+                                      " " +
+                                      item.measurementType
+                                    }
+ 
                                     <div className="absolute group-hover:block left-0 top-0 bottom-0 h-full mt-auto mb-auto bg-[#eeeeee26] hidden w-full min-h-[38px]">
                                       <MdOutlineDelete
                                         className="relative ml-[50%] whitespace-nowrap inline-block align-middle bg-[#fff] border border-[#EEEEEE] rounded-[50%] w-[27px] text-[27px] p-1 m-[7px]"
