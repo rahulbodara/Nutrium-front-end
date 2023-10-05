@@ -1,38 +1,31 @@
-import ClientDetail from '@/components/Admin/Clients/ClientDetail'
-import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe'
-import Steps from '@/components/Admin/Clients/Information/Steps'
-import MainLayout from '@/components/Admin/MainLayout'
-import { mdiCog, mdiMenuRight, mdiMinus, mdiTrendingDown } from '@mdi/js'
-import Icon from '@mdi/react'
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { CCarouselItem } from '@coreui/react'
-import { CCarousel } from '@coreui/react'
-import { CImage } from '@coreui/react'
-import dynamic from 'next/dynamic';
-import HealthDetail from '@/components/Admin/Clients/HealthDetail'
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import DonutChart from '@/components/Admin/Clients/C3Test'
-import { MdOutlineArrowUpward, MdOutlineBookmark, MdOutlineBookmarks, MdOutlineChevronLeft } from 'react-icons/md'
-import ReactDOM from 'react-dom';
+import ClientDetail from '@/components/Admin/Clients/ClientDetail';
+import ClientSubscribe from '@/components/Admin/Clients/ClientSubscribe';
+import Steps from '@/components/Admin/Clients/Information/Steps';
+import MainLayout from '@/components/Admin/MainLayout';
+import React, { useEffect, useState } from 'react';
+import HealthDetail from '@/components/Admin/Clients/HealthDetail';
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { MdOutlineArrowUpward, MdOutlineBookmark, MdOutlineChevronLeft } from 'react-icons/md';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import DonutChart1 from '@/components/Admin/Clients/C3TestChart';
-import DonutChart2 from '@/components/Admin/Clients/C3Test1'
-import DonutChart3 from '@/components/Admin/Clients/C3Test2'
-import DonutChart4 from '@/components/Admin/Clients/C3Test3'
-import DonutChart5 from '@/components/Admin/Clients/C3Test4'
-import DonutChart6 from '@/components/Admin/Clients/C3Test5'
-import DemoCarousel from '@/components/Admin/Clients/ChartSlider'
 
 
-const DynamicC3LineChart = dynamic(() => import('@/components/Admin/common/C3LineChart'), { ssr: false });
+
 
 const MealPlan = () => {
 
     const [open, setOpen] = useState(false)
+    const [isBrowser, setIsBrowser] = useState(false);
+
+    useEffect(() => {
+        // Check if the code is running in a browser environment
+        if (typeof window !== 'undefined') {
+            
+            setIsBrowser(true);
+        }
+    }, []);
 
     return (
         <div>
@@ -583,7 +576,7 @@ const MealPlan = () => {
                                     </div>
                                     <div className='flex'>
                                         <div className='items-center flex justify-center relative'>
-                                            <DonutChart />
+                                           chart
                                         </div>
                                         <div className='gap-2 flex flex-col grow'>
                                             <div className='gap-[16px] flex-col flex'>
@@ -686,24 +679,7 @@ const MealPlan = () => {
                                     </div>
                                     <div>
                                         <Carousel>
-                                            <div className='w-[150px] h-[150px]'>
-                                                <DonutChart1 />
-                                            </div>
-                                            <div className='w-[150px] h-[150px]'>
-                                                <DonutChart2 />
-                                            </div>
-                                            <div className='w-[150px] h-[150px]'>
-                                                <DonutChart3 />
-                                            </div>
-                                            <div className='w-[150px] h-[150px]'>
-                                                <DonutChart4 />
-                                            </div>
-                                            <div className='w-[150px] h-[150px]'>
-                                                <DonutChart5 />
-                                            </div>
-                                            <div className='w-[150px] h-[150px]'>
-                                                <DonutChart6 />
-                                            </div>
+                                            <div>chart slider</div>
                                         </Carousel>
                                     </div>
                                 </div>
