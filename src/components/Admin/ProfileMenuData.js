@@ -35,7 +35,7 @@ export const ProfileMenuData = [
         id:'6',
         title: 'App and services integrations' ,
         icon : mdiViewGridPlus,
-        route:'#',
+        route:'/admin/professionals/integrations',
     },
     {
         id:'7',
