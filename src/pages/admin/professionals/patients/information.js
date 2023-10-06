@@ -2,13 +2,22 @@ import React, { Fragment, useState, useEffect } from "react";
 import Icon from "@mdi/react";
 import { Menu, Transition } from "@headlessui/react";
 import {
+  mdiBorderColor,
+  mdiCheck,
+  mdiClose,
+  mdiCloseCircle,
   mdiContentSave,
   mdiInformationOutline,
   mdiPlus,
   mdiPrinter,
 } from "@mdi/js";
 import { BsFilter } from "react-icons/bs";
-import { MdDelete, MdDownload, MdModeEdit } from "react-icons/md";
+import {
+  MdDelete,
+  MdDownload,
+  MdModeEdit,
+  MdOutlineDelete,
+} from "react-icons/md";
 import { GrDocumentText } from "react-icons/gr";
 import Steps from "@/components/Admin/Clients/Information/Steps";
 import MainLayout from "@/components/Admin/MainLayout";
@@ -25,6 +34,7 @@ import TimePicker from "@/components/Admin/common/TimePicker";
 import AddLogClient from "@/components/Admin/Clients/Information/AddObservations";
 import AddGoals from "@/components/Admin/Clients/Information/AddGoals";
 import AddFile from "@/components/Admin/Clients/Information/AddFile";
+import moment from "moment";
 import Pagination from "@/components/Admin/common/Pagination";
 import AddFoodDiary from "@/components/Admin/Clients/Information/AddFoodDiary";
 import {
@@ -38,7 +48,7 @@ import {
 } from "@/redux/action/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { handleApiCall } from "@/util/apiUtils";
-import { GetAllFoods } from "@/redux/action/foodDiaries";
+import { GetAllGoalData, RemoveGoals } from "@/redux/action/goal";
 
 const clientType = [
   {
@@ -61,6 +71,7 @@ const Information = () => {
   const router = useRouter();
   const { query } = router;
   const dispatch = useDispatch();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     if (query.id) {
@@ -71,7 +82,7 @@ const Information = () => {
     }
   }, [dispatch, query.id]);
 
-  function HandleValue(value) { }
+  function HandleValue(value) {}
   const DietaryhistoryData = useSelector((state) => {
     if (state?.auth?.clientData?.length > 0) {
       if (state?.auth?.clientData?.length > 0) {
@@ -95,6 +106,8 @@ const Information = () => {
   );
   const [observationId, setObservationId] = useState();
   const [eatingId, setEatingId] = useState();
+
+  const [goalId, setGoalId] = useState();
   const [singleValue, setSingleValue] = useState();
   const [medicalValue, setMedicalValue] = useState();
   const [dietaryValue, setDietaryValue] = useState();
@@ -127,7 +140,6 @@ const Information = () => {
       return null;
     }
   });
-  const { id } = router.query;
   const observationData = useSelector(
     (state) => state?.auth?.observationBehaviour?.data?.observation
   );
@@ -138,12 +150,10 @@ const Information = () => {
   const foodDiariesData = useSelector(
     (state) => state.FoodDiaries.foodDiariesData
   );
-  useEffect(() => {
-    dispatch(GetAllFoods(id));
-  }, [])
-  console.log("foodDiariesData", foodDiariesData);
   const [openObservations, setOpenObservations] = useState(false);
   const [foodDiaries, setFoodDiaries] = useState(false);
+
+  const goalData = useSelector((state) => state?.goal?.goalData?.goals);
 
   const handleTimeChange = (type, value) => {
     // Use the "type" parameter to distinguish between hour and minute changes
@@ -212,6 +222,23 @@ const Information = () => {
       console.log("Error -->", err);
     }
   };
+
+  const handleCancel = async (goalId, _id, clientId, userId) => {
+    try {
+      const success = await handleApiCall(
+        dispatch,
+        RemoveGoals(goalId, _id, clientId, userId),
+        "Goal successfully removed"
+      );
+      if (success) {
+        dispatch(GetAllGoalData(query.id));
+        setIsOpen(false);
+      }
+    } catch (error) {
+      console.log("Error--", error);
+    }
+  };
+
   return (
     <div>
       <MainLayout
@@ -268,8 +295,9 @@ const Information = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              className={`${active ? "bg-[#f5f5f5] text-[#1AB394]" : ""
-                                } group flex w-full items-center rounded p-[10px] text-[1.1em]`}
+                              className={`${
+                                active ? "bg-[#f5f5f5] text-[#1AB394]" : ""
+                              } group flex w-full items-center rounded p-[10px] text-[1.1em]`}
                             >
                               Save as client's file
                             </button>
@@ -475,9 +503,9 @@ const Information = () => {
                       <EditableTextarea
                         labelWidth="basis-[210px] mr-[-1px] min-w-[180px]"
                         label="Other information"
-                      // initialValue={clientData?.address || ''}
-                      // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                      // handleSubmit={() => handleAppointmentSubmit(singleValue)}
+                        // initialValue={clientData?.address || ''}
+                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                        // handleSubmit={() => handleAppointmentSubmit(singleValue)}
                       />
                     </div>
                   </div>
@@ -573,9 +601,9 @@ const Information = () => {
                           className="!mt-[-1px]"
                           labelWidth="!hidden"
                           textAreaClass="!min-h-[33px] text-[14px] h-full"
-                        // initialValue={clientData?.address || ''}
-                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                        // handleSubmit={() => handleSubmit(singleValue)}
+                          // initialValue={clientData?.address || ''}
+                          // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                          // handleSubmit={() => handleSubmit(singleValue)}
                         />
                       </div>
                     </div>
@@ -594,9 +622,9 @@ const Information = () => {
                           className="!mt-[-1px]"
                           labelWidth="!hidden"
                           textAreaClass="!min-h-[33px] text-[14px] h-full"
-                        // initialValue={clientData?.address || ''}
-                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                        // handleSubmit={() => handleSubmit(singleValue)}
+                          // initialValue={clientData?.address || ''}
+                          // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                          // handleSubmit={() => handleSubmit(singleValue)}
                         />
                       </div>
                     </div>
@@ -614,9 +642,9 @@ const Information = () => {
                           className="!mt-[-1px]"
                           labelWidth="!hidden"
                           textAreaClass="!min-h-[33px] text-[14px] h-full"
-                        // initialValue={clientData?.address || ''}
-                        // onInputChange={(value) => setSingleValue({ ["address"]: value })}
-                        // handleSubmit={() => handleSubmit(singleValue)}
+                          // initialValue={clientData?.address || ''}
+                          // onInputChange={(value) => setSingleValue({ ["address"]: value })}
+                          // handleSubmit={() => handleSubmit(singleValue)}
                         />
                       </div>
                     </div>
@@ -739,8 +767,8 @@ const Information = () => {
                   />
                   <div className="p-[0_20px_20px]">
                     <div>
-                      {foodDiariesData.length > 0 &&
-                        foodDiariesData.map((item) => {
+                      {foodDiariesData?.length > 0 &&
+                        foodDiariesData?.map((item) => {
                           return (
                             <div
                               className="flex"
@@ -853,7 +881,7 @@ const Information = () => {
                           className="select-main-without-border min-h-[42px]"
                           searchOption={false}
                           closable={false}
-                        // option={medicalValue?.diseases.map((disease, index) => ({ value: index, option: disease }))}
+                          // option={medicalValue?.diseases.map((disease, index) => ({ value: index, option: disease }))}
                         />
                         <EditableInput
                           mainClass="!mt-0"
@@ -931,11 +959,18 @@ const Information = () => {
                         Goals the client wants to achieve
                       </span>
                     </div>
-                    <button onClick={() => setGoals(true)}>
+                    <button
+                      onClick={() => {
+                        setGoals(true);
+                        setGoalId();
+                      }}
+                    >
                       <Icon path={mdiPlus} size={1} />
                     </button>
                   </div>
                   <AddGoals
+                    active={true}
+                    goalData={goalId}
                     closeIcon={true}
                     className="max-w-[600px]"
                     title="Set a new goal"
@@ -943,10 +978,135 @@ const Information = () => {
                     isOpen={goals}
                     setIsOpen={setGoals}
                   />
+
                   <div className="p-[0_20px_20px]">
-                    <p className="text-[#888888] italic text-center">
-                      No goals defined yet.
-                    </p>
+                    {goalData?.length > 0 ? (
+                      goalData?.map((item) => {
+                        console.log(item, "item----=");
+
+                        const [day, month, year] = item.deadline.split("/");
+                        const deadlineDate = new Date(
+                          `${year}-${month}-${day}T00:00:00.000Z`
+                        );
+                        // Format date as "28 of Sep"
+                        const formattedDate = `${day} of ${deadlineDate.toLocaleString(
+                          "default",
+                          { month: "short" }
+                        )}`;
+                        return (
+                          <div
+                            className={` flex select-none admin-select-field mt-[7px] p-[0_20px_20px]`}
+                          >
+                            <div
+                              className={` md:basis-[140px] md:min-w-[140px] flex border bg-[#FAFAFB] text-[1.1em] items-center z-[1] px-2.5 py-[5px] border-solid border-[#EEEEEE]`}
+                            >
+                              {formattedDate}
+                            </div>
+                            <div className="grow-[3] border-[1px_solid_#EEEEEE] border-l-0 flex select-none">
+                              {item.goalType ==
+                              "Generic (Sports and food routines, among others)" ? (
+                                <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
+                                  <div className="w-full group h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
+                                    {item.description}
+
+                                    <div className="absolute group-hover:block left-0 top-0 bottom-0 h-full mt-auto mb-auto bg-[#eeeeee26] hidden w-full min-h-[38px]">
+                                      <MdOutlineDelete
+                                        className="relative ml-[50%] whitespace-nowrap inline-block align-middle bg-[#fff] border border-[#EEEEEE] rounded-[50%] w-[27px] text-[27px] p-1 m-[7px]"
+                                        onClick={() =>
+                                          handleCancel(
+                                            item.goalId,
+                                            item._id,
+                                            item.clientId,
+                                            item.userId
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="select-field flex-grow border-[#EEEEEE] relative border-[1px]">
+                                  <div className="w-full group h-full border-none outline-none pr-[24px] min-h-[38px] p-[10px] focus:ring-0">
+                                    {
+                                      item.unit +
+                                      " " +
+                                      item.value +
+                                      " " +
+                                      item.measurementType
+                                    }
+ 
+                                    <div className="absolute group-hover:block left-0 top-0 bottom-0 h-full mt-auto mb-auto bg-[#eeeeee26] hidden w-full min-h-[38px]">
+                                      <MdOutlineDelete
+                                        className="relative ml-[50%] whitespace-nowrap inline-block align-middle bg-[#fff] border border-[#EEEEEE] rounded-[50%] w-[27px] text-[27px] p-1 m-[7px]"
+                                        onClick={() =>
+                                          handleCancel(
+                                            item.goalId,
+                                            item._id,
+                                            item.clientId,
+                                            item.userId
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                              {/* {isFocused ? ( */}
+                              <>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setIsDisabled(true);
+                                  }}
+                                  className={` clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}
+                                  disabled={isDisabled}
+                                >
+                                  <Icon
+                                    path={mdiCheck}
+                                    size="18px"
+                                    color="#1ab394"
+                                  />
+                                </button>
+                                <div
+                                  className={` clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}
+                                  disabled={isDisabled}
+                                >
+                                  <Icon
+                                    path={mdiClose}
+                                    size="18px"
+                                    color={"#DB4965"}
+                                    // onClick={() =>
+                                    //   handleCancel(
+                                    //     item.goalId,
+                                    //     item._id,
+                                    //     item.clientId,
+                                    //     item.userId
+                                    //   )
+                                    // }
+                                  />
+                                </div>
+                              </>
+                              {/* ) : ( */}
+                              {/* <button
+                                type="button"
+                                className={` clr-grn flex cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]`}
+                              >
+                                <Icon
+                                  path={mdiBorderColor}
+                                  size="18px"
+                                  color={"#1ab394"}
+                                />
+                              </button> */}
+                              {/* )} */}
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p className="text-[#888888] italic text-center">
+                        No goals defined yet.
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="bg-white shadow-box1 rounded-[5px] mt-[25px]">
@@ -977,8 +1137,9 @@ const Information = () => {
                       </div> */}
                   <div className="px-4 py-2">
                     <div
-                      className={`h-[150px] bg-white cursor-pointer border border-[#EEEEEE] ${isHovering ? "bg-[#888888]/[10%]" : ""
-                        } rounded-[5px] flex flex-col justify-between`}
+                      className={`h-[150px] bg-white cursor-pointer border border-[#EEEEEE] ${
+                        isHovering ? "bg-[#888888]/[10%]" : ""
+                      } rounded-[5px] flex flex-col justify-between`}
                       onMouseOver={() => setIsHovering(true)}
                       onMouseOut={() => setIsHovering(false)}
                     >
