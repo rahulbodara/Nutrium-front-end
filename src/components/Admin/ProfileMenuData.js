@@ -41,6 +41,6 @@ export const ProfileMenuData = [
         id:'7',
         title: 'Invite and get discounts' ,
         icon : mdiWalletGiftcard,
-        route:'#',
+        route:'/admin/professionals/friend',
     }    
 ]

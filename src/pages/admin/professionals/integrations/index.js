@@ -5,11 +5,16 @@ import calenderIcon from '../../../../../public/image/google_calendar.png'
 import zoomIcon from '../../../../../public/image/zoom_meetings.png'
 import inbodyIcon from '../../../../../public/image/inbody.png'
 import akernIcon from '../../../../../public/image/akern_bia.png'
-
-
+import { Fragment, useRef, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
 
 
 const Integrations = () => {
+
+    const [open, setOpen] = useState(false)
+
+    const cancelButtonRef = useRef(null)
+
     return (
         <div>
             <MainLayout head={"List of integrations"} text={"Connect Nutrium with your apps and services"}>
@@ -68,7 +73,49 @@ const Integrations = () => {
                                                 .
                                             </div>
                                         </div>
-                                        <button className='text-[#888888] bg-[#FAFAFB] p-[10px] text-center uppercase rounded-bl-[5px] rounded-br-[5px] sm:rounded-none'>Disable</button>
+                                        <button onClick={() => setOpen(true)} className='text-[#888888] bg-[#FAFAFB] p-[10px] text-center uppercase rounded-bl-[5px] rounded-br-[5px] sm:rounded-none'>Disable</button>
+                                        <Transition.Root show={open} as={Fragment}>
+                                            <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+                                                <Transition.Child
+                                                    as={Fragment}
+                                                    enter="ease-out duration-300"
+                                                    enterFrom="opacity-0"
+                                                    enterTo="opacity-100"
+                                                    leave="ease-in duration-200"
+                                                    leaveFrom="opacity-100"
+                                                    leaveTo="opacity-0"
+                                                >
+                                                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                                                </Transition.Child>
+
+                                                <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                                    <div className="flex min-h-[60%] items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                                        <Transition.Child
+                                                            as={Fragment}
+                                                            enter="ease-out duration-300"
+                                                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                                            enterTo="opacity-100 translate-y-0 sm:scale-100"
+                                                            leave="ease-in duration-200"
+                                                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                                                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                                        >
+                                                            <Dialog.Panel className="relative transform overflow-hidden rounded bg-white px-4 pb-4 pt-5 text-center shadow-xl transition-all sm:my-8 max-w-[600px] sm:w-auto sm:max-w-[295px] w-auto sm:p-[25px_30px]">
+                                                                <h2 className='mt-[15px] font-[400] text-[#575757] text-[30px] text-center m-[25px_0] p-0 leading-[40px] block sm:text-[24px] sm:leading-7 sm:mt-0'>Do you want to disable the InBody integration?</h2>
+                                                                <p className='block text-[#797979] text-[16px] font-[300] text-inherit m-0 p-0 leading-[normal] sm:text-[14px]'>
+                                                                    You will no longer be able to import measurements from the InBody scales if you conclude this action. You can always enable this integration in this page.
+                                                                </p>
+                                                                <div className='sm:flex sm:flex-wrap'>
+                                                                    <button onClick={() => setOpen(false)} className='inline-block bg-[#C1C1C1] hover:bg-red-500 text-[#fff] border-0 text-[17px] font-[500] p-[10px_32px] m-[26px_5px_0px_5px] sm:order-2 sm:bg-[#FFF] sm:text-[#676A6C] sm:border sm:border-[#EEEEEE] sm:m-[10px_0_0] sm:flex-[1_0_100%]'>Cancel</button>
+                                                                    <div className='inline-block sm:order-1 sm:flex-[1_0_100%]'>
+                                                                        <button className='inline-block bg-[#b35f6f] hover:bg-red-700 shadow-[(#db4965cc_0px_0px_2px)_(#0000000d_0px_0px_0px_1px-inset)] text-[#fff] text-[17px] font-[500] p-[10px_32px] m-[26px_5px_0px_5px] sm:w-full sm:m-[26px_0_0]'>Disable</button>
+                                                                    </div>
+                                                                </div>
+                                                            </Dialog.Panel>
+                                                        </Transition.Child>
+                                                    </div>
+                                                </div>
+                                            </Dialog>
+                                        </Transition.Root>
                                     </div>
                                 </div>
                                 <div className='p-[0px_10px] flex flex-col flex-[0_0_auto] w-[25%] sm:w-full sm:p-0 lg:w-[50%]'>
