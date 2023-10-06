@@ -4,12 +4,9 @@ import DatePicker from "react-datepicker";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
 import { handleApiCall } from "@/util/apiUtils";
-import {
-  CreateGoalData,
-  GetAllGoalData,
-} from "@/redux/action/goal";
+import { CreateGoalData, GetAllGoalData } from "@/redux/action/goal";
 import { useRouter } from "next/router";
-import { goals } from "@/schema/goal";
+import { goalmeasured, goals } from "@/schema/goal";
 import { MdCalendarMonth } from "react-icons/md";
 
 const AddGoals = (props) => {
@@ -41,10 +38,30 @@ const AddGoals = (props) => {
 
   const handleSubmit = async (values) => {
     try {
-      const updatedGoalData = {
-        ...values,
-        deadline: formatDateToMMDDYYYY(values.deadline),
-      };
+      let updatedGoalData;
+      if (
+        values.goalType === "Generic (Sports and food routines, among others)"
+      ) {
+        updatedGoalData = {
+          ...values,
+          goalType: values.goalType,
+          description: values.description,
+          measurementType: '',
+          value:'',
+          unit: '',
+          deadline: formatDateToMMDDYYYY(values.deadline),
+        };
+      } else {
+        updatedGoalData = {
+          ...values,
+          goalType: values.goalType,
+          description: values.description,
+          measurementType: values.measurementType,
+          value: values.value,
+          unit: values.unit,
+          deadline:  formatDateToMMDDYYYY(values.deadline),
+        };
+      }
       const success = await handleApiCall(
         dispatch,
         CreateGoalData(updatedGoalData, query.id),
@@ -74,6 +91,13 @@ const AddGoals = (props) => {
           initialValues={initialValues}
           onSubmit={handleSubmit}
           validationSchema={goals}
+
+          // validationSchema={(values) =>
+          //   values?.goalType ===
+          //   "Measured (Anthropometric data, Analytical Data, Body Composition)"
+          //     ? goalmeasured
+          //     : goals
+          // }
         >
           {({ values, errors, touched }) => (
             <Form>
@@ -110,7 +134,7 @@ const AddGoals = (props) => {
                     name="description"
                     placeholder="ex: Drink more than 1 liter of water per day"
                     // className="border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 focus:border-[#1ab394] border-[#e5e6e7]"
-                    className={`border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 ${
+                    className={`border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 border-[#e5e6e7] ${
                       errors.description && touched.description
                         ? "border-dotted border-red-600"
                         : ""
@@ -150,7 +174,7 @@ const AddGoals = (props) => {
                           type="number"
                           name="value"
                           // className="border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 focus:border-[#1ab394] border-[#e5e6e7]"
-                          className={`border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 ${
+                          className={`border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 border-[#e5e6e7] ${
                             errors.value && touched.value
                               ? "border-dotted  border-green-600"
                               : ""
@@ -196,7 +220,7 @@ const AddGoals = (props) => {
                           }
                           dateFormat="dd/MM/yyyy"
                           // className="border border-[#EEEEEE] w-full focus:outline-none focus:ring-transparent p-[4px]"
-                          className={`border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 ${
+                          className={`border focus:shadow-none shadow-none focus:outline-none outline-none focus:ring-0 ring-0 transition-all duration-300 p-[6px_12px] w-full h-[34px] text-[13px] leading-4 border-[#e5e6e7] ${
                             errors.deadline && touched.deadline
                               ? "border-dotted border-red-600"
                               : ""
