@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import c3 from 'c3';
 import 'c3/c3.css';
 
-function DonutChart({  data, chartId   }) {
+
+function DonutChart2({  data, chartId   }) {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const chart = c3.generate({
@@ -10,13 +11,6 @@ function DonutChart({  data, chartId   }) {
                 data: {
                     columns: data,
                     type: 'donut',
-                    types: {
-                        data: 'donut',
-                        data: 'donut',
-                    },
-                    groups: [
-                        [data,data]
-                    ],
                     onclick: function (d, i) {
                         console.log('onclick', d, i);
                     },
@@ -34,14 +28,10 @@ function DonutChart({  data, chartId   }) {
                     show: false,
                 },
             });
-
-            return () => {
-                chart.destroy();
-            };
         }
-    }, []);
+        }, []);
 
-    return <div id={chartId} className='w-[150px] h-[150px]' ></div>;
+    return <div id={chartId} className='w-[100px] h-[100px]' />;
 }
 
-export default DonutChart;
+export default DonutChart2;

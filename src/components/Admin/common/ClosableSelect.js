@@ -1,6 +1,6 @@
 import Icon from '@mdi/react';
 import React, { useEffect, useRef, useState } from 'react';
-import { mdiChevronDown, mdiChevronUp, mdiCloseCircleOutline } from '@mdi/js';
+import { mdiCancel, mdiCheckAll, mdiChevronDown, mdiChevronUp, mdiCloseCircleOutline, mdiInformationOutline } from '@mdi/js';
 import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';
 import 'select2';
@@ -71,15 +71,15 @@ const ClosableSelect = (props) => {
       )}
       <div
         className={`grow-[3] ${isDropdownOpen && props?.focusEffect
-            ? "!border-[1px_solid_#1ab394]"
-            : "border-[1px_solid_#EEEEEE]"
+          ? "!border-[1px_solid_#1ab394]"
+          : "border-[1px_solid_#EEEEEE]"
           } border-[1px_solid_#EEEEEE] border-l-0 flex select-none`}
       >
         <div
           className={`select-field flex-grow border-[#EEEEEE] ${isDropdownOpen && props?.focusEffect
-              ? "!border-[#1ab394]"
-              : "border-[#EEEEEE]"
-            } border-[1px] border-r-0`}
+            ? "!border-[#1ab394]"
+            : "border-[#EEEEEE]"
+            } border-[1px] -ml-px border-r-0`}
         >
           <select
             ref={selectRef}
@@ -88,12 +88,13 @@ const ClosableSelect = (props) => {
           >
             {props?.option?.map((item, index) => {
               return (
-              <>
-                <option key={index} value={item.value}>
-                  {props.workData ? item : item.name}
-                </option>
-              </>
-            )})}
+                <>
+                  <option key={index} value={item.value}>
+                    {props.workData ? item : item.name}
+                  </option>
+                </>
+              )
+            })}
           </select>
         </div>
         {props.closable ? (
@@ -101,8 +102,8 @@ const ClosableSelect = (props) => {
             {isDropdownOpen ? (
               <div
                 className={`clr-grn flex cursor-pointer items-center align-middle ${isDropdownOpen && props?.focusEffect
-                    ? "!border-l-[#1ab394]"
-                    : "border-l-[#EEEEEE]"
+                  ? "!border-l-[#1ab394]"
+                  : "border-l-[#EEEEEE]"
                   } bg-[#FAFAFB] p-2.5 border-[1px]`}
               >
                 <Icon
@@ -159,6 +160,27 @@ const ClosableSelect = (props) => {
               </div>
             </>
           )}
+
+          {
+            props.isCheck &&
+            <div className="flex text-[#676A6C] transition hover:text-[#1ab394] h-full  -ml-px cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+              <Icon path={mdiCheckAll} size="17px" />
+            </div>
+          }
+          {
+            props.isDisable &&
+            <div className=" flex text-[#676A6C] transition hover:text-[#DB4965] h-full -ml-px cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+
+              <Icon path={mdiCancel} size="17px" />
+            </div>
+          }
+          {
+            props.isInfo &&
+            <div className=" flex text-[#676A6C] transition hover:text-[#1ab394] h-full  -ml-px cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+              <Icon path={mdiInformationOutline} size="18px" />
+            </div>
+          }
+
         </div>
       </div>
     </div>
