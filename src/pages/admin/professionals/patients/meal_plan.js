@@ -8,25 +8,31 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { MdOutlineArrowUpward, MdOutlineBookmark, MdOutlineChevronLeft } from 'react-icons/md';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import dynamic from 'next/dynamic';
+
+import Slider from "react-slick";
+const myData = [
+    ['data1', 30],
+    ['data2', 100],
+    ['data3', 80],
+]
 
 
+const DynamicDonutChart = dynamic(() => import('@/components/Admin/Clients/C3Test'), { ssr: false });
+const DynamicMealsDonutChart = dynamic(() => import('@/components/Admin/Clients/C3Test1'), { ssr: false });
 
 
 const MealPlan = () => {
 
     const [open, setOpen] = useState(false)
-    const [isBrowser, setIsBrowser] = useState(false);
-
-    useEffect(() => {
-        // Check if the code is running in a browser environment
-        if (typeof window !== 'undefined') {
-            
-            setIsBrowser(true);
-        }
-    }, []);
-
+ 
+    var settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1
+    };
     return (
         <div>
             <MainLayout head={"Client profile"} text={"Check and update information about the client"}>
@@ -575,8 +581,9 @@ const MealPlan = () => {
                                         </div>
                                     </div>
                                     <div className='flex'>
-                                        <div className='items-center flex justify-center relative'>
-                                           chart
+                                    <div className='items-center flex justify-center relative'>
+                                            {/* <DonutChart /> */}
+                                            <DynamicDonutChart data={myData} chartId="donutChart" />
                                         </div>
                                         <div className='gap-2 flex flex-col grow'>
                                             <div className='gap-[16px] flex-col flex'>
@@ -677,10 +684,56 @@ const MealPlan = () => {
                                             <div className='m-0 text-[20px] font-[400] leading-[1.1]'>Meals</div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <Carousel>
-                                            <div>chart slider</div>
-                                        </Carousel>
+                                    <div className='px-[30px]'>
+                                        <Slider {...settings}>
+                                            <div >
+                                                <div className='flex items-center justify-center flex-col'>
+
+                                                    <DynamicMealsDonutChart data={myData} chartId="Breakfast" />
+                                                    <span>Breakfast</span>
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <div className='flex items-center justify-center flex-col'>
+                                                    <DynamicMealsDonutChart data={myData} chartId="Morningsnack" />
+                                                    <span>Morning Snack</span>
+                                                </div>
+
+                                            </div>
+                                            <div className=''>
+                                                <div className='flex items-center justify-center flex-col'>
+
+                                                    <DynamicMealsDonutChart data={myData} chartId="Lunch" />
+                                                    <span>Lunch</span>
+                                                </div>
+
+                                            </div>
+                                            <div className=''>
+                                                <div className='flex items-center justify-center flex-col'>
+
+                                                    <DynamicMealsDonutChart data={myData} chartId="Afternoonsnack" />
+                                                    <span>Afternoon Snack</span>
+                                                </div>
+
+                                            </div>
+                                            <div >
+                                                <div className='flex items-center justify-center flex-col'>
+
+                                                    <DynamicMealsDonutChart data={myData} chartId="Dinner" />
+                                                    <span>Dinner</span>
+                                                </div>
+
+                                            </div>
+                                            <div >
+                                                <div className='flex items-center justify-center flex-col'>
+
+                                                    <DynamicMealsDonutChart data={myData} chartId="Supper" />
+                                                    <span>Supper</span>
+                                                </div>
+
+                                            </div>
+
+                                        </Slider>
                                     </div>
                                 </div>
                                 <div className='bg-[#fff] mt-0 p-0 rounded-[5px] mb-0'>
