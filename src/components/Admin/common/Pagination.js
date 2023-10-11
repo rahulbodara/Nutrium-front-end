@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Pagination = () => {
+const Pagination = (props) => {
     return (
 
-        <ul className="pagination mt-[20px] flex items-center ">
+        <ul className={`pagination mt-[20px] flex items-center ${props.className}`}>
 
             <li className="p-[4px_10px] border leading-[1.42857] ml-[-1px] border-[#dddddd]">
                 <i className="fa fa-fast-backward"></i>
@@ -17,6 +17,10 @@ const Pagination = () => {
 
             <li className="p-[4px_10px] border leading-[1.42857] ml-[-1px] border-[#dddddd]">
                 2
+            </li>
+
+            <li className="p-[4px_10px] border leading-[1.42857] ml-[-1px] border-[#dddddd]">
+                3
             </li>
 
             <li className="p-[4px_10px] border leading-[1.42857] ml-[-1px] border-[#dddddd]">
