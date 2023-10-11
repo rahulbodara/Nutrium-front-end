@@ -164,6 +164,10 @@ h2 {
   border-color: #eeeeee !important ;
 }
 
+.filter-activities .select2-selection--single:focus {
+  border-color: #eeeeee !important ;
+}
+
 .service-modal .select2-selection--single:focus {
   border: none !important;
 }
@@ -607,4 +611,50 @@ h2 {
 
 input[type="time"]::-webkit-calendar-picker-indicator {
   background: none;
+
+}
+
+
+.verticle-stepper::before {
+  left: 50%;
+  margin-left: -2px;
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: #f1f1f1;
+}
+
+.verticle-stepper::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.timeline-content::before {
+  top: 24px;
+  content: '';
+  position: absolute;
+  right: 100%;
+  height: 0;
+  width: 0;
+  border: 7px solid transparent;
+  border-right: 7px solid white;
+}
+
+.timeline-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.timeline-content-right::before {
+  left: 100%;
+  border-color: transparent transparent transparent #f5f5f5 !important;
+}
+
+.timeline-content-left::before {
+  left: auto;
+  border-color: transparent #f5f5f5 transparent transparent !important;
 }

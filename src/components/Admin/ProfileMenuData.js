@@ -11,7 +11,7 @@ export const ProfileMenuData = [
         id:'2',
         title: 'Activity history' ,
         icon : mdiHistory,
-        route:'#',
+        route:'/admin/professionals/activities',
     },
     {
         id:'3',

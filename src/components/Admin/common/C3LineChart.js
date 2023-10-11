@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import c3 from 'c3';
 import 'c3/c3.css';
 
-const C3LineChart = ({  data, chartId   }) => {
+const C3LineChart = ({ data, chartId   }) => {
+    console.log("🚀 ~ file: C3LineChart.js:6 ~ C3LineChart ~ data:", data)
     useEffect(() => {
         const chart = c3.generate({
             bindto: `#${chartId}`,
             data: {
-                columns: [data],
+                columns: data,
                 colors: {
                     data1: '#1AB394',
                 },
