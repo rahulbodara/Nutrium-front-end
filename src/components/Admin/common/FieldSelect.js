@@ -81,7 +81,7 @@ const FieldSelect = (props) => {
                 <div className={`clr-grn flex cursor-pointer items-center align-middle`}>
                     {
                         props.isEditable &&
-                        <div onClick={props.handleEdit} className=" flex text-[#676A6C] transition hover:text-[#1ab394] h-full  -ml-px cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
+                        <div onClick={props.handleEdit} className=" flex  transition text-[#1ab394] h-full  -ml-px cursor-pointer items-center align-middle bg-[#FAFAFB] p-2.5 border-l-[#EEEEEE] border-[1px]">
                             <Icon path={mdiPencil} size={0.7} />
                         </div>
                     }
