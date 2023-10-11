@@ -34,6 +34,7 @@ import { handleApiCall } from "@/util/apiUtils";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import { services } from "@/schema/services";
 import EliminateService from "./EliminateService";
+import TimeSelect from "../common/TimeSelect";
 
 const serviceType = [
   {
@@ -328,11 +329,12 @@ const EditService = ({ isOpen, setIsOpen, editData, setEditData }) => {
                               component="div"
                               className="text-red-500 text-sm"
                             />
-                            <InputField
+                            <TimeSelect
                               labelStyle="min-w-[160px] flex-basis-[160px]"
                               className="mt-[7px]"
                               label="Duration"
                               name="duration"
+                              placeholder="dsf"
                               formik={false}
                             // value={formData?.duration || ""}
                             // setFormData={setFormData}

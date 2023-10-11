@@ -604,3 +604,7 @@ h2 {
   top: 38px;
 }
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+}

@@ -88,7 +88,7 @@ const ContentHeader = (props) => {
                                 leaveTo="transform opacity-0 scale-95"
 
                             >
-                                <Menu.Items className="absolute z-[11111] right-[20px] max-w-[277px] border-[1px] w-100 origin-top-right divide-y divide-gray-100 rounded-[3px] bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <Menu.Items className="absolute z-[11111] right-[20px] max-w-[277px] border-[1px] w-100 origin-top-right rounded-[3px] bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     {
                                         ProfileMenuData && ProfileMenuData.map((item, index) => (
                                             <Link href={item.route} className='flex items-center p-[3px_20px]  hover:text-black cursor-pointer text-[14px] rounded-[3px] leading-[25px] m-[4px] text-left whitespace-nowrap' key={index}>
