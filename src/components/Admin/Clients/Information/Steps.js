@@ -61,7 +61,7 @@ const setpdDetail = [
         name: 'Deliverables',
         detail: "Deliverables and appointments",
         icon: mdiCellphone,
-        href: '#',
+        href: '/admin/professionals/patients/deliverables',
     },
 ]
 

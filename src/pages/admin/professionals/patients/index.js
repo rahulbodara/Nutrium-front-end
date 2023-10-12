@@ -47,7 +47,7 @@ const Patients = () => {
       query: { id: clientId },
     });
     dispatch(clientData(clientId));
-    dispatch(clientSelectedId(clientId))
+    dispatch(clientSelectedId(clientId));
   };
   const options = [
     {

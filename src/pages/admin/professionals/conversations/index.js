@@ -13,11 +13,11 @@ import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import dynamic from 'next/dynamic';
 
 
-const myData = [
-  ['data1', 30],
-  ['data2', 100],
-  ['data3', 80],
-]
+// const myData = [
+//   ['data1', 30],
+//   ['data2', 100],
+//   ['data3', 80],
+// ]
 
 
 
@@ -68,11 +68,11 @@ export default function Conversations() {
                         </div>
                       </div>
                     </div>
-                    <div className={`${isOpen ? "hidden" : "flex"} cursor-pointer`} onClick={() => setIsOpen(true)}>
+                    <div className={`cursor-pointer`} onClick={() => setIsOpen(!isOpen)}>
                       <div className='flex items-center'>
                         <Icon path={mdiPackageDown} size={1} className='ml-[10px] inline-block align-middle leading-[1] hover:text-[#1AB394] sm:hidden' data-tooltip-id="my-tooltip-1" />
                         <Icon path={mdiChevronDown} size={1} className='ml-[10px] inline-block align-middle leading-[1] hover:text-[#23C6C8] sm:hidden' data-tooltip-id="my-tooltip-2" />
-                        <Icon path={mdiDotsVertical} size={1} className='ml-[10px] inline-block align-middle leading-[1] hover:text-[#23C6C8] hidden sm:block' data-tooltip-id="my-tooltip-2" />
+                        <Icon path={mdiDotsVertical} size={1} className='ml-[10px] align-middle leading-[1] hover:text-[#23C6C8] hidden sm:block' data-tooltip-id="my-tooltip-2" />
 
                       </div>
                     </div>
@@ -105,11 +105,11 @@ export default function Conversations() {
                         <div className='mb-[15px]'>
                           <textarea placeholder='Write a message' className='border-[0] p-[10px_0] h-auto bg-[#fff] rounded-[1px] block !w-full !max-w-full'></textarea>
                         </div>
-                        <div className='items-start flex'>
+                        <div className='items-start justify-end flex'>
                           <input className='border border-[#e7eaec] p-0 bg-[#fff] relative mb-5 mr-5 hidden' type='file' />
                           <div></div>
-                          <div className='whitespace-nowrap'>
-                            <Icon path={mdiAttachment} size={1} className='text-[#DDDDDD] ml-[5px] text-[24px] rotate-90 inline-block whitespace-nowrap ' />
+                          <div className='whitespace-nowrap '>
+                            <Icon path={mdiAttachment} size={1} className='text-[#DDDDDD] ml-[5px] mb-[30px] text-[24px] rotate-90 inline-block whitespace-nowrap ' />
                             <Icon path={mdiSend} size={2.4} className='ml-[5px] inline-block whitespace-nowrap h-[45px] max-h-[300px] mb-0 w-full !text-[14px] text-[rgb(255_255_255)] bg-[rgb(36_40_50)] border border-[rgba(255_255_255_0)] p-[10px_20px] rounded-[10px]' />
                           </div>
                         </div>
@@ -123,7 +123,7 @@ export default function Conversations() {
               <div className='bg-[#FFFFFF] md:flex md:justify-between mb-[25px] mt-0 p-0 shadow-[(0_2px_2px_0_rgba(144_144_144_0.14))_(0_3px_1px_-2px_transparent)_(0_1px_5px_0_rgba(145_145_145_0.12))] rounded-[5px]'>
                 <div className='rounded-[5px] bg-[#1AB394] md:bg-[#FFF] border-[0] text-[#FFFFFF] md:text-[#1AB394] p-[15px_20px] flex items-center sm:rounded-none'>
                   <div>
-                    <Icon path={mdiMessageText} size={0.8} className='inline-block align-middle leading-[1] hidden md:block' />
+                    <Icon path={mdiMessageText} size={0.8} className='align-middle leading-[1] hidden md:block' />
                   </div>
                   <h3 className='m-0 text-[20px] font-[400] leading-[1.1] grow cursor-pointer md:ml-1.5 sm:text-[22px]' onClick={() => setOpen(true)}>Send message</h3>
                   <Transition.Root show={open} as={Fragment}>
@@ -685,7 +685,7 @@ export default function Conversations() {
                     </div>
                     <div className='p-5 pt-0'>
                       {/* <DynamicMessageChart /> */}
-                      <DynamicMessageChart data={myData} chartId="donutChart" />
+                      <DynamicMessageChart chartId="LineChart" />
 
                       chart
                     </div>
