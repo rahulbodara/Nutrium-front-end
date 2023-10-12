@@ -10,7 +10,7 @@ import SetShedule from './SetShedule';
 import SetDateModal from './SetDateModal';
 
 
-const CalenderSchedule = () => {
+const CalenderSchedule = (props) => {
     const [isSheduleOpen, setIsSheduleOpen] = useState(false)
     const [isDateModalOpen, setIsDateModalOpen] = useState(false);
     return (
@@ -18,13 +18,14 @@ const CalenderSchedule = () => {
             <div className='rounded-[5px]  bg-white shadow-box1 mb-[25px]'>
                 <div className='p-[20px] pb-[15px] flex items-center'>
                     <div className='flex-grow'>
-                        <h3 className='text-[20px] leading-[24px] '>Calendar</h3>
+                        <h3 className='text-[20px] leading-[24px] '>{props.name != "Delivers" ? 'Calender' : 'Client appointments'}</h3>
                         <span className='text-[12px] text-[#888888]/[70%]'>
                             Check and manage your calendar
                         </span>
                     </div>
                     <div>
-                        <Icon path={mdiTimetable} size="22px" className='outline-none mr-[10px] cursor-pointer inline-block text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="sheduleTimeTable" onClick={() => setIsSheduleOpen(true)} />
+                        {props.name != "Delivers" &&
+                            <Icon path={mdiTimetable} size="22px" className='outline-none mr-[10px] cursor-pointer inline-block text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="sheduleTimeTable" onClick={() => setIsSheduleOpen(true)} />}
                         <Icon path={mdiPlus} size="22px" className='outline-none inline-block cursor-pointer text-[#676A6C] hover:text-[#1AB394]' data-tooltip-id="AddShedule" onClick={() => setIsDateModalOpen(true)} />
                     </div>
                 </div>
@@ -45,12 +46,18 @@ const CalenderSchedule = () => {
                 content="Set your working schedule"
                 className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9]'
             />
-            <ReactTooltip
+            {props.name != "Delivers" ? <ReactTooltip
                 id="AddShedule"
                 place="left"
                 content="Set a date on your calendar"
                 className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9]'
-            />
+            /> : <ReactTooltip
+                id="AddShedule"
+                place="left"
+                content="Shedule new appointment"
+                className='!p-[3px_8px] !bg-[#2f4050] opacity-[.9]'
+            />}
+
             <SetShedule isSheduleOpen={isSheduleOpen} setIsSheduleOpen={setIsSheduleOpen} />
             <SetDateModal isDateModalOpen={isDateModalOpen} setIsDateModalOpen={setIsDateModalOpen} />
         </>
