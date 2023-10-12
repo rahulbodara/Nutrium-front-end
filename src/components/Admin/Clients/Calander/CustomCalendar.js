@@ -122,41 +122,37 @@ const CustomToolbar = ({
       </div>
       <div className="flex">
         <button
-          className={`${
-            selectedMonth === "month"
+          className={`${selectedMonth === "month"
               ? "bg-[#1AB394] border-[#1AB394] text-white"
               : ""
-          } border px-[7.5px] rounded-l-[0.25em] sm:text-[15px]`}
+            } border px-[7.5px] rounded-l-[0.25em] sm:text-[15px]`}
           onClick={() => handleCalender("month")}
         >
           Month
         </button>
         <button
-          className={`${
-            selectedMonth === "week"
+          className={`${selectedMonth === "week"
               ? "bg-[#1AB394] border-[#1AB394] text-white"
               : ""
-          } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
+            } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
           onClick={() => handleCalender("week")}
         >
           Week
         </button>
         <button
-          className={`${
-            selectedMonth === "day"
+          className={`${selectedMonth === "day"
               ? "bg-[#1AB394] border-[#1AB394] text-white"
               : ""
-          } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
+            } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
           onClick={() => handleCalender("day")}
         >
           Day
         </button>
         <button
-          className={`${
-            selectedMonth === "list"
+          className={`${selectedMonth === "list"
               ? "bg-[#1AB394] border-[#1AB394] text-white"
               : ""
-          } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
+            } border px-[7.5px] rounded-r-[0.25em] sm:text-[15px]`}
           onClick={() => handleCalender("list")}
         >
           List
@@ -344,15 +340,13 @@ const CustomEvent = ({ event }) => {
   return (
     <>
       <div
-        className={`${
-          event.status === "not_confirmed"
+        className={`${event.status === "not_confirmed"
             ? "border-2 border-t border-solid border-t-[#1AB394] border-r-[#DDDDDD] border-b-[#DDDDDD] border-l-[#DDDDDD]"
             : ""
-        } ${
-          event.status === "confirmed"
+          } ${event.status === "confirmed"
             ? "border-2 border-t border-solid border-t-[#EA9F77] border-r-[#DDDDDD] border-b-[#DDDDDD] border-l-[#DDDDDD]"
             : ""
-        } text-gray-500 h-[100%] text-[11px] rounded-s`}
+          } text-gray-500 h-[100%] text-[11px] rounded-s`}
         onClick={() => {
           setItem(event);
           setIsopen(true);
@@ -600,9 +594,8 @@ const CustomEvent = ({ event }) => {
                       </div>
                       <div className="row -mx-[15px] mb-[10px]">
                         <div
-                          className={`px-[15px] float-left w-full  justify-between ${
-                            !addSheduleNotes ? "flex" : "hidden"
-                          }`}
+                          className={`px-[15px] float-left w-full  justify-between ${!addSheduleNotes ? "flex" : "hidden"
+                            }`}
                         >
                           <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
                             Add scheduling notes
@@ -619,9 +612,8 @@ const CustomEvent = ({ event }) => {
                           </div>
                         </div>
                         <div
-                          className={`px-[15px] float-left w-full flex justify-between ${
-                            addSheduleNotes ? "flex" : "hidden"
-                          }`}
+                          className={`px-[15px] float-left w-full flex justify-between ${addSheduleNotes ? "flex" : "hidden"
+                            }`}
                         >
                           <div className="mb-[5px] font-[700] cursor-pointer hover:text-[#1AB394]">
                             Scheduling notes
@@ -643,9 +635,8 @@ const CustomEvent = ({ event }) => {
                           </div>
                         </div>
                         <div
-                          className={`row -mx-[15px] mb-[10px] ${
-                            addSheduleNotes ? "block" : "hidden"
-                          }`}
+                          className={`row -mx-[15px] mb-[10px] ${addSheduleNotes ? "block" : "hidden"
+                            }`}
                         >
                           <div className="mb-[5px] px-[15px] float-left w-full">
                             <textarea

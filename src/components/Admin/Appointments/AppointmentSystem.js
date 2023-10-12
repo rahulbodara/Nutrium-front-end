@@ -65,7 +65,7 @@ const AppointmentSystem = () => {
                                             <div className='text-[12px] text-[#888888]'>You need to set your working hours so that appointments can be scheduled.</div>
                                         </div>
                                     </div>
-                                    <div className='text-[#EA9F77] text-center p-[7px] border-t-[1px] border-[#dddddd] cursor-pointer' onClick={()=> setIsSheduleOpen(true)}>
+                                    <div className='text-[#EA9F77] text-center p-[7px] border-t-[1px] border-[#dddddd] cursor-pointer' onClick={() => setIsSheduleOpen(true)}>
                                         <span className='mr-[5px]'>Set your working hours</span>
                                         <Icon path={mdiChevronRight} color="#EA9F77" className='inline' size="13px" />
                                     </div>
