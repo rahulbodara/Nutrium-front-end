@@ -47,14 +47,14 @@ const setpdDetail = [
         name: 'Recommendations',
         detail: "Exercise and other recommendations",
         icon: mdiRun,
-        href: '#',
+        href: '/admin/professionals/patients/recommendations',
     },
     {
         id: 7,
         name: 'Analysis',
         detail: "Analysis of the client's meal plan",
         icon: mdiViewDashboard,
-        href: '#',
+        href: '/admin/professionals/patients/analysis',
     },
     {
         id: 8,
@@ -73,7 +73,7 @@ const Steps = () => {
             {
                 setpdDetail.map((item, index) => {
                     return (
-                        <Link href={item.href} key={item.id} className={`${router.pathname === item.href ? " bg-[#1AB394] text-white" : "bg-white"}  px-[15px] shadow-box2 rounded-[5px] flex py-[10px] hover:bg-[#FAFAFA]`}>
+                        <Link href={item.href} key={item.id} className={`${router.pathname === item.href ? " bg-[#1AB394] text-white" : "bg-white hover:bg-[#FAFAFA]"}  px-[15px] shadow-box2 rounded-[5px] flex py-[10px] `}>
                             <div className='flex-1'>
                                 <h2 className='text-[1.3em] leading-[24px] '>
                                     {item.id}. {item.name}
