@@ -1,40 +1,66 @@
 import React, { useEffect } from 'react';
 import c3 from 'c3';
 import 'c3/c3.css';
-
+import * as d3 from 'd3'; // Import the d3 library
 const C3PieChart = (props) => {
     useEffect(() => {
-        let chart;
-
-        chart = c3.generate({
-            bindto: `#${props.chartId}`,
-            data: {
-                columns: props.data,
-                type: 'pie',
-                onclick: function (d, i) {
-                    console.log('onclick', d, i);
+        if (typeof window !== 'undefined' && props.data && props.data.length > 0) {
+            const chart = c3.generate({
+                bindto: `#${props.chartId}`,
+               
+                data: {
+                    columns: props.data,
+                    type: 'pie',
+                    onclick: function (d, i) {
+                        console.log('onclick', d, i);
+                    },
+                    onmouseover: function (d, i) {
+                        console.log('onmouseover', d, i);
+                    },
+                    onmouseout: function (d, i) {
+                        console.log('onmouseout', d, i);
+                    },
+                    // labels:true,
+                    labels: {
+                        show: true,
+                       
+                    }
                 },
-                onmouseover: function (d, i) {
-                    console.log('onmouseover', d, i);
+                color: { 
+                    pattern: ['#1ab394', '#ea9f77', '#db4965',  '#336666' , '#a10020' , '#f4d2c8']
                 },
-                onmouseout: function (d, i) {
-                    console.log('onmouseout', d, i);
+                size: {
+                    height: 240,
+                    
+                },  
+                legend: {
+                    show: true,
+                    position: 'inset',
+                    inset: {
+                        anchor: 'top-right',
+                        x: 11,
+                        y: 1,
+                        
+                    }
                 },
-            },
-            color: {
-                pattern: ['#1ab394', '#ea9f77', '#db4965', '#6a7d93']
-            },
-        });
+                pie: {
+                    label: {
+                        format: function (value, ratio, id) {
+                            return d3.format('$')(value);
+                        }
+                    }
+                }
+            });
 
+            return () => {
+                if (chart) {
+                    chart.destroy();
+                }
+            };
+        }
+    }, [props.chartId, props.data]);
 
-        return () => {
-            if (chart) {
-                chart.destroy();
-            }
-        };
-    }, []);
-
-    return <div id={props.chartId} ></div>;
+    return <div id={props.chartId}></div>;
 };
 
 export default C3PieChart;
