@@ -7,9 +7,6 @@ import Icon from "@mdi/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -460,7 +457,7 @@ const Measurements = () => {
                   <div key={item._id} className="p-[0_20px_20px]">
                     <div className="flex">
                       <div className="bg-[#fff] border border-[#EEEEEE] text-[17px] flex items-center justify-center mr-[-1px] min-w-[40px]">
-                        <i class="fa fa-fw fa-user-doctor"></i>
+                        <i className="fa fa-fw fa-user-doctor"></i>
                       </div>
                       <div className="basis-[210px] text-[1.1em] min-h-[40px] flex items-center  h-full border border-[#EEEEEE] sm:basis-[120px] min-w-[210px] sm:min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         {/* July 13, 2023 */}
@@ -478,7 +475,7 @@ const Measurements = () => {
                     </div>
                     {/* <div className="flex mt-[7px]">
                       <div className="bg-[#fff] border border-[#EEEEEE] text-[17px] flex items-center justify-center mr-[-1px] min-w-[40px]">
-                        <i class="fa fa-fw fa-user-doctor"></i>
+                        <i className="fa fa-fw fa-user-doctor"></i>
                       </div>
                       <div className="basis-[210px] text-[1.1em] min-h-[40px] flex items-center  h-full border border-[#EEEEEE] sm:basis-[120px] min-w-[210px] sm:min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
                         July 13, 2023

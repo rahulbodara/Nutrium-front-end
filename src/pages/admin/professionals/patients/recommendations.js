@@ -111,7 +111,7 @@ const Recommendations = () => {
                     Choose whole-grain foods (quinoa, oats, barley, whole wheat), whole fruits, nuts, seeds, beans and plant oils (olive oil);
                     Choose low or reduced fat products (yoghurt, milk and cheese) and skinless and lean cuts of meat (chicken and turkey breast, pork tenderloin, beef round, sirloin or tenderloin);
                     Practice regular physical activity (150 minutes per week)."
-                  tabindex="-1">
+                  tabIndex="-1">
                   Eat slowly and in small portions;<br />
                   Drink water throughout the day;<br />
                   Alternate among different foods and cooking methods (exclude fried foods);<br />
