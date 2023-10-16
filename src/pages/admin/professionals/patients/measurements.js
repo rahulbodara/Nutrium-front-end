@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import { handleApiCall } from "@/util/apiUtils";
 import { useEffect } from "react";
+import { userData } from "@/redux/action/auth";
 
 const DynamicC3LineChart = dynamic(
   () => import("@/components/Admin/common/C3LineChart"),
@@ -127,26 +128,17 @@ const Measurements = () => {
   const router = useRouter();
   const { query } = router;
   const [selected, setSelected] = useState(null);
-  console.log("file: measurements.js:127 ~ Measurements ~ selected:", selected);
   const [startDate, setStartDate] = useState(new Date());
   const clientId = useSelector((state) => state.Measurement.clientId);
-  console.log(clientId, "clientIdclientIdclientId");
   const dispatch = useDispatch();
 
   let datattatta =
     selected !== null ? anthropometric[selected - 1].name.toLowerCase() : "";
 
   datattatta = datattatta.toLowerCase().replace(/\s+/g, "");
-
-  console.log(
-    "🚀 ~ file: measurements.js:133 ~ Measurements ~ datattatta:",
-    datattatta
-  );
-
   const _id = useSelector(
     (state) => state?.Measurement?.measurementData?.[0]?.data?.measurement?._id
   );
-  console.log("🚀 ~ file: measurements.js:137 ~ _id:", _id);
 
   // const entryId = useSelector((state) => {
   //   console.log("🚀 ~ file: measurements.js:155 ~ Measurements ~ state:", state)
@@ -154,26 +146,21 @@ const Measurements = () => {
   // })
 
   const entryId = useSelector((state) => {
-    console.log(
-      "🚀 ~ file: measurements.js:160 ~ Measurements ~ state:",
-      state
-    );
     return state?.Measurement?.measurementData?.[0]?.Measurement
       ?.measurements?.[0]?.entries?.[0]?._id;
   });
-  console.log(
-    "🚀 ~ file: measurements.js:160 ~ Measurements ~ entryId:",
-    entryId
-  );
+  useEffect(() => {
+    const fetch = async () => {
+      await dispatch(GetAllMeasurementData(clientId));
+    };
+    fetch();
+  }, [dispatch]);
 
   const measurementData = useSelector(
-    (state) => state?.Measurement?.measurementData?.[0]?.Measurement?.measurements
+    (state) =>
+      state?.Measurement?.measurementData?.[0]?.Measurement?.measurements
   );
-  console.log(
-    "🚀 ~ file: measurements.js:166 ~ Measurements ~ measurementData:",
-    measurementData
-  );
-
+  console.log("measurementData:----->", measurementData)
   const initialValues = {
     measurementsDate: startDate,
     measurements: [
@@ -190,14 +177,13 @@ const Measurements = () => {
     ],
   };
   const [datas, setDatas] = useState([]);
-  console.log("🚀 ~ file: measurements.js:180 ~ Measurements ~ datas:", datas);
-
   const details = (values) => {
     const myValue = {
       date: values.measurementsDate,
       value: values.value,
       unit: values.unit,
     };
+
     // console.log("🚀 ~ file: measurements.js:188 ~ details ~ myValue:", myValue)
     if (!datas.length) {
       setDatas([myValue]);
@@ -206,29 +192,31 @@ const Measurements = () => {
     }
   };
 
+ 
   useEffect(() => {
     if (datas.length > 0) {
       const newmeasureData = {
         measurementsdate: moment(startDate).format("YYYY-MM-DD"),
         measurements: datas,
       };
-
+      
       const register = async () => {
         try {
           const success = await handleApiCall(
             dispatch,
             addMeasurement(newmeasureData, clientId),
             "Measurement successfully created"
-          );
-          if (success) {
-            dispatch(GetAllMeasurementData(clientId));
-          }
-        } catch (error) {
+            );
+            if (success) {
+              dispatch(GetAllMeasurementData(clientId));
+            }
+          } catch (error) {
           console.log("Error--->", error);
         }
       };
-
+      
       register();
+      console.log("datas.length:---->", datas.length)
     }
   }, [datas, startDate, clientId, dispatch]);
 
@@ -424,7 +412,7 @@ const Measurements = () => {
                             name="unit"
                             className="inline-flex w-full justify-center gap-x-20 bg-white px-3 py-[13px] text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-[#EEEEEE] hover:bg-gray-50"
                           >
-                            <option value="Kilogram">Kilogram</option>
+                            <option value="kg">Kilogram</option>
                             <option value="Pound">Pound</option>
                             <option value="Stone">Stone</option>
                           </Field>
@@ -450,29 +438,35 @@ const Measurements = () => {
                 </span>
               </div>
 
-
               {measurementData?.map((item) => {
-                console.log("🚀 ~ file: measurements.js:458 ~ {measurementData.map ~ item:", item)
+                      const selecteditem = datattatta === item.measurementtype;
                 return (
                   <div key={item._id} className="p-[0_20px_20px]">
-                    <div className="flex">
-                      <div className="bg-[#fff] border border-[#EEEEEE] text-[17px] flex items-center justify-center mr-[-1px] min-w-[40px]">
-                        <i className="fa fa-fw fa-user-doctor"></i>
-                      </div>
-                      <div className="basis-[210px] text-[1.1em] min-h-[40px] flex items-center  h-full border border-[#EEEEEE] sm:basis-[120px] min-w-[210px] sm:min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
-                        {/* July 13, 2023 */}
-                        {item.entries?.[0].date}
-                      </div>
-                      <div className="flex-1 text-[13px] leading-[16px] border min-h-[40px] ml-[-1px]  p-[10px] border-[#EEEEEE]">
-                        {/* 70 kg */}
-                        {item.entries?.[0].value} {item.entries?.[0].unit} 
-
-                      </div>
-                      <div className="min-w-[85px] flex items-center gap-[3px] justify-center border border-[#EEEEEE]  py-[5px] px-[10px] bg-[#FAFAFB]">
-                        <Icon path={mdiTrendingDown} size={1} />
-                        7%
-                      </div>
-                    </div>
+                    {item?.entries?.map((subcategory) => {
+                      return (
+                        <>
+                          {selecteditem && (
+                            <div className="flex">
+                              <div className="bg-[#fff] border border-[#EEEEEE] text-[17px] flex items-center justify-center mr-[-1px] min-w-[40px]">
+                                <i className="fa fa-fw fa-user-doctor"></i>
+                              </div>
+                              <div className="basis-[210px] text-[1.1em] min-h-[40px] flex items-center  h-full border border-[#EEEEEE] sm:basis-[120px] min-w-[210px] sm:min-w-[120px] py-[5px] px-[10px] bg-[#FAFAFB]">
+                                {/* July 13, 2023 */}
+                                {subcategory.date}
+                              </div>
+                              <div className="flex-1 text-[13px] leading-[16px] border min-h-[40px] ml-[-1px]  p-[10px] border-[#EEEEEE]">
+                                {/* 70 kg */}
+                                {subcategory.value} {subcategory.unit}
+                              </div>
+                              <div className="min-w-[85px] flex items-center gap-[3px] justify-center border border-[#EEEEEE]  py-[5px] px-[10px] bg-[#FAFAFB]">
+                                <Icon path={mdiTrendingDown} size={1} />
+                                7%
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })}
                     {/* <div className="flex mt-[7px]">
                       <div className="bg-[#fff] border border-[#EEEEEE] text-[17px] flex items-center justify-center mr-[-1px] min-w-[40px]">
                         <i className="fa fa-fw fa-user-doctor"></i>
@@ -490,8 +484,6 @@ const Measurements = () => {
                   </div>
                 );
               })}
-
-
             </div>
 
             <div className="bg-white  mb-[25px] shadow-box1 rounded-[5px]">

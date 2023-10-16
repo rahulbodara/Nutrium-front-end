@@ -50,7 +50,7 @@ const AddNewClient = ({ isOpen, setIsOpen, setIsNewAppModal }) => {
         'Client successfully created'
       );
       if (success) {
-        dispatch(GetAllWorkplace());
+        dispatch(clientData());
       }
       setIsOpen(false);
     } catch (error) {

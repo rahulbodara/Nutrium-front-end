@@ -11,6 +11,12 @@ export const Measurement = (state = initialState, action) => {
         case Types.CREATE_MEASUREMENTS:
             return {
                 ...state,
+                measurementData: [...state.measurementData,action.data],
+                error: null,
+            };
+        case Types.MEASUREMENTS_DATA:
+            return {
+                ...state,
                 measurementData: [action.data],
                 error: null,
             };
