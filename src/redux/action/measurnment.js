@@ -9,15 +9,14 @@ export const GetAllMeasurementData = (clientId) =>{
   return async (dispatch) => {
     try {
       const headers = createHeaders();
-      
       const response = await axios.get(`${baseUrl}/client/measurements/${clientId}`, { headers })
       return dispatch({
-        type: Types.CREATE_MEASUREMENTS,
+        type: Types.MEASUREMENTS_DATA,
         data: response.data,
       });
     } catch (err) {
       return dispatch({
-        type: Types.CREATE_MEASUREMENTS_DATA_FAILURE,
+        type: Types.MEASUREMENTS_DATA_FAILURE,
         data: err.response,
       });   
     }
@@ -25,6 +24,7 @@ export const GetAllMeasurementData = (clientId) =>{
 }
 
 export const addMeasurement = (data, clientId) => { 
+  console.log('<<== data ==>>', data);
   return async (dispatch) => {
     try {
       const headers = createHeaders();
@@ -66,15 +66,15 @@ export const RemoveMeasurements = (clientId, entryId) => {
   };
 };
 
-// export const clientSelectedId = (id) => {
-//   return async (dispatch) => {
-//     try {
-//       return dispatch({
-//         type: Types.CLIENT_ID,
-//         data: id,
-//       });
-//     } catch (err) {
-//       console.log(err, "err");
-//     }
-//   };
-// };
+export const clientSelectedId = (id) => {
+  return async (dispatch) => {
+    try {
+      return dispatch({
+        type: Types.CLIENT_ID,
+        data: id,
+      });
+    } catch (err) {
+      console.log(err, "err");
+    }
+  };
+};

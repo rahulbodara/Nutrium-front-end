@@ -360,6 +360,7 @@ const CustomEvent = ({ event }) => {
           onClick={() => {
             seteventitem(event);
             seteventIsopen(true);
+            console.log("eVENT",event.source)
           }}
         >
           {renderEventDataDetails()}

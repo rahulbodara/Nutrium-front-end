@@ -37,11 +37,13 @@ const Patients = () => {
     fetch();
   }, [dispatch]);
   const clientsData = useSelector((state) => state?.auth?.clientData);
+  console.log("🚀 ~ file: index.js:40 ~ Patients ~ clientsData:", clientsData)
   const workSpaceData = useSelector((state) => state.Workplace?.workplaceData)
 
   const clients = Array.isArray(clientsData) ? clientsData : [];
 
   const handleClientClick = (clientId) => {
+    console.log("🚀 ~ file: index.js:45 ~ handleClientClick ~ clientId:", clientId)
     router.push({
       pathname: '/admin/professionals/patients/information',
       query: { id: clientId },
