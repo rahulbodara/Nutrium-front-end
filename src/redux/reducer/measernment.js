@@ -25,6 +25,24 @@ export const Measurement = (state = initialState, action) => {
                 ...state,
                 clientId: action.data
             }
+            case Types.REMOVE_MEASUREMENTS:
+                return {
+                  ...state,
+                  measurementData: state.measurementData.map((item) => {
+                    return {
+                      ...item,
+                      Measurement: {
+                        ...item.Measurement,
+                        measurements: item.Measurement.measurements.map((measurement) => {
+                          return {
+                            ...measurement,
+                            entries: measurement.entries.filter((entry) => entry._id !== action.data),
+                          };
+                        }),
+                      },
+                    };
+                  }),
+                };    
         default:
             return state;
     }

@@ -2,7 +2,15 @@ import ClientDetail from "@/components/Admin/Clients/ClientDetail";
 import ClientSubscribe from "@/components/Admin/Clients/ClientSubscribe";
 import Steps from "@/components/Admin/Clients/Information/Steps";
 import MainLayout from "@/components/Admin/MainLayout";
-import { mdiCog, mdiMinus, mdiTrendingDown, mdiCalendarRange } from "@mdi/js";
+import {
+  mdiCog,
+  mdiMinus,
+  mdiTrendingDown,
+  mdiCalendarRange,
+  mdiDelete,
+  mdiPencil,
+  mdiCalendarClock,
+} from "@mdi/js";
 import Icon from "@mdi/react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -12,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   GetAllMeasurementData,
   addMeasurement,
+  RemoveMeasurements,
 } from "@/redux/action/measurnment";
 import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
 import { Formik, Form, ErrorMessage, Field } from "formik";
@@ -20,7 +29,7 @@ import moment from "moment";
 import { handleApiCall } from "@/util/apiUtils";
 import { useEffect } from "react";
 import { userData } from "@/redux/action/auth";
-
+import Modal from "@/components/Admin/common/Modal";
 const DynamicC3LineChart = dynamic(
   () => import("@/components/Admin/common/C3LineChart"),
   { ssr: false }
@@ -124,11 +133,40 @@ const bodycomposition = [
     value: "",
   },
 ];
+const unitValue = [
+  {
+    name: "Kilogram",
+    value: "kg",
+  },
+  {
+    name: "Pound",
+    value: "pound",
+  },
+  {
+    name: "Stone",
+    value: "Stone",
+  },
+];
+const heightValue = [
+  {
+    name: "Centimetres",
+    value: "cm",
+  },
+  {
+    name: "Foots and inches",
+    value: "foot and inches",
+  },
+];
 const Measurements = () => {
   const router = useRouter();
   const { query } = router;
   const [selected, setSelected] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [measurementtype, setmeasurementType] = useState(null);
+  const [selectedValue, setSelectedValue] = useState(null);
+  console.log("selectedItem:------->", selectedItem);
   const [startDate, setStartDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const clientId = useSelector((state) => state.Measurement.clientId);
   const dispatch = useDispatch();
 
@@ -160,7 +198,7 @@ const Measurements = () => {
     (state) =>
       state?.Measurement?.measurementData?.[0]?.Measurement?.measurements
   );
-  console.log("measurementData:----->", measurementData)
+  console.log("measurementData:----->", measurementData);
   const initialValues = {
     measurementsDate: startDate,
     measurements: [
@@ -191,63 +229,97 @@ const Measurements = () => {
       setDatas([...datas, myValue]);
     }
   };
-
- 
+  const handleDelete = async (id) => {
+    try {
+      console.log("🚀 ~ file: measurements.js:284 ~ handleDelete ~ clientId:", clientId)
+      const success = await handleApiCall(
+        dispatch,
+        RemoveMeasurements(clientId,id),
+        "Measurement successfully deleted"
+      );
+      if (success) {
+        console.log("🚀 ~ file: measurements.js:288 ~ handleDelete ~ success:", success)
+        dispatch(GetAllMeasurementData(clientId));
+      }
+    } catch (error) {
+      console.log("Error--->", error);
+    }
+  }
+  const handleRegister = async (values) => {
+    let newEntry = "";
+    const measurementType = datattatta;
+    if (measurementType === "height") {
+      newEntry = {
+        date: moment(values.measurementsDate).format("YYYY-MM-DD"),
+        value: values.value,
+        unit: selectedValue,
+      };
+    } else {
+      newEntry = {
+        date: moment(values.measurementsDate).format("YYYY-MM-DD"),
+        value: values.value,
+        unit: values.unit,
+      };
+    }
+    const measurementIndex = datas.findIndex(
+      (measurement) => measurement.measurementtype === measurementType
+    );
+    if (measurementIndex !== -1) {
+      datas[measurementIndex].entries.push(newEntry);
+    } else {
+      setDatas([
+        ...datas,
+        {
+          measurementtype: measurementType,
+          entries: [newEntry],
+        },
+      ]);
+    }
+    if (datas.length > 0) {
+      const newmeasureData = {
+        measurementsdate: moment(startDate).format("YYYY-MM-DD"),
+        measurements: datas,
+      };
+      try {
+        const success = await handleApiCall(
+          dispatch,
+          addMeasurement(newmeasureData, clientId),
+          "Measurement successfully created"
+        );
+        if (success) {
+          dispatch(GetAllMeasurementData(clientId));
+        }
+      } catch (error) {
+        console.log("Error--->", error);
+      }
+    }
+  };
   useEffect(() => {
     if (datas.length > 0) {
       const newmeasureData = {
         measurementsdate: moment(startDate).format("YYYY-MM-DD"),
         measurements: datas,
       };
-      
+
       const register = async () => {
         try {
           const success = await handleApiCall(
             dispatch,
             addMeasurement(newmeasureData, clientId),
             "Measurement successfully created"
-            );
-            if (success) {
-              dispatch(GetAllMeasurementData(clientId));
-            }
-          } catch (error) {
+          );
+          if (success) {
+            dispatch(GetAllMeasurementData(clientId));
+          }
+        } catch (error) {
           console.log("Error--->", error);
         }
       };
-      
+
       register();
-      console.log("datas.length:---->", datas.length)
+      console.log("datas.length:---->", datas.length);
     }
   }, [datas, startDate, clientId, dispatch]);
-
-  const handleRegister = (values) => {
-    const measurementType = datattatta;
-
-    const newEntry = {
-      date: moment(values.measurementsDate).format("YYYY-MM-DD"),
-      value: values.value,
-      unit: values.unit,
-    };
-
-    // Find the existing measurement or create a new one
-    const measurementIndex = datas.findIndex(
-      (measurement) => measurement.measurementtype === measurementType
-    );
-    console.log(
-      "🚀 ~ file: measurements.js:225 ~ handleRegister ~ measurementIndex:",
-      measurementIndex
-    );
-
-    if (measurementIndex !== -1) {
-      datas[measurementIndex].entries.push(newEntry);
-    } else {
-      datas.push({
-        measurementtype: measurementType,
-        entries: [newEntry],
-      });
-    }
-    setDatas([...datas]);
-  };
 
   return (
     <div>
@@ -404,18 +476,64 @@ const Measurements = () => {
                             className="border-0 self-center p-[10px] min-h-[38px] w-full"
                           />
                         </div>
+                        {selectedValue === "foot and inches" && (
+                          <div className="grow-[4] border border-[#EEEEEE] flex relative">
+                            <Field
+                              type="text"
+                              // name={`${datattatta}.value`}
+                              // name={`${datattatta}[0].value`}
+                              name="value"
+                              placeholder="Foot"
+                              className="border-0 self-center p-[10px] min-h-[38px] w-full"
+                            />
+                            <Field
+                              type="text"
+                              // name={`${datattatta}.value`}
+                              // name={`${datattatta}[0].value`}
+                              name="value"
+                              placeholder="Inches"
+                              className="border-0 self-center p-[10px] min-h-[38px] w-full"
+                            />
+                          </div>
+                        )}
                         <div className="items-center">
-                          <Field
-                            as="select"
-                            // name={`${datattatta}.unit`}
-                            // name={`${datattatta}[0].unit`}
-                            name="unit"
-                            className="inline-flex w-full justify-center gap-x-20 bg-white px-3 py-[13px] text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-[#EEEEEE] hover:bg-gray-50"
-                          >
-                            <option value="kg">Kilogram</option>
-                            <option value="Pound">Pound</option>
-                            <option value="Stone">Stone</option>
-                          </Field>
+                        {datattatta === "weight" && (
+                            <Field
+                              as="select"
+                              // name={`${datattatta}.unit`}
+                              // name={`${datattatta}[0].unit`}
+                              name="unit"
+                              className="inline-flex w-full justify-center gap-x-20 bg-white px-3 py-[13px] text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-[#EEEEEE] hover:bg-gray-50"
+                            >
+                              {unitValue?.map((item) => {
+                                return (
+                                  <option value={item.value}>
+                                    {item.name}
+                                  </option>
+                                );
+                              })}
+                            </Field>
+                          )}
+                          {datattatta === "height" && (
+                            <Field
+                              as="select"
+                              // name={`${datattatta}.unit`}
+                              // name={`${datattatta}[0].unit`}
+                              name="unit"
+                              className="inline-flex w-full justify-center gap-x-20 bg-white px-3 py-[13px] text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-[#EEEEEE] hover:bg-gray-50"
+                              value={selectedValue}
+                              onChange={(e) => setSelectedValue(e.target.value)}
+                            >
+                              {heightValue?.map((item) => {
+                                return (
+                                  <option value={item.value}>
+                                    {item.name}
+                                  </option>
+                                );
+                              })}
+                            </Field>
+                          )}
+
                         </div>
                       </div>
                       <button
@@ -439,10 +557,15 @@ const Measurements = () => {
               </div>
 
               {measurementData?.map((item) => {
-                      const selecteditem = datattatta === item.measurementtype;
+                const selecteditem = datattatta === item.measurementtype;
                 return (
                   <div key={item._id} className="p-[0_20px_20px]">
-                    {item?.entries?.map((subcategory) => {
+                    {item?.entries?.map((subcategory, index) => {
+                      const previousSubcategory =
+                      index > 0 ? item.entries[index - 1] : null;
+                      const difference = previousSubcategory
+                        ? subcategory.value - previousSubcategory.value
+                        : null;
                       return (
                         <>
                           {selecteditem && (
@@ -454,13 +577,42 @@ const Measurements = () => {
                                 {/* July 13, 2023 */}
                                 {subcategory.date}
                               </div>
-                              <div className="flex-1 text-[13px] leading-[16px] border min-h-[40px] ml-[-1px]  p-[10px] border-[#EEEEEE]">
+                              <div className="flex-1 text-[13px] leading-[16px] border min-h-[40px] ml-[-1px]  p-[10px] border-[#EEEEEE] relative group hover:text-[#676A6c]">
                                 {/* 70 kg */}
                                 {subcategory.value} {subcategory.unit}
+                                <Icon
+                                  path={mdiPencil}
+                                  size={1.1}
+                                  className="absolute right-[425px] top-[6px] border rounded-[100px] p-1 hidden group-hover:block"
+                                  onClick={() => {
+                                    setOpen(true);
+                                  }}
+                                />
+                                <button
+                                  onClick={() => {
+                                    handleDelete(subcategory._id);
+                                  }}
+                                >
+                                  <Icon
+                                    path={mdiDelete}
+                                    size={1.1}
+                                    className="absolute right-[385px] top-[6px] border rounded-[100px] p-1 hidden group-hover:block"
+                                  />
+                                </button>
                               </div>
                               <div className="min-w-[85px] flex items-center gap-[3px] justify-center border border-[#EEEEEE]  py-[5px] px-[10px] bg-[#FAFAFB]">
                                 <Icon path={mdiTrendingDown} size={1} />
-                                7%
+                                {difference !== 0 && difference !== null && (
+                                  <div className="min-w-[85px] flex items-center gap-[3px] justify-center border border-[#EEEEEE]  py-[5px] px-[10px] bg-[#FAFAFB]">
+                                    <Icon path={mdiTrendingDown} size={1} />
+                                    {difference}%
+                                  </div>
+                                )}
+                                {difference === 0 && !difference && (
+                                <div className="min-w-[85px] flex items-center gap-[3px] justify-center border border-[#EEEEEE]  py-[5px] px-[10px] bg-[#FAFAFB]">
+                                  -
+                                </div>
+                              )}
                               </div>
                             </div>
                           )}
@@ -513,6 +665,99 @@ const Measurements = () => {
           </div>
         </div>
       </MainLayout>
+      <Modal
+        title={"Measurement edition"}
+        subtitle={"Edit measurement information"}
+        isOpen={open}
+        className="max-w-[600px]"
+        setIsOpen={setOpen}
+      >
+        <Formik onSubmit={(values) => handleSubmit(values)}>
+          <Form>
+            <div className="px-[30px] pb-[20px]">
+              <div className="mb-[15px]">
+                <div className="flex">
+                  <input
+                    type="text"
+                    // {...register("title")}
+                    value={measurementtype}
+                    disabled={true}
+                    className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                  />
+                </div>
+              </div>
+              <div className="mb-[15px]">
+                <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                  *Date
+                </label>
+                <div className="flex">
+                  <div className="border h-[34px] w-[43px] flex items-center justify-center border-[#e5e6e7] px-3 py-[6px]">
+                    <Icon path={mdiCalendarClock} size={0.7} />
+                  </div>
+                  <Field
+                    type={"date"}
+                    // name={`${datattatta}.value`}
+                    // name={`${datattatta}[0].value`}
+                    defaultValue={selectedItem?.date || ""}
+                    name="date"
+                    placeholder="value"
+                    className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                    onChange={(e) => {
+                      // Ensure selectedItem is defined before setting its 'date' property
+                      if (selectedItem) {
+                        selectedItem.date = e.target.value;
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="mb-[15px]">
+                <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                  *Value
+                </label>
+                <div className="flex">
+                  <Field
+                    type={"number"}
+                    // name={`${datattatta}.value`}
+                    // name={`${datattatta}[0].value`}
+                    defaultValue={selectedItem?.value || ""}
+                    name="value"
+                    placeholder="value"
+                    className="px-3 h-[34px] ml-[-1px] focus:border-[#1ab394] focus:outline-none focus:ring-0 outline-none trnasition duration-300 w-full py-[6px] border border-[#e5e6e7] text-[13px]"
+                  />
+                </div>
+              </div>
+              <div className="mb-[15px]">
+                <label className="font-bold text-[13px] flex  mb-[5px] gap-1">
+                  *Unit
+                </label>
+                <div className="flex">
+                  {datattatta === "weight" && (
+                    <Field
+                      as="select"
+                      defaultValue={selectedItem?.unit || ""} // Provide a default value for unit if selectedItem is undefined
+                      name="unit"
+                      className="inline-flex w-full justify-center gap-x-20 bg-white px-3 py-[13px] text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-[#EEEEEE] hover-bg-gray-50"
+                    >
+                      {unitValue?.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </Field>
+                  )}
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="px-3.5 py-2.5 text-sm text-[#1AB394] border border-[#EEEEEE] bg-[#FAFAFB] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Register
+            </button>
+          </Form>
+        </Formik>
+      </Modal>
     </div>
   );
 };
