@@ -56,7 +56,7 @@ export const tabTitle = [
         title: "Foods",
         icon: mdiFoodApple,
         feature:false,
-        route: "foods",
+        route: "/admin/professionals/foods",
         tooltipId: "foods"
     },
     {
@@ -64,7 +64,7 @@ export const tabTitle = [
         title: "Recipes",
         icon: mdiNutrition,
         feature:false,
-        route: "recipes",
+        route: "/admin/professionals/recipes",
         tooltipId: "recipes"
     },
     {
@@ -72,7 +72,7 @@ export const tabTitle = [
         title: "Equivalents",
         icon: mdiClipboardText,
         feature:false,
-        route: "food_lists",
+        route: "/admin/professionals/food_lists",
         tooltipId: "equivalents"
     },
     {
@@ -80,7 +80,7 @@ export const tabTitle = [
         title: "Templates",
         icon: mdiLibraryOutline,
         feature:false,
-        route: "templates",
+        route: "/admin/professionals/templates",
         tooltipId: "templates"
     },
 ]; 
